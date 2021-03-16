@@ -1,0 +1,6 @@
+.direnv/
+.vim/
+.config
+dsm-py-sdk.zip
+sdk/
+test-code/
