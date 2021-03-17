@@ -4,4 +4,4 @@ sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/n
 . $(eval echo ~$USER)/.nix-profile/etc/profile.d/nix.sh
 mkdir -p ~/.config/nix
 
-echo "nix-command flakes" >> ~/.config/nix/nix.conf
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
