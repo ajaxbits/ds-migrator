@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Trend Micro Policy Mover"
+name = "trend_ds_mover"
 version = "0.0.1"
 description = ""
 authors = ["Alex Jackson <alex_jackson@trendmicro.com>"]

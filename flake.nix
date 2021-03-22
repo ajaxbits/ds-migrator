@@ -16,7 +16,7 @@
       };
     in {
       devShell."${system}" = pkgs.mkShell {
-        buildInputs = [env];
+        buildInputs = [env pkgs.poetry];
         shellHook = ''
           mkdir -p .vim
           echo '{"python.pythonPath": "${env}/bin/python", "python.formatting.provider": "black", "python.formatting.blackPath": "${env}/bin/black", "coc.preferences.formatOnSaveFiletypes":["python"]}' > .vim/coc-settings.json
