@@ -13,6 +13,8 @@ certifi = "^2020.12.5"
 python-dateutil = "^2.8.1"
 deep-security-api = "^20.0.60"
 click = "^7.1.2"
+zeep = "^4.0.0"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.2"
