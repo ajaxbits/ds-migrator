@@ -25,7 +25,7 @@ if not sys.warnoptions:
 
 
 class PoliciesApiInstance:
-    def __init__(self, context, overrides=False):
+    def __init__(self, overrides=False):
         user_config = json.load(open("./config.json", "r"))
         self.configuration = deepsecurity.Configuration()
         self.api_client = deepsecurity.ApiClient(self.configuration)
@@ -35,7 +35,7 @@ class PoliciesApiInstance:
             f"{user_config['new_hostname']}:{user_config['new_port']}/api"
         )
         self.configuration.api_key["api-secret-key"] = user_config["new_api_secret_key"]
-        self.api_version = user_config["new_api_version"]
+        self.api_version = "v1"
 
     def list(self):
         return self.api_instance.list_policies(
@@ -72,6 +72,16 @@ old_policies_list = client.service.securityProfileRetrieveAll(sID)
 new_policies_list = PoliciesApiInstance("new").list().policies
 policies_dict = gen_unique_dict(old_policies_list, new_policies_list)
 
+new_session = PoliciesApiInstance().api_instance
+
+
+def create_basic_policy(policy, session):
+    name = policy.name
+    description = policy.description
+    session.create_policy(name, description)
+
+
+# create_basic_policy(policies_dict["duplicates"][0], new_session)
 
 # IMPORTANT! close the session, so there's not a session pileup
 client.service.endSession(sID)
