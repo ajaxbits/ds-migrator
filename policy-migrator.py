@@ -44,17 +44,21 @@ class PoliciesApiInstance:
 
 
 def gen_unique_dict(old_policies_list, new_policies_list):
+    # generate a dict with unique policies in the old dsm
     unique = []
     duplicates = []
-    for old_policy in old_policies_list:
-        for new_policy in new_policies_list:
-            if (
-                old_policy.name == new_policy.name
-                and old_policy.description == new_policy.description
-            ):
-                duplicates.append(old_policy)
-            else:
-                unique.append(old_policy)
+    if new_policies_list == []:
+        unique = old_policies_list
+    else:
+        for old_policy in old_policies_list:
+            for new_policy in new_policies_list:
+                if (
+                    old_policy.name == new_policy.name
+                    and old_policy.description == new_policy.description
+                ):
+                    duplicates.append(old_policy)
+                else:
+                    unique.append(old_policy)
     return {"unique": unique, "duplicates": duplicates}
 
 
@@ -69,19 +73,23 @@ sID = client.service.authenticate(username=username, password=password)
 
 # get policies and dedupe
 old_policies_list = client.service.securityProfileRetrieveAll(sID)
+print(old_policies_list)
 new_policies_list = PoliciesApiInstance("new").list().policies
 policies_dict = gen_unique_dict(old_policies_list, new_policies_list)
+print(policies_dict)
 
 new_session = PoliciesApiInstance().api_instance
 
 
 def create_basic_policy(policy, session):
-    name = policy.name
-    description = policy.description
-    session.create_policy(name, description)
+    new_policy = deepsecurity.Policy()
+    new_policy.name = policy.name
+    new_policy.description = policy.description
+    session.create_policy(new_policy, "v1")
 
 
-# create_basic_policy(policies_dict["duplicates"][0], new_session)
+# create_basic_policy(policies_dict["unique"][0], new_session)
+print(PoliciesApiInstance("new").list().policies)
 
 # IMPORTANT! close the session, so there's not a session pileup
 client.service.endSession(sID)
