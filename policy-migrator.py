@@ -1,8 +1,23 @@
 from __future__ import print_function
+import requests
 import sys, warnings
 import deepsecurity
 from deepsecurity.rest import ApiException
 import json
+import csv
+from datetime import date
+from zeep.client import Client
+from requests import Session
+from zeep.transports import Transport
+from datetime import datetime
+from zeep import helpers
+import os
+
+# configuration
+username = "admin"
+password = "MwbdKr3NBwGKkeG5p8K7NdfToG"
+hostname = "https://ajax-ds20-t-dsmelb-idi20586foba-797956631.us-east-2.elb.amazonaws.com/webservice/Manager?WSDL"
+tenant = ""
 
 # Setup
 if not sys.warnoptions:
@@ -16,23 +31,11 @@ class PoliciesApiInstance:
         self.api_client = deepsecurity.ApiClient(self.configuration)
         self.api_instance = deepsecurity.PoliciesApi(self.api_client)
         self.overrides = overrides
-
-        if context == "old":
-            self.configuration.host = (
-                f"{user_config['original_hostname']}:{user_config['original_port']}/api"
-            )
-            self.configuration.api_key["api-secret-key"] = user_config[
-                "original_api_secret_key"
-            ]
-            self.api_version = user_config["original_api_version"]
-        else:
-            self.configuration.host = (
-                f"{user_config['new_hostname']}:{user_config['new_port']}/api"
-            )
-            self.configuration.api_key["api-secret-key"] = user_config[
-                "new_api_secret_key"
-            ]
-            self.api_version = user_config["new_api_version"]
+        self.configuration.host = (
+            f"{user_config['new_hostname']}:{user_config['new_port']}/api"
+        )
+        self.configuration.api_key["api-secret-key"] = user_config["new_api_secret_key"]
+        self.api_version = user_config["new_api_version"]
 
     def list(self):
         return self.api_instance.list_policies(
@@ -40,59 +43,35 @@ class PoliciesApiInstance:
         )
 
 
-old_policies = PoliciesApiInstance("old")
-new_policies = PoliciesApiInstance("new")
-print(new_policies.list())
-print(old_policies.list())
+def gen_unique_dict(old_policies_list, new_policies_list):
+    unique = []
+    duplicates = []
+    for old_policy in old_policies_list:
+        for new_policy in new_policies_list:
+            if (
+                old_policy.name == new_policy.name
+                and old_policy.description == new_policy.description
+            ):
+                duplicates.append(old_policy)
+            else:
+                unique.append(old_policy)
+    return {"unique": unique, "duplicates": duplicates}
 
 
-# class EditedRules(ApiInstance):
-#     def __init__(self, file, module):
-#         self.file = file
-#         self.module = module
-#         self.xml = ET.parse(file).getroot()
-#         self.edited_rules = []
-#         iterator = {
-#             "ip": "PayloadFilter2",
-#             "im": "IntegrityRule",
-#             "li": "LogInspectionRule",
-#         }
+# create SOAP session
+session = Session()
+session.verify = False
+url = hostname
+transport = Transport(session=session, timeout=1800)
+client = Client(url, transport=transport)
+factory = client.type_factory("ns0")
+sID = client.service.authenticate(username=username, password=password)
 
-#         for rule in self.xml.iter(iterator[self.module]):
-#             for child in rule.iter("UserEdited"):
-#                 if child.text == "true":
-#                     rule_id = rule.attrib["id"]
-#                     self.edited_rules.append(int(rule_id))
+# get policies and dedupe
+old_policies_list = client.service.securityProfileRetrieveAll(sID)
+new_policies_list = PoliciesApiInstance("new").list().policies
+policies_dict = gen_unique_dict(old_policies_list, new_policies_list)
 
 
-def add_module_rules(api_instance, edited_rules_list):
-    rule_list = {
-        "module": api_instance.module,
-        "date": edited_rules_list.xml.attrib["date"],
-        "rules": [],
-    }
-    for edited_rule in edited_rules_list.edited_rules:
-        search_criteria = deepsecurity.SearchCriteria()
-        search_criteria.id_value = edited_rule
-        search_criteria.id_test = "equal"
-        search_filter = deepsecurity.SearchFilter()
-        search_filter.search_criteria = [search_criteria]
-        rule = api_instance.search(search_filter=search_filter)[0]
-        rule_list["rules"].append(
-            {
-                "identifier": int(rule.identifier),
-                "details": {
-                    "name": rule.name,
-                    "description": rule.description,
-                },
-            }
-        )
-    return rule_list
-
-
-# class Config:
-#     def __init__(self, module, rules_file):
-#         self.module = module
-#         self.rules_file = rules_file
-#         self.api = ApiInstance(self.module)
-#         self.rules = EditedRules(self.rules_file, self.module)
+# IMPORTANT! close the session, so there's not a session pileup
+client.service.endSession(sID)
