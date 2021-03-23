@@ -1,10 +1,18 @@
-from prompt_toolkit import prompt
+#!/usr/bin/env python
+
+import sys
+import click
+from test import ApiInstance
 
 
-def main():
-    answer = prompt("Give me some input: ")
-    print("You said: %s" % answer)
+@click.command()
+@click.option("--module", default=1, help="Number of greetings.")
+@click.option("--name", prompt="Your name", help="The person to greet.")
+def hello(count, name):
+    """Simple program that greets NAME for a total of COUNT times."""
+    for x in range(count):
+        click.echo(f"Hello {name}!")
 
 
 if __name__ == "__main__":
-    main()
+    hello()
