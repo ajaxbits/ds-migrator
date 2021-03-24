@@ -61,7 +61,7 @@ class PoliciesApiInstance(RestApiConfiguration):
         for key in policy_object:
             setattr(policy, to_snake(key), policy_object[key])
         # TODO change
-        policy.name = "testing"
+        # policy.name = "testing"
         return self.api_instance.create_policy(policy, self.api_version)
 
 
@@ -174,6 +174,27 @@ first_policy = full_script[1][0]
 
 first_policy_dict = json.loads(first_policy)
 
+
+def RenamePolicy(allofpolicy):
+    if allofpolicy:
+        for count, describe in enumerate(allofpolicy):
+            policyjson = json.loads(describe)
+            policyjson["name"] = policyjson["name"] + " - Migrated"
+            policyjson["parentID"] = "1"
+            allofpolicy[count] = json.dumps(policyjson)
+
+
+policy_json_list = []
+
+RenamePolicy(full_script[1])
+
+print(full_script[1][0])
+
+
+for i in full_script[1]:
+    policy_json_list.append(json.loads(i))
+
+
 rest = PoliciesApiInstance()
 
 
@@ -181,12 +202,11 @@ def create(policy_object):
     policy = deepsecurity.Policy()
     for key in policy_object:
         setattr(policy, to_snake(key), policy_object[key])
-    # TODO change
-    policy.name = "testing"
     rest.api_instance.create_policy(policy, rest.api_version)
 
 
-create(first_policy_dict)
+for i in policy_json_list:
+    create(i)
 
 # rest.create(first_policy)
 
