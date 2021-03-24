@@ -8,7 +8,7 @@ from requests import Session
 from zeep.transports import Transport
 from datetime import datetime
 from zeep import helpers
-from migrator import RestApiConfiguration
+from api_config import RestApiConfiguration
 
 
 class IpRulesApiInstance(RestApiConfiguration):
@@ -33,25 +33,33 @@ class LiRulesApiInstance(RestApiConfiguration):
         ).log_inspection_rules
 
 
-def generate_tuples(json_list, type):
-    ip_mapping = []
+def identifier_dict(json_list, type):
+    ip_mapping = {}
     if type == "SOAP":
         for i in json_list:
-            ip_mapping.append((i.ID, i.identifier))
+            ip_mapping[i.ID] = i.identifier
     else:
         for i in json_list:
-            ip_mapping.append((i.id, i.identifier))
+            ip_mapping[i.id] = i.identifier
     return ip_mapping
 
 
-def generate_rules_rosetta(old_rules, new_rules):
-    # take lists of old and new rules and make a list of tuples
-    # of the form (oldid, newid)
+def filter_tuples(id_list, full_dict):
+    filtered = {}
+    for i in id_list:
+        filtered[i] = full_dict[i]
+    return filtered
+
+
+def generate_rules_rosetta(old_rules_dict, all_new_rules):
+    # take lists of old and new rules and make a dict
+    # of the form {oldid: newid,...}
     corrected_rule_list = []
-    for id_old, identifier_old in old_rules:
-        for id_new, identifier_new in new_rules:
-            if identifier_old == identifier_new:
-                corrected_rule_list.append((id_old, id_new))
+    for old_identifier in old_rules_dict.values():
+        for new_id, new_identifier in all_new_rules.items():
+            if old_identifier == new_identifier:
+                corrected_rule_list.append(new_id)
+
     return corrected_rule_list
 
 
@@ -73,12 +81,14 @@ if __name__ == "__main__":
 
     # output a list of json
     response = client.service.DPIRuleRetrieveAll(sID)
-    print(response)
+    # print(response)
 
     ipsrules = IpRulesApiInstance()
     ipsruleslist = ipsrules.list()
 
-    old_rules = generate_tuples(response, "SOAP")
-    new_rules = generate_tuples(ipsruleslist, "REST")
+    print(identifier_dict(response, "SOAP"))
+    # print(identifier_dict(ipsruleslist, "REST"))
+
+    # print(generate_rules_rosetta(old_rules, new_rules))
 
     client.service.endSession(sID)
