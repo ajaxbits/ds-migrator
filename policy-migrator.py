@@ -24,18 +24,23 @@ if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
 
-class PoliciesApiInstance:
+class ApiConfiguration:
     def __init__(self, overrides=False):
         user_config = json.load(open("./config.json", "r"))
         self.configuration = deepsecurity.Configuration()
         self.api_client = deepsecurity.ApiClient(self.configuration)
-        self.api_instance = deepsecurity.PoliciesApi(self.api_client)
         self.overrides = overrides
         self.configuration.host = (
             f"{user_config['new_hostname']}:{user_config['new_port']}/api"
         )
         self.configuration.api_key["api-secret-key"] = user_config["new_api_secret_key"]
         self.api_version = "v1"
+
+
+class PoliciesApiInstance(ApiConfiguration):
+    def __init__(self, overrides=False):
+        super().__init__(overrides)
+        self.api_instance = deepsecurity.PoliciesApi(self.api_client)
 
     def list(self):
         return self.api_instance.list_policies(
