@@ -1,7 +1,7 @@
 {
-  "parentID": 0,
-  "name": "string",
-  "description": "string",
+  "parentID": 0, -----> SecurityProfileTransport.parentSecurityProfileID
+  "name": "string", -----> SecurityProfileTransport.name
+  "description": "string", -----> SecurityProfileTransport.description
   "policySettings": {
     "logInspectionSettingSeverityClippingAgentEventSendSyslogLevelMin": {
       "value": "string"
@@ -661,7 +661,7 @@
       "value": "string"
     }
   },
-  "recommendationScanMode": "off",
+  "recommendationScanMode": "off",-----> SecurityProfileTransport.recommendationState
   "autoRequiresUpdate": "off",
   "interfaceTypes": {
     "interfaceTypes": [
@@ -675,25 +675,25 @@
     ]
   },
   "antiMalware": {
-    "state": "inherited",
+    "state": "inherited",-----> SecurityProfileTransport.antiMalwareState
     "moduleStatus": {},
-    "realTimeScanConfigurationID": 0,
-    "realTimeScanScheduleID": 0,
-    "manualScanConfigurationID": 0,
-    "scheduledScanConfigurationID": 0
+    "realTimeScanConfigurationID": 0,-----> SecurityProfileTransport.antiMalwareRealTimeID & .antiMalwareRealTimeInherit
+    "realTimeScheduleScanScheduleID": 0,-----> SecurityProfileTransport.antiMalwareRealTimeScheduleID
+    "manualScanConfigurationID": 0,-----> SecurityProfileTransport.antiMalwareManualID & .antiMalwareRealTimeInherit
+    "scheduledScanConfigurationID": 0-----> SecurityProfileTransport.antiMalwareScheduledID & .antiMalwareRealTimeInherit
   },
   "webReputation": {
     "state": "inherited",
     "moduleStatus": {}
   },
-  "activityMonitoring": {
+  !!!!"activityMonitoring": {
     "state": "inherited",
     "moduleStatus": {}
   },
   "firewall": {
-    "state": "inherited",
+    "state": "inherited",-----> SecurityProfileTransport.firewallState
     "moduleStatus": {},
-    "globalStatefulConfigurationID": 0,
+    "globalStatefulConfigurationID": 0,-----> SecurityProfileTransport.statefulConfigurationID
     "statefulConfigurationAssignments": {
       "statefulConfigurationAssignments": [
         {
@@ -703,31 +703,31 @@
         }
       ]
     },
-    "ruleIDs": [
+    "ruleIDs": [-----> SecurityProfileTransport.firewallRuleIDs
       0
     ]
   },
   "intrusionPrevention": {
-    "state": "inherited",
+    "state": "inherited",-----> SecurityProfileTransport.DPIState????
     "moduleStatus": {},
-    "ruleIDs": [
+    "ruleIDs": [-----> SecurityProfileTransport.DPIRuleIDs????
       0
     ],
-    "applicationTypeIDs": [
+    "applicationTypeIDs": [-----> SecurityProfileTransport.applicationTypeIDs????
       0
     ]
   },
   "integrityMonitoring": {
-    "state": "inherited",
+    "state": "inherited", -----> SecurityProfileTransport.integrityState
     "moduleStatus": {},
-    "ruleIDs": [
+    "ruleIDs": [ -----> SecurityProfileTransport.integrityRuleIDs
       0
     ]
   },
   "logInspection": {
-    "state": "inherited",
+    "state": "inherited",-----> SecurityProfileTransport.logInspectionState
     "moduleStatus": {},
-    "ruleIDs": [
+    "ruleIDs": [-----> SecurityProfileTransport.logInspectionRuleIDs
       0
     ]
   },

@@ -1,726 +1,744 @@
 {
-  "name": "Base Policy",
-  "description": "A policy from which all other policies can inherit. Only the most general settings should be applied to this policy as they will apply to all policies that inherit from it, unless overridden. More specific settings and rules should be added to sub-policies that are assigned to computers.",
+  "parentID": 0,
+  "name": "string", -----> SecurityProfileTransport.name
+  "description": "string", -----> SecurityProfileTransport.description
   "policySettings": {
     "logInspectionSettingSeverityClippingAgentEventSendSyslogLevelMin": {
-      "value": "Medium (6)"
+      "value": "string"
     },
     "firewallSettingEngineOptionConnectionsCleanupMax": {
-      "value": "1000"
+      "value": "string"
     },
     "firewallSettingEngineOptionVerifyTcpChecksumEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "antiMalwareSettingScanCacheOnDemandConfigId": {
-      "value": "1"
+      "value": "string"
     },
     "applicationControlSettingSharedRulesetId": {
-      "value": "0"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionServerConnectionLostWarningEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "applicationControlSettingExecutionEnforcementLevel": {
-      "value": "Allow unrecognized software until it is explicitly blocked"
+      "value": "string"
     },
     "webReputationSettingBlockedUrlDomains": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionSynSentTimeout": {
-      "value": "20 Seconds"
+      "value": "string"
     },
     "platformSettingAgentSelfProtectionPassword": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingReconnaissanceBlockTcpXmasAttackDuration": {
-      "value": "No"
+      "value": "string"
     },
     "intrusionPreventionSettingVirtualAndContainerNetworkScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "logInspectionSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingEngineOptionDebugModeEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingVirtualAndContainerNetworkScanEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "antiMalwareSettingFileHashSha256Enabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceNotifyFingerprintProbeEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEventLogFileRetainNum": {
-      "value": "3"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpPawsZero": {
-      "value": "Allow"
+      "value": "string"
     },
     "antiMalwareSettingConnectedThreatDefenseUseControlManagerSuspiciousObjectListEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "intrusionPreventionSettingEngineOptionFragmentedIpKeepMax": {
-      "value": "1000"
+      "value": "string"
     },
     "firewallSettingEngineOptionDrop6To4BogonsAddressesEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "logInspectionSettingSeverityClippingAgentEventStoreLevelMin": {
-      "value": "Medium (6)"
+      "value": "string"
     },
     "platformSettingScanCacheConcurrencyMax": {
-      "value": "1"
+      "value": "string"
     },
     "antiMalwareSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingAntiEvasionTcpPawsWindowPolicy": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingReconnaissanceDetectTcpXmasAttackEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "applicationControlSettingRulesetMode": {
-      "value": "Use local ruleset"
+      "value": "string"
     },
     "antiMalwareSettingSmartProtectionGlobalServerUseProxyEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionLocalServerAllowOffDomainGlobal": {
-      "value": "false"
+      "value": "string"
     },
     "integrityMonitoringSettingCombinedModeProtectionSource": {
-      "value": "Appliance preferred"
+      "value": "string"
     },
     "firewallSettingEngineOptionCloseWaitTimeout": {
-      "value": "2 Minutes"
+      "value": "string"
     },
     "platformSettingScanOpenPortListId": {
-      "value": "1-1024"
+      "value": "string"
     },
     "platformSettingAgentSelfProtectionPasswordEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionAckTimeout": {
-      "value": "1 Second"
+      "value": "string"
     },
     "firewallSettingEventLogFileCachedEntriesStaleTime": {
-      "value": "15 Minutes"
+      "value": "string"
     },
     "firewallSettingCombinedModeProtectionSource": {
-      "value": "Agent preferred"
+      "value": "string"
     },
     "platformSettingAgentEventsSendInterval": {
-      "value": "60 Seconds"
+      "value": "string"
     },
     "platformSettingInactiveAgentCleanupOverrideEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingFailureResponseEngineSystem": {
-      "value": "Fail closed"
+      "value": "string"
     },
     "platformSettingRelayState": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropEvasiveRetransmitEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "activityMonitoringSettingIndicatorEnabled": {
-      "value": "Off"
+      "value": "string"
     },
     "intrusionPreventionSettingEngineOptionFragmentedIpTimeout": {
-      "value": "60 Seconds"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpZeroFlags": {
-      "value": "Deny"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionGlobalServerUseProxyEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "intrusionPreventionSettingNsxSecurityTaggingPreventModeLevel": {
-      "value": "No Tagging"
+      "value": "string"
     },
     "firewallSettingReconnaissanceNotifyTcpXmasAttackEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionUdpTimeout": {
-      "value": "20 Seconds"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionLocalServerEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionTcpMssLimit": {
-      "value": "128 Bytes"
+      "value": "string"
     },
     "firewallSettingEngineOptionColdStartTimeout": {
-      "value": "5 Minutes"
+      "value": "string"
     },
     "firewallSettingEngineOptionEstablishedTimeout": {
-      "value": "3 Hours"
+      "value": "string"
     },
     "antiMalwareSettingIdentifiedFilesSpaceMaxMbytes": {
-      "value": "1024"
+      "value": "string"
     },
     "firewallSettingEngineOptionAllowNullIpEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "platformSettingNotificationsSuppressPopupsEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpRstFinFlags": {
-      "value": "Deny"
+      "value": "string"
     },
     "firewallSettingEngineOptionDisconnectTimeout": {
-      "value": "60 Seconds"
+      "value": "string"
     },
     "firewallSettingEngineOptionCloseTimeout": {
-      "value": "0 Seconds"
+      "value": "string"
     },
     "firewallSettingEngineOptionTunnelDepthMaxExceededAction": {
-      "value": "Drop"
+      "value": "string"
     },
     "firewallSettingReconnaissanceDetectTcpNullScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "platformSettingSmartProtectionAntiMalwareGlobalServerProxyId": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionFilterIpv4Tunnels": {
-      "value": "Disable Detection of IPv4 Tunnels"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionLocalServerUrls": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionLogOnePacketPeriod": {
-      "value": "5 Minutes"
+      "value": "string"
     },
     "firewallSettingEngineOptionFilterIpv6Tunnels": {
-      "value": "Disable Detection of IPv6 Tunnels"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpCongestionFlags": {
-      "value": "Allow"
+      "value": "string"
     },
     "platformSettingHeartbeatMissedAlertThreshold": {
-      "value": "2"
+      "value": "string"
     },
     "intrusionPreventionSettingEngineOptionsEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionConnectionsNumUdpMax": {
-      "value": "1000000"
+      "value": "string"
     },
     "integrityMonitoringSettingAutoApplyRecommendationsEnabled": {
-      "value": "No"
+      "value": "string"
     },
     "firewallSettingEngineOptionTunnelDepthMax": {
-      "value": "1"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropUnknownSslProtocolEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "antiMalwareSettingNsxSecurityTaggingValue": {
-      "value": "ANTI_VIRUS.VirusFound.threat=medium"
+      "value": "string"
     },
     "intrusionPreventionSettingLogDataRuleFirstMatchEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionLoggingPolicy": {
-      "value": "Default"
+      "value": "string"
     },
     "platformSettingTroubleshootingLoggingLevel": {
-      "value": "Do Not Override"
+      "value": "string"
     },
     "antiMalwareSettingVirtualApplianceOnDemandScanCacheEntriesMax": {
-      "value": "500000"
+      "value": "string"
     },
     "webReputationSettingCombinedModeProtectionSource": {
-      "value": "Agent preferred"
+      "value": "string"
     },
     "firewallSettingEngineOptionClosingTimeout": {
-      "value": "1 Second"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckPaws": {
-      "value": "Ignore"
+      "value": "string"
     },
     "intrusionPreventionSettingAutoApplyRecommendationsEnabled": {
-      "value": "No"
+      "value": "string"
     },
     "firewallSettingReconnaissanceDetectFingerprintProbeEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "antiMalwareSettingNsxSecurityTaggingRemoveOnCleanScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionLogPacketLengthMax": {
-      "value": "1500 Bytes"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropTeredoAnomaliesEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "webReputationSettingSecurityLevel": {
-      "value": "Medium"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpv6SiteLocalAddressesEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "activityMonitoringSettingActivityEnabled": {
-      "value": "Off"
+      "value": "string"
     },
     "firewallSettingEngineOptionStrictTerodoPortCheckEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "webReputationSettingBlockedUrlKeywords": {
-      "value": ""
+      "value": "string"
     },
     "webReputationSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingFailureResponsePacketSanityCheck": {
-      "value": "Fail closed"
+      "value": "string"
     },
     "firewallSettingNetworkEngineMode": {
-      "value": "Inline"
+      "value": "string"
     },
     "firewallSettingEventLogFileSizeMax": {
-      "value": "4 MB"
+      "value": "string"
     },
     "antiMalwareSettingMalwareScanMultithreadedProcessingEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceDetectTcpSynFinScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpZeroPayloadEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionBlockIpv6Agent8AndEarlierEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "intrusionPreventionSettingEngineOptionFragmentedIpPacketSendIcmpEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "antiMalwareSettingPredictiveMachineLearningExceptions": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionLogEventsPerSecondMax": {
-      "value": "100"
+      "value": "string"
     },
     "firewallSettingEngineOptionSslSessionTime": {
-      "value": "24 Hours"
+      "value": "string"
     },
     "antiMalwareSettingBehaviorMonitoringScanExclusionList": {
-      "value": ""
+      "value": "string"
     },
     "antiMalwareSettingSmartProtectionGlobalServerEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionLogOnePacketWithinPeriodEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionGenerateConnectionEventsIcmpEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "platformSettingHeartbeatInactiveVmOfflineAlertEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "webReputationSettingSmartProtectionWebReputationGlobalServerProxyId": {
-      "value": ""
+      "value": "string"
     },
     "antiMalwareSettingNsxSecurityTaggingEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckFragmentedPackets": {
-      "value": "Allow"
+      "value": "string"
     },
     "firewallSettingEngineOptionConnectionsNumIcmpMax": {
-      "value": "10000"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpSplitHandshake": {
-      "value": "Deny"
+      "value": "string"
     },
     "antiMalwareSettingCombinedModeProtectionSource": {
-      "value": "Appliance preferred"
+      "value": "string"
     },
     "firewallSettingEngineOptionEventNodesMax": {
-      "value": "20000"
+      "value": "string"
     },
     "webReputationSettingMonitorPortListId": {
-      "value": "80,8080"
+      "value": "string"
     },
     "applicationControlSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckOutNoConnection": {
-      "value": "Allow"
+      "value": "string"
     },
     "firewallSettingEngineOptionBlockIpv6Agent9AndLaterEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "integrityMonitoringSettingVirtualApplianceOptimizationScanCacheEntriesMax": {
-      "value": "500000"
+      "value": "string"
     },
     "firewallSettingReconnaissanceNotifyTcpNullScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionIgnoreStatusCode1": {
-      "value": "None"
+      "value": "string"
     },
     "firewallSettingEngineOptionIgnoreStatusCode0": {
-      "value": "None"
+      "value": "string"
     },
     "firewallSettingEngineOptionIgnoreStatusCode2": {
-      "value": "None"
+      "value": "string"
     },
     "firewallSettingEngineOptionSslSessionSize": {
-      "value": "Low - 2500"
+      "value": "string"
     },
     "antiMalwareSettingScanCacheRealTimeConfigId": {
-      "value": "2"
+      "value": "string"
     },
     "platformSettingRecommendationOngoingScansInterval": {
-      "value": "7 Days"
+      "value": "string"
     },
     "platformSettingSmartProtectionGlobalServerUseProxyEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingInterfaceLimitOneActiveEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpChecksum": {
-      "value": "Allow"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpv6ExtType0Enabled": {
-      "value": "true"
+      "value": "string"
     },
     "antiMalwareSettingScanFileSizeMaxMbytes": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingEngineOptionGenerateConnectionEventsTcpEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "antiMalwareSettingFileHashSizeMaxMbytes": {
-      "value": "128"
+      "value": "string"
     },
     "firewallSettingEventLogFileCachedEntriesLifeTime": {
-      "value": "30 Minutes"
+      "value": "string"
     },
     "platformSettingSmartProtectionGlobalServerProxyId": {
-      "value": ""
+      "value": "string"
     },
     "logInspectionSettingAutoApplyRecommendationsEnabled": {
-      "value": "No"
+      "value": "string"
     },
     "antiMalwareSettingConnectedThreatDefenseSuspiciousFileDdanSubmissionEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "webReputationSettingBlockingPageLink": {
-      "value": "http://sitesafety.trendmicro.com/"
+      "value": "string"
     },
     "firewallSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "platformSettingAgentCommunicationsDirection": {
-      "value": "Agent/Appliance Initiated"
+      "value": "string"
     },
     "integrityMonitoringSettingScanCacheConfigId": {
-      "value": "3"
+      "value": "string"
     },
     "antiMalwareSettingDocumentExploitProtectionRuleExceptions": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpSynWithData": {
-      "value": "Deny"
+      "value": "string"
     },
     "antiMalwareSettingFileHashEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceBlockFingerprintProbeDuration": {
-      "value": "No"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpv6BogonsAddressesEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionBootStartTimeout": {
-      "value": "20 Seconds"
+      "value": "string"
     },
     "firewallSettingEngineOptionConnectionsNumTcpMax": {
-      "value": "1000000"
+      "value": "string"
     },
     "firewallSettingAntiEvasionSecurityPosture": {
-      "value": "Normal"
+      "value": "string"
     },
     "firewallSettingInterfacePatterns": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingInterfaceIsolationEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "antiMalwareSettingVirtualApplianceRealTimeScanCacheEntriesMax": {
-      "value": "500000"
+      "value": "string"
     },
     "firewallSettingEventsOutOfAllowedPolicyEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckEvasiveRetransmit": {
-      "value": "Allow"
+      "value": "string"
     },
     "firewallSettingEngineOptionIcmpTimeout": {
-      "value": "60 Seconds"
+      "value": "string"
     },
     "integrityMonitoringSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingEngineOptionConnectionCleanupTimeout": {
-      "value": "10 Seconds"
+      "value": "string"
     },
     "antiMalwareSettingSmartProtectionLocalServerAllowOffDomainGlobal": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceNotifyTcpSynFinScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionErrorTimeout": {
-      "value": "10 Seconds"
+      "value": "string"
     },
     "webReputationSettingAllowedUrls": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingReconnaissanceNotifyNetworkOrPortScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionFinWait1Timeout": {
-      "value": "2 Minutes"
+      "value": "string"
     },
     "firewallSettingEngineOptionGenerateConnectionEventsUdpEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "activityMonitoringSettingSyslogConfigId": {
-      "value": "0"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpSynRstFlags": {
-      "value": "Deny"
+      "value": "string"
     },
     "antiMalwareSettingSpywareApprovedList": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpUrgentFlags": {
-      "value": "Allow"
+      "value": "string"
     },
     "intrusionPreventionSettingNsxSecurityTaggingDetectModeLevel": {
-      "value": "No Tagging"
+      "value": "string"
     },
     "intrusionPreventionSettingEngineOptionFragmentedIpUnconcernedMacAddressBypassEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionLogAllPacketDataEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckTcpSynFinFlags": {
-      "value": "Deny"
+      "value": "string"
     },
     "platformSettingHeartbeatInterval": {
-      "value": "10 Minutes"
+      "value": "string"
     },
     "firewallSettingEngineOptionFragmentSizeMin": {
-      "value": "120"
+      "value": "string"
     },
     "antiMalwareSettingSmartProtectionServerConnectionLostWarningEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingReconnaissanceBlockNetworkOrPortScanDuration": {
-      "value": "No"
+      "value": "string"
     },
     "integrityMonitoringSettingContentHashAlgorithm": {
-      "value": "sha1"
+      "value": "string"
     },
     "antiMalwareSettingSmartScanState": {
-      "value": "Automatic"
+      "value": "string"
     },
     "firewallSettingConfigPackageExceedsAlertMaxEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "platformSettingEnvironmentVariableOverrides": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionFragmentOffsetMin": {
-      "value": "60"
+      "value": "string"
     },
     "antiMalwareSettingSmartProtectionLocalServerUrls": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionSynRcvdTimeout": {
-      "value": "60 Seconds"
+      "value": "string"
     },
     "firewallSettingEventLogFileCachedEntriesNum": {
-      "value": "128"
+      "value": "string"
     },
     "firewallSettingEngineOptionForceAllowIcmpType3Code4": {
-      "value": "Add Force Allow rule for ICMP type3 code4"
+      "value": "string"
     },
     "firewallSettingReconnaissanceBlockTcpNullScanDuration": {
-      "value": "No"
+      "value": "string"
     },
     "platformSettingSmartProtectionGlobalServerEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "integrityMonitoringSettingRealtimeEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionLastAckTimeout": {
-      "value": "30 Seconds"
+      "value": "string"
     },
     "firewallSettingReconnaissanceExcludeIpListId": {
-      "value": "1"
+      "value": "string"
     },
     "platformSettingAgentSelfProtectionEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpv6ReservedAddressesEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckFinNoConnection": {
-      "value": "Allow"
+      "value": "string"
     },
     "firewallSettingEngineOptionDebugPacketNumMax": {
-      "value": "8"
+      "value": "string"
     },
     "firewallSettingEngineOptionBypassCiscoWaasConnectionsEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "platformSettingHeartbeatLocalTimeShiftAlertThreshold": {
-      "value": "Unlimited"
+      "value": "string"
     },
     "antiMalwareSettingFileHashMd5Enabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceDetectNetworkOrPortScanEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionSilentTcpConnectionDropEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingEngineOptionBlockSameSrcDstIpEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingEngineOptionForceAllowDhcpDns": {
-      "value": "Allow DNS Query and DHCP Client"
+      "value": "string"
     },
     "firewallSettingReconnaissanceIncludeIpListId": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionsEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "firewallSettingReconnaissanceBlockTcpSynFinScanDuration": {
-      "value": "No"
+      "value": "string"
     },
     "webReputationSettingSecurityBlockUntestedPagesEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "webReputationSettingAllowedUrlDomains": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEventLogFileIgnoreSourceIpListId": {
-      "value": ""
+      "value": "string"
     },
     "firewallSettingEngineOptionDropIpv6FragmentsLowerThanMinMtuEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "platformSettingAutoAssignNewIntrusionPreventionRulesEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "firewallSettingAntiEvasionCheckRstNoConnection": {
-      "value": "Allow"
+      "value": "string"
     },
     "webReputationSettingBlockedUrls": {
-      "value": ""
+      "value": "string"
     },
     "platformSettingCombinedModeNetworkGroupProtectionSource": {
-      "value": "Agent preferred"
+      "value": "string"
     },
     "webReputationSettingAlertingEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "antiMalwareSettingNsxSecurityTaggingOnRemediationFailureEnabled": {
-      "value": "true"
+      "value": "string"
     },
     "integrityMonitoringSettingCpuUsageLevel": {
-      "value": "High"
+      "value": "string"
     },
     "platformSettingAutoUpdateAntiMalwareEngineEnabled": {
-      "value": "false"
+      "value": "string"
     },
     "intrusionPreventionSettingCombinedModeProtectionSource": {
-      "value": "Agent preferred"
+      "value": "string"
     }
   },
   "recommendationScanMode": "off",
-  "autoRequiresUpdate": "on",
-  "ID": 1,
+  "autoRequiresUpdate": "off",
+  "interfaceTypes": {
+    "interfaceTypes": [
+      {
+        "name": "string",
+        "description": "string",
+        "matches": [
+          "string"
+        ]
+      }
+    ]
+  },
   "antiMalware": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off"
-    },
-    "realTimeScanConfigurationID": 1,
-    "realTimeScanScheduleID": 4,
-    "manualScanConfigurationID": 2,
-    "scheduledScanConfigurationID": 3
+    "state": "inherited",
+    "moduleStatus": {},
+    "realTimeScanConfigurationID": 0,
+    "realTimeScanScheduleID": 0,
+    "manualScanConfigurationID": 0,
+    "scheduledScanConfigurationID": 0
   },
   "webReputation": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off"
-    }
+    "state": "inherited",
+    "moduleStatus": {}
+  },
+  "activityMonitoring": {
+    "state": "inherited",
+    "moduleStatus": {}
   },
   "firewall": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off, 4 rules"
+    "state": "inherited",
+    "moduleStatus": {},
+    "globalStatefulConfigurationID": 0,
+    "statefulConfigurationAssignments": {
+      "statefulConfigurationAssignments": [
+        {
+          "interfaceID": 0,
+          "interfaceTypeID": 0,
+          "statefulConfigurationID": 0
+        }
+      ]
     },
-    "globalStatefulConfigurationID": 1,
     "ruleIDs": [
-      1,
-      2,
-      5,
-      72
+      0
     ]
   },
   "intrusionPrevention": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off, no rules"
-    }
+    "state": "inherited",
+    "moduleStatus": {},
+    "ruleIDs": [
+      0
+    ],
+    "applicationTypeIDs": [
+      0
+    ]
   },
   "integrityMonitoring": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off, no rules"
-    }
+    "state": "inherited", -----> SecurityProfileTransport.integrityState
+    "moduleStatus": {},
+    "ruleIDs": [
+      0
+    ]
   },
   "logInspection": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off, no rules"
-    }
+    "state": "inherited",
+    "moduleStatus": {},
+    "ruleIDs": [
+      0
+    ]
   },
   "applicationControl": {
-    "state": "off",
-    "moduleStatus": {
-      "status": "inactive",
-      "statusMessage": "Off"
-    }
+    "state": "inherited",
+    "moduleStatus": {},
+    "blockUnrecognized": true,
+    "rulesetID": 0
+  },
+  "SAP": {
+    "state": "inherited",
+    "moduleStatus": {}
   }
 }
