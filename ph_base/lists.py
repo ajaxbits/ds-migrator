@@ -19,6 +19,13 @@ from functions.DirFileExtListTenant2 import (
 from functions.PortListGetT1CreateT2 import PortListGet, PortListCreate
 from functions.MACListGetT1CreateT2 import MacListGet, MacListCreate
 from functions.IPListGetT1CreateT2 import IpListGet, IpListCreate
+from functions.StatefulGetT1CreateT2 import StatefulGet, StatefulCreate
+from functions.ListGetCreateEBT import ListEventTask, GetEventTask, CreateEventTask
+from functions.ListGetCreateST import (
+    ListScheduledTask,
+    GetScheduledTask,
+    CreateScheduledTask,
+)
 
 
 def directory_listmaker(
@@ -74,3 +81,21 @@ def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     t1iplistall, t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
     t2iplistid = IpListCreate(t1iplistid, t1iplistname, NEW_HOST, NEW_API_KEY)
     return t1iplistall, t1iplistname, t1iplistid, t2iplistid
+
+
+def stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    t1statefulall, t1statefulname, t1statefulid = StatefulGet(OLD_HOST, OLD_API_KEY)
+    t2statefulid = StatefulCreate(t1statefulall, t1statefulname, NEW_HOST, NEW_API_KEY)
+    return t1statefulall, t1statefulname, t1statefulid, t2statefulid
+
+
+def ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    enum_oldetname, etIDs = ListEventTask(OLD_HOST, OLD_API_KEY)
+    allet, nameet = GetEventTask(etIDs, OLD_HOST, OLD_API_KEY)
+    CreateEventTask(allet, nameet, NEW_HOST, NEW_API_KEY)
+
+
+def st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    enum_oldstname, stIDs = ListScheduledTask(OLD_HOST, OLD_API_KEY)
+    allst, namest = GetScheduledTask(stIDs, OLD_HOST, OLD_API_KEY)
+    CreateEventTask(allst, namest, NEW_HOST, NEW_API_KEY)

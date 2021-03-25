@@ -12,7 +12,16 @@ from ips_rules_transform import ips_rules_transform
 from antimalware import am_config_transform, am_validate_create
 from integrity import im_config_transform
 from loginspection import li_config_transform
-from lists import directory_listmaker, port_listmaker
+from firewall import firewall_config_transform
+from lists import (
+    directory_listmaker,
+    port_listmaker,
+    mac_listmaker,
+    ip_listmaker,
+    stateful_listmaker,
+    ebt_listmaker,
+    st_listmaker,
+)
 
 OLD_API_KEY = os.environ.get("OLD_API_KEY")
 OLD_HOST = os.environ.get("OLD_HOST")
@@ -41,8 +50,20 @@ amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker
 t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(
     OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
 )
+t1maclistall, t1maclistname, t1maclistid, t2maclistid = mac_listmaker(
+    OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+)
+t1iplistall, t1iplistname, t1iplistid, t2iplistid = ip_listmaker(
+    OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+)
+t1statefulall, t1statefulname, t1statefulid, t2statefulid = stateful_listmaker(
+    OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+)
 
-# transform_ips
+ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+
+# TRANSFORM
 allofpolicy = ips_rules_transform(
     og_allofpolicy,
     t1portlistid,
@@ -70,6 +91,21 @@ allofpolicy = im_config_transform(
 )
 allofpolicy = li_config_transform(
     allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+)
+allofpolicy = firewall_config_transform(
+    allofpolicy,
+    t1iplistid,
+    t2iplistid,
+    t1maclistid,
+    t2maclistid,
+    t1portlistid,
+    t2portlistid,
+    t1statefulid,
+    t2statefulid,
+    OLD_HOST,
+    OLD_API_KEY,
+    NEW_HOST,
+    NEW_API_KEY,
 )
 
 AddPolicy(allofpolicy, NEW_HOST, NEW_API_KEY)
