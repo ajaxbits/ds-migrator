@@ -17,26 +17,6 @@ def IPSGet(allofpolicy):
         if "ruleIDs" in namejson["intrusionPrevention"]:
             for count, here2 in enumerate(namejson["intrusionPrevention"]["ruleIDs"]):
                 ipsruleid.append(str(here2))
-        # '''
-        # index = describe.find('\"intrusionPrevention\"')
-        # if index != -1:
-        #     indexpart = describe[index+20:]
-        #     startIndex = indexpart.find('}')
-        #     if startIndex != -1: #i.e. if the first quote was found
-        #         endIndex = indexpart.find('}', startIndex + 1)
-        #         if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-        #             indexid = indexpart[startIndex+1:endIndex]
-        #             index = indexid.find('ruleIDs')
-        #             if index != -1:
-        #                 indexpart = indexid[index+9:]
-        #                 startIndex = indexpart.find('[')
-        #                 if startIndex != -1: #i.e. if the first quote was found
-        #                     endIndex = indexpart.find(']', startIndex + 1)
-        #                     if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-        #                         indexid1 = indexpart[startIndex+1:endIndex]
-        #                         indexid2 = indexid1.split(", ")
-        #                         ipsruleid.extend(indexid2)
-        #                         '''
     ipsruleid = list(dict.fromkeys(ipsruleid))
     print(ipsruleid, flush=True)
     return ipsruleid
@@ -79,19 +59,6 @@ def IPSDescribe(
             print(
                 "#" + str(count) + " IPS rule name: " + str(ipsjson["name"]), flush=True
             )
-            """
-            index = describe.find('name')
-            if index != -1:
-                indexpart = describe[index+5:]
-                startIndex = indexpart.find('\"')
-                if startIndex != -1: #i.e. if the first quote was found
-                    endIndex = indexpart.find('\"description\"', startIndex + 1)
-                    if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-                        indexid = indexpart[startIndex+1:endIndex-2]
-                        allipsrulename.append(str(indexid))
-                        print("#" + str(count) + " IPS rule name: " + str(indexid), flush=True)
-                        """
-
             index3 = describe.find("applicationTypeID")
             if index3 != -1:
                 indexpart = describe[index3 + 17 :]
@@ -172,8 +139,6 @@ def IPSDescribe(
             print(describe, flush=True)
             print(payload, flush=True)
     print("Done!", flush=True)
-    # print("Tenant 2 default IPS rules", flush=True)
-    # print(allipsruleidnew1, flush=True)
     return allipsrule, allipsruleidnew1, allipsruleidold, allipscustomrule
 
 
@@ -256,7 +221,8 @@ def IPSReplace(
                             ):  # i.e. both quotes were found
                                 indexid2 = indexpart2[startIndex2 + 1 : endIndex2]
                                 indexid3 = indexpart2[startIndex2 + 1 : endIndex2]
-                                indexid4 = indexid2.split(", ")
+                                indexid2.replace(", ", ",")
+                                indexid4 = indexid2.split(",")
                                 if allipsruleidnew1 or allipsruleidnew2:
                                     for count1, this in enumerate(indexid4):
                                         checkindex = ipsruleid.index(this)

@@ -223,7 +223,8 @@ def IPSReplace(
                             ):  # i.e. both quotes were found
                                 indexid2 = indexpart2[startIndex2 + 1 : endIndex2]
                                 indexid3 = indexpart2[startIndex2 + 1 : endIndex2]
-                                indexid4 = indexid2.split(", ")
+                                indexid2.replace(", ", ",")
+                                indexid4 = indexid2.split(",")
                                 if allipsruleidnew1 or allipsruleidnew2:
                                     for count1, this in enumerate(indexid4):
                                         checkindex = ipsruleid.index(this)

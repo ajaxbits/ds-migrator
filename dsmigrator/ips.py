@@ -1,14 +1,7 @@
-import os
-import sys
-import datetime
-import time
-import requests
-import urllib3
-import traceback
-from functions.ListAllPolicy import ListAllPolicy
-from functions.GetPolicy import GetPolicy
-from functions.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
-from functions.IPSapptypeConfig import (
+from .functions.ListAllPolicy import ListAllPolicy
+from .functions.GetPolicy import GetPolicy
+from .functions.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
+from .functions.IPSapptypeConfig import (
     IPSappGet,
     IPSappDescribe,
     IPSappCustom,

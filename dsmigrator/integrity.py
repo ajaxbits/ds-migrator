@@ -1,8 +1,6 @@
-import os
-import sys
-from functions.ListAllPolicy import ListAllPolicy
-from functions.GetPolicy import GetPolicy
-from functions.IMConfig import IMGet, IMDescribe, IMCustom, IMReplace
+from .functions.ListAllPolicy import ListAllPolicy
+from .functions.GetPolicy import GetPolicy
+from .functions.IMConfig import IMGet, IMDescribe, IMCustom, IMReplace
 
 
 def im_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):

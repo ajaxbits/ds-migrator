@@ -1,13 +1,6 @@
-import os
-import sys
-import datetime
-import time
-import requests
-import urllib3
-import traceback
-from functions.ListAllPolicy import ListAllPolicy
-from functions.GetPolicy import GetPolicy
-from functions.LIConfig import LIGet, LIDescribe, LICustom, LIReplace
+from .functions.ListAllPolicy import ListAllPolicy
+from .functions.GetPolicy import GetPolicy
+from .functions.LIConfig import LIGet, LIDescribe, LICustom, LIReplace
 
 
 def li_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
