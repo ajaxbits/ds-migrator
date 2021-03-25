@@ -8,9 +8,13 @@ from requests import Session
 from zeep.transports import Transport
 from datetime import datetime
 from zeep import helpers
-import ph_ips
+import os
+from ph_get_policy import GetPolicy
+from ph_list_policies import ListAllPolicy
 
 cert = False
+OLD_API_KEY = os.environ.get("OLD_API_KEY")
+OLD_HOST = os.environ.get("OLD_HOST")
 
 
 class RestApiConfiguration:
@@ -137,16 +141,18 @@ if __name__ == "__main__":
     hostname = "https://ajax-ds20-t-dsmelb-idi20586foba-797956631.us-east-2.elb.amazonaws.com/webservice/Manager?WSDL"
     tenant = ""
 
-    session = Session()
-    session.verify = False
-    url = hostname
-    transport = Transport(session=session, timeout=1800)
-    client = Client(url, transport=transport)
-    factory = client.type_factory("ns0")
-    sID = client.service.authenticate(username=username, password=password)
+    # session = Session()
+    # session.verify = False
+    # url = hostname
+    # transport = Transport(session=session, timeout=1800)
+    # client = Client(url, transport=transport)
+    # factory = client.type_factory("ns0")
+    # sID = client.service.authenticate(username=username, password=password)
+    # # TODO Move to end of file ##############################################
+    # client.service.endSession(sID)
 
     # output a list of json
-    old_ips_rules = client.service.DPIRuleRetrieveAll(sID)
+    # old_ips_rules = client.service.DPIRuleRetrieveAll(sID)
     new_ips_instance = IpRulesApiInstance()
     new_ips_rules = new_ips_instance.list()
 
@@ -154,17 +160,15 @@ if __name__ == "__main__":
     # TODO make this soap using the mapping you discovered
     old_policies_instance = PoliciesApiInstance()
 
-    old_policies_list = old_policies_instance.list()
-
-    print(
-        get_port_list(
-            old_policies_instance.configuration.host,
-        )
+    old_allofpolicy = ListAllPolicy(
+        "https://ajax-ds20-t-dsmelb-idi20586foba-797956631.us-east-2.elb.amazonaws.com:443/",
+        OLD_API_KEY,
     )
+
+    # print(get_port_list(old_policies_instance.configuration.host, OLD_API_KEY))
+
     # print(ipsrules.search_identifier("1004232"))
     # print(identifier_dict(response, "SOAP"))
     # print(identifier_dict(ipsruleslist, "REST"))
 
     # print(generate_rules_rosetta(old_rules, new_rules))
-
-    client.service.endSession(sID)
