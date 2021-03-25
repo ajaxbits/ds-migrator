@@ -5,50 +5,72 @@ import time
 import requests
 import urllib3
 import traceback
-from functions.ListAllPolicy import ListAllPolicy
-from functions.GetPolicy import GetPolicy
-from functions.FirewallConfig import FirewallGet
-
-from ips_rules_transform import ips_rules_transform
-
-OLD_API_KEY = os.environ.get("OLD_API_KEY")
-OLD_HOST = os.environ.get("OLD_HOST")
-NEW_API_KEY = os.environ.get("NEW_API_KEY")
-NEW_HOST = os.environ.get("NEW_HOST")
-cert = False
-
-old_policy_name_enum, old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
-
-antimalwareconfig, og_allofpolicy = GetPolicy(old_policy_id_list, OLD_HOST, OLD_API_KEY)
-
-def
-# Directory Lists
-# NOTE that only lists that are attached to am configs will be transferred
-og_alldirectory = DirListTenant1(directorylist, OLD_HOST, OLD_API_KEY)
-og_allfileextention = FileExtensionListTenant1(fileextentionlist, OLD_HOST, OLD_API_KEY)
-og_allfilelist = FileListTenant1(filelist, OLD_HOST, OLD_API_KEY)
-
-alldirectory, allfilelist, allfileextention = RenameLists(
-    og_alldirectory, og_allfilelist, og_allfileextention
+from functions.DirFileExtRenListTenant1 import (
+    DirListTenant1,
+    FileExtensionListTenant1,
+    FileListTenant1,
+    RenameLists,
 )
-
-alldirectorynew = DirListTenant2(alldirectory, NEW_HOST, NEW_API_KEY)
-allfileextentionnew = FileExtensionListTenant2(allfileextention, NEW_HOST, NEW_API_KEY)
-allfilelistnew = FileListTenant2(allfileextention, NEW_HOST, NEW_API_KEY)
-
-
-# def li_config_transform(allofpolicy):
-#     aop_replace_li_rules = LIReplace(
-#         allofpolicy,
-#         allliruleidnew1,
-#         allliruleidnew2,
-#         liruleid,
-#         allliruleidold,
-#         alllicustomrule,
-#     )
-#     final = aop_replace_li_rules
-#     return final
+from functions.DirFileExtListTenant2 import (
+    DirListTenant2,
+    FileExtensionListTenant2,
+    FileListTenant2,
+)
+from functions.PortListGetT1CreateT2 import PortListGet, PortListCreate
+from functions.MACListGetT1CreateT2 import MacListGet, MacListCreate
+from functions.IPListGetT1CreateT2 import IpListGet, IpListCreate
 
 
-# if __name__ == "__main__":
-#     li_config_transform(og_allofpolicy)
+def directory_listmaker(
+    amdirectorylist,
+    amfileextentionlist,
+    amfilelist,
+    OLD_HOST,
+    OLD_API_KEY,
+    NEW_HOST,
+    NEW_API_KEY,
+):
+    og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
+    og_allfileextention = FileExtensionListTenant1(
+        amfileextentionlist, OLD_HOST, OLD_API_KEY
+    )
+    og_allfilelist = FileListTenant1(amfilelist, OLD_HOST, OLD_API_KEY)
+
+    alldirectory, allfilelist, allfileextention = RenameLists(
+        og_alldirectory, og_allfilelist, og_allfileextention
+    )
+
+    amalldirectorynew = DirListTenant2(alldirectory, NEW_HOST, NEW_API_KEY)
+    amallfileextentionnew = FileExtensionListTenant2(
+        allfileextention, NEW_HOST, NEW_API_KEY
+    )
+    amallfilelistnew = FileListTenant2(allfileextention, NEW_HOST, NEW_API_KEY)
+
+    return (
+        amalldirectorynew,
+        amallfileextentionnew,
+        amallfilelistnew,
+    )
+
+
+def port_listmaker(
+    OLD_HOST,
+    OLD_API_KEY,
+    NEW_HOST,
+    NEW_API_KEY,
+):
+    t1portlistall, t1portlistname, t1portlistid = PortListGet(OLD_HOST, OLD_API_KEY)
+    t2portlistid = PortListCreate(t1portlistall, t1portlistname, NEW_HOST, NEW_API_KEY)
+    return (t1portlistall, t1portlistname, t1portlistid, t2portlistid)
+
+
+def mac_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    t1maclistall, t1maclistname, t1maclistid = MacListGet(OLD_HOST, OLD_API_KEY)
+    t2maclistid = MacListCreate(t1maclistid, t1maclistname, NEW_HOST, NEW_API_KEY)
+    return t1maclistall, t1maclistname, t1maclistid, t2maclistid
+
+
+def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    t1iplistall, t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
+    t2iplistid = IpListCreate(t1iplistid, t1iplistname, NEW_HOST, NEW_API_KEY)
+    return t1iplistall, t1iplistname, t1iplistid, t2iplistid

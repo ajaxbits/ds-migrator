@@ -14,15 +14,19 @@ from functions.IPSapptypeConfig import (
     IPSappCustom,
     IPSappReplace,
 )
-from functions.PortListGetT1CreateT2 import PortListGet, PortListCreate
 
 
-def ips_rules_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+def ips_rules_transform(
+    allofpolicy,
+    t1portlistid,
+    t2portlistid,
+    OLD_HOST,
+    OLD_API_KEY,
+    NEW_HOST,
+    NEW_API_KEY,
+):
     og_ipsruleid = IPSGet(allofpolicy)
     og_ipsappid = IPSappGet(allofpolicy)
-
-    t1portlistall, t1portlistname, t1portlistid = PortListGet(OLD_HOST, OLD_API_KEY)
-    t2portlistid = PortListCreate(t1portlistall, t1portlistname, NEW_HOST, NEW_API_KEY)
 
     allipsapp, allipsappidnew1, allipsappidold, allipscustomapp = IPSappDescribe(
         og_ipsappid,
@@ -71,4 +75,4 @@ def ips_rules_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KE
         allipscustomapp,
     )
     final = aop_replace_ips_apps
-    return final, t1portlistid, t2portlistid
+    return final

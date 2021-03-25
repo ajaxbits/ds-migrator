@@ -21,6 +21,28 @@ old_policy_name_enum, old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
 antimalwareconfig, og_allofpolicy = GetPolicy(old_policy_id_list, OLD_HOST, OLD_API_KEY)
 
+
+def firewall_transform(
+    allofpolicy,
+    t1iplistid,
+    t2iplistid,
+    t1maclistid,
+    t2maclistid,
+    t1portlistid,
+    t2portlistid,
+    url_link_final,
+    tenant1key,
+    url_link_final_2,
+    tenant2key,
+    OLD_HOST,
+    OLD_API_KEY,
+    NEW_HOST,
+    NEW_API_KEY,
+):
+    firewallruleid, policystateful = FirewallGet(allofpolicy)
+    return True
+
+
 firewallruleid, policystateful = FirewallGet(og_allofpolicy)
 
 mod_allofpolicy, t1portlistid, t2portlistid = ips_rules_transform(
