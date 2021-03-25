@@ -19,26 +19,6 @@ def IPSappGet(allofpolicy):
                 namejson["intrusionPrevention"]["applicationTypeIDs"]
             ):
                 ipsappid.append(str(here2))
-        """
-        index = describe.find('\"intrusionPrevention\"')
-        if index != -1:
-            indexpart = describe[index+20:]
-            startIndex = indexpart.find('}')
-            if startIndex != -1: #i.e. if the first quote was found
-                endIndex = indexpart.find('}', startIndex + 1)
-                if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-                    indexid = indexpart[startIndex+1:endIndex]
-                    index = indexid.find('applicationTypeIDs')
-                    if index != -1:
-                        indexpart = indexid[index+18:]
-                        startIndex = indexpart.find('[')
-                        if startIndex != -1: #i.e. if the first quote was found
-                            endIndex = indexpart.find(']', startIndex + 1)
-                            if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-                                indexid1 = indexpart[startIndex+1:endIndex]
-                                indexid2 = indexid1.split(", ")
-                                ipsappid.extend(indexid2)
-                                """
     ipsappid = list(dict.fromkeys(ipsappid))
     print(ipsappid, flush=True)
     return ipsappid
@@ -82,18 +62,6 @@ def IPSappDescribe(
                 + str(ipsappjson["name"]),
                 flush=True,
             )
-            """
-            index = describe.find('name')
-            if index != -1:
-                indexpart = describe[index+5:]
-                startIndex = indexpart.find('\"')
-                if startIndex != -1: #i.e. if the first quote was found
-                    endIndex = indexpart.find(',', startIndex + 1)
-                    if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-                        indexid = indexpart[startIndex+1:endIndex-1]
-                        allipsappname.append(str(indexid))
-                        print("#" + str(count) + " IPS Application Type name: " + str(indexid), flush=True)
-                        """
             index3 = describe.find("portListID")
             if index3 != -1:
                 indexpart = describe[index3 + 10 :]
@@ -173,8 +141,6 @@ def IPSappDescribe(
             print(describe, flush=True)
             print(payload, flush=True)
     print("Done!", flush=True)
-    # print("Tenant 2 default IPS application type", flush=True)
-    # print(allipsappidnew1, flush=True)
     return allipsapp, allipsappidnew1, allipsappidold, allipscustomapp
 
 
@@ -216,8 +182,6 @@ def IPSappCustom(allipsapp, allipscustomapp, url_link_final_2, tenant2key):
                 print(describe, flush=True)
                 print(payload, flush=True)
         print("Done!", flush=True)
-    # print("all new IPS custom application", flush=True)
-    # print(allipsappidnew2, flush=True)
     return allipsappidnew2
 
 
@@ -248,38 +212,4 @@ def IPSappReplace(
                             count1
                         ] = allipsappidnew2[checkindex1]
         allofpolicy[count] = json.dumps(taskjson)
-
-        """
-        index = describe.find('\"intrusionPrevention\"')
-        if index != -1:
-            indexpart = describe[index+20:]
-            startIndex = indexpart.find('}')
-            if startIndex != -1: #i.e. if the first quote was found
-                endIndex = indexpart.find('}', startIndex + 1)
-                if startIndex != -1 and endIndex != -1: #i.e. both quotes were found
-                    indexid = indexpart[startIndex+1:endIndex]
-                    index2 = indexid.find('applicationTypeIDs')
-                    if index2 != -1:
-                        indexpart2 = indexid[index2+9:]
-                        startIndex2 = indexpart2.find('[')
-                        if startIndex2 != -1: #i.e. if the first quote was found
-                            endIndex2 = indexpart2.find(']', startIndex2 + 1)
-                            if startIndex2 != -1 and endIndex2 != -1: #i.e. both quotes were found
-                                indexid2 = indexpart2[startIndex2+1:endIndex2]
-                                indexid3 = indexpart2[startIndex2+1:endIndex2]
-                                indexid4 = indexid2.split(", ")
-                                if allipsappidnew1 or allipsappidnew2:
-                                    for count1, this in enumerate(indexid4):
-                                        checkindex = ipsappid.index(this)
-                                        if checkindex in allipsappidold:
-                                            checkindex1 = allipsappidold.index(checkindex)
-                                            indexid4[count1] = allipsappidnew1[checkindex1]
-                                        elif checkindex in allipscustomapp:
-                                            checkindex1 = allipscustomapp.index(checkindex)
-                                            indexid4[count1] = allipsappidnew2[checkindex1]
-                                    indexid2 = ",".join(indexid4)
-                                modulepart = describe[index:index+20+endIndex]
-                                modulepart2 = modulepart.replace(indexid3, indexid2)
-                                allofpolicy[count] = describe.replace(modulepart, modulepart2)
-                                """
     return allofpolicy
