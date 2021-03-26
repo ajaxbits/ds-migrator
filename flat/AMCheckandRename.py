@@ -139,6 +139,7 @@ def RenameAmConfig(allamconfig):
     if allamconfig:
         for describe in allamconfig:
             amjson = json.loads(describe)
+            print(describe)
             amjson["name"] = amjson["name"] + " - Migrated"
             allamconfig[count] = json.dumps(amjson)
             count = count + 1

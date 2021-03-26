@@ -23,28 +23,28 @@ from ListGetCreateST import (
 
 def directory_listmaker(
     amdirectorylist,
-    amfileextentionlist,
+    amfileextensionlist,
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
 ):
     og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
-    og_allfileextention = FileExtensionListTenant1(
-        amfileextentionlist, OLD_HOST, OLD_API_KEY
+    og_allfileextension = FileExtensionListTenant1(
+        amfileextensionlist, OLD_HOST, OLD_API_KEY
     )
     og_allfilelist = FileListTenant1(amfilelist, OLD_HOST, OLD_API_KEY)
 
-    alldirectory, allfilelist, allfileextention = RenameLists(
-        og_alldirectory, og_allfilelist, og_allfileextention
+    alldirectory, allfilelist, allfileextension = RenameLists(
+        og_alldirectory, og_allfilelist, og_allfileextension
     )
 
     amalldirectorynew = DirListTenant2(alldirectory)
-    amallfileextentionnew = FileExtensionListTenant2(allfileextention)
+    amallfileextensionnew = FileExtensionListTenant2(allfileextension)
     amallfilelistnew = FileListTenant2(allfilelist)
 
     return (
         amalldirectorynew,
-        amallfileextentionnew,
+        amallfileextensionnew,
         amallfilelistnew,
     )
 
