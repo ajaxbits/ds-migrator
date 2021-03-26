@@ -136,21 +136,28 @@ class FirewallApiInstance(RestApiConfiguration):
         return object.name
 
 
-# class FirewallApiInstance(RestApiConfiguration):
-#     def __init__(self, overrides=False):
-#         super().__init__(overrides)
-#         self.api_instance = deepsecurity.FirewallRulesApi(self.api_client)
+class PolicyApiInstance(RestApiConfiguration):
+    def __init__(self, overrides=False):
+        super().__init__(overrides)
+        self.api_instance = deepsecurity.PoliciesApi(self.api_client)
 
-#     def search(self, name):
-#         filter = self.name_search_filter(name)
-#         results = self.api_instance.search_firewall_rules("v1", search_filter=filter)
-#         if results.firewall_rules:
-#             return results.firewall_rules[0].id
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_policies("v1", search_filter=filter)
+        if results.policies:
+            return results.policies[0].id
 
-#     def create(self, json):
-#         object = deepsecurity.FirewallRule()
-#         for key in json:
-#             if not key == "ID":
-#                 setattr(object, to_snake(key), json[key])
-#         self.api_instance.create_firewall_rule(json, self.api_version)
-#         return object.name
+    def create(self, json):
+        object = deepsecurity.Policy()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        self.api_instance.create_policy(json, self.api_version)
+        return object.name
+
+    def modify_parent(self, id, newparentid):
+        policy = deepsecurity.Policy()
+        policy.parentID = newparentid
+        self.api_instance.modify_policy(
+            id, policy, self.api_version, overrides=self.overrides
+        )

@@ -1,0 +1,880 @@
+Getting Policy from Tenant 1
+#0 Policy ID: 1
+#1 Policy ID: 2
+#2 Policy ID: 3
+#3 Policy ID: 4
+#4 Policy ID: 5
+#5 Policy ID: 6
+#6 Policy ID: 7
+#7 Policy ID: 8
+#8 Policy ID: 34
+#9 Policy ID: 67
+Getting Anti-Malware configuration from Tenant 1
+#1 Anti-Malware Config ID: 1
+#2 Anti-Malware Config ID: 2
+#3 Anti-Malware Config ID: 3
+Getting lists from Tenant 1, if any.
+Tenant1 directory list
+['1']
+Tenant1 file extention list
+[]
+Tenant1 file list
+['1']
+Creating directory list in tenant 2, if any
+test - Migrated already exists in new tenant, renaming...
+test - Migrated {1} already exists in new tenant, renaming...
+test - Migrated {2} already exists in new tenant, renaming...
+test - Migrated {3} already exists in new tenant, renaming...
+test - Migrated {4} already exists in new tenant, renaming...
+test - Migrated {5} already exists in new tenant, renaming...
+test - Migrated {6} already exists in new tenant, renaming...
+test - Migrated {7} already exists in new tenant, renaming...
+test - Migrated {8} already exists in new tenant, renaming...
+test - Migrated {9} already exists in new tenant, renaming...
+test - Migrated {10} already exists in new tenant, renaming...
+test - Migrated {11}
+#0 Directory List ID: 83, Name: test - Migrated {11}
+new directory list
+['83']
+Creating file extension list in tenant 2, if any
+Creating file list in tenant 2, if any
+Process Image Files (Windows) - Migrated already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {1} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {2} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {3} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {4} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {5} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {6} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {7} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {8} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {9} already exists in new tenant, renaming...
+Process Image Files (Windows) - Migrated {10}
+#0 File List ID: 86, Name: Process Image Files (Windows) - Migrated {10}
+new file list
+['86']
+Getting All Port List...
+#0 Port List name: SHOUTCast
+#0 Port List ID: 1
+#1 Port List name: SIP
+#1 Port List ID: 2
+#2 Port List name: HP OpenView
+#2 Port List ID: 3
+#3 Port List name: Mail Server Content
+#3 Port List ID: 4
+#4 Port List name: Web Client Port
+#4 Port List ID: 5
+#5 Port List name: CA Unicenter
+#5 Port List ID: 6
+#6 Port List name: Remote Domain VPN Tunnel Ports
+#6 Port List ID: 7
+#7 Port List name: Client to Domain Controller (TCP)
+#7 Port List ID: 8
+#8 Port List name: Client to Domain Controller (UDP)
+#8 Port List ID: 9
+#9 Port List name: VPN Tunnel Ports
+#9 Port List ID: 10
+#10 Port List name: Deep Security Agent
+#10 Port List ID: 11
+#11 Port List name: VMware vCenter Server
+#11 Port List ID: 12
+#12 Port List name: NFS
+#12 Port List ID: 13
+#13 Port List name: Backdoors UDP
+#13 Port List ID: 14
+#14 Port List name: Oracle XDB FTP
+#14 Port List ID: 15
+#15 Port List name: PeerCast
+#15 Port List ID: 16
+#16 Port List name: NNTP
+#16 Port List ID: 17
+#17 Port List name: Novell GroupWise Messenger
+#17 Port List ID: 18
+#18 Port List name: Sybase EAServer
+#18 Port List ID: 19
+#19 Port List name: Backdoor TCP
+#19 Port List ID: 20
+#20 Port List name: LPD
+#20 Port List ID: 21
+#21 Port List name: Telnet
+#21 Port List ID: 22
+#22 Port List name: dtspcd
+#22 Port List ID: 23
+#23 Port List name: SMB
+#23 Port List ID: 24
+#24 Port List name: AnswerBook2
+#24 Port List ID: 25
+#25 Port List name: CFEngine
+#25 Port List ID: 26
+#26 Port List name: RSync
+#26 Port List ID: 27
+#27 Port List name: Novell Distributed Print Services
+#27 Port List ID: 28
+#28 Port List name: PostgreSQL
+#28 Port List ID: 29
+#29 Port List name: Web Server Domino
+#29 Port List ID: 30
+#30 Port List name: CVS
+#30 Port List ID: 31
+#31 Port List name: Subversion
+#31 Port List ID: 32
+#32 Port List name: spamd
+#32 Port List ID: 33
+#33 Port List name: SWAT
+#33 Port List ID: 34
+#34 Port List name: Squid SNMP
+#34 Port List ID: 35
+#35 Port List name: Alt-N WebAdmin Server
+#35 Port List ID: 36
+#36 Port List name: CA BrightStor ARCServe
+#36 Port List ID: 37
+#37 Port List name: Oracle Forms Server
+#37 Port List ID: 38
+#38 Port List name: Cisco Collaboration Server
+#38 Port List ID: 39
+#39 Port List name: Squid Web Server
+#39 Port List ID: 40
+#40 Port List name: SSL
+#40 Port List ID: 41
+#41 Port List name: Microsoft SQL Resolution service
+#41 Port List ID: 42
+#42 Port List name: Arkeia Server
+#42 Port List ID: 43
+#43 Port List name: BakBone NetVault Server
+#43 Port List ID: 44
+#44 Port List name: UltraVNC
+#44 Port List ID: 45
+#45 Port List name: PPTP
+#45 Port List ID: 46
+#46 Port List name: in.rwhod
+#46 Port List ID: 47
+#47 Port List name: License Server CA
+#47 Port List ID: 48
+#48 Port List name: Message Queuing Server CA
+#48 Port List ID: 49
+#49 Port List name: Backup Server EMC Dantz Retrospect Backup Agent
+#49 Port List ID: 50
+#50 Port List name: License ServerSentinel
+#50 Port List ID: 51
+#51 Port List name: Mail Server Lotus Domino
+#51 Port List ID: 52
+#52 Port List name: MySQL MaxDB
+#52 Port List ID: 53
+#53 Port List name: RealServer
+#53 Port List ID: 54
+#54 Port List name: Security Event Management eIQnetworks
+#54 Port List ID: 55
+#55 Port List name: Solaris RPC
+#55 Port List ID: 56
+#56 Port List name: Spam Firewall Barracuda
+#56 Port List ID: 57
+#57 Port List name: TFTP Server FutureSoft
+#57 Port List ID: 58
+#58 Port List name: WCCP Squid
+#58 Port List ID: 59
+#59 Port List name: SNMP Server
+#59 Port List ID: 60
+#60 Port List name: RPC
+#60 Port List ID: 61
+#61 Port List name: Message Engine CA RPC Server
+#61 Port List ID: 62
+#62 Port List name: Kerberos
+#62 Port List ID: 63
+#63 Port List name: CA Antivirus Console Server
+#63 Port List ID: 64
+#64 Port List name: X.Org Font Server
+#64 Port List ID: 65
+#65 Port List name: Backup Server CA BrightStor ARCserve Agent
+#65 Port List ID: 66
+#66 Port List name: Message Queuing Server Microsoft
+#66 Port List ID: 67
+#67 Port List name: Symantec VERITAS Storage Foundation Administrator Service
+#67 Port List ID: 68
+#68 Port List name: Shellcode Port List
+#68 Port List ID: 69
+#69 Port List name: NAI ePolicy Orchestrator
+#69 Port List ID: 70
+#70 Port List name: Malware
+#70 Port List ID: 71
+#71 Port List name: Microsoft Exchange Server
+#71 Port List ID: 72
+#72 Port List name: TFTP
+#72 Port List ID: 73
+#73 Port List name: Trend Micro Server Protect
+#73 Port List ID: 74
+#74 Port List name: Trend Micro Core Protection for Virtual Machines
+#74 Port List ID: 75
+#75 Port List name: Remote Desktop
+#75 Port List ID: 76
+#76 Port List name: HTTP(S)
+#76 Port List ID: 77
+#77 Port List name: DHCP Server
+#77 Port List ID: 78
+#78 Port List name: DHCP Client
+#78 Port List ID: 79
+#79 Port List name: NetBios
+#79 Port List ID: 80
+#80 Port List name: FTP
+#80 Port List ID: 81
+#81 Port List name: Deep Security Manager
+#81 Port List ID: 82
+#82 Port List name: Exchange Server 2003 Firewall Ports
+#82 Port List ID: 83
+#83 Port List name: Exchange Server 2000 Firewall Ports
+#83 Port List ID: 84
+#84 Port List name: IPSec IKE
+#84 Port List ID: 85
+#85 Port List name: Domain Controller (TCP)
+#85 Port List ID: 86
+#86 Port List name: Domain Controller (UDP)
+#86 Port List ID: 87
+#87 Port List name: Domain Controller to Client (TCP)
+#87 Port List ID: 88
+#88 Port List name: Domain Controller to Client (UDP)
+#88 Port List ID: 89
+#89 Port List name: NetBios - ns
+#89 Port List ID: 90
+#90 Port List name: Fast Scan
+#90 Port List ID: 91
+#91 Port List name: DNS Server
+#91 Port List ID: 92
+#92 Port List name: Windows File Sharing
+#92 Port List ID: 93
+#93 Port List name: HTTP
+#93 Port List ID: 94
+#94 Port List name: Microsoft RPC
+#94 Port List ID: 95
+#95 Port List name: Microsoft SMB
+#95 Port List ID: 96
+#96 Port List name: Veritas
+#96 Port List ID: 97
+#97 Port List name: POP3
+#97 Port List ID: 98
+#98 Port List name: WINS
+#98 Port List ID: 99
+#99 Port List name: WINS Replication
+#99 Port List ID: 100
+#100 Port List name: Computer Associates Unicenter
+#100 Port List ID: 101
+#101 Port List name: Back Orifice
+#101 Port List ID: 102
+#102 Port List name: SMTP
+#102 Port List ID: 103
+#103 Port List name: WINS Registration
+#103 Port List ID: 104
+#104 Port List name: IMAP
+#104 Port List ID: 105
+#105 Port List name: MySQL Server
+#105 Port List ID: 106
+#106 Port List name: Oracle SQL Server
+#106 Port List ID: 107
+#107 Port List name: Microsoft SQL Server
+#107 Port List ID: 108
+#108 Port List name: Network Time Protocol
+#108 Port List ID: 109
+#109 Port List name: IDENT
+#109 Port List ID: 110
+#110 Port List name: SSH
+#110 Port List ID: 111
+#111 Port List name: Oracle Report Server
+#111 Port List ID: 112
+#112 Port List name: Oracle HTTP Services
+#112 Port List ID: 113
+#113 Port List name: Microsoft UPnP
+#113 Port List ID: 114
+#114 Port List name: Computer Associates iGateway
+#114 Port List ID: 115
+#115 Port List name: LDAP
+#115 Port List ID: 116
+#116 Port List name: Trend Micro EarthAgent
+#116 Port List ID: 117
+#117 Port List name: Suspicious Ransomware Activity
+#117 Port List ID: 118
+#118 Port List name: Web Server Common
+#118 Port List ID: 119
+#119 Port List name: Remote Login Application and uncommon ports
+#119 Port List ID: 120
+Done!
+Transfering All Port List...
+#0 Port List ID:1
+#1 Port List ID:2
+#2 Port List ID:3
+#3 Port List ID:4
+#4 Port List ID:5
+#5 Port List ID:6
+#6 Port List ID:7
+#7 Port List ID:8
+#8 Port List ID:9
+#9 Port List ID:10
+#10 Port List ID:11
+#11 Port List ID:12
+#12 Port List ID:13
+#13 Port List ID:14
+#14 Port List ID:15
+#15 Port List ID:16
+#16 Port List ID:17
+#17 Port List ID:18
+#18 Port List ID:19
+#19 Port List ID:20
+#20 Port List ID:21
+#21 Port List ID:22
+#22 Port List ID:23
+#23 Port List ID:24
+#24 Port List ID:25
+#25 Port List ID:26
+#26 Port List ID:27
+#27 Port List ID:28
+#28 Port List ID:29
+#29 Port List ID:30
+#30 Port List ID:31
+#31 Port List ID:32
+#32 Port List ID:33
+#33 Port List ID:34
+#34 Port List ID:35
+#35 Port List ID:36
+#36 Port List ID:37
+#37 Port List ID:38
+#38 Port List ID:39
+#39 Port List ID:40
+#40 Port List ID:41
+#41 Port List ID:42
+#42 Port List ID:43
+#43 Port List ID:44
+#44 Port List ID:45
+#45 Port List ID:46
+#46 Port List ID:47
+#47 Port List ID:48
+#48 Port List ID:49
+#49 Port List ID:50
+#50 Port List ID:51
+#51 Port List ID:52
+#52 Port List ID:53
+#53 Port List ID:54
+#54 Port List ID:55
+#55 Port List ID:56
+#56 Port List ID:57
+#57 Port List ID:58
+#58 Port List ID:59
+#59 Port List ID:60
+#60 Port List ID:61
+#61 Port List ID:62
+#62 Port List ID:63
+#63 Port List ID:64
+#64 Port List ID:65
+#65 Port List ID:66
+#66 Port List ID:67
+#67 Port List ID:68
+#68 Port List ID:69
+#69 Port List ID:70
+#70 Port List ID:71
+#71 Port List ID:72
+#72 Port List ID:73
+#73 Port List ID:74
+#74 Port List ID:75
+#75 Port List ID:76
+#76 Port List ID:77
+#77 Port List ID:78
+#78 Port List ID:79
+#79 Port List ID:80
+#80 Port List ID:81
+#81 Port List ID:82
+#82 Port List ID:83
+#83 Port List ID:84
+#84 Port List ID:85
+#85 Port List ID:86
+#86 Port List ID:87
+#87 Port List ID:88
+#88 Port List ID:89
+#89 Port List ID:90
+#90 Port List ID:91
+#91 Port List ID:92
+#92 Port List ID:93
+#93 Port List ID:94
+#94 Port List ID:95
+#95 Port List ID:96
+#96 Port List ID:97
+#97 Port List ID:98
+#98 Port List ID:99
+#99 Port List ID:100
+#100 Port List ID:101
+#101 Port List ID:102
+#102 Port List ID:103
+#103 Port List ID:104
+#104 Port List ID:105
+#105 Port List ID:106
+#106 Port List ID:107
+#107 Port List ID:108
+#108 Port List ID:109
+#109 Port List ID:110
+#110 Port List ID:111
+#111 Port List ID:112
+#112 Port List ID:113
+#113 Port List ID:114
+#114 Port List ID:115
+#115 Port List ID:116
+#116 Port List ID:117
+#117 Port List ID:118
+#118 Port List ID:119
+#119 Port List ID:120
+Done!
+Getting All Mac List...
+Done!
+Transfering All Mac List...
+Done!
+Getting All IP List...
+#0 IP List name: Ignore Reconnaissance
+#0 IP List ID: 1
+#1 IP List name: Network Broadcast
+#1 IP List ID: 2
+#2 IP List name: Ingress Filters
+#2 IP List ID: 3
+#3 IP List name: Domain Controller(s)
+#3 IP List ID: 4
+#4 IP List name: Off Domain IPs
+#4 IP List ID: 5
+#5 IP List name: Corporate Network IPs
+#5 IP List ID: 6
+#6 IP List name: VPN Tunnel IPs
+#6 IP List ID: 7
+Done!
+Transfering All IP List...
+#0 IP List ID: 1
+#1 IP List ID: 2
+#2 IP List ID: 3
+#3 IP List ID: 4
+#4 IP List ID: 5
+#5 IP List ID: 6
+#6 IP List ID: 7
+Done!
+Getting All Stateful Configuration...
+#0 Stateful Config name: Enable Stateful Inspection
+#0 Stateful Config ID: 1
+#1 Stateful Config name: Deep Security Manager Stateful
+#1 Stateful Config ID: 2
+#2 Stateful Config name: Web Server Stateful
+#2 Stateful Config ID: 3
+#3 Stateful Config name: FTP Server Stateful
+#3 Stateful Config ID: 4
+#4 Stateful Config name: No Stateful Inspection
+#4 Stateful Config ID: 5
+Done
+Transfering All Stateful Configuration...
+#0 Stateful Config name: Enable Stateful Inspection
+#0 Stateful Config ID: 1
+#1 Stateful Config name: Deep Security Manager Stateful
+#1 Stateful Config ID: 2
+#2 Stateful Config name: Web Server Stateful
+#2 Stateful Config ID: 3
+#3 Stateful Config name: FTP Server Stateful
+#3 Stateful Config ID: 4
+#4 Stateful Config name: No Stateful Inspection
+#4 Stateful Config ID: 5
+Done!
+Getting Target Task...
+['{"name":"Test0event","type":"agent-initiated-activation","enabled":true,"actions":[{"type":"assign-group"}],"conditions":[{"field":"platform","value":".*"}],"ID":101}']
+['Test0event']
+Creating Task to target Account...
+#0 Event Based Task name: Test0event
+#0 Event Based ID: 38
+Getting Target Task...
+Component Update Task
+Weekly Summary Report
+Daily Summary Report
+test
+Creating Task to target Account...
+Component Update Task
+#0 Schedule Task name: Component Update Task
+#0 Schedule ID: 39
+Weekly Summary Report
+#1 Schedule Task name: Weekly Summary Report
+#1 Schedule ID: 40
+Daily Summary Report
+#2 Schedule Task name: Daily Summary Report
+#2 Schedule ID: 41
+test
+#3 Schedule Task name: test
+#3 Schedule ID: 42
+IPS rules in Tenant 1
+['7161', '7303']
+IPS application types in Tenant 1
+['248', '265', '266', '284', '297', '306', '391', '399', '401']
+Searching IPS application types in Tenant 1...
+#0 IPS Application Type name: Web Client Mozilla Firefox
+#0 IPS Application Type ID: 248
+#1 IPS Application Type name: Web Client SSL
+#1 IPS Application Type ID: 265
+#2 IPS Application Type name: Suspicious Client Application Activity
+#2 IPS Application Type ID: 266
+#3 IPS Application Type name: Web Client Common
+#3 IPS Application Type ID: 284
+#4 IPS Application Type name: SSL Client
+#4 IPS Application Type ID: 297
+#5 IPS Application Type name: Suspicious Client Ransomware Activity
+#5 IPS Application Type ID: 306
+#6 IPS Application Type name: Web Server Common
+#6 IPS Application Type ID: 391
+#7 IPS Application Type name: Asterisk Manager Interface
+#7 IPS Application Type ID: 399
+#8 IPS Application Type name: Web Application Common
+#8 IPS Application Type ID: 401
+Done!
+Searching and Modifying IPS application types in Tenant 2...
+#0 IPS Application Type ID: 248
+#1 IPS Application Type ID: 265
+#2 IPS Application Type ID: 266
+#3 IPS Application Type ID: 283
+#4 IPS Application Type ID: 295
+#5 IPS Application Type ID: 304
+#6 IPS Application Type ID: 387
+#7 IPS Application Type ID: 395
+#8 IPS Application Type ID: 400
+Done!
+Searching IPS rules in Tenant 1...
+#0 IPS rule name: HTTP Protocol Decoding
+#0 IPS rule ID: 7161
+#1 IPS rule name: Generic Cross Site Scripting(XSS) Prevention
+#1 IPS rule ID: 7303
+Done!
+Searching and Modifying IPS rule in Tenant 2...
+#0 IPS rule ID: 7104
+#1 IPS rule ID: 7573
+Done!
+{"name":"Default Real-Time Scan Configuration","description":"","scanType":"real-time","documentExploitProtectionEnabled":true,"documentExploitProtection":"critical-only","documentExploitHeuristicLevel":"default","machineLearningEnabled":true,"behaviorMonitoringEnabled":true,"documentRecoveryEnabled":false,"intelliTrapEnabled":true,"memoryScanEnabled":true,"spywareEnabled":true,"alertEnabled":true,"directoriesToScan":"directory-list","directoryListID":83,"filesToScan":"all-files","excludedProcessImageFileListID":86,"realTimeScan":"read-write","scanCompressedEnabled":true,"scanCompressedMaximumSize":30,"scanCompressedMaximumLevels":2,"scanCompressedMaximumFiles":10,"microsoftOfficeEnabled":true,"microsoftOfficeLayers":15,"networkDirectoriesEnabled":true,"customRemediationActionsEnabled":false,"amsiScanEnabled":true,"scanActionForBehaviorMonitoring":"active-action","scanActionForMachineLearning":"quarantine","ID":1}
+{"name":"Default Manual Scan Configuration","description":"","scanType":"on-demand","documentExploitProtectionEnabled":true,"documentExploitProtection":"critical-only","documentExploitHeuristicLevel":"default","spywareEnabled":true,"alertEnabled":true,"directoriesToScan":"all-directories","filesToScan":"intelliscan-file-types","excludedFileListID":86,"scanCompressedEnabled":true,"scanCompressedMaximumSize":60,"scanCompressedMaximumLevels":2,"scanCompressedMaximumFiles":10,"microsoftOfficeEnabled":true,"microsoftOfficeLayers":15,"customRemediationActionsEnabled":false,"ID":2,"cpuUsage":"high"}
+{"name":"Default Scheduled Scan Configuration","description":"","scanType":"on-demand","documentExploitProtectionEnabled":true,"documentExploitProtection":"critical-only","documentExploitHeuristicLevel":"default","spywareEnabled":true,"alertEnabled":false,"directoriesToScan":"all-directories","filesToScan":"all-files","scanCompressedEnabled":true,"scanCompressedMaximumSize":60,"scanCompressedMaximumLevels":2,"microsoftOfficeEnabled":true,"microsoftOfficeLayers":15,"customRemediationActionsEnabled":false,"ID":3,"cpuUsage":"high"}
+Creating Anti-Malware Configuration to Tenant2
+#0 Anti-Malware Config name: Default Real-Time Scan Configuration - Migrated {10}
+#0 Anti-Malware Config ID: 143
+#1 Anti-Malware Config name: Default Manual Scan Configuration - Migrated {10}
+#1 Anti-Malware Config ID: 144
+#2 Anti-Malware Config name: Default Scheduled Scan Configuration - Migrated {10}
+#2 Anti-Malware Config ID: 145
+New AM Config ID
+['143', '144', '145']
+IM rules in Tenant 1
+['7', '8', '9', '10', '15', '16', '20', '25', '26', '33', '34', '35', '40', '41', '48', '56', '60', '72', '75', '87', '97', '151', '163', '51', '55', '1', '2', '3', '4', '5', '6', '11', '12', '13', '14', '17', '19', '23', '24', '38', '53', '54', '57', '62', '64', '104', '147', '152', '155', '161']
+Searching IM rules in Tenant 1...
+#0 IPS rule name: Unix - File attributes changed in /bin location
+#0 IM rule ID: 7
+#1 IPS rule name: Unix - File attributes changed in /etc location
+#1 IM rule ID: 8
+#2 IPS rule name: Unix - File attributes changed in /lib location
+#2 IM rule ID: 9
+#3 IPS rule name: Unix - File attributes changed in /sbin location
+#3 IM rule ID: 10
+#4 IPS rule name: Unix - Directory attributes changed for /bin
+#4 IM rule ID: 15
+#5 IPS rule name: Unix - Directory attributes changed for /sbin
+#5 IM rule ID: 16
+#6 IPS rule name: DNS Client
+#6 IM rule ID: 20
+#7 IPS rule name: Unix - Added or Removed Software
+#7 IM rule ID: 25
+#8 IPS rule name: Unix - Permissions of log files changed
+#8 IM rule ID: 26
+#9 IPS rule name: Application - NFS
+#9 IM rule ID: 33
+#10 IPS rule name: Application - PAM
+#10 IM rule ID: 34
+#11 IPS rule name: Application - Portmapper
+#11 IM rule ID: 35
+#12 IPS rule name: Application - Xorg-x / XFree86 / Xfree86 / Xorg-x11
+#12 IM rule ID: 40
+#13 IPS rule name: Database Server - MySQL
+#13 IM rule ID: 41
+#14 IPS rule name: Unix - Process Monitor
+#14 IM rule ID: 48
+#15 IPS rule name: Mail Server - Sendmail
+#15 IM rule ID: 56
+#16 IPS rule name: Unix - File Attributes Changes In /usr/bin And /usr/sbin Locations
+#16 IM rule ID: 60
+#17 IPS rule name: HTTP Server - Apache
+#17 IM rule ID: 72
+#18 IPS rule name: Application - OpenSSL
+#18 IM rule ID: 75
+#19 IPS rule name: Application - OpenSSH
+#19 IM rule ID: 87
+#20 IPS rule name: Application - PHP
+#20 IM rule ID: 97
+#21 IPS rule name: Unix - Open Port Monitor
+#21 IM rule ID: 151
+#22 IPS rule name: Trend Micro Deep Security Agent / Relay
+#22 IM rule ID: 163
+#23 IPS rule name: Web Browser - Mozilla Firefox
+#23 IM rule ID: 51
+#24 IPS rule name: Application - Postfix
+#24 IM rule ID: 55
+#25 IPS rule name: Microsoft Windows - System driver files modified
+#25 IM rule ID: 1
+#26 IPS rule name: Microsoft Windows - Microsoft HTML Viewer dll file modified
+#26 IM rule ID: 2
+#27 IPS rule name: Microsoft Windows - Default Debugger changed
+#27 IM rule ID: 3
+#28 IPS rule name: Microsoft Windows - 'ActiveX Compatibility' registry keys modified
+#28 IM rule ID: 4
+#29 IPS rule name: Microsoft Windows - Internet Explorer Browser Settings modified
+#29 IM rule ID: 5
+#30 IPS rule name: Microsoft Windows - SAM Domain Account Users Modified
+#30 IM rule ID: 6
+#31 IPS rule name: Microsoft Windows - Event Log settings changed
+#31 IM rule ID: 11
+#32 IPS rule name: Microsoft Windows - IE ActiveX Kill bits modified
+#32 IM rule ID: 12
+#33 IPS rule name: Microsoft Windows - Microsoft hotfixes registry keys modified
+#33 IM rule ID: 13
+#34 IPS rule name: Microsoft Windows - Network configuration files modified
+#34 IM rule ID: 14
+#35 IPS rule name: Microsoft Windows - System directory attributes changed
+#35 IM rule ID: 17
+#36 IPS rule name: Microsoft Windows - FTP Client
+#36 IM rule ID: 19
+#37 IPS rule name: Microsoft Windows - Installed software attributes modified
+#37 IM rule ID: 23
+#38 IPS rule name: Microsoft Windows - 'Hosts' file modified
+#38 IM rule ID: 24
+#39 IPS rule name: Microsoft Windows - DHCP Client
+#39 IM rule ID: 38
+#40 IPS rule name: Web Browser - Internet Explorer
+#40 IM rule ID: 53
+#41 IPS rule name: Microsoft Windows - System configuration file modified
+#41 IM rule ID: 54
+#42 IPS rule name: Malware - Suspicious Microsoft Windows Registry Entries Detected
+#42 IM rule ID: 57
+#43 IPS rule name: Malware - Suspicious Microsoft Windows Files Detected
+#43 IM rule ID: 62
+#44 IPS rule name: Microsoft Visual Studio - New Add-In Created
+#44 IM rule ID: 64
+#45 IPS rule name: Microsoft Windows - System .dll or .exe files modified (ATT&CK T1013)
+#45 IM rule ID: 104
+#46 IPS rule name: Microsoft Windows - Attributes of a service modified (ATT&CK T1050, T1036, T1031)
+#46 IM rule ID: 147
+#47 IPS rule name: Microsoft Windows - Startup Programs Modified (ATT&CK T1112, T1060)
+#47 IM rule ID: 152
+#48 IPS rule name: Local Security Authority (LSA) Authentication Packages modified (ATT&CK T1174)
+#48 IM rule ID: 155
+#49 IPS rule name: Microsoft Windows - System File Modified
+#49 IM rule ID: 161
+Done!
+Searching and Modifying IM rule in Tenant 2...
+#0 IM rule ID: 7
+#1 IM rule ID: 8
+#2 IM rule ID: 9
+#3 IM rule ID: 10
+#4 IM rule ID: 15
+#5 IM rule ID: 16
+#6 IM rule ID: 20
+#7 IM rule ID: 25
+#8 IM rule ID: 26
+#9 IM rule ID: 33
+#10 IM rule ID: 34
+#11 IM rule ID: 35
+#12 IM rule ID: 40
+#13 IM rule ID: 41
+#14 IM rule ID: 48
+#15 IM rule ID: 56
+#16 IM rule ID: 60
+#17 IM rule ID: 72
+#18 IM rule ID: 75
+#19 IM rule ID: 87
+#20 IM rule ID: 97
+#21 IM rule ID: 150
+#22 IM rule ID: 161
+#23 IM rule ID: 51
+#24 IM rule ID: 55
+#25 IM rule ID: 1
+#26 IM rule ID: 2
+#27 IM rule ID: 3
+#28 IM rule ID: 4
+#29 IM rule ID: 5
+#30 IM rule ID: 6
+#31 IM rule ID: 11
+#32 IM rule ID: 12
+#33 IM rule ID: 13
+#34 IM rule ID: 14
+#35 IM rule ID: 17
+#36 IM rule ID: 19
+#37 IM rule ID: 23
+#38 IM rule ID: 24
+#39 IM rule ID: 38
+#40 IM rule ID: 53
+#41 IM rule ID: 54
+#42 IM rule ID: 57
+#43 IM rule ID: 62
+#44 IM rule ID: 64
+#45 IM rule ID: 104
+#46 IM rule ID: 146
+#47 IM rule ID: 165
+#48 IM rule ID: 153
+#49 IM rule ID: 159
+Done!
+Log Inspection rules in Tenant 1
+['20', '26', '46', '47', '65', '69', '70', '29', '30', '41', '48', '56']
+Searching LI rules in Tenant 1...
+#0 LI rule name: Default Rules Configuration
+#0 LI rule ID: 20
+#1 LI rule name: Mail Server - Postfix
+#1 LI rule ID: 26
+#2 LI rule name: Web Server - Apache
+#2 LI rule ID: 46
+#3 LI rule name: Database Server - MySQL
+#3 LI rule ID: 47
+#4 LI rule name: Unix - Syslog
+#4 LI rule ID: 65
+#5 LI rule name: Application - Secure Shell Daemon (SSHD)
+#5 LI rule ID: 69
+#6 LI rule name: Authentication Module - Unix Pluggable Authentication Module
+#6 LI rule ID: 70
+#7 LI rule name: Remote Access Service - Microsoft Windows RAS Events
+#7 LI rule ID: 29
+#8 LI rule name: Routing and Remote Access - Microsoft Windows RRAS Events
+#8 LI rule ID: 30
+#9 LI rule name: Microsoft Windows Security Events
+#9 LI rule ID: 41
+#10 LI rule name: Terminal Server Security - Microsoft Windows
+#10 LI rule ID: 48
+#11 LI rule name: Microsoft Windows Events
+#11 LI rule ID: 56
+Done!
+Searching and Modifying LI rule in Tenant 2...
+#0 LI rule ID: 19
+#1 LI rule ID: 25
+#2 LI rule ID: 44
+#3 LI rule ID: 45
+#4 LI rule ID: 59
+#5 LI rule ID: 63
+#6 LI rule ID: 64
+#7 LI rule ID: 28
+#8 LI rule ID: 29
+#9 LI rule ID: 40
+#10 LI rule ID: 46
+#11 LI rule ID: 78
+Firewall rules in Tenant 1
+['23', '28', '20', '24', '25', '29', '30', '42', '43', '47', '49', '32', '34', '46', '48', '53', '54', '57', '33', '36', '52', '58', '59', '60', '22', '100']
+Searching and Modifying Firewall rules in Tenant 1...
+#0 Firewall rule name: Allow ICMP type 3 code 4
+#0 Firewall rule ID: 23
+#1 Firewall rule name: ARP
+#1 Firewall rule ID: 28
+#2 Firewall rule name: Deep Security Agent
+#2 Firewall rule ID: 20
+#3 Firewall rule name: Allow solicited TCP/UDP replies
+#3 Firewall rule ID: 24
+#4 Firewall rule name: Allow solicited ICMP replies
+#4 Firewall rule ID: 25
+#5 Firewall rule name: NetBios Name Service
+#5 Firewall rule ID: 29
+#6 Firewall rule name: DHCP Server
+#6 Firewall rule ID: 30
+#7 Firewall rule name: Web Server
+#7 Firewall rule ID: 42
+#8 Firewall rule name: Remote Access SSH
+#8 Firewall rule ID: 43
+#9 Firewall rule name: IDENT
+#9 Firewall rule ID: 47
+#10 Firewall rule name: ICMP Echo Request
+#10 Firewall rule ID: 49
+#11 Firewall rule name: FTP Server
+#11 Firewall rule ID: 32
+#12 Firewall rule name: Oracle SQL Server
+#12 Firewall rule ID: 34
+#13 Firewall rule name: SMTP Server
+#13 Firewall rule ID: 46
+#14 Firewall rule name: DNS Server
+#14 Firewall rule ID: 48
+#15 Firewall rule name: POP3 Server
+#15 Firewall rule ID: 53
+#16 Firewall rule name: IMAP Server
+#16 Firewall rule ID: 54
+#17 Firewall rule name: MySQL Server
+#17 Firewall rule ID: 57
+#18 Firewall rule name: Microsoft SQL Server
+#18 Firewall rule ID: 33
+#19 Firewall rule name: Microsoft Exchange Server
+#19 Firewall rule ID: 36
+#20 Firewall rule name: Remote Access RDP
+#20 Firewall rule ID: 52
+#21 Firewall rule name: WINS
+#21 Firewall rule ID: 58
+#22 Firewall rule name: WINS Registration
+#22 Firewall rule ID: 59
+#23 Firewall rule name: WINS Replication
+#23 Firewall rule ID: 60
+#24 Firewall rule name: Allow Deep Security as a Service inbound communications
+#24 Firewall rule ID: 22
+#25 Firewall rule name: tester
+#25 Firewall rule ID: 100
+Done!
+Replacing firewall rule IDs configuration in tenant 2...
+#0 Firewall rule ID: 23
+#1 Firewall rule ID: 28
+#2 Firewall rule ID: 20
+#3 Firewall rule ID: 24
+#4 Firewall rule ID: 25
+#5 Firewall rule ID: 29
+#6 Firewall rule ID: 30
+#7 Firewall rule ID: 42
+#8 Firewall rule ID: 43
+#9 Firewall rule ID: 47
+#10 Firewall rule ID: 49
+#11 Firewall rule ID: 32
+#12 Firewall rule ID: 34
+#13 Firewall rule ID: 46
+#14 Firewall rule ID: 48
+#15 Firewall rule ID: 53
+#16 Firewall rule ID: 54
+#17 Firewall rule ID: 57
+#18 Firewall rule ID: 33
+#19 Firewall rule ID: 36
+#20 Firewall rule ID: 52
+#21 Firewall rule ID: 58
+#22 Firewall rule ID: 59
+#23 Firewall rule ID: 60
+#24 Firewall rule ID: 22
+#25 Firewall rule ID: 75
+Done!
+Creating Policy to Tenant 2 with new ID
+1
+{}
+105
+Base Policy
+#0 Policy List ID: 105, Name: Base Policy
+2
+{1: 105}
+{"message":"The assigned Malware Scan Configuration is invalid. Try again with other configuration or create a new configuration for this assignment."}
+3
+{1: 105}
+{"message":"The assigned Malware Scan Configuration is invalid. Try again with other configuration or create a new configuration for this assignment."}
+4
+{1: 105}
+108
+Demo
+#3 Policy List ID: 108, Name: Demo
+5
+{1: 105, 4: 108}
+109
+Windows
+#4 Policy List ID: 109, Name: Windows
+6
+{1: 105, 4: 108, 5: 109}
+110
+Windows Server 2003
+#5 Policy List ID: 110, Name: Windows Server 2003
+7
+{1: 105, 4: 108, 5: 109, 6: 110}
+111
+Windows Server 2008
+#6 Policy List ID: 111, Name: Windows Server 2008
+8
+{1: 105, 4: 108, 5: 109, 6: 110, 7: 111}
+112
+Windows Server 2012
+#7 Policy List ID: 112, Name: Windows Server 2012
+34
+{1: 105, 4: 108, 5: 109, 6: 110, 7: 111, 8: 112}
+113
+test
+#8 Policy List ID: 113, Name: test
+67
+{1: 105, 4: 108, 5: 109, 6: 110, 7: 111, 8: 112, 34: 113}
+114
+tester_lists
+#9 Policy List ID: 114, Name: tester_lists

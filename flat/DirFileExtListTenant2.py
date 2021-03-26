@@ -32,6 +32,6 @@ def FileExtensionListTenant2(allfileext):
         allfileextnew = validate_create(
             allfileext, FileExtensionListsApiInstance(), "file extension"
         )
-    print("new file extension list", flush=True)
-    print(allfileextnew, flush=True)
-    return allfileextnew
+        print("new file extension list", flush=True)
+        print(allfileextnew, flush=True)
+        return allfileextnew

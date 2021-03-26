@@ -1,51 +1,67 @@
 import sys
 import os
+import deepsecurity
+from deepsecurity.rest import ApiException
 import time
 from time import sleep
 import requests
 import urllib3
 import json
 
-# from api_config import PolicyApiInstance
-# from utils
+from api_config import PolicyApiInstance
+
+
+def validate_create(all_old, api_instance, type):
+    all_new = []
+    id_dict = {}
+    for count, dirlist in enumerate(all_old):
+        namecheck = 1
+        rename = 1
+        oldjson = json.loads(dirlist)
+        oldname = oldjson["name"]
+        oldid = oldjson["ID"]
+        print(oldid)
+        while namecheck != -1:
+            print(id_dict)
+            if "parentID" in oldjson.keys():
+                oldjson["parentID"] = id_dict[oldjson["parentID"]]
+            try:
+                newname = api_instance.create(oldjson)
+                newid = api_instance.search(newname)
+                print(newid)
+                id_dict[oldid] = newid
+                print(newname)
+                print(
+                    "#"
+                    + str(count)
+                    + " "
+                    + type.capitalize()
+                    + " List ID: "
+                    + str(newid)
+                    + ", Name: "
+                    + newname,
+                    flush=True,
+                )
+                all_new.append(str(newid))
+                namecheck = -1
+            except ApiException as e:
+                error_json = json.loads(e.body)
+                if "name already exists" in error_json["message"]:
+                    print(
+                        f"{oldjson['name']} already exists in new tenant, renaming..."
+                    )
+                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+                    namecheck = -1
+    return all_new
+
 
 cert = False
 
 
-def AddPolicy(allofpolicy, url_link_final_2, tenant2key):
+def AddPolicy(allofpolicy):
     print("Creating Policy to Tenant 2 with new ID", flush=True)
-    for count, dirlist in enumerate(allofpolicy):
-        rename = 1
-        namecheck = 1
-        oldpolicyjson = json.loads(dirlist)
-        oldname = oldpolicyjson["name"]
-        while namecheck != -1:
-            payload = dirlist
-            url = url_link_final_2 + "api/policies"
-            headers = {
-                "api-secret-key": tenant2key,
-                "api-version": "v1",
-                "Content-Type": "application/json",
-            }
-            response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
-            )
-            describe = str(response.text)
-            policyjson = json.loads(describe)
-            if not "message" in policyjson:
-                print(
-                    "#" + str(count) + " Policy name: " + policyjson["name"], flush=True
-                )
-                print(
-                    "#" + str(count) + " Policy ID: " + str(policyjson["ID"]),
-                    flush=True,
-                )
-                namecheck = -1
-            else:
-                if "name already exists" in policyjson["message"]:
-                    oldpolicyjson["name"] = oldname + " {" + str(rename) + "}"
-                    dirlist = json.dumps(oldpolicyjson)
-                    rename = rename + 1
-                else:
-                    print(describe, flush=True)
-                    namecheck = -1
+    if allofpolicy:
+        validate_create(allofpolicy, PolicyApiInstance(), "policy")
