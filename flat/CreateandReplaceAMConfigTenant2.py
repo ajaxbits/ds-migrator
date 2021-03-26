@@ -5,58 +5,17 @@ from time import sleep
 import requests
 import urllib3
 import json
+from api_config import AMConfigApiInstance
+from migrator_utils import validate_create
 
 cert = False
 
 
-def AmconfigTenant2(allamconfig, url_link_final_2, tenant2key):
+def AmconfigTenant2(allamconfig):
     allamconfignew = []
     print("Creating Anti-Malware Configuration to Tenant2", flush=True)
     if allamconfig:
-        for count, dirlist in enumerate(allamconfig):
-            rename = 1
-            namecheck = 1
-            if dirlist != 0:
-                oldjson = json.loads(dirlist)
-                oldname = oldjson["name"]
-                while namecheck != -1:
-                    payload = dirlist
-                    url = url_link_final_2 + "api/antimalwareconfigurations"
-                    headers = {
-                        "api-secret-key": tenant2key,
-                        "api-version": "v1",
-                        "Content-Type": "application/json",
-                    }
-                    response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
-                    )
-                    describe = str(response.text)
-                    amjson = json.loads(describe)
-                    if not "message" in amjson:
-                        print(
-                            "#"
-                            + str(count)
-                            + " Anti-Malware Config name: "
-                            + amjson["name"],
-                            flush=True,
-                        )
-                        print(
-                            "#"
-                            + str(count)
-                            + " Anti-Malware Config ID: "
-                            + str(amjson["ID"]),
-                            flush=True,
-                        )
-                        allamconfignew.append(str(amjson["ID"]))
-                        namecheck = -1
-                    else:
-                        if "name already exists" in amjson["message"]:
-                            oldjson["name"] = oldname + " {" + str(rename) + "}"
-                            dirlist = json.dumps(oldjson)
-                            rename = rename + 1
-                        else:
-                            print(describe, flush=True)
-                            namecheck = -1
+        validate_create(allamconfig, AMConfigApiInstance, "anti malware")
     print("New AM Config ID", flush=True)
     print(allamconfignew, flush=True)
     return allamconfignew

@@ -94,3 +94,23 @@ class FileListsApiInstance(RestApiConfiguration):
                 setattr(filelist, to_snake(key), json_filelist[key])
         self.api_instance.create_file_list(json_filelist, self.api_version)
         return filelist.name
+
+
+class AMConfigApiInstance(RestApiConfiguration):
+    def __init__(self, overrides=False):
+        super().__init__(overrides)
+        self.api_instance = deepsecurity.AntiMalwareConfigurationsApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_anti_malwares("v1", search_filter=filter)
+        if results.anti_malware_configurations:
+            return results.file_lists[0].id
+
+    def create(self, json):
+        list = deepsecurity.AntiMalwareConfiguration()
+        for key in json:
+            if not key == "ID":
+                setattr(list, to_snake(key), json[key])
+        self.api_instance.create_anti_malware(json, self.api_version)
+        return list.name
