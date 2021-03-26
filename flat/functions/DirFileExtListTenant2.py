@@ -31,6 +31,13 @@ class RestApiConfiguration:
         self.configuration.api_key["api-secret-key"] = NEW_API_KEY
         self.api_version = "v1"
 
+    def name_search_filter(self, name):
+        criteria = deepsecurity.SearchCriteria()
+        criteria.field_name = "name"
+        criteria.string_test = "equal"
+        criteria.string_value = f"%{name}%"
+        return deepsecurity.SearchFilter(None, [criteria])
+
 
 class DirectoryListsApiInstance(RestApiConfiguration):
     def __init__(self, overrides=False):
@@ -38,18 +45,8 @@ class DirectoryListsApiInstance(RestApiConfiguration):
         self.api_instance = deepsecurity.DirectoryListsApi(self.api_client)
 
     def search(self, name):
-        # criteria
-        criteria = deepsecurity.SearchCriteria()
-        criteria.field_name = "name"
-        criteria.string_test = "equal"
-        criteria.string_value = f"%{name}%"
-
-        # filter
-        filter = deepsecurity.SearchFilter(None, [criteria])
-
-        # search
+        filter = self.name_search_filter(name)
         results = self.api_instance.search_directory_lists("v1", search_filter=filter)
-
         return results.directory_lists[0].id
 
     def create(self, json_dirlist):
@@ -58,7 +55,7 @@ class DirectoryListsApiInstance(RestApiConfiguration):
             if not key == "ID":
                 setattr(dirlist, to_snake(key), json_dirlist[key])
         self.api_instance.create_directory_list(json_dirlist, self.api_version)
-        return dirlist.name, dirlist.id
+        return dirlist.name
 
 
 class FileExtensionListsApiInstance(RestApiConfiguration):
@@ -92,58 +89,46 @@ class FileListsApiInstance(RestApiConfiguration):
 cert = False
 
 
+def validate_create(all_old, api_instance):
+    all_new = []
+    for count, dirlist in enumerate(all_old):
+        namecheck = 1
+        rename = 1
+        oldjson = json.loads(dirlist)
+        oldname = oldjson["name"]
+        while namecheck != -1:
+            try:
+                newname = api_instance.create(oldjson)
+                newid = api_instance.search(newname)
+                print(newname)
+                print(
+                    "#"
+                    + str(count)
+                    + " Directory List ID: "
+                    + str(newid)
+                    + " Name: "
+                    + newname,
+                    flush=True,
+                )
+                all_new.append(str(newid))
+                namecheck = -1
+            except ApiException as e:
+                error_json = json.loads(e.body)
+                if "name already exists" in error_json["message"]:
+                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+                    namecheck = -1
+    return all_new
+
+
 def DirListTenant2(alldirectory, url_link_final_2, tenant2key):
-    dirlist_api = DirectoryListsApiInstance()
-    alldirectorynew = []
-
-    # def transfer(some_json):
-    #     newname, newid = dirlist_api.create(some_json)
-    #     print(newname)
-    #     print(
-    #         "#"
-    #         + str(count)
-    #         + " Directory List ID: "
-    #         + str(newid)
-    #         + " Name: "
-    #         + newname,
-    #         flush=True,
-    #     )
-    #     return newname
-
     print("Creating list to tenant 2, if any", flush=True)
     if alldirectory:
-        for count, dirlist in enumerate(alldirectory):
-            namecheck = 1
-            rename = 1
-            oldjson = json.loads(dirlist)
-            oldname = oldjson["name"]
-            while namecheck != -1:
-                try:
-                    newname, oldid = dirlist_api.create(oldjson)
-                    newid = dirlist_api.search(newname)
-                    print(newname)
-                    print(
-                        "#"
-                        + str(count)
-                        + " Directory List ID: "
-                        + str(newid)
-                        + " Name: "
-                        + newname,
-                        flush=True,
-                    )
-                    alldirectorynew.append(str(newid))
-                    namecheck = -1
-                except ApiException as e:
-                    error_json = json.loads(e.body)
-                    if "name already exists" in error_json["message"]:
-                        oldjson["name"] = oldname + " {" + str(rename) + "}"
-                        rename = rename + 1
-                    else:
-                        print(e.body, flush=True)
-                        namecheck = -1
+        alldirectorynew = validate_create(alldirectory, DirectoryListsApiInstance())
     print("new directory list", flush=True)
     print(alldirectorynew, flush=True)
-
     return alldirectorynew
 
 
