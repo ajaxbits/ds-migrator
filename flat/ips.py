@@ -1,5 +1,5 @@
-from functions.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
-from functions.IPSapptypeConfig import (
+from IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
+from IPSapptypeConfig import (
     IPSappGet,
     IPSappDescribe,
     IPSappCustom,

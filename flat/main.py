@@ -5,9 +5,10 @@ import time
 import requests
 import urllib3
 import traceback
-from functions.ListAllPolicy import ListAllPolicy
-from functions.GetPolicy import GetPolicy
-from functions.AddPolicytoT2 import AddPolicy
+import api_config
+from ListAllPolicy import ListAllPolicy
+from GetPolicy import GetPolicy
+from AddPolicytoT2 import AddPolicy
 from ips import ips_rules_transform
 from antimalware import am_config_transform, am_validate_create
 from integrity import im_config_transform
@@ -44,8 +45,6 @@ amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
-    NEW_HOST,
-    NEW_API_KEY,
 )
 
 t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(

@@ -1,20 +1,20 @@
-from functions.DirFileExtRenListTenant1 import (
+from DirFileExtRenListTenant1 import (
     DirListTenant1,
     FileExtensionListTenant1,
     FileListTenant1,
     RenameLists,
 )
-from functions.DirFileExtListTenant2 import (
+from DirFileExtListTenant2 import (
     DirListTenant2,
     FileExtensionListTenant2,
     FileListTenant2,
 )
-from functions.PortListGetT1CreateT2 import PortListGet, PortListCreate
-from functions.MACListGetT1CreateT2 import MacListGet, MacListCreate
-from functions.IPListGetT1CreateT2 import IpListGet, IpListCreate
-from functions.StatefulGetT1CreateT2 import StatefulGet, StatefulCreate
-from functions.ListGetCreateEBT import ListEventTask, GetEventTask, CreateEventTask
-from functions.ListGetCreateST import (
+from PortListGetT1CreateT2 import PortListGet, PortListCreate
+from MACListGetT1CreateT2 import MacListGet, MacListCreate
+from IPListGetT1CreateT2 import IpListGet, IpListCreate
+from StatefulGetT1CreateT2 import StatefulGet, StatefulCreate
+from ListGetCreateEBT import ListEventTask, GetEventTask, CreateEventTask
+from ListGetCreateST import (
     ListScheduledTask,
     GetScheduledTask,
     CreateScheduledTask,
@@ -27,8 +27,6 @@ def directory_listmaker(
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
-    NEW_HOST,
-    NEW_API_KEY,
 ):
     og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
     og_allfileextention = FileExtensionListTenant1(
@@ -39,13 +37,10 @@ def directory_listmaker(
     alldirectory, allfilelist, allfileextention = RenameLists(
         og_alldirectory, og_allfilelist, og_allfileextention
     )
-    print(alldirectory)
 
-    amalldirectorynew = DirListTenant2(alldirectory, NEW_HOST, NEW_API_KEY)
-    amallfileextentionnew = FileExtensionListTenant2(
-        allfileextention, NEW_HOST, NEW_API_KEY
-    )
-    amallfilelistnew = FileListTenant2(allfileextention, NEW_HOST, NEW_API_KEY)
+    amalldirectorynew = DirListTenant2(alldirectory)
+    amallfileextentionnew = FileExtensionListTenant2(allfileextention)
+    amallfilelistnew = FileListTenant2(allfilelist)
 
     return (
         amalldirectorynew,
