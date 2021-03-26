@@ -6,6 +6,8 @@ dist/
 dsm-py-sdk.zip
 sdk/
 ops_tools/
+.envrc
+envrc.bak
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
@@ -160,4 +162,3 @@ Thumbs.db #thumbnail cache on Windows
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 
-.envrc
