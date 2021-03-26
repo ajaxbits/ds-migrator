@@ -1,5 +1,3 @@
-from .functions.ListAllPolicy import ListAllPolicy
-from .functions.GetPolicy import GetPolicy
 from .functions.LIConfig import LIGet, LIDescribe, LICustom, LIReplace
 
 

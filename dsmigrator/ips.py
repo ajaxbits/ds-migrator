@@ -1,5 +1,3 @@
-from .functions.ListAllPolicy import ListAllPolicy
-from .functions.GetPolicy import GetPolicy
 from .functions.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
 from .functions.IPSapptypeConfig import (
     IPSappGet,

@@ -1,5 +1,3 @@
-from .functions.ListAllPolicy import ListAllPolicy
-from .functions.GetPolicy import GetPolicy
 from .functions.FirewallConfig import (
     FirewallGet,
     FirewallDescribe,

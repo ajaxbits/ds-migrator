@@ -6,12 +6,12 @@ import requests
 import urllib3
 import traceback
 from dsmigrator.functions import ListAllPolicy, GetPolicy
-from dsmigrator.ips import ips_rules_transform
-from dsmigrator.antimalware import am_config_transform, am_validate_create
-from dsmigrator.integrity import im_config_transform
-from dsmigrator.loginspection import li_config_transform
-from dsmigrator.firewall import firewall_config_transform
-from dsmigrator.lists import (
+from dsmigrator.functions.ips import ips_rules_transform
+from dsmigrator.functions.antimalware import am_config_transform, am_validate_create
+from dsmigrator.functions.integrity import im_config_transform
+from dsmigrator.functions.loginspection import li_config_transform
+from dsmigrator.functions.firewall import firewall_config_transform
+from dsmigrator.functions.lists import (
     directory_listmaker,
     port_listmaker,
     mac_listmaker,
