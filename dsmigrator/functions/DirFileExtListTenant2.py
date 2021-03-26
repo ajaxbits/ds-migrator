@@ -5,11 +5,13 @@ from time import sleep
 import requests
 import urllib3
 import json
+from .api_config import RestApiConfiguration, DirectoryListsApiInstance
 
 cert = False
 
 
 def DirListTenant2(alldirectory, url_link_final_2, tenant2key):
+
     alldirectorynew = []
     print("Creating list to tenant 2, if any", flush=True)
     if alldirectory:

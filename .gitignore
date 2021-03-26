@@ -8,6 +8,8 @@ sdk/
 ops_tools/
 .envrc
 envrc.bak
+config.json
+dsmigrator/config.json
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python

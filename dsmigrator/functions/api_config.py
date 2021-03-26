@@ -1,9 +1,10 @@
 import json
 import deepsecurity
 
+
 class RestApiConfiguration:
     def __init__(self, overrides=False):
-        user_config = json.load(open("./config.json", "r"))
+        user_config = json.load(open("../config.json", "r"))
         self.configuration = deepsecurity.Configuration()
         self.api_client = deepsecurity.ApiClient(self.configuration)
         self.overrides = overrides
@@ -14,3 +15,7 @@ class RestApiConfiguration:
         self.api_version = "v1"
 
 
+class DirectoryListsApiInstance(RestApiConfiguration):
+    def __init__(self, overrides=False):
+        super().__init__(overrides)
+        self.api_instance = deepsecurity.DirectoryListsApi(self.api_client)
