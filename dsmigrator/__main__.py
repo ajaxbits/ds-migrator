@@ -5,6 +5,8 @@ import time
 import requests
 import urllib3
 import traceback
+import logging
+from datetime import datetime
 import dsmigrator.api_config
 from dsmigrator.ListAllPolicy import ListAllPolicy
 from dsmigrator.GetPolicy import GetPolicy
@@ -115,4 +117,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+    out_file_handler = logging.FileHandler(filename)
+    stdout_handler = logging.StreamHandler(sys.stdout)
+
+    logger.addHandler(out_file_handler)
+    logger.addHandler(stdout_handler)
+
+    logger.debug(main())
