@@ -1,4 +1,4 @@
-from .functions.LIConfig import LIGet, LIDescribe, LICustom, LIReplace
+from functions.LIConfig import LIGet, LIDescribe, LICustom, LIReplace
 
 
 def li_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):

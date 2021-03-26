@@ -1,4 +1,4 @@
-from .functions.FirewallConfig import (
+from functions.FirewallConfig import (
     FirewallGet,
     FirewallDescribe,
     FirewallCustom,

@@ -1,5 +1,12 @@
 import json
 import deepsecurity
+import re
+
+
+def to_snake(camel_case):
+    pattern = re.compile(r"(?<!^)(?=[A-Z])")
+    snake = pattern.sub("_", camel_case).lower()
+    return snake
 
 
 class RestApiConfiguration:
@@ -19,3 +26,11 @@ class DirectoryListsApiInstance(RestApiConfiguration):
     def __init__(self, overrides=False):
         super().__init__(overrides)
         self.api_instance = deepsecurity.DirectoryListsApi(self.api_client)
+
+    def create(self, json_dirlist):
+        dirlist = deepsecurity.DirectoryList()
+        for key in json_dirlist:
+            if not key == "ID":
+                setattr(dirlist, to_snake(key), json_dirlist[key])
+        self.api_instance.create_directory_list(json_dirlist, self.api_version)
+        return dirlist.name, dirlist.id
