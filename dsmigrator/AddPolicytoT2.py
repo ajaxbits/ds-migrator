@@ -8,7 +8,7 @@ import requests
 import urllib3
 import json
 
-from api_config import PolicyApiInstance
+from dsmigrator.api_config import PolicyApiInstance
 
 
 def validate_create(all_old, api_instance, type):
@@ -20,15 +20,12 @@ def validate_create(all_old, api_instance, type):
         oldjson = json.loads(dirlist)
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
-        print(oldid)
         while namecheck != -1:
-            print(id_dict)
             if "parentID" in oldjson.keys():
                 oldjson["parentID"] = id_dict[oldjson["parentID"]]
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname)
-                print(newid)
                 id_dict[oldid] = newid
                 print(newname)
                 print(

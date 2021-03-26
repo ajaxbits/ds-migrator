@@ -1,20 +1,20 @@
-from functions.DirFileExtRenListTenant1 import (
+from dsmigrator.DirFileExtRenListTenant1 import (
     DirListTenant1,
     FileExtensionListTenant1,
     FileListTenant1,
     RenameLists,
 )
-from functions.DirFileExtListTenant2 import (
+from dsmigrator.DirFileExtListTenant2 import (
     DirListTenant2,
     FileExtensionListTenant2,
     FileListTenant2,
 )
-from functions.PortListGetT1CreateT2 import PortListGet, PortListCreate
-from functions.MACListGetT1CreateT2 import MacListGet, MacListCreate
-from functions.IPListGetT1CreateT2 import IpListGet, IpListCreate
-from functions.StatefulGetT1CreateT2 import StatefulGet, StatefulCreate
-from functions.ListGetCreateEBT import ListEventTask, GetEventTask, CreateEventTask
-from functions.ListGetCreateST import (
+from dsmigrator.PortListGetT1CreateT2 import PortListGet, PortListCreate
+from dsmigrator.MACListGetT1CreateT2 import MacListGet, MacListCreate
+from dsmigrator.IPListGetT1CreateT2 import IpListGet, IpListCreate
+from dsmigrator.StatefulGetT1CreateT2 import StatefulGet, StatefulCreate
+from dsmigrator.ListGetCreateEBT import ListEventTask, GetEventTask, CreateEventTask
+from dsmigrator.ListGetCreateST import (
     ListScheduledTask,
     GetScheduledTask,
     CreateScheduledTask,
@@ -23,32 +23,28 @@ from functions.ListGetCreateST import (
 
 def directory_listmaker(
     amdirectorylist,
-    amfileextentionlist,
+    amfileextensionlist,
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
-    NEW_HOST,
-    NEW_API_KEY,
 ):
     og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
-    og_allfileextention = FileExtensionListTenant1(
-        amfileextentionlist, OLD_HOST, OLD_API_KEY
+    og_allfileextension = FileExtensionListTenant1(
+        amfileextensionlist, OLD_HOST, OLD_API_KEY
     )
     og_allfilelist = FileListTenant1(amfilelist, OLD_HOST, OLD_API_KEY)
 
-    alldirectory, allfilelist, allfileextention = RenameLists(
-        og_alldirectory, og_allfilelist, og_allfileextention
+    alldirectory, allfilelist, allfileextension = RenameLists(
+        og_alldirectory, og_allfilelist, og_allfileextension
     )
 
-    amalldirectorynew = DirListTenant2(alldirectory, NEW_HOST, NEW_API_KEY)
-    amallfileextentionnew = FileExtensionListTenant2(
-        allfileextention, NEW_HOST, NEW_API_KEY
-    )
-    amallfilelistnew = FileListTenant2(allfileextention, NEW_HOST, NEW_API_KEY)
+    amalldirectorynew = DirListTenant2(alldirectory)
+    amallfileextensionnew = FileExtensionListTenant2(allfileextension)
+    amallfilelistnew = FileListTenant2(allfilelist)
 
     return (
         amalldirectorynew,
-        amallfileextentionnew,
+        amallfileextensionnew,
         amallfilelistnew,
     )
 

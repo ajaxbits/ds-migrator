@@ -1,9 +1,9 @@
-from api_config import (
+from dsmigrator.api_config import (
     DirectoryListsApiInstance,
     FileListsApiInstance,
     FileExtensionListsApiInstance,
 )
-from migrator_utils import validate_create
+from dsmigrator.migrator_utils import validate_create
 
 
 def DirListTenant2(alldirectory):

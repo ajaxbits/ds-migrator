@@ -1,5 +1,5 @@
-from functions.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
-from functions.IPSapptypeConfig import (
+from dsmigrator.IPSConfig import IPSGet, IPSDescribe, IPSCustom, IPSReplace
+from dsmigrator.IPSapptypeConfig import (
     IPSappGet,
     IPSappDescribe,
     IPSappCustom,
