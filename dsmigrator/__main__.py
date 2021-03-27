@@ -27,7 +27,9 @@ from dsmigrator.lists import (
 )
 
 
-def main():
+def main(verify=False):
+    if verify == False:
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     OLD_API_KEY = os.environ.get("OLD_API_KEY")
     OLD_HOST = os.environ.get("OLD_HOST")
     NEW_API_KEY = os.environ.get("NEW_API_KEY")
