@@ -8,9 +8,7 @@ import traceback
 import logging
 from datetime import datetime
 import dsmigrator.api_config
-from dsmigrator.ListAllPolicy import ListAllPolicy
-from dsmigrator.GetPolicy import GetPolicy
-from dsmigrator.AddPolicytoT2 import AddPolicy
+from dsmigrator.policies import ListAllPolicy, GetPolicy, AddPolicy
 from dsmigrator.ips import ips_rules_transform
 from dsmigrator.antimalware import am_config_transform, am_validate_create
 from dsmigrator.integrity import im_config_transform
@@ -120,9 +118,9 @@ def main(verify=False):
 
 if __name__ == "__main__":
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+    filename = datetime.now().strftime("migrator_log_%H_%M_%d_%m_%Y.txt")
     out_file_handler = logging.FileHandler(filename)
+    out_file_handler.setLevel(logging.DEBUG)
     stdout_handler = logging.StreamHandler(sys.stdout)
 
     logger.addHandler(out_file_handler)
