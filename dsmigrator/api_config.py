@@ -161,3 +161,10 @@ class PolicyApiInstance(RestApiConfiguration):
         self.api_instance.modify_policy(
             id, policy, self.api_version, overrides=self.overrides
         )
+
+    def modify_real_time_id(self, id, newid):
+        policy = deepsecurity.Policy()
+        policy.anti_malware.real_time_scan_configuration_id = newid
+        self.api_instance.modify_policy(
+            id, policy, self.api_version, overrides=self.overrides
+        )
