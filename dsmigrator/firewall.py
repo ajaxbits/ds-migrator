@@ -249,8 +249,6 @@ def FirewallDescribe(
         else:
             print(describe, flush=True)
             print(payload, flush=True)
-    # print("Tenant 2 default firewall rules")
-    # print(allfirewallruleidnew1)
     print("Done!", flush=True)
     return (
         allfirewallrule,

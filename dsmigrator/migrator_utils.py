@@ -46,5 +46,3 @@ def validate_create(all_old, api_instance, type):
                     print(e.body, flush=True)
                     namecheck = -1
     return all_new
-
-    manual

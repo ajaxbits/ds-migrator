@@ -50,7 +50,7 @@ class DirectoryListsApiInstance(RestApiConfiguration):
         for key in json_dirlist:
             if not key == "ID":
                 setattr(dirlist, to_snake(key), json_dirlist[key])
-        self.api_instance.create_directory_list(json_dirlist, self.api_version)
+        self.api_instance.create_directory_list(dirlist, self.api_version)
         return dirlist.name
 
 
@@ -72,7 +72,7 @@ class FileExtensionListsApiInstance(RestApiConfiguration):
         for key in json_extlist:
             if not key == "ID":
                 setattr(extlist, to_snake(key), json_extlist[key])
-        self.api_instance.create_file_extension_list(json_extlist, self.api_version)
+        self.api_instance.create_file_extension_list(extlist, self.api_version)
         return extlist.name
 
 
@@ -92,7 +92,7 @@ class FileListsApiInstance(RestApiConfiguration):
         for key in json_filelist:
             if not key == "ID":
                 setattr(filelist, to_snake(key), json_filelist[key])
-        self.api_instance.create_file_list(json_filelist, self.api_version)
+        self.api_instance.create_file_list(filelist, self.api_version)
         return filelist.name
 
 
@@ -112,7 +112,7 @@ class AMConfigApiInstance(RestApiConfiguration):
         for key in json:
             if not key == "ID":
                 setattr(list, to_snake(key), json[key])
-        self.api_instance.create_anti_malware(json, self.api_version)
+        self.api_instance.create_anti_malware(list, self.api_version)
         return list.name
 
 
@@ -132,7 +132,7 @@ class FirewallApiInstance(RestApiConfiguration):
         for key in json:
             if not key == "ID":
                 setattr(object, to_snake(key), json[key])
-        self.api_instance.create_firewall_rule(json, self.api_version)
+        self.api_instance.create_firewall_rule(object, self.api_version)
         return object.name
 
 

@@ -90,6 +90,7 @@ def main(verify=False):
         NEW_HOST,
         NEW_API_KEY,
     )
+    # print(allofpolicy[1])
     allofpolicy = am_validate_create(
         allofpolicy,
         antimalwareconfig,
@@ -103,13 +104,13 @@ def main(verify=False):
         NEW_HOST,
         NEW_API_KEY,
     )
+    # print(allofpolicy[1])
     allofpolicy = im_config_transform(
         og_allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    print(t1portlistid, t2portlistid)
     allofpolicy = firewall_config_transform(
         allofpolicy,
         t1iplistid,
