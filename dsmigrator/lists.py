@@ -77,11 +77,20 @@ def ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     allet, nameet = GetEventTask(etIDs, OLD_HOST, OLD_API_KEY)
     CreateEventTask(allet, nameet, NEW_HOST, NEW_API_KEY)
 
-
 def st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     enum_oldstname, stIDs = ListScheduledTask(OLD_HOST, OLD_API_KEY)
     allst, namest = GetScheduledTask(stIDs, OLD_HOST, OLD_API_KEY)
     CreateScheduledTask(allst, namest, NEW_HOST, NEW_API_KEY)
+
+def context_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    t1contextall, t1contextname, t1contextid = ContextGet(OLD_HOST, OLD_API_KEY)
+    t2contextid = ContextCreate(t1contextall, t1contextname, NEW_HOST, NEW_API_KEY)
+    return t1contextid, t2contextid
+
+def schedule_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    t1scheduleall, t1schedulename, t1scheduleid= ScheduleGet(OLD_HOST, OLD_API_KEY)
+    t2scheduleid= ScheduleCreate(t1scheduleall, t1schedulename, NEW_HOST, NEW_API_KEY)
+    return t1scheduleid, t2scheduleid
 
 
 def DirListTenant1(directorylist, url_link_final, tenant1key):
@@ -216,7 +225,6 @@ def PortListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
     namejson = json.loads(describe)
     for count, here in enumerate(namejson["portLists"]):
         t1portlistall.append(str(json.dumps(here)))
@@ -863,3 +871,164 @@ def CreateScheduledTask(allst, namest, url_link_final_2, tenant2key):
             else:
                 print(describe, flush=True)
                 print(payload, flush=True)
+
+def ContextGet(url_link_final, tenant1key):
+    t1contextall = []
+    t1contextname = []
+    t1contextid = []
+    print("Getting All Context Configuration...", flush=True)
+    payload  = {}
+    url = url_link_final + 'api/contexts'
+    headers = {
+        "api-secret-key": tenant1key,
+        "api-version": "v1",
+        "Content-Type": "application/json",
+    }
+    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    describe = str(response.text)
+    describe2 = str(response.text)
+    namejson = json.loads(describe)
+    for count, here in enumerate(namejson['contexts']):
+        t1contextall.append(str(json.dumps(here)))
+        t1contextname.append(str(here['name']))
+        print("#" + str(count) + " Context Config name: " + str(here['name']), flush=True)
+        t1contextid.append(str(here['ID']))
+        print("#" + str(count) + " Context Config ID: " + str(here['ID']), flush=True)
+
+    #print(t1contextid)
+    print("Done", flush=True)
+    return t1contextall, t1contextname, t1contextid
+
+def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
+    t2contextid = []
+    print("Transfering All Context Configuration...", flush=True)
+    if t1contextname:
+        for count, dirlist in enumerate(t1contextname):
+            payload = "{\"searchCriteria\": [{\"fieldName\": \"name\",\"stringValue\": \"" + dirlist + "\"}]}"
+            url = url_link_final_2 + 'api/contexts/search'
+            headers = {
+            "api-secret-key": tenant2key,
+            "api-version": "v1",
+            "Content-Type": "application/json",
+            }
+            response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+            describe = str(response.text)
+            taskjson = json.loads(describe)
+            if not 'message' in taskjson:
+                if taskjson['contexts']:
+                    for here in taskjson['contexts']:
+                        indexid = here['ID']
+                        payload = t1contextall[count]
+                        url = url_link_final_2 + 'api/contexts/' + str(indexid)
+                        headers = {
+                        "api-secret-key": tenant2key,
+                        "api-version": "v1",
+                        "Content-Type": "application/json",
+                        }
+                        response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+                        describe = str(response.text)
+                        taskjson1 = json.loads(describe)
+                        t2contextid.append(str(taskjson1['ID']))
+                        print("#" + str(count) + " Context Config name: " + taskjson1['name'], flush=True)
+                        print("#" + str(count) + " Context Config ID: " + str(taskjson1['ID']), flush=True)
+                else:
+                    payload = t1contextall[count]
+                    url = url_link_final_2 + 'api/contexts'
+                    headers = {
+                    "api-secret-key": tenant2key,
+                    "api-version": "v1",
+                    "Content-Type": "application/json",
+                    }
+                    response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+                    describe = str(response.text)
+                    taskjson = json.loads(describe)
+                    t2contextid.append(str(taskjson['ID']))
+                    print("#" + str(count) + " Context Config name: " + taskjson['name'], flush=True)
+                    print("#" + str(count) + " Context Config ID: " + str(taskjson['ID']), flush=True)
+            else:
+                print(describe, flush=True)
+                print(payload, flush=True)
+    #print(t2contextid)
+    print("Done!", flush=True)
+    return t2contextid
+
+def ScheduleGet(url_link_final, tenant1key):
+    t1scheduleall = []
+    t1schedulename = []
+    t1scheduleid = []
+    print("Getting All Schedule Configuration...", flush=True)
+    payload  = {}
+    url = url_link_final + 'api/schedules'
+    headers = {
+        "api-secret-key": tenant1key,
+        "api-version": "v1",
+        "Content-Type": "application/json",
+    }
+    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    describe = str(response.text)
+    describe2 = str(response.text)
+    namejson = json.loads(describe)
+    for count, here in enumerate(namejson['schedules']):
+        t1scheduleall.append(str(json.dumps(here)))
+        t1schedulename.append(str(here['name']))
+        print("#" + str(count) + " Schedule Config name: " + str(here['name']), flush=True)
+        t1scheduleid.append(str(here['ID']))
+        print("#" + str(count) + " Schedule Config ID: " + str(here['ID']), flush=True)
+
+    #print(t1scheduleid)
+    print("Done", flush=True)
+    return t1scheduleall, t1schedulename, t1scheduleid
+
+def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
+    t2scheduleid = []
+    print("Transfering All Schedule Configuration...", flush=True)
+    if t1schedulename:
+        for count, dirlist in enumerate(t1schedulename):
+            payload = "{\"searchCriteria\": [{\"fieldName\": \"name\",\"stringValue\": \"" + dirlist + "\"}]}"
+            url = url_link_final_2 + 'api/schedules/search'
+            headers = {
+            "api-secret-key": tenant2key,
+            "api-version": "v1",
+            "Content-Type": "application/json",
+            }
+            response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+            describe = str(response.text)
+            taskjson = json.loads(describe)
+            if not 'message' in taskjson:
+                if taskjson['schedules']:
+                    for here in taskjson['schedules']:
+                        indexid = here['ID']
+                        payload = t1scheduleall[count]
+                        url = url_link_final_2 + 'api/schedules/' + str(indexid)
+                        headers = {
+                        "api-secret-key": tenant2key,
+                        "api-version": "v1",
+                        "Content-Type": "application/json",
+                        }
+                        response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+                        describe = str(response.text)
+                        taskjson1 = json.loads(describe)
+                        t2scheduleid.append(str(taskjson1['ID']))
+                        print("#" + str(count) + " Schedule Config name: " + taskjson1['name'], flush=True)
+                        print("#" + str(count) + " Schedule Config ID: " + str(taskjson1['ID']), flush=True)
+                else:
+                    payload = t1scheduleall[count]
+                    url = url_link_final_2 + 'api/schedules'
+                    headers = {
+                    "api-secret-key": tenant2key,
+                    "api-version": "v1",
+                    "Content-Type": "application/json",
+                    }
+                    response = requests.request("POST", url, headers=headers, data=payload, verify=cert)
+                    describe = str(response.text)
+                    taskjson = json.loads(describe)
+                    t2scheduleid.append(str(taskjson['ID']))
+                    print("#" + str(count) + " Schedule Config name: " + taskjson['name'], flush=True)
+                    print("#" + str(count) + " Schedule Config ID: " + str(taskjson['ID']), flush=True)
+            else:
+                print(describe, flush=True)
+                print(payload, flush=True)
+    #print(t2scheduleid)
+    print("Done!", flush=True)
+    return t2scheduleid
+

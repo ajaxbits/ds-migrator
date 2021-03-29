@@ -8,6 +8,7 @@ OLD_HOST = os.environ.get("OLD_HOST")
 NEW_API_KEY = os.environ.get("NEW_API_KEY")
 NEW_HOST = os.environ.get("NEW_HOST")
 
+
 def validate_create(all_old, api_instance, type):
     all_new = []
     for count, dirlist in enumerate(all_old):
@@ -45,3 +46,5 @@ def validate_create(all_old, api_instance, type):
                     print(e.body, flush=True)
                     namecheck = -1
     return all_new
+
+    manual

@@ -9,6 +9,10 @@ def ips_rules_transform(
     allofpolicy,
     t1portlistid,
     t2portlistid,
+    t1scheduleid,
+    t2scheduleid,
+    t1contextid,
+    t2contextid,
     OLD_HOST,
     OLD_API_KEY,
     NEW_HOST,
@@ -36,6 +40,10 @@ def ips_rules_transform(
         allipsappidnew2,
         allipsappidold,
         allipscustomapp,
+        t1scheduleid,
+        t2scheduleid,
+        t1contextid,
+        t2contextid,
         OLD_HOST,
         OLD_API_KEY,
         NEW_HOST,
@@ -290,6 +298,7 @@ def IPSDescribe(
     allipsappidnew2,
     allipsappidold,
     allipscustomapp,
+    t1scheduleid, t2scheduleid, t1contextid, t2contextid,
     url_link_final,
     tenant1key,
     url_link_final_2,
@@ -340,6 +349,14 @@ def IPSDescribe(
                         indexid5 = describe[index3 : index3 + 17 + endIndex3]
                         listpart = indexid5.replace(indexid1, replaceid)
                         allipsrule[count] = describe.replace(indexid5, listpart)
+            ipsjson = json.loads(allipsrule[count])
+            if 'scheduleID' in ipsjson:
+                indexnum = t1scheduleid.index(str(ipsjson['scheduleID']))
+                ipsjson['scheduleID'] = t2scheduleid[indexnum]
+            if 'contextID' in ipsjson:
+                indexnum = t1contextid.index(str(ipsjson['contextID']))
+                ipsjson['contextID'] = t2contextid[indexnum]
+            allipsrule[count] = json.dumps(ipsjson)
             print("#" + str(count) + " IPS rule ID: " + dirlist, flush=True)
     print("Done!", flush=True)
     print("Searching and Modifying IPS rule in Tenant 2...", flush=True)

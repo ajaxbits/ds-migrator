@@ -22,6 +22,8 @@ from dsmigrator.lists import (
     stateful_listmaker,
     ebt_listmaker,
     st_listmaker,
+    context_listmaker,
+    schedule_listmaker,
 )
 
 
@@ -64,6 +66,12 @@ def main(verify=False):
     t1statefulall, t1statefulname, t1statefulid, t2statefulid = stateful_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    t1contextid, t2contextid = context_listmaker(
+        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
+    t1scheduleid, t2scheduleid = schedule_listmaker(
+        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
 
     ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
@@ -73,30 +81,35 @@ def main(verify=False):
         og_allofpolicy,
         t1portlistid,
         t2portlistid,
+        t1scheduleid,
+        t2scheduleid,
+        t1contextid,
+        t2contextid,
         OLD_HOST,
         OLD_API_KEY,
         NEW_HOST,
         NEW_API_KEY,
     )
-    # allofpolicy = am_validate_create(
-    #     allofpolicy,
-    #     antimalwareconfig,
-    #     allamconfig,
-    #     amdirectorylist,
-    #     amalldirectorynew,
-    #     amfileextensionlist,
-    #     amallfileextentionnew,
-    #     amfilelist,
-    #     amallfilelistnew,
-    #     NEW_HOST,
-    #     NEW_API_KEY,
-    # )
+    allofpolicy = am_validate_create(
+        allofpolicy,
+        antimalwareconfig,
+        allamconfig,
+        amdirectorylist,
+        amalldirectorynew,
+        amfileextensionlist,
+        amallfileextentionnew,
+        amfilelist,
+        amallfilelistnew,
+        NEW_HOST,
+        NEW_API_KEY,
+    )
     allofpolicy = im_config_transform(
         og_allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    print(t1portlistid, t2portlistid)
     allofpolicy = firewall_config_transform(
         allofpolicy,
         t1iplistid,
@@ -107,6 +120,10 @@ def main(verify=False):
         t2portlistid,
         t1statefulid,
         t2statefulid,
+        t1scheduleid,
+        t2scheduleid,
+        t1contextid,
+        t2contextid,
         OLD_HOST,
         OLD_API_KEY,
         NEW_HOST,
@@ -118,7 +135,7 @@ def main(verify=False):
 
 if __name__ == "__main__":
     logger = logging.getLogger()
-    filename = datetime.now().strftime("migrator_log_%H_%M_%d_%m_%Y.txt")
+    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     out_file_handler = logging.FileHandler(filename)
     out_file_handler.setLevel(logging.DEBUG)
     stdout_handler = logging.StreamHandler(sys.stdout)

@@ -19,6 +19,10 @@ def firewall_config_transform(
     t2portlistid,
     t1statefulid,
     t2statefulid,
+    t1scheduleid,
+    t2scheduleid,
+    t1contextid,
+    t2contextid,
     OLD_HOST,
     OLD_API_KEY,
     NEW_HOST,
@@ -38,6 +42,10 @@ def firewall_config_transform(
         t2maclistid,
         t1portlistid,
         t2portlistid,
+        t1scheduleid,
+        t2scheduleid,
+        t1contextid,
+        t2contextid,
         OLD_HOST,
         OLD_API_KEY,
         NEW_HOST,
@@ -87,6 +95,10 @@ def FirewallDescribe(
     t2maclistid,
     t1portlistid,
     t2portlistid,
+    t1scheduleid,
+    t2scheduleid,
+    t1contextid,
+    t2contextid,
     url_link_final,
     tenant1key,
     url_link_final_2,
@@ -123,78 +135,33 @@ def FirewallDescribe(
     print("Done!", flush=True)
     print("Replacing firewall rule IDs configuration in tenant 2...", flush=True)
     for count, describe in enumerate(allfirewallrule):
-        index3 = describe.find("sourceIPListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 14 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 14 + endIndex3]
-                    indexnum = t1iplistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2iplistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
-        index3 = describe.find("sourceMACListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 15 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 15 + endIndex3]
-                    indexnum = t1maclistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2maclistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
-        index3 = describe.find("sourcePortListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 16 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 16 + endIndex3]
-                    indexnum = t1portlistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2portlistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
-        index3 = describe.find("destinationIPListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 19 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 19 + endIndex3]
-                    indexnum = t1iplistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2iplistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
-        index3 = describe.find("destinationMACListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 20 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 20 + endIndex3]
-                    indexnum = t1maclistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2maclistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
-        index3 = describe.find("destinationPortListID")
-        if index3 != -1:
-            indexpart = describe[index3 + 21 :]
-            startIndex = indexpart.find(":")
-            if startIndex != -1:  # i.e. if the first quote was found
-                endIndex3 = indexpart.find(",", startIndex + 1)
-                if startIndex != -1 and endIndex3 != -1:  # i.e. both quotes were found
-                    indexid1 = indexpart[startIndex + 1 : endIndex3]
-                    indexid5 = describe[index3 : index3 + 21 + endIndex3]
-                    indexnum = t1portlistid.index(indexid1)
-                    listpart = indexid5.replace(indexid1, t2portlistid[indexnum])
-                    describe = describe.replace(indexid5, listpart)
+        firewalljson = json.loads(describe)
+        if "scheduleID" in firewalljson:
+            indexnum = t1scheduleid.index(str(firewalljson["scheduleID"]))
+            firewalljson["scheduleID"] = t2scheduleid[indexnum]
+        if "contextID" in firewalljson:
+            indexnum = t1contextid.index(str(firewalljson["contextID"]))
+            firewalljson["contextID"] = t2contextid[indexnum]
+        if "sourceIPListID" in firewalljson:
+            indexnum = t1iplistid.index(str(firewalljson["sourceIPListID"]))
+            firewalljson["sourceIPListID"] = t2iplistid[indexnum]
+        if "sourceMACListID" in firewalljson:
+            indexnum = t1maclistid.index(str(firewalljson["sourceMACListID"]))
+            firewalljson["sourceMACListID"] = t2maclistid[indexnum]
+        if "sourcePortListID" in firewalljson:
+            print(t1portlistid)
+            indexnum = t1portlistid.index(str(firewalljson["sourcePortListID"]))
+            firewalljson["sourcePortListID"] = t2portlistid[indexnum]
+        if "destinationIPListID" in firewalljson:
+            indexnum = t1iplistid.index(str(firewalljson["destinationIPListID"]))
+            firewalljson["destinationIPListID"] = t2iplistid[indexnum]
+        if "destinationMACListID" in firewalljson:
+            indexnum = t1maclistid.index(str(firewalljson["destinationMACListID"]))
+            firewalljson["destinationMACListID"] = t2maclistid[indexnum]
+        if "destinationPortListID" in firewalljson:
+            indexnum = t1portlistid.index(str(firewalljson["destinationPortListID"]))
+            firewalljson["destinationPortListID"] = t2portlistid[indexnum]
+        describe = json.dumps(firewalljson)
         allfirewallrule[count] = describe
     for count, dirlist in enumerate(allfirewallrulename):
         payload = (
