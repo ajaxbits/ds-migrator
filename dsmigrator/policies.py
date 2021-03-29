@@ -97,6 +97,7 @@ def validate_create(all_old, api_instance, type):
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
         while namecheck != -1:
+            print(oldjson)
             if "parentID" in oldjson.keys():
                 oldjson["parentID"] = id_dict[oldjson["parentID"]]
             try:

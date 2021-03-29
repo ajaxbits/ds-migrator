@@ -10,6 +10,7 @@ ops_tools/
 envrc.bak
 config.json
 dsmigrator/config.json
+*.bak
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
