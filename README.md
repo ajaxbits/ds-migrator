@@ -5,6 +5,9 @@ Moves settings to the cloud.... at some point
 Please do some code review if you want :)
 
 ## To Set Up MVP
+
+(Python3 only, has only been tested on =>3.7, so your mileage may vary)
+
 1. Install the `.whl` file from the [releases page](https://github.com/beattheprose/ds-migrator/releases)
 2. Run `pip install </path/to/.whl>`
 3. Set the following environment variables: 
