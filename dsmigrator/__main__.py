@@ -78,19 +78,19 @@ def main(verify=False):
         NEW_HOST,
         NEW_API_KEY,
     )
-    allofpolicy = am_validate_create(
-        allofpolicy,
-        antimalwareconfig,
-        allamconfig,
-        amdirectorylist,
-        amalldirectorynew,
-        amfileextensionlist,
-        amallfileextentionnew,
-        amfilelist,
-        amallfilelistnew,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
+    # allofpolicy = am_validate_create(
+    #     allofpolicy,
+    #     antimalwareconfig,
+    #     allamconfig,
+    #     amdirectorylist,
+    #     amalldirectorynew,
+    #     amfileextensionlist,
+    #     amallfileextentionnew,
+    #     amfilelist,
+    #     amallfilelistnew,
+    #     NEW_HOST,
+    #     NEW_API_KEY,
+    # )
     allofpolicy = im_config_transform(
         og_allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )

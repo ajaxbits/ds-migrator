@@ -8,6 +8,7 @@ import requests
 import urllib3
 import json
 from dsmigrator.api_config import PolicyApiInstance
+from rich import print
 
 cert = False
 
@@ -97,14 +98,14 @@ def validate_create(all_old, api_instance, type):
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
         while namecheck != -1:
-            print(oldjson)
             if "parentID" in oldjson.keys():
-                oldjson["parentID"] = id_dict[oldjson["parentID"]]
+                newparentid = id_dict[oldjson["parentID"]]
             try:
                 newname = api_instance.create(oldjson)
-                newid = api_instance.search(newname)
+                newid = api_instance.search(newname).id
                 id_dict[oldid] = newid
-                print(newname)
+                if "parentID" in oldjson.keys():
+                    api_instance.modify_parent(newid, newparentid)
                 print(
                     "#"
                     + str(count)
@@ -127,7 +128,13 @@ def validate_create(all_old, api_instance, type):
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    print(e.body, flush=True)
+                    print(e.body)
+                    print(
+                        f"[bold bright_red]WARNING[/bold bright_red]: {oldname} could not be transferred. Please transfer manually."
+                    )
+                    print(
+                        "[i]NOTE: This is under construction and will work soon. :)[/i]"
+                    )
                     namecheck = -1
     return all_new
 

@@ -145,19 +145,19 @@ class PolicyApiInstance(RestApiConfiguration):
         filter = self.name_search_filter(name)
         results = self.api_instance.search_policies("v1", search_filter=filter)
         if results.policies:
-            return results.policies[0].id
+            return results.policies[0]
 
     def create(self, json):
-        object = deepsecurity.Policy()
+        policy = deepsecurity.Policy()
         for key in json:
             if not key == "ID":
-                setattr(object, to_snake(key), json[key])
-        self.api_instance.create_policy(json, self.api_version)
-        return object.name
+                setattr(policy, to_snake(key), json[key])
+        self.api_instance.create_policy(policy, self.api_version)
+        return policy.name
 
     def modify_parent(self, id, newparentid):
         policy = deepsecurity.Policy()
-        policy.parentID = newparentid
+        policy.parent_id = newparentid
         self.api_instance.modify_policy(
             id, policy, self.api_version, overrides=self.overrides
         )

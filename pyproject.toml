@@ -15,6 +15,7 @@ deep-security-api = "^20.0.60"
 click = "^7.1.2"
 zeep = "^4.0.0"
 requests = "^2.25.1"
+rich = "^10.0.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.2"
