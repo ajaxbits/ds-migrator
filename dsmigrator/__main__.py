@@ -53,6 +53,7 @@ def main(verify=False):
         OLD_HOST,
         OLD_API_KEY,
     )
+    print(amalldirectorynew, amallfileextentionnew, amallfilelistnew)
 
     t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
@@ -135,13 +136,14 @@ def main(verify=False):
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger()
-    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-    out_file_handler = logging.FileHandler(filename)
-    out_file_handler.setLevel(logging.DEBUG)
-    stdout_handler = logging.StreamHandler(sys.stdout)
+    main()
+    # logger = logging.getLogger()
+    # filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+    # out_file_handler = logging.FileHandler(filename)
+    # out_file_handler.setLevel(logging.DEBUG)
+    # stdout_handler = logging.StreamHandler(sys.stdout)
 
-    logger.addHandler(out_file_handler)
-    logger.addHandler(stdout_handler)
+    # logger.addHandler(out_file_handler)
+    # logger.addHandler(stdout_handler)
 
-    logger.debug(main())
+    # logger.debug(main())
