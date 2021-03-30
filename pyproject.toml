@@ -20,6 +20,8 @@ rich = "^10.0.0"
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.2"
 black = "^20.8b1"
+pdbpp = "^0.10.2"
+nose2 = "^0.10.0"
 
 [tool.poetry.scripts]
 dsmg = 'dsmigrator.__main__:main'
