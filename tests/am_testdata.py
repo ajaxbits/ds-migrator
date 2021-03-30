@@ -3,6 +3,7 @@ initial_directorylist = ["1"]
 initial_fileextensionlist = ["2"]
 initial_filelist = ["1", "2"]
 initial_allamconfignew = ["241", "242", "243", "244"]
+test_allamconfigdict = {0: 0, 4: 241, 1: 242, 2: 243, 3: 244}
 initial_amalldirectorynew = ["131"]
 initial_amallfileextensionnew = ["93"]
 initial_amallfilelistnew = ["168", "169"]
