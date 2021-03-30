@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dsmigrator"
-version = "0.0.1"
+version = "0.1.0"
 description = ""
 authors = ["Alex Jackson <alex_jackson@trendmicro.com>"]
 license = "GPLv3"
