@@ -1,6 +1,7 @@
 import os
 import sys
 import datetime
+import deepsecurity
 import time
 import requests
 import urllib3
@@ -28,6 +29,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
 )
 import yaml
+
 
 # override the click invoke method
 def CommandWithConfigFile(config_file_param_name):
@@ -124,6 +126,7 @@ def main(
         amfilelist,
         OLD_HOST,
         OLD_API_KEY,
+        NEW_API_KEY,
     )
 
     t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(
@@ -204,10 +207,11 @@ def main(
         NEW_API_KEY,
     )
 
-    AddPolicy(allofpolicy)
+    AddPolicy(allofpolicy, NEW_API_KEY)
 
 
 if __name__ == "__main__":
+
     logger = logging.getLogger()
     filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     out_file_handler = logging.FileHandler(filename)

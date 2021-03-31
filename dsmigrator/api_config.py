@@ -3,12 +3,6 @@ import deepsecurity
 import re
 import os
 
-OLD_API_KEY = os.environ.get("OLD_API_KEY")
-OLD_HOST = os.environ.get("OLD_HOST")
-NEW_API_KEY = os.environ.get("NEW_API_KEY")
-NEW_HOST = os.environ.get("NEW_HOST")
-cert = False
-
 
 def to_snake(camel_case):
     pattern = re.compile(r"(?<!^)(?=[A-Z])")
@@ -17,12 +11,13 @@ def to_snake(camel_case):
 
 
 class RestApiConfiguration:
-    def __init__(self, overrides=False):
-        # user_config = json.load(open("../config.json", "r"))
+    def __init__(
+        self, NEW_API_KEY, NEW_HOST="https://cloudone.trendmicro.com", overrides=False
+    ):
         self.configuration = deepsecurity.Configuration()
         self.api_client = deepsecurity.ApiClient(self.configuration)
         self.overrides = overrides
-        self.configuration.host = f"{NEW_HOST}/api"
+        self.configuration.host = "https://cloudone.trendmicro.com/api"
         self.configuration.api_key["api-secret-key"] = NEW_API_KEY
         self.api_version = "v1"
 
@@ -35,8 +30,8 @@ class RestApiConfiguration:
 
 
 class DirectoryListsApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.DirectoryListsApi(self.api_client)
 
     def search(self, name):
@@ -55,8 +50,8 @@ class DirectoryListsApiInstance(RestApiConfiguration):
 
 
 class FileExtensionListsApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.FileExtensionListsApi(self.api_client)
 
     def search(self, name):
@@ -77,8 +72,8 @@ class FileExtensionListsApiInstance(RestApiConfiguration):
 
 
 class FileListsApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.FileListsApi(self.api_client)
 
     def search(self, name):
@@ -97,8 +92,8 @@ class FileListsApiInstance(RestApiConfiguration):
 
 
 class AMConfigApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.AntiMalwareConfigurationsApi(self.api_client)
 
     def search(self, name):
@@ -117,8 +112,8 @@ class AMConfigApiInstance(RestApiConfiguration):
 
 
 class FirewallApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.FirewallRulesApi(self.api_client)
 
     def search(self, name):
@@ -137,8 +132,8 @@ class FirewallApiInstance(RestApiConfiguration):
 
 
 class PolicyApiInstance(RestApiConfiguration):
-    def __init__(self, overrides=False):
-        super().__init__(overrides)
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
         self.api_instance = deepsecurity.PoliciesApi(self.api_client)
 
     def search(self, name):

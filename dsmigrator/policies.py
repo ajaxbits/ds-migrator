@@ -143,7 +143,7 @@ def validate_create(all_old, api_instance, type):
 cert = False
 
 
-def AddPolicy(allofpolicy):
+def AddPolicy(allofpolicy, NEW_API_KEY):
     print("Creating Policy to Tenant 2 with new ID", flush=True)
     if allofpolicy:
-        validate_create(allofpolicy, PolicyApiInstance(), "policy")
+        validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")

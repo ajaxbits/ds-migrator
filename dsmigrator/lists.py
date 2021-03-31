@@ -21,6 +21,7 @@ def directory_listmaker(
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
+    NEW_API_KEY
 ):
     og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
     og_allfileextension = FileExtensionListTenant1(
@@ -32,9 +33,9 @@ def directory_listmaker(
         og_alldirectory, og_allfilelist, og_allfileextension
     )
 
-    amalldirectorynew = DirListTenant2(alldirectory)
-    amallfileextensionnew = FileExtensionListTenant2(allfileextension)
-    amallfilelistnew = FileListTenant2(allfilelist)
+    amalldirectorynew = DirListTenant2(alldirectory, NEW_API_KEY)
+    amallfileextensionnew = FileExtensionListTenant2(allfileextension, NEW_API_KEY)
+    amallfilelistnew = FileListTenant2(allfilelist, NEW_API_KEY)
 
     return (
         amalldirectorynew,
@@ -180,34 +181,34 @@ def RenameLists(alldirectory, allfilelist, allfileextention):
     return alldirectory, allfilelist, allfileextention
 
 
-def DirListTenant2(alldirectory):
+def DirListTenant2(alldirectory, NEW_API_KEY):
     print("Creating directory list in tenant 2, if any", flush=True)
     alldirectorynew=[]
     if alldirectory:
         alldirectorynew = validate_create(
-            alldirectory, DirectoryListsApiInstance(), "directory"
+            alldirectory, DirectoryListsApiInstance(NEW_API_KEY), "directory"
         )
         print("new directory list", flush=True)
     print(alldirectorynew, flush=True)
     return alldirectorynew
 
 
-def FileListTenant2(allfile):
+def FileListTenant2(allfile, NEW_API_KEY):
     print("Creating file list in tenant 2, if any", flush=True)
     allfilenew=[]
     if allfile:
-        allfilenew = validate_create(allfile, FileListsApiInstance(), "file")
+        allfilenew = validate_create(allfile, FileListsApiInstance(NEW_API_KEY), "file")
     print("new file list", flush=True)
     print(allfilenew, flush=True)
     return allfilenew
 
 
-def FileExtensionListTenant2(allfileext):
+def FileExtensionListTenant2(allfileext, NEW_API_KEY):
     print("Creating file extension list in tenant 2, if any", flush=True)
     allfileextnew=[]
     if allfileext:
         allfileextnew = validate_create(
-            allfileext, FileExtensionListsApiInstance(), "file extension"
+            allfileext, FileExtensionListsApiInstance(NEW_API_KEY), "file extension"
         )
     print("new file extension list", flush=True)
     print(allfileextnew, flush=True)
