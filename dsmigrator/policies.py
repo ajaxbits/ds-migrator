@@ -9,6 +9,7 @@ import urllib3
 import json
 from dsmigrator.api_config import PolicyApiInstance
 from rich import print
+import click
 
 cert = False
 
@@ -27,9 +28,9 @@ def ListAllPolicy(url_link_final, tenant1key):
     oldpolicyname = []
     oldpolicyid = []
     namejson = json.loads(describe)
-    for here in namejson["policies"]:
-        oldpolicyname.append(str(here["name"]))
-        oldpolicyid.append(str(here["ID"]))
+    for policy in namejson["policies"]:
+        oldpolicyname.append(str(policy["name"]))
+        oldpolicyid.append(str(policy["ID"]))
     return enumerate(oldpolicyname), oldpolicyid
 
 

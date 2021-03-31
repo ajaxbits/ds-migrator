@@ -1,10 +1,8 @@
 {
-        "original_hostname": "",
-        "original_port": "",
-        "original_api_secret_key": "",
-        "original_api_version": "v1",
-        "new_hostname": "https://cloudone.trendmicro.com",
-        "new_port": "443",
-        "new_api_secret_key": "",
-        "new_api_version": "v1"
+        "original_url": "",
+        "original_api_key": "",
+        "new_url": "https://cloudone.trendmicro.com",
+        "new_api_key": "",
+        "cert": false,
+        "insecure": true
 }

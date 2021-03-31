@@ -1,12 +1,6 @@
 import os
-import deepsecurity
 import json
 from deepsecurity.rest import ApiException
-
-OLD_API_KEY = os.environ.get("OLD_API_KEY")
-OLD_HOST = os.environ.get("OLD_HOST")
-NEW_API_KEY = os.environ.get("NEW_API_KEY")
-NEW_HOST = os.environ.get("NEW_HOST")
 
 
 def validate_create(all_old, api_instance, type):
@@ -38,7 +32,8 @@ def validate_create(all_old, api_instance, type):
                 error_json = json.loads(e.body)
                 if "name already exists" in error_json["message"]:
                     print(
-                        f"{oldjson['name']} already exists in new tenant, renaming..."
+                        f"{oldjson['name']} already exists in new tenant, renaming...",
+                        flush=True,
                     )
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
