@@ -9,6 +9,7 @@ import logging
 from datetime import datetime
 import dsmigrator.api_config
 from dsmigrator.policies import ListAllPolicy, GetPolicy, AddPolicy
+from dsmigrator.proxy import proxy_edit
 from dsmigrator.ips import ips_rules_transform
 from dsmigrator.antimalware import am_config_transform, am_validate_create
 from dsmigrator.integrity import im_config_transform
@@ -38,7 +39,7 @@ def main(verify=False):
 
     old_policy_name_enum, old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
-    antimalwareconfig, og_allofpolicy = GetPolicy(
+    antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
@@ -76,10 +77,11 @@ def main(verify=False):
 
     ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
     allofpolicy = ips_rules_transform(
-        og_allofpolicy,
+        allofpolicy,
         t1portlistid,
         t2portlistid,
         t1scheduleid,
@@ -107,7 +109,7 @@ def main(verify=False):
     )
     # print(allofpolicy[1])
     allofpolicy = im_config_transform(
-        og_allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+        allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
