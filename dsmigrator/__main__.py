@@ -40,12 +40,15 @@ def CommandWithConfigFile(config_file_param_name):
                     for param, value in ctx.params.items():
                         if value is None and param in config_data:
                             ctx.params[param] = config_data[param]
+                            ctx.params[param].prompt = None
 
             return super(CustomCommandClass, self).invoke(ctx)
 
     return CustomCommandClass
 
 
+@click.command(cls=CommandWithConfigFile("config_file"))
+@click.option("--config-file", type=click.Path(), is_eager=True)
 @click.option(
     "-ou",
     "--original-url",
@@ -87,8 +90,6 @@ def CommandWithConfigFile(config_file_param_name):
     show_default=True,
     help="(Optional) Allows the use of a cert file",
 )
-@click.option("--config-file", type=click.Path())
-@click.command(cls=CommandWithConfigFile("config_file"))
 def main(
     config_file,
     original_url,
@@ -124,7 +125,6 @@ def main(
         OLD_HOST,
         OLD_API_KEY,
     )
-    print(amalldirectorynew, amallfileextentionnew, amallfilelistnew)
 
     t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY

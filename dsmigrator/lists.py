@@ -182,17 +182,19 @@ def RenameLists(alldirectory, allfilelist, allfileextention):
 
 def DirListTenant2(alldirectory):
     print("Creating directory list in tenant 2, if any", flush=True)
+    alldirectorynew=[]
     if alldirectory:
         alldirectorynew = validate_create(
             alldirectory, DirectoryListsApiInstance(), "directory"
         )
-    print("new directory list", flush=True)
+        print("new directory list", flush=True)
     print(alldirectorynew, flush=True)
     return alldirectorynew
 
 
 def FileListTenant2(allfile):
     print("Creating file list in tenant 2, if any", flush=True)
+    allfilenew=[]
     if allfile:
         allfilenew = validate_create(allfile, FileListsApiInstance(), "file")
     print("new file list", flush=True)
@@ -202,13 +204,14 @@ def FileListTenant2(allfile):
 
 def FileExtensionListTenant2(allfileext):
     print("Creating file extension list in tenant 2, if any", flush=True)
+    allfileextnew=[]
     if allfileext:
         allfileextnew = validate_create(
             allfileext, FileExtensionListsApiInstance(), "file extension"
         )
-        print("new file extension list", flush=True)
-        print(allfileextnew, flush=True)
-        return allfileextnew
+    print("new file extension list", flush=True)
+    print(allfileextnew, flush=True)
+    return allfileextnew
 
 
 def PortListGet(url_link_final, tenant1key):
@@ -948,7 +951,6 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
             else:
                 print(describe, flush=True)
                 print(payload, flush=True)
-    #print(t2contextid)
     print("Done!", flush=True)
     return t2contextid
 
@@ -1028,7 +1030,6 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
             else:
                 print(describe, flush=True)
                 print(payload, flush=True)
-    #print(t2scheduleid)
     print("Done!", flush=True)
     return t2scheduleid
 
