@@ -229,8 +229,8 @@ def PortListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    ports_json = json.loads(describe)["portLists"]
-    if ports_json:
+    ports_json = json.loads(describe).get("portLists")
+    if ports_json is not None:
         for count, here in enumerate(ports_json):
             t1portlistall.append(str(json.dumps(here)))
             t1portlistname.append(str(here["name"]))
@@ -329,9 +329,8 @@ def MacListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    mac_json = json.loads(describe)["macLists"]
-    if mac_json:
+    mac_json = json.loads(describe).get("macLists")
+    if mac_json is not None:
         for count, here in enumerate(mac_json):
             t1maclistall.append(str(json.dumps(here)))
             t1maclistname.append(str(here["name"]))
@@ -431,8 +430,7 @@ def IpListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    ip_json = json.loads(describe)["ipLists"]
+    ip_json = json.loads(describe).get("ipLists")
     if ip_json:
         for count, here in enumerate(ip_json):
             t1iplistall.append(str(json.dumps(here)))
@@ -534,9 +532,8 @@ def StatefulGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    stateful_json = json.loads(describe)["statefulConfigurations"]
-    if stateful_json:
+    stateful_json = json.loads(describe).get("statefulConfigurations")
+    if stateful_json is not None:
         for count, here in enumerate(stateful_json):
             t1statefulall.append(str(json.dumps(here)))
             t1statefulname.append(str(here["name"]))
@@ -647,11 +644,10 @@ def ListEventTask(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    index = 0
     oldetname = []
     oldetid = []
-    ebt_json = json.loads(describe)["eventBasedTasks"]
-    if ebt_json:
+    ebt_json = json.loads(describe).get("eventBasedTasks")
+    if ebt_json is not None:
         for here in ebt_json:
             oldetname.append(str(here["name"]))
             oldetid.append(str(here["ID"]))
@@ -772,12 +768,10 @@ def ListScheduledTask(url_link_final, tenant1key):
         "Content-Type": "application/json",
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
-    describe = str(response.text)
-    index = 0
     oldstname = []
     oldstid = []
-    st_json = json.loads(str(response.text))["scheduledTasks"]
-    if st_json:
+    st_json = json.loads(str(response.text)).get("scheduledTasks")
+    if st_json is not None:
         for here in st_json:
             oldstname.append(str(here["name"]))
             oldstid.append(str(here["ID"]))
@@ -828,7 +822,6 @@ def CreateScheduledTask(allst, namest, url_link_final_2, tenant2key):
                 "POST", url, headers=headers, data=payload, verify=cert
             )
             describe = str(response.text)
-            index = describe.find(dirlist)
             taskjson = json.loads(describe)
             if not "message" in taskjson:
                 if taskjson["scheduledTasks"]:
@@ -896,9 +889,8 @@ def ContextGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    contexts_json = json.loads(describe)['contexts']
-    if contexts_json:
+    contexts_json = json.loads(describe).get('contexts')
+    if contexts_json is not None:
         for count, here in enumerate(contexts_json):
             t1contextall.append(str(json.dumps(here)))
             t1contextname.append(str(here['name']))
@@ -974,9 +966,8 @@ def ScheduleGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    schedules_json = json.loads(describe)["schedules"]
-    if schedules_json:
+    schedules_json = json.loads(describe).get("schedules")
+    if schedules_json is not None:
         for count, here in enumerate(schedules_json):
             t1scheduleall.append(str(json.dumps(here)))
             t1schedulename.append(str(here['name']))
