@@ -219,6 +219,9 @@ def createLogger():
 
     filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     out_file_handler = logging.FileHandler(filename)
+
+    stdout_handler = logging.StreamHandler()
+    stdout_handler.setLevel(logging.DEBUG)
     
     out_file_handler.setLevel(logging.DEBUG)
     logger.addHandler(out_file_handler)
