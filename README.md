@@ -1,20 +1,36 @@
 # Trend Micro Deep Security Migrator
 
-Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.
+* [Quickstart](#quickstart)
+* [Requirements](#requirements)
+* [Usage](#usage)
+  * [Command Reference](#command-reference)
+  * [Use Environment Variables](#use-environment-variables)
+* [Contributing](#contributing)
+
+**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
 
 ## Quickstart
 
-Simply run `pip install dsmigrator`
+1. `pip install dsmigrator` on a machine with access to your DSM
+2. Run `dsmg -k` and fill out the credential prompts
+
+## Requirements
+
+- Python3 (only tested on Python 3.7 or greater so far, so your mileage may vary)
+- An api key for your old DSM with "Full Access" permissions
+- An api key for your Cloud One account with "Full Access" permissions
+- A resolvable FQDN to your old DSM
 
 ## Usage
 
-```bash
+### Command Reference
+
+```text
 Usage: dsmg [OPTIONS]
 
   Moves your on-prem DS deployment to the cloud!
 
 Options:
-  --config-file PATH
   -ou, --original-url TEXT        A resolvable FQDN for the old DSM, with port
                                   number (e.g. https://192.168.1.1:4119)
 
@@ -35,18 +51,14 @@ Options:
 
   --help                          Show this message and exit.
 ```
-## To Set Up MVP
 
-(Python3 only, has only been tested on =>3.7, so your mileage may vary)
+### Use Environment Variables
 
-1. Install the `.whl` file from the [releases page](https://github.com/beattheprose/ds-migrator/releases)
-2. Run `pip install </path/to/.whl>`
-3. Set the following environment variables: 
-    - OLD_HOST originating tenant url (e.g. https://192.168.1.1:4119/) 
-    - OLD_API_KEY originating tenant 'full access' api key 
-    - NEW_HOST destination tenant url (e.g. https://cloudone.trendmicro.com/) 
-    - NEW_API_KEY destination tenant 'full access' api key
-4. Run `dsmg`
+You can optionally use the following environment variables to pass in your credentials:
+
+- ORIGINAL_API_KEY
+- ORIGINAL_URL
+- CLOUD_ONE_API_KEY
 
 ## Contributing
 
