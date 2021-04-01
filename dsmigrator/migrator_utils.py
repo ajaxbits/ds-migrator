@@ -3,14 +3,30 @@ import json
 from deepsecurity.rest import ApiException
 
 
+def value_exists(some_json, key):
+    value = some_json.get(key)
+    if value is not None:
+        return value
+    else:
+        return False
+
+
+def rename_json(json):
+    if json["name"]:
+        json["name"] = f"{json['name']} - Migrated"
+    return json
+
+
 def validate_create(all_old, api_instance, type):
     all_new = []
     for count, dirlist in enumerate(all_old):
         namecheck = 1
         rename = 1
         oldjson = json.loads(dirlist)
+        print(dirlist)
         oldname = oldjson["name"]
         while namecheck != -1:
+            print(oldjson)
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname)
@@ -30,7 +46,10 @@ def validate_create(all_old, api_instance, type):
                 namecheck = -1
             except ApiException as e:
                 error_json = json.loads(e.body)
-                if "name already exists" in error_json["message"]:
+                if (
+                    "name already exists"
+                    or "Name must be unique" in error_json["message"]
+                ):
                     print(
                         f"{oldjson['name']} already exists in new tenant, renaming...",
                         flush=True,

@@ -9,8 +9,10 @@ from dsmigrator.api_config import (
     DirectoryListsApiInstance,
     FileListsApiInstance,
     FileExtensionListsApiInstance,
+    ScheduledTasksApiInstance,
+    EventBasedTasksApiInstance
 )
-from dsmigrator.migrator_utils import validate_create
+from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
 
 cert = False
 
@@ -75,13 +77,18 @@ def stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
 
 def ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     enum_oldetname, etIDs = ListEventTask(OLD_HOST, OLD_API_KEY)
-    allet, nameet = GetEventTask(etIDs, OLD_HOST, OLD_API_KEY)
-    CreateEventTask(allet, nameet, NEW_HOST, NEW_API_KEY)
+    if etIDs:
+        allet, nameet = GetEventTask(etIDs, OLD_HOST, OLD_API_KEY)
+        CreateEventTask(allet, nameet, NEW_HOST, NEW_API_KEY)
+    else:
+        pass
 
 def st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     enum_oldstname, stIDs = ListScheduledTask(OLD_HOST, OLD_API_KEY)
-    allst, namest = GetScheduledTask(stIDs, OLD_HOST, OLD_API_KEY)
-    CreateScheduledTask(allst, namest, NEW_HOST, NEW_API_KEY)
+    if stIDs:
+        allst, namest = GetScheduledTask(stIDs, OLD_HOST, OLD_API_KEY)
+        CreateScheduledTask(allst, namest, NEW_HOST, NEW_API_KEY)
+
 
 def context_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     t1contextall, t1contextname, t1contextid = ContextGet(OLD_HOST, OLD_API_KEY)
@@ -670,93 +677,111 @@ def GetEventTask(etIDs, url_link_final, tenant1key):
             response = requests.request(
                 "GET", url, headers=headers, data=payload, verify=cert
             )
-
             describe = str(response.text)
             allet.append(describe)
             namejson = json.loads(describe)
             nameet.append(str(namejson["name"]))
-    print(allet, flush=True)
-    print(nameet, flush=True)
-    return allet, nameet
+        return allet, nameet
 
 
 def CreateEventTask(allet, nameet, url_link_final_2, tenant2key):
     print("Creating Task to target Account...", flush=True)
     if nameet:
-        for count, dirlist in enumerate(nameet):
-            payload = (
-                '{"searchCriteria": [{"fieldName": "name","stringValue": "'
-                + dirlist
-                + '"}]}'
-            )
-            url = url_link_final_2 + "api/eventbasedtasks/search"
-            headers = {
-                "api-secret-key": tenant2key,
-                "api-version": "v1",
-                "Content-Type": "application/json",
-            }
-            response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
-            )
-            describe = str(response.text)
-            taskjson = json.loads(describe)
-            if not "message" in taskjson:
-                if taskjson["eventBasedTasks"]:
-                    for here in taskjson["eventBasedTasks"]:
-                        indexid = here["ID"]
-                        payload = allet[count]
-                        url = url_link_final_2 + "api/eventbasedtasks/" + str(indexid)
-                        headers = {
-                            "api-secret-key": tenant2key,
-                            "api-version": "v1",
-                            "Content-Type": "application/json",
-                        }
-                        response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
-                        )
-                        describe = str(response.text)
-                        taskjson = json.loads(describe)
-                        print(
-                            "#"
-                            + str(count)
-                            + " Event Based Task name: "
-                            + taskjson["name"],
-                            flush=True,
-                        )
-                        print(
-                            "#"
-                            + str(count)
-                            + " Event Based ID: "
-                            + str(taskjson["ID"]),
-                            flush=True,
-                        )
-                else:
-                    payload = allet[count]
-                    url = url_link_final_2 + "api/eventbasedtasks"
-                    headers = {
-                        "api-secret-key": tenant2key,
-                        "api-version": "v1",
-                        "Content-Type": "application/json",
-                    }
-                    response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
-                    )
-                    describe = str(response.text)
-                    taskjson = json.loads(describe)
-                    print(
-                        "#"
-                        + str(count)
-                        + " Event Based Task name: "
-                        + taskjson["name"],
-                        flush=True,
-                    )
-                    print(
-                        "#" + str(count) + " Event Based ID: " + str(taskjson["ID"]),
-                        flush=True,
-                    )
-            else:
-                print(describe, flush=True)
-                print(payload, flush=True)
+        modet = []
+        for task in allet:
+            task_json= rename_json(json.loads(task))
+            modet.append(json.dumps(task_json))
+
+        validate_create(modet, EventBasedTasksApiInstance(tenant2key), "Event Based")
+
+        # for count, dirlist in enumerate(nameet):
+        #     payload = (
+        #         '{"searchCriteria": [{"fieldName": "name","stringValue": "'
+        #         + dirlist
+        #         + '"}]}'
+        #     )
+        #     url = url_link_final_2 + "api/eventbasedtasks/search"
+        #     headers = {
+        #         "api-secret-key": tenant2key,
+        #         "api-version": "v1",
+        #         "Content-Type": "application/json",
+        #     }
+        #     response = requests.request(
+        #         "POST", url, headers=headers, data=payload, verify=cert
+        #     )
+        #     describe = str(response.text)
+        #     taskjson = json.loads(describe)
+        #     print("outsideeee the if not")
+        #     print(taskjson)
+        #     if not "message" in taskjson:
+        #         if taskjson["eventBasedTasks"]:
+        #             print("insideeee the if ebt")
+        #             print(taskjson)
+        #             for here in taskjson["eventBasedTasks"]:
+        #                 print("insideeee the for loop")
+        #                 print(taskjson)
+        #                 indexid = here["ID"]
+        #                 payload = allet[count]
+        #                 url = url_link_final_2 + "api/eventbasedtasks/" + str(indexid)
+        #                 headers = {
+        #                     "api-secret-key": tenant2key,
+        #                     "api-version": "v1",
+        #                     "Content-Type": "application/json",
+        #                 }
+        #                 response = requests.request(
+        #                     "POST", url, headers=headers, data=payload, verify=cert
+        #                 )
+        #                 describe = str(response.text)
+        #                 taskjson = json.loads(describe)
+        #                 print("after the searchhhh")
+        #                 print(taskjson)
+        #                 if taskjson["eventBasedTasks"]:
+        #                     taskjson=taskjson["eventBasedTasks"][0]
+        #                 print(
+        #                     "#"
+        #                     + str(count)
+        #                     + " Event Based Task name: "
+        #                     + taskjson["name"],
+        #                     flush=True,
+        #                 )
+        #                 print(
+        #                     "#"
+        #                     + str(count)
+        #                     + " Event Based ID: "
+        #                     + str(taskjson["ID"]),
+        #                     flush=True,
+        #                 )
+        #         else:
+
+        #             payload = allet[count]
+        #             url = url_link_final_2 + "api/eventbasedtasks"
+        #             headers = {
+        #                 "api-secret-key": tenant2key,
+        #                 "api-version": "v1",
+        #                 "Content-Type": "application/json",
+        #             }
+        #             response = requests.request(
+        #                 "POST", url, headers=headers, data=payload, verify=cert
+        #             )
+        #             describe = str(response.text)
+        #             taskjson = json.loads(describe)
+        #             print(taskjson)
+        #             if taskjson["eventBasedTasks"]:
+        #                 taskjson=taskjson["eventBasedTasks"][0]
+        #             print(
+        #                 "#"
+        #                 + str(count)
+        #                 + " Event Based Task name: "
+        #                 + taskjson["name"],
+        #                 flush=True,
+        #             )
+        #             print(
+        #                 "#" + str(count) + " Event Based ID: " + str(taskjson["ID"]),
+        #                 flush=True,
+        #             )
+        #     else:
+        #         print(describe, flush=True)
+        #         print(payload, flush=True)
 
 
 def ListScheduledTask(url_link_final, tenant1key):
@@ -798,82 +823,91 @@ def GetScheduledTask(stIDs, url_link_final, tenant1key):
             allst.append(describe)
             namejson = json.loads(describe)
             namest.append(str(namejson["name"]))
-            print(namejson["name"], flush=True)
     return allst, namest
 
 
 def CreateScheduledTask(allst, namest, url_link_final_2, tenant2key):
     print("Creating Task to target Account...", flush=True)
     if namest:
-        for count, dirlist in enumerate(namest):
-            print(dirlist, flush=True)
-            payload = (
-                '{"searchCriteria": [{"fieldName": "name","stringValue": "'
-                + dirlist
-                + '"}]}'
-            )
-            url = url_link_final_2 + "api/scheduledtasks/search"
-            headers = {
-                "api-secret-key": tenant2key,
-                "api-version": "v1",
-                "Content-Type": "application/json",
-            }
-            response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
-            )
-            describe = str(response.text)
-            taskjson = json.loads(describe)
-            if not "message" in taskjson:
-                if taskjson["scheduledTasks"]:
-                    for here in taskjson["scheduledTasks"]:
-                        indexid = here["ID"]
-                        payload = allst[count]
-                        url = url_link_final_2 + "api/scheduledtasks/" + str(indexid)
-                        headers = {
-                            "api-secret-key": tenant2key,
-                            "api-version": "v1",
-                            "Content-Type": "application/json",
-                        }
-                        response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
-                        )
-                        describe = str(response.text)
-                        taskjson2 = json.loads(describe)
-                        print(
-                            "#"
-                            + str(count)
-                            + " Schedule Task name: "
-                            + taskjson2["name"],
-                            flush=True,
-                        )
-                        print(
-                            "#" + str(count) + " Schedule ID: " + str(taskjson2["ID"]),
-                            flush=True,
-                        )
-                else:
-                    payload = allst[count]
-                    url = url_link_final_2 + "api/scheduledtasks"
-                    headers = {
-                        "api-secret-key": tenant2key,
-                        "api-version": "v1",
-                        "Content-Type": "application/json",
-                    }
-                    response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
-                    )
-                    describe = str(response.text)
-                    taskjson2 = json.loads(describe)
-                    print(
-                        "#" + str(count) + " Schedule Task name: " + taskjson2["name"],
-                        flush=True,
-                    )
-                    print(
-                        "#" + str(count) + " Schedule ID: " + str(taskjson2["ID"]),
-                        flush=True,
-                    )
-            else:
-                print(describe, flush=True)
-                print(payload, flush=True)
+        modst = []
+        for task in allst:
+            task_json= rename_json(json.loads(task))
+            modst.append(json.dumps(task_json))
+
+        validate_create(modst, ScheduledTasksApiInstance(tenant2key), "Scheduled")
+        # for count, stname in enumerate(namest):
+        #     print(stname, flush=True)
+        #     payload = (
+        #         '{"searchCriteria": [{"fieldName": "name","stringValue": "'
+        #         + stname
+        #         + '"}]}'
+        #     )
+        #     url = url_link_final_2 + "api/scheduledtasks/search"
+        #     headers = {
+        #         "api-secret-key": tenant2key,
+        #         "api-version": "v1",
+        #         "Content-Type": "application/json",
+        #     }
+        #     response = requests.request(
+        #         "POST", url, headers=headers, data=payload, verify=cert
+        #     )
+        #     describe = str(response.text)
+        #     taskjson = json.loads(describe)
+        #     if not "message" in taskjson:
+        #         if taskjson["scheduledTasks"]:
+        #             for here in taskjson["scheduledTasks"]:
+        #                 indexid = here["ID"]
+        #                 payload = allst[count]
+        #                 url = url_link_final_2 + "api/scheduledtasks/" + str(indexid)
+        #                 headers = {
+        #                     "api-secret-key": tenant2key,
+        #                     "api-version": "v1",
+        #                     "Content-Type": "application/json",
+        #                 }
+        #                 response = requests.request(
+        #                     "POST", url, headers=headers, data=payload, verify=cert
+        #                 )
+        #                 describe = str(response.text)
+        #                 taskjson2 = json.loads(describe)
+        #                 if taskjson2["scheduledTasks"]:
+        #                     taskjson2=taskjson2["scheduledTasks"][0]
+        #                 print(
+        #                     "#"
+        #                     + str(count)
+        #                     + " Schedule Task name: "
+        #                     + taskjson2["name"],
+        #                     flush=True,
+        #                 )
+        #                 print(
+        #                     "#" + str(count) + " Schedule ID: " + str(taskjson2["ID"]),
+        #                     flush=True,
+        #                 )
+        #         else:
+        #             payload = allst[count]
+        #             url = url_link_final_2 + "api/scheduledtasks"
+        #             headers = {
+        #                 "api-secret-key": tenant2key,
+        #                 "api-version": "v1",
+        #                 "Content-Type": "application/json",
+        #             }
+        #             response = requests.request(
+        #                 "POST", url, headers=headers, data=payload, verify=cert
+        #             )
+        #             describe = str(response.text)
+        #             taskjson2 = json.loads(describe)
+        #             if taskjson2["scheduledTasks"]:
+        #                 taskjson2=taskjson2["scheduledTasks"][0]
+        #             print(
+        #                 "#" + str(count) + " Schedule Task name: " + taskjson2["name"],
+        #                 flush=True,
+        #             )
+        #             print(
+        #                 "#" + str(count) + " Schedule ID: " + str(taskjson2["ID"]),
+        #                 flush=True,
+        #             )
+        #     else:
+        #         print(describe, flush=True)
+        #         print(payload, flush=True)
 
 def ContextGet(url_link_final, tenant1key):
     t1contextall = []
