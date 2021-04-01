@@ -229,14 +229,15 @@ def PortListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["portLists"]):
-        t1portlistall.append(str(json.dumps(here)))
-        t1portlistname.append(str(here["name"]))
-        print("#" + str(count) + " Port List name: " + str(here["name"]), flush=True)
-        t1portlistid.append(str(here["ID"]))
-        print("#" + str(count) + " Port List ID: " + str(here["ID"]), flush=True)
-    print("Done!", flush=True)
+    ports_json = json.loads(describe)["portLists"]
+    if ports_json:
+        for count, here in enumerate(ports_json):
+            t1portlistall.append(str(json.dumps(here)))
+            t1portlistname.append(str(here["name"]))
+            print("#" + str(count) + " Port List name: " + str(here["name"]), flush=True)
+            t1portlistid.append(str(here["ID"]))
+            print("#" + str(count) + " Port List ID: " + str(here["ID"]), flush=True)
+        print("Done!", flush=True)
     return t1portlistall, t1portlistname, t1portlistid
 
 
@@ -329,15 +330,16 @@ def MacListGet(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["macLists"]):
-        t1maclistall.append(str(json.dumps(here)))
-        t1maclistname.append(str(here["name"]))
-        print("#" + str(count) + " Mac List name: " + str(here["name"]), flush=True)
-        t1maclistid.append(str(here["ID"]))
-        print("#" + str(count) + " Mac List ID: " + str(here["ID"]), flush=True)
+    mac_json = json.loads(describe)["macLists"]
+    if mac_json:
+        for count, here in enumerate(mac_json):
+            t1maclistall.append(str(json.dumps(here)))
+            t1maclistname.append(str(here["name"]))
+            print("#" + str(count) + " Mac List name: " + str(here["name"]), flush=True)
+            t1maclistid.append(str(here["ID"]))
+            print("#" + str(count) + " Mac List ID: " + str(here["ID"]), flush=True)
 
-    print("Done!", flush=True)
+        print("Done!", flush=True)
     return t1maclistall, t1maclistname, t1maclistid
 
 
@@ -430,14 +432,15 @@ def IpListGet(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["ipLists"]):
-        t1iplistall.append(str(json.dumps(here)))
-        t1iplistname.append(str(here["name"]))
-        print("#" + str(count) + " IP List name: " + str(here["name"]), flush=True)
-        t1iplistid.append(str(here["ID"]))
-        print("#" + str(count) + " IP List ID: " + str(here["ID"]), flush=True)
-    print("Done!", flush=True)
+    ip_json = json.loads(describe)["ipLists"]
+    if ip_json:
+        for count, here in enumerate(ip_json):
+            t1iplistall.append(str(json.dumps(here)))
+            t1iplistname.append(str(here["name"]))
+            print("#" + str(count) + " IP List name: " + str(here["name"]), flush=True)
+            t1iplistid.append(str(here["ID"]))
+            print("#" + str(count) + " IP List ID: " + str(here["ID"]), flush=True)
+        print("Done!", flush=True)
     return t1iplistall, t1iplistname, t1iplistid
 
 
@@ -532,16 +535,17 @@ def StatefulGet(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["statefulConfigurations"]):
-        t1statefulall.append(str(json.dumps(here)))
-        t1statefulname.append(str(here["name"]))
-        print(
-            "#" + str(count) + " Stateful Config name: " + str(here["name"]), flush=True
-        )
-        t1statefulid.append(str(here["ID"]))
-        print("#" + str(count) + " Stateful Config ID: " + str(here["ID"]), flush=True)
-    print("Done", flush=True)
+    stateful_json = json.loads(describe)["statefulConfigurations"]
+    if stateful_json:
+        for count, here in enumerate(stateful_json):
+            t1statefulall.append(str(json.dumps(here)))
+            t1statefulname.append(str(here["name"]))
+            print(
+                "#" + str(count) + " Stateful Config name: " + str(here["name"]), flush=True
+            )
+            t1statefulid.append(str(here["ID"]))
+            print("#" + str(count) + " Stateful Config ID: " + str(here["ID"]), flush=True)
+        print("Done", flush=True)
     return t1statefulall, t1statefulname, t1statefulid
 
 
@@ -646,10 +650,11 @@ def ListEventTask(url_link_final, tenant1key):
     index = 0
     oldetname = []
     oldetid = []
-    namejson = json.loads(describe)
-    for here in namejson["eventBasedTasks"]:
-        oldetname.append(str(here["name"]))
-        oldetid.append(str(here["ID"]))
+    ebt_json = json.loads(describe)["eventBasedTasks"]
+    if ebt_json:
+        for here in ebt_json:
+            oldetname.append(str(here["name"]))
+            oldetid.append(str(here["ID"]))
     return enumerate(oldetname), oldetid
 
 
@@ -771,10 +776,11 @@ def ListScheduledTask(url_link_final, tenant1key):
     index = 0
     oldstname = []
     oldstid = []
-    namejson = json.loads(str(response.text))
-    for here in namejson["scheduledTasks"]:
-        oldstname.append(str(here["name"]))
-        oldstid.append(str(here["ID"]))
+    st_json = json.loads(str(response.text))["scheduledTasks"]
+    if st_json:
+        for here in st_json:
+            oldstname.append(str(here["name"]))
+            oldstid.append(str(here["ID"]))
     return enumerate(oldstname), oldstid
 
 
@@ -891,16 +897,15 @@ def ContextGet(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson['contexts']):
-        t1contextall.append(str(json.dumps(here)))
-        t1contextname.append(str(here['name']))
-        print("#" + str(count) + " Context Config name: " + str(here['name']), flush=True)
-        t1contextid.append(str(here['ID']))
-        print("#" + str(count) + " Context Config ID: " + str(here['ID']), flush=True)
-
-    #print(t1contextid)
-    print("Done", flush=True)
+    contexts_json = json.loads(describe)['contexts']
+    if contexts_json:
+        for count, here in enumerate(contexts_json):
+            t1contextall.append(str(json.dumps(here)))
+            t1contextname.append(str(here['name']))
+            print("#" + str(count) + " Context Config name: " + str(here['name']), flush=True)
+            t1contextid.append(str(here['ID']))
+            print("#" + str(count) + " Context Config ID: " + str(here['ID']), flush=True)
+        print("Done", flush=True)
     return t1contextall, t1contextname, t1contextid
 
 def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
@@ -970,16 +975,15 @@ def ScheduleGet(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson['schedules']):
-        t1scheduleall.append(str(json.dumps(here)))
-        t1schedulename.append(str(here['name']))
-        print("#" + str(count) + " Schedule Config name: " + str(here['name']), flush=True)
-        t1scheduleid.append(str(here['ID']))
-        print("#" + str(count) + " Schedule Config ID: " + str(here['ID']), flush=True)
-
-    #print(t1scheduleid)
-    print("Done", flush=True)
+    schedules_json = json.loads(describe)["schedules"]
+    if schedules_json:
+        for count, here in enumerate(schedules_json):
+            t1scheduleall.append(str(json.dumps(here)))
+            t1schedulename.append(str(here['name']))
+            print("#" + str(count) + " Schedule Config name: " + str(here['name']), flush=True)
+            t1scheduleid.append(str(here['ID']))
+            print("#" + str(count) + " Schedule Config ID: " + str(here['ID']), flush=True)
+        print("Done", flush=True)
     return t1scheduleall, t1schedulename, t1scheduleid
 
 def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
