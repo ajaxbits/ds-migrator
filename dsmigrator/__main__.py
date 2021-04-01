@@ -210,18 +210,42 @@ def main(
     AddPolicy(allofpolicy, NEW_API_KEY)
 
 
-if __name__ == "dsmigrator.__main__":
-    
+# This is plan A: try to create a logger
+# Then log relevant information throughout the program
+# Out_file_handler produces logs for HTTP requests, currently
+def createLogger():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
     filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     out_file_handler = logging.FileHandler(filename)
-    stdout_handler = logging.StreamHandler(sys.stdout)
+    
     out_file_handler.setLevel(logging.DEBUG)
-
     logger.addHandler(out_file_handler)
     logger.addHandler(stdout_handler)
     logger.debug("Service started...")
+createLogger()
+
+
+# This is plan B
+# This code makes all print statements print out to stdout
+# And then writes those statements to a file, log.dat
+
+# class Logger(object):
+#     def flush(self):
+#         pass
+
+#     def __init__(self):
+#         self.terminal = sys.stdout
+#         self.log = open("log.dat", "a")
+
+#     def write(self, message):
+#         message = message
+#         self.terminal.write(message)
+#         self.log.write(message)
+
+# sys.stdout = Logger()
+
+# I don't know what this code ever did
     # logger.debug(main())  
     # pylint: disable=no-value-for-parameter
