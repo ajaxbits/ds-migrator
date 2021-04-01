@@ -210,15 +210,18 @@ def main(
     AddPolicy(allofpolicy, NEW_API_KEY)
 
 
-if __name__ == "__main__":
-
+if __name__ == "dsmigrator.__main__":
+    
     logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+
     filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     out_file_handler = logging.FileHandler(filename)
     stdout_handler = logging.StreamHandler(sys.stdout)
-    out_file_handler.setLevel(logging.INFO)
+    out_file_handler.setLevel(logging.DEBUG)
 
     logger.addHandler(out_file_handler)
     logger.addHandler(stdout_handler)
-
-    logger.debug(main())  # pylint: disable=no-value-for-parameter
+    logger.debug("Service started...")
+    # logger.debug(main())  
+    # pylint: disable=no-value-for-parameter
