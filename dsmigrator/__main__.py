@@ -218,7 +218,8 @@ class Logger(object):
 
     def __init__(self):
         self.terminal = sys.stdout
-        self.log = open("log.dat", "a")
+        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+        self.log = open(filename, "a")
 
     def write(self, message):
         timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
