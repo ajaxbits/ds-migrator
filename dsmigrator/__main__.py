@@ -38,7 +38,7 @@ class Logger(object):
     def __init__(self):
         self.terminal = sys.stdout
         filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(f"{filename}", "a")
+        self.log = open(f"./{filename}", "a")
 
     def write(self, message):
         self.terminal.write(message)
@@ -116,6 +116,9 @@ def main(
     insecure,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
+    sys.stdout = Logger()
+    sys.stderr = sys.stdout
+
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
@@ -233,6 +236,4 @@ def main(
 
 
 if __name__ == "__main__":
-    sys.stdout = Logger()
-    sys.stderr = sys.stdout
     main()  # pylint: disable=no-value-for-parameter
