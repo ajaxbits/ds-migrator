@@ -1,5 +1,7 @@
 # Trend Micro Deep Security Migrator
 
+**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
+
 * [Quickstart](#quickstart)
 * [Usage](#usage)
   * [Command Reference](#command-reference)
@@ -7,12 +9,11 @@
 * [Requirements](#requirements)
 * [Contributing](#contributing)
 
-**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
 
 
 ## Quickstart
 
-(Python3 only, has only been tested on =>3.7, so your mileage may vary)
+(Python3 only, has only been tested on => 3.7, so your mileage may vary)
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigrator.
 
