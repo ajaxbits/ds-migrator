@@ -38,11 +38,9 @@ class Logger(object):
     def __init__(self):
         self.terminal = sys.stdout
         filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(filename, "a")
+        self.log = open(f"{filename}", "a")
 
     def write(self, message):
-        timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-        message = timestamp + message
         self.terminal.write(message)
         self.log.write(message)
 
@@ -63,22 +61,6 @@ def CommandWithConfigFile(config_file_param_name):
             return super(CustomCommandClass, self).invoke(ctx)
 
     return CustomCommandClass
-
-
-class Logger(object):
-    def flush(self):
-        pass
-
-    def __init__(self):
-        self.terminal = sys.stdout
-        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(filename, "a")
-
-    def write(self, message):
-        # timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-        # message = timestamp + message
-        self.terminal.write(message)
-        self.log.write(message)
 
 
 @click.command(cls=CommandWithConfigFile("config_file"))

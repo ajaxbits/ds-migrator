@@ -7,6 +7,9 @@ readme = "README.md"
 keywords = ["Trend", "Micro", "deepsecurity", "cloudone", "migrator", "trendmicro", "security", "cli"]
 license = "GPLv3"
 homepage = "https://github.com/ajaxbits/ds-migrator"
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
