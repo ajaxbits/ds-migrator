@@ -9,10 +9,14 @@ Moves settings from on premise Deep Security to the cloud (Cloud One Workload Se
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigrator.
 
 ```bash
-pip install -i https://test.pypi.org dsmigrator
+pip install -i https://test.pypi.org/simple dsmigrator
 ```
 
 ## Usage
+
+```python
+import dsmigrator
+```
 
 ```bash
 dsmg
@@ -25,7 +29,7 @@ Optional flags:
 To see a list of optional flags, run `dsmg --help`
 Alternatively, credentials may be entered through an interactive prompt.
 
-NOTE: Insecure connections will produce multiple warnings unless the `-k` flag is used.
+**NOTE:** Insecure connections will produce multiple warnings unless the `-k` flag is used.
 
 ## Requirements
 
