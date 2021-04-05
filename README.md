@@ -74,13 +74,13 @@ You can optionally use the following environment variables to pass in your crede
 
 For support, please open an issue on Github.
 
-## License
-
-License choice goes here.
-
 ## Contributing
 
 1. Run ./dev-setup.sh, which will download nix and nix flakes.
 2. Run `nix develop` which will download and build dependencies, and drop you in a shell.
 
 (only tested on Arch and Ubuntu so far, so your mileage may vary)
+
+## License
+
+GNU General Public License
