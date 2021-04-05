@@ -149,7 +149,6 @@ def FirewallDescribe(
             indexnum = t1maclistid.index(str(firewalljson["sourceMACListID"]))
             firewalljson["sourceMACListID"] = t2maclistid[indexnum]
         if "sourcePortListID" in firewalljson:
-            print(t1portlistid)
             indexnum = t1portlistid.index(str(firewalljson["sourcePortListID"]))
             firewalljson["sourcePortListID"] = t2portlistid[indexnum]
         if "destinationIPListID" in firewalljson:

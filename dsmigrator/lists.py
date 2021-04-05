@@ -21,6 +21,7 @@ def directory_listmaker(
     amfilelist,
     OLD_HOST,
     OLD_API_KEY,
+    NEW_API_KEY
 ):
     og_alldirectory = DirListTenant1(amdirectorylist, OLD_HOST, OLD_API_KEY)
     og_allfileextension = FileExtensionListTenant1(
@@ -32,9 +33,9 @@ def directory_listmaker(
         og_alldirectory, og_allfilelist, og_allfileextension
     )
 
-    amalldirectorynew = DirListTenant2(alldirectory)
-    amallfileextensionnew = FileExtensionListTenant2(allfileextension)
-    amallfilelistnew = FileListTenant2(allfilelist)
+    amalldirectorynew = DirListTenant2(alldirectory, NEW_API_KEY)
+    amallfileextensionnew = FileExtensionListTenant2(allfileextension, NEW_API_KEY)
+    amallfilelistnew = FileListTenant2(allfilelist, NEW_API_KEY)
 
     return (
         amalldirectorynew,
@@ -180,35 +181,38 @@ def RenameLists(alldirectory, allfilelist, allfileextention):
     return alldirectory, allfilelist, allfileextention
 
 
-def DirListTenant2(alldirectory):
+def DirListTenant2(alldirectory, NEW_API_KEY):
     print("Creating directory list in tenant 2, if any", flush=True)
+    alldirectorynew=[]
     if alldirectory:
         alldirectorynew = validate_create(
-            alldirectory, DirectoryListsApiInstance(), "directory"
+            alldirectory, DirectoryListsApiInstance(NEW_API_KEY), "directory"
         )
-    print("new directory list", flush=True)
+        print("new directory list", flush=True)
     print(alldirectorynew, flush=True)
     return alldirectorynew
 
 
-def FileListTenant2(allfile):
+def FileListTenant2(allfile, NEW_API_KEY):
     print("Creating file list in tenant 2, if any", flush=True)
+    allfilenew=[]
     if allfile:
-        allfilenew = validate_create(allfile, FileListsApiInstance(), "file")
+        allfilenew = validate_create(allfile, FileListsApiInstance(NEW_API_KEY), "file")
     print("new file list", flush=True)
     print(allfilenew, flush=True)
     return allfilenew
 
 
-def FileExtensionListTenant2(allfileext):
+def FileExtensionListTenant2(allfileext, NEW_API_KEY):
     print("Creating file extension list in tenant 2, if any", flush=True)
+    allfileextnew=[]
     if allfileext:
         allfileextnew = validate_create(
-            allfileext, FileExtensionListsApiInstance(), "file extension"
+            allfileext, FileExtensionListsApiInstance(NEW_API_KEY), "file extension"
         )
-        print("new file extension list", flush=True)
-        print(allfileextnew, flush=True)
-        return allfileextnew
+    print("new file extension list", flush=True)
+    print(allfileextnew, flush=True)
+    return allfileextnew
 
 
 def PortListGet(url_link_final, tenant1key):
@@ -225,14 +229,15 @@ def PortListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["portLists"]):
-        t1portlistall.append(str(json.dumps(here)))
-        t1portlistname.append(str(here["name"]))
-        print("#" + str(count) + " Port List name: " + str(here["name"]), flush=True)
-        t1portlistid.append(str(here["ID"]))
-        print("#" + str(count) + " Port List ID: " + str(here["ID"]), flush=True)
-    print("Done!", flush=True)
+    ports_json = json.loads(describe).get("portLists")
+    if ports_json is not None:
+        for count, here in enumerate(ports_json):
+            t1portlistall.append(str(json.dumps(here)))
+            t1portlistname.append(str(here["name"]))
+            print("#" + str(count) + " Port List name: " + str(here["name"]), flush=True)
+            t1portlistid.append(str(here["ID"]))
+            print("#" + str(count) + " Port List ID: " + str(here["ID"]), flush=True)
+        print("Done!", flush=True)
     return t1portlistall, t1portlistname, t1portlistid
 
 
@@ -324,16 +329,16 @@ def MacListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["macLists"]):
-        t1maclistall.append(str(json.dumps(here)))
-        t1maclistname.append(str(here["name"]))
-        print("#" + str(count) + " Mac List name: " + str(here["name"]), flush=True)
-        t1maclistid.append(str(here["ID"]))
-        print("#" + str(count) + " Mac List ID: " + str(here["ID"]), flush=True)
+    mac_json = json.loads(describe).get("macLists")
+    if mac_json is not None:
+        for count, here in enumerate(mac_json):
+            t1maclistall.append(str(json.dumps(here)))
+            t1maclistname.append(str(here["name"]))
+            print("#" + str(count) + " Mac List name: " + str(here["name"]), flush=True)
+            t1maclistid.append(str(here["ID"]))
+            print("#" + str(count) + " Mac List ID: " + str(here["ID"]), flush=True)
 
-    print("Done!", flush=True)
+        print("Done!", flush=True)
     return t1maclistall, t1maclistname, t1maclistid
 
 
@@ -425,15 +430,15 @@ def IpListGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["ipLists"]):
-        t1iplistall.append(str(json.dumps(here)))
-        t1iplistname.append(str(here["name"]))
-        print("#" + str(count) + " IP List name: " + str(here["name"]), flush=True)
-        t1iplistid.append(str(here["ID"]))
-        print("#" + str(count) + " IP List ID: " + str(here["ID"]), flush=True)
-    print("Done!", flush=True)
+    ip_json = json.loads(describe).get("ipLists")
+    if ip_json:
+        for count, here in enumerate(ip_json):
+            t1iplistall.append(str(json.dumps(here)))
+            t1iplistname.append(str(here["name"]))
+            print("#" + str(count) + " IP List name: " + str(here["name"]), flush=True)
+            t1iplistid.append(str(here["ID"]))
+            print("#" + str(count) + " IP List ID: " + str(here["ID"]), flush=True)
+        print("Done!", flush=True)
     return t1iplistall, t1iplistname, t1iplistid
 
 
@@ -527,17 +532,17 @@ def StatefulGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson["statefulConfigurations"]):
-        t1statefulall.append(str(json.dumps(here)))
-        t1statefulname.append(str(here["name"]))
-        print(
-            "#" + str(count) + " Stateful Config name: " + str(here["name"]), flush=True
-        )
-        t1statefulid.append(str(here["ID"]))
-        print("#" + str(count) + " Stateful Config ID: " + str(here["ID"]), flush=True)
-    print("Done", flush=True)
+    stateful_json = json.loads(describe).get("statefulConfigurations")
+    if stateful_json is not None:
+        for count, here in enumerate(stateful_json):
+            t1statefulall.append(str(json.dumps(here)))
+            t1statefulname.append(str(here["name"]))
+            print(
+                "#" + str(count) + " Stateful Config name: " + str(here["name"]), flush=True
+            )
+            t1statefulid.append(str(here["ID"]))
+            print("#" + str(count) + " Stateful Config ID: " + str(here["ID"]), flush=True)
+        print("Done", flush=True)
     return t1statefulall, t1statefulname, t1statefulid
 
 
@@ -639,13 +644,13 @@ def ListEventTask(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    index = 0
     oldetname = []
     oldetid = []
-    namejson = json.loads(describe)
-    for here in namejson["eventBasedTasks"]:
-        oldetname.append(str(here["name"]))
-        oldetid.append(str(here["ID"]))
+    ebt_json = json.loads(describe).get("eventBasedTasks")
+    if ebt_json is not None:
+        for here in ebt_json:
+            oldetname.append(str(here["name"]))
+            oldetid.append(str(here["ID"]))
     return enumerate(oldetname), oldetid
 
 
@@ -763,14 +768,13 @@ def ListScheduledTask(url_link_final, tenant1key):
         "Content-Type": "application/json",
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
-    describe = str(response.text)
-    index = 0
     oldstname = []
     oldstid = []
-    namejson = json.loads(str(response.text))
-    for here in namejson["scheduledTasks"]:
-        oldstname.append(str(here["name"]))
-        oldstid.append(str(here["ID"]))
+    st_json = json.loads(str(response.text)).get("scheduledTasks")
+    if st_json is not None:
+        for here in st_json:
+            oldstname.append(str(here["name"]))
+            oldstid.append(str(here["ID"]))
     return enumerate(oldstname), oldstid
 
 
@@ -818,7 +822,6 @@ def CreateScheduledTask(allst, namest, url_link_final_2, tenant2key):
                 "POST", url, headers=headers, data=payload, verify=cert
             )
             describe = str(response.text)
-            index = describe.find(dirlist)
             taskjson = json.loads(describe)
             if not "message" in taskjson:
                 if taskjson["scheduledTasks"]:
@@ -886,17 +889,15 @@ def ContextGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson['contexts']):
-        t1contextall.append(str(json.dumps(here)))
-        t1contextname.append(str(here['name']))
-        print("#" + str(count) + " Context Config name: " + str(here['name']), flush=True)
-        t1contextid.append(str(here['ID']))
-        print("#" + str(count) + " Context Config ID: " + str(here['ID']), flush=True)
-
-    #print(t1contextid)
-    print("Done", flush=True)
+    contexts_json = json.loads(describe).get('contexts')
+    if contexts_json is not None:
+        for count, here in enumerate(contexts_json):
+            t1contextall.append(str(json.dumps(here)))
+            t1contextname.append(str(here['name']))
+            print("#" + str(count) + " Context Config name: " + str(here['name']), flush=True)
+            t1contextid.append(str(here['ID']))
+            print("#" + str(count) + " Context Config ID: " + str(here['ID']), flush=True)
+        print("Done", flush=True)
     return t1contextall, t1contextname, t1contextid
 
 def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
@@ -948,7 +949,6 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
             else:
                 print(describe, flush=True)
                 print(payload, flush=True)
-    #print(t2contextid)
     print("Done!", flush=True)
     return t2contextid
 
@@ -966,17 +966,15 @@ def ScheduleGet(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    describe2 = str(response.text)
-    namejson = json.loads(describe)
-    for count, here in enumerate(namejson['schedules']):
-        t1scheduleall.append(str(json.dumps(here)))
-        t1schedulename.append(str(here['name']))
-        print("#" + str(count) + " Schedule Config name: " + str(here['name']), flush=True)
-        t1scheduleid.append(str(here['ID']))
-        print("#" + str(count) + " Schedule Config ID: " + str(here['ID']), flush=True)
-
-    #print(t1scheduleid)
-    print("Done", flush=True)
+    schedules_json = json.loads(describe).get("schedules")
+    if schedules_json is not None:
+        for count, here in enumerate(schedules_json):
+            t1scheduleall.append(str(json.dumps(here)))
+            t1schedulename.append(str(here['name']))
+            print("#" + str(count) + " Schedule Config name: " + str(here['name']), flush=True)
+            t1scheduleid.append(str(here['ID']))
+            print("#" + str(count) + " Schedule Config ID: " + str(here['ID']), flush=True)
+        print("Done", flush=True)
     return t1scheduleall, t1schedulename, t1scheduleid
 
 def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
@@ -1028,7 +1026,6 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
             else:
                 print(describe, flush=True)
                 print(payload, flush=True)
-    #print(t2scheduleid)
     print("Done!", flush=True)
     return t2scheduleid
 
