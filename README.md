@@ -9,17 +9,13 @@
 * [Requirements](#requirements)
 * [Contributing](#contributing)
 
-
-
 ## Quickstart
-
-(Python3 only, has only been tested on => 3.7, so your mileage may vary)
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigrator.
 
-```bash
-pip install -i https://test.pypi.org/simple dsmigrator
-```
+1. ```pip install dsmigrator``` on a machine with access to your DSM
+
+2. Run ```dsmg -k``` and fill out the credential prompts
 
 ## Usage
 
@@ -70,16 +66,16 @@ You can optionally use the following environment variables to pass in your crede
 
 **NOTE:** DS Migrator currently only supports migrations from Deep Security 20 and 12.
 
-## Support
-
-For support, please open an issue on Github.
-
 ## Contributing
 
 1. Run ./dev-setup.sh, which will download nix and nix flakes.
 2. Run `nix develop` which will download and build dependencies, and drop you in a shell.
 
 (only tested on Arch and Ubuntu so far, so your mileage may vary)
+
+## Support
+
+For support, please open an issue on Github.
 
 ## License
 
