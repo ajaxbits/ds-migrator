@@ -18,6 +18,15 @@ pip install -i https://test.pypi.org dsmigrator
 dsmg
 ```
 
+## Flags
+
+Optional flags:
+
+To see a list of optional flags, run `dsmg --help`
+Alternatively, credentials may be entered through an interactive prompt.
+
+NOTE: Insecure connections will produce multiple warnings unless the `-k` flag is used.
+
 ## Requirements
 
 DS Migrator has only been tested on Arch Linux and Ubuntu -- you're milage may vary.
@@ -32,5 +41,5 @@ License choice goes here.
 
 ## Contributing
 
-1. Run ./dev-setup.sh, which will download nix and nix flakes
-2. run `nix develop` which will download and build dependencies, and drop you in a shell
+1. Run ./dev-setup.sh, which will download nix and nix flakes.
+2. Run `nix develop` which will download and build dependencies, and drop you in a shell.
