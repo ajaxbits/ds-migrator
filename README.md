@@ -14,7 +14,7 @@ pip install -i https://test.pypi.org/simple dsmigrator
 
 ## Usage
 
-In your pyhon program, import the DS Migrator:
+In your python program, import the DS Migrator:
 
 ```python
 import dsmigrator
@@ -38,6 +38,8 @@ Alternatively, credentials may be entered through an interactive prompt.
 ## Requirements
 
 DS Migrator has only been tested on Arch Linux and Ubuntu -- you're milage may vary.
+
+DS Migrator currently only supports migrations from Deep Security 12.x.x => Cloud One, but additional migration support is planned.
 
 ## Support
 
