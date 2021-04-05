@@ -1,25 +1,21 @@
 # Trend Micro Deep Security Migrator
 
+**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
+
 * [Quickstart](#quickstart)
-* [Requirements](#requirements)
 * [Usage](#usage)
   * [Command Reference](#command-reference)
   * [Use Environment Variables](#use-environment-variables)
+* [Requirements](#requirements)
 * [Contributing](#contributing)
-
-**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
 
 ## Quickstart
 
-1. `pip install dsmigrator` on a machine with access to your DSM
-2. Run `dsmg -k` and fill out the credential prompts
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigrator.
 
-## Requirements
+1. Run ```pip install dsmigrator``` on a machine with access to your DSM.
 
-- Python3 (only tested on Python 3.7 or greater so far, so your mileage may vary)
-- An api key for your old DSM with "Full Access" permissions
-- An api key for your Cloud One account with "Full Access" permissions
-- A resolvable FQDN to your old DSM
+2. Run ```dsmg -k``` and fill out the credential prompts.
 
 ## Usage
 
@@ -51,7 +47,6 @@ Options:
 
   --help                          Show this message and exit.
 ```
-
 ### Use Environment Variables
 
 You can optionally use the following environment variables to pass in your credentials:
@@ -60,10 +55,29 @@ You can optionally use the following environment variables to pass in your crede
 - ORIGINAL_URL
 - CLOUD_ONE_API_KEY
 
+## Requirements
+
+- Python3 (only tested on Python 3.7 or greater so far, so your mileage may vary)
+- One api key for your old Deep Security Manager with "Full Access" permissions
+- One api key for your Cloud One account with "Full Access" permissions
+- A resolvable FQDN to your old Deep Security Manager
+
+**NOTE:** DS Migrator has only been tested on Arch Linux and Ubuntu -- your milage may vary.
+
+**NOTE:** DS Migrator currently only supports migrations from Deep Security 20 and 12.
+
 ## Contributing
 
-1. Run ./dev-setup.sh, which will download nix and nix flakes
-2. run `nix develop` which will download and build dependencies, and drop you in a shell
+1. Run ./dev-setup.sh, which will download nix and nix flakes.
+2. Run `nix develop` which will download and build dependencies, and drop you in a shell.
 
 (only tested on Arch and Ubuntu so far, so your mileage may vary)
+
+## Support
+
+For support, please open an issue on Github.
+
+## License
+
+GNU General Public License
 

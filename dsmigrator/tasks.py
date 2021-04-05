@@ -81,7 +81,6 @@ def CreateEventTask(
     allet, nameet, policy_dict, computer_group_dict, url_link_final_2, tenant2key
 ):
     print("Creating Task to target Account...", flush=True)
-    print(computer_group_dict)
     if nameet:
         modet = []
         for task in allet:
@@ -150,20 +149,16 @@ def CreateScheduledTask(
         modst = []
         for task in allst:
             task_json = rename_json(json.loads(task))
-            print(task_json)
             oldcomputergroup = nested_lookup("computerGroupID", task_json)
             oldpolicy = nested_lookup("policyID", task_json)
-            # print(oldcomputergroup)
             if oldcomputergroup:
                 oldid = oldcomputergroup[0]
-                # print(oldid)
                 task_json = nested_update(
                     task_json,
                     "computerGroupID",
                     computer_group_dict[oldid],
                 )
             oldpolicy = nested_lookup("policyID", task_json)
-            print(oldpolicy)
             if oldpolicy:
                 oldid = oldpolicy[0]
                 task_json = nested_update(task_json, "policyID", policy_dict[oldid])

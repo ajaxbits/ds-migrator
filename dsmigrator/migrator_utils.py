@@ -42,9 +42,14 @@ def validate_create(all_old, api_instance, type):
                 all_new.append(str(newid))
                 namecheck = -1
             except ApiException as e:
-                print(e)
                 error_json = json.loads(e.body)
                 if (
+                    "requested scheduled task name already exists"
+                    in error_json["message"]
+                ):
+                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    rename = rename + 1
+                elif (
                     "name already exists"
                     or "Name must be unique" in error_json["message"]
                 ):

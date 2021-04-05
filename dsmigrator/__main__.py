@@ -31,6 +31,22 @@ from dsmigrator.computer_groups import computer_group_listmaker
 import yaml
 
 
+class Logger(object):
+    def flush(self):
+        pass
+
+    def __init__(self):
+        self.terminal = sys.stdout
+        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+        self.log = open(filename, "a")
+
+    def write(self, message):
+        timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+        message = timestamp + message
+        self.terminal.write(message)
+        self.log.write(message)
+
+
 # override the click invoke method
 def CommandWithConfigFile(config_file_param_name):
     class CustomCommandClass(click.Command):
@@ -235,4 +251,6 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    sys.stdout = Logger()
+    sys.stderr = sys.stdout
+    main()  # pylint: disable=no-value-for-parameter
