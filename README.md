@@ -13,9 +13,9 @@
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigrator.
 
-1. ```pip install dsmigrator``` on a machine with access to your DSM
+1. Run ```pip install dsmigrator``` on a machine with access to your DSM.
 
-2. Run ```dsmg -k``` and fill out the credential prompts
+2. Run ```dsmg -k``` and fill out the credential prompts.
 
 ## Usage
 
