@@ -23,11 +23,11 @@ from dsmigrator.lists import (
     mac_listmaker,
     ip_listmaker,
     stateful_listmaker,
-    ebt_listmaker,
-    st_listmaker,
     context_listmaker,
     schedule_listmaker,
 )
+from dsmigrator.tasks import ebt_listmaker, st_listmaker
+from dsmigrator.computer_groups import computer_group_listmaker
 import yaml
 
 
@@ -47,6 +47,22 @@ def CommandWithConfigFile(config_file_param_name):
             return super(CustomCommandClass, self).invoke(ctx)
 
     return CustomCommandClass
+
+
+class Logger(object):
+    def flush(self):
+        pass
+
+    def __init__(self):
+        self.terminal = sys.stdout
+        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+        self.log = open(filename, "a")
+
+    def write(self, message):
+        # timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+        # message = timestamp + message
+        self.terminal.write(message)
+        self.log.write(message)
 
 
 @click.command(cls=CommandWithConfigFile("config_file"))
@@ -148,8 +164,8 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
@@ -166,7 +182,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    # print(allofpolicy[1])
     allofpolicy = am_validate_create(
         allofpolicy,
         antimalwareconfig,
@@ -180,7 +195,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    # print(allofpolicy[1])
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
@@ -207,18 +221,18 @@ def main(
         NEW_API_KEY,
     )
 
-    AddPolicy(allofpolicy, NEW_API_KEY)
+    policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
+    computer_group_dict = computer_group_listmaker(
+        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
+    computer_group_dict[0] = 0
+    ebt_listmaker(
+        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
+    st_listmaker(
+        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
 
 
 if __name__ == "__main__":
-
-    logger = logging.getLogger()
-    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-    out_file_handler = logging.FileHandler(filename)
-    stdout_handler = logging.StreamHandler(sys.stdout)
-    out_file_handler.setLevel(logging.INFO)
-
-    logger.addHandler(out_file_handler)
-    logger.addHandler(stdout_handler)
-
-    logger.debug(main())  # pylint: disable=no-value-for-parameter
+    main()

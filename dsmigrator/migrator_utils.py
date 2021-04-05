@@ -23,14 +23,11 @@ def validate_create(all_old, api_instance, type):
         namecheck = 1
         rename = 1
         oldjson = json.loads(dirlist)
-        print(dirlist)
         oldname = oldjson["name"]
         while namecheck != -1:
-            print(oldjson)
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname)
-                print(newname)
                 print(
                     "#"
                     + str(count)
@@ -45,6 +42,7 @@ def validate_create(all_old, api_instance, type):
                 all_new.append(str(newid))
                 namecheck = -1
             except ApiException as e:
+                print(e)
                 error_json = json.loads(e.body)
                 if (
                     "name already exists"
@@ -74,7 +72,6 @@ def validate_create_dict(all_old, api_instance, type):
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname)
-                print(newname)
                 print(
                     "#"
                     + str(count)

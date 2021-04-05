@@ -222,6 +222,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "nested-lookup"
+version = "0.2.22"
+description = "Python functions for working with deeply nested documents (lists and dicts)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+six = "*"
+
+[[package]]
 name = "nose2"
 version = "0.10.0"
 description = "unittest2 with plugins, the succesor to nose"
@@ -487,7 +498,7 @@ xmlsec = ["xmlsec (>=0.6.1)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "ff3c060d3367b1864c7df8aebe366c3a62f880aa7e6f6d5c6e775ebd4525ee47"
+content-hash = "87c30b0d18d6dfb6d9d7b20fb596e1f015caa709bbe3fb0df6c5a3855cd85f7f"
 
 [metadata.files]
 appdirs = [
@@ -676,6 +687,9 @@ mccabe = [
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
+]
+nested-lookup = [
+    {file = "nested-lookup-0.2.22.tar.gz", hash = "sha256:e39adacd11e879dd6383b0a832cde97edce25d2a29cbc03a9c80fefa3a131e8b"},
 ]
 nose2 = [
     {file = "nose2-0.10.0-py2.py3-none-any.whl", hash = "sha256:aa620e759f2c5018d9ba041340391913e282ecebd3c392027f1575847b093ec6"},

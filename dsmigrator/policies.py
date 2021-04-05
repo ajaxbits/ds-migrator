@@ -137,7 +137,7 @@ def validate_create(all_old, api_instance, type):
                         "[i]NOTE: This is under construction and will work soon. :)[/i]"
                     )
                     namecheck = -1
-    return all_new
+    return id_dict
 
 
 cert = False
@@ -146,4 +146,4 @@ cert = False
 def AddPolicy(allofpolicy, NEW_API_KEY):
     print("Creating Policy to Tenant 2 with new ID", flush=True)
     if allofpolicy:
-        validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")
+        return validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")

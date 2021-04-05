@@ -35,6 +35,26 @@ class RestApiConfiguration:
         return deepsecurity.SearchFilter(None, [criteria])
 
 
+class ComputerGroupsApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.ComputerGroupsApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_computer_groups("v1", search_filter=filter)
+        if results.computer_groups:
+            return results.computer_groups[0].id
+
+    def create(self, json_group):
+        group = deepsecurity.ComputerGroup()
+        for key in json_group:
+            if not key == "ID":
+                setattr(group, to_snake(key), json_group[key])
+        self.api_instance.create_computer_group(group, self.api_version)
+        return group.name
+
+
 class EventBasedTasksApiInstance(RestApiConfiguration):
     def __init__(self, NEW_API_KEY, overrides=False):
         RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
@@ -66,7 +86,7 @@ class ScheduledTasksApiInstance(RestApiConfiguration):
         if results.scheduled_tasks:
             return results.scheduled_tasks[0].id
 
-    def create(self, json_task, type):
+    def create(self, json_task):
         task = deepsecurity.ScheduledTask()
         for key in json_task:
             if not key == "ID":

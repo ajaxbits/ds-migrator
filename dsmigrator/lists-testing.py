@@ -5,16 +5,98 @@ from time import sleep
 import requests
 import urllib3
 import json
-from dsmigrator.api_config import (
+from api_config import (
     DirectoryListsApiInstance,
     FileListsApiInstance,
     FileExtensionListsApiInstance,
-    ScheduledTasksApiInstance,
-    EventBasedTasksApiInstance
 )
-from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
+from migrator_utils import value_exists, rename_json
+import deepsecurity
+from deepsecurity.rest import ApiException
+import json
+import deepsecurity
+import re
+import os
+
+
+def to_snake(camel_case):
+    pattern = re.compile(r"(?<!^)(?=[A-Z])")
+    snake = pattern.sub("_", camel_case).lower()
+    return snake
+
+
+def to_class_name(snake_case):
+    temp = str(snake_case).split("_")
+    class_name = temp[0] + "".join(ele.title() for ele in temp)
+    return class_name
+
+
+class RestApiConfiguration:
+    def __init__(
+        self, NEW_API_KEY, NEW_HOST="https://cloudone.trendmicro.com", overrides=False
+    ):
+        self.configuration = deepsecurity.Configuration()
+        self.api_client = deepsecurity.ApiClient(self.configuration)
+        self.overrides = overrides
+        self.configuration.host = "https://cloudone.trendmicro.com/api"
+        self.configuration.api_key["api-secret-key"] = NEW_API_KEY
+        self.api_version = "v1"
+
+    def name_search_filter(self, name):
+        criteria = deepsecurity.SearchCriteria()
+        criteria.field_name = "name"
+        criteria.string_test = "equal"
+        criteria.string_value = f"%{name}%"
+        return deepsecurity.SearchFilter(None, [criteria])
 
 cert = False
+
+class EventBasedTasksApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.EventBasedTasksApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_event_based_tasks("v1", search_filter=filter)
+        if results.event_based_tasks:
+            return results.event_based_tasks[0].id
+
+    def create(self, json_task):
+        task = deepsecurity.EventBasedTask()
+        for key in json_task:
+            if not key == "ID":
+                setattr(task, to_snake(key), json_task[key])
+        self.api_instance.create_event_based_task(task, self.api_version)
+        return task.name
+
+    def create2(self, json_task):
+        task = deepsecurity.EventBasedTask()
+        for key in json_task:
+            print(key)
+            setattr(task, to_snake(key), json_task[key])
+        self.api_instance.create_event_based_task(task, self.api_version)
+        return task.name
+
+
+class ScheduledTasksApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.ScheduledTasksApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_scheduled_tasks("v1", search_filter=filter)
+        if results.scheduled_tasks:
+            return results.scheduled_tasks[0].id
+
+    def create(self, json_task, type):
+        task = deepsecurity.ScheduledTask()
+        for key in json_task:
+            if not key == "ID":
+                setattr(task, to_snake(key), json_task[key])
+        self.api_instance.create_scheduled_task(task, self.api_version)
+        return task.name
 
 
 def directory_listmaker(
@@ -1064,3 +1146,65 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
     print("Done!", flush=True)
     return t2scheduleid
 
+def validate_create(all_old, api_instance, type):
+    all_new = []
+    for count, dirlist in enumerate(all_old):
+        namecheck = 1
+        rename = 1
+        # oldjson = {'name': 'Computer Created - Migrated {9}', 'type': 'computer-created-by-system', 'enabled': True, 'actions': [{'type': 'assign-policy', 'parameterValue': 1}], 'conditions': [{'field': 'folder', 'value': '.*'}], 'ID': 5}
+        # oldjson = {'name': 'Computer Created - Migrated {9}', 'type': 'computer-created-by-system', 'enabled': True, 'actions': [{'type': 'assign-policy', 'parameterValue': 1}], 'conditions': [{'field': 'folder', 'value': '.*'}], 'ID': 5}
+        # oldjson = {'name': 'Computer Created - Migrated', 'type': 'computer-created-by-system', 'enabled': True, 'actions': [{'type': 'activate', 'parameterValue': 0}], 'conditions': [{'field': 'nsxSecurityGroup', 'value': '.*'}], 'ID': 7}
+        oldjson = json.loads(dirlist)
+        oldname = oldjson["name"]
+        # oldname = f"asdfkjasdkfjasldkfjsdfks{rename}"
+        oldjson["ID"]= 12
+
+        while namecheck != -1:
+            # print(oldjson)
+            try:
+                newname = api_instance.create(oldjson)
+                # newname = api_instance.create2()
+                print(newname)
+                newid = api_instance.search(newname)
+                # print(newname)
+                # print(newid)
+                print(
+                    "#"
+                    + str(count)
+                    + " "
+                    + type.capitalize()
+                    + " List ID: "
+                    + str(newid)
+                    + ", Name: "
+                    + newname,
+                    flush=True,
+                )
+                all_new.append(str(newid))
+                namecheck = -1
+            except ApiException as e:
+                error_json = json.loads(e.body)
+                if (
+                    "name already exists"
+                    or "Name must be unique" in error_json["message"]
+                ):
+                    print(
+                        f"{oldjson['name']} already exists in new tenant, renaming...",
+                        flush=True,
+                    )
+                    print(e)
+                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+                    namecheck = -1
+    return all_new
+
+if __name__ == "__main__":
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    OLD_HOST = os.environ.get("ORIGINAL_URL")
+    OLD_API_KEY= os.environ.get("ORIGINAL_API_KEY")
+    NEW_HOST="https://cloudone.trendmicro.com"
+    NEW_API_KEY= os.environ.get("CLOUD_ONE_API_KEY")
+
+    ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)

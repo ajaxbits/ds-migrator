@@ -5,17 +5,58 @@ from time import sleep
 import requests
 import urllib3
 import json
-from dsmigrator.api_config import (
+from api_config import (
     DirectoryListsApiInstance,
     FileListsApiInstance,
     FileExtensionListsApiInstance,
     ScheduledTasksApiInstance,
     EventBasedTasksApiInstance
 )
-from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
+from migrator_utils import validate_create, value_exists, rename_json
 
 cert = False
 
+def validate_create_task(all_old, api_instance, type, policy_dict):
+    # "actions": [{"type": "assign-policy", "parameterValue": 1}
+    all_new = []
+    for count, dirlist in enumerate(all_old):
+        namecheck = 1
+        rename = 1
+        oldjson = json.loads(dirlist)
+        oldname = oldjson["name"]
+        while namecheck != -1:
+            try:
+                newname = api_instance.create(oldjson)
+                newid = api_instance.search(newname)
+                print(
+                    "#"
+                    + str(count)
+                    + " "
+                    + type.capitalize()
+                    + " List ID: "
+                    + str(newid)
+                    + ", Name: "
+                    + newname,
+                    flush=True,
+                )
+                all_new.append(str(newid))
+                namecheck = -1
+            except ApiException as e:
+                error_json = json.loads(e.body)
+                if (
+                    "name already exists"
+                    or "Name must be unique" in error_json["message"]
+                ):
+                    print(
+                        f"{oldjson['name']} already exists in new tenant, renaming...",
+                        flush=True,
+                    )
+                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+                    namecheck = -1
+    return all_new
 
 def directory_listmaker(
     amdirectorylist,
@@ -1064,3 +1105,12 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
     print("Done!", flush=True)
     return t2scheduleid
 
+if __name__ == "__main__":
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    OLD_HOST = os.environ.get("ORIGINAL_URL")
+    OLD_API_KEY= os.environ.get("ORIGINAL_API_KEY")
+    NEW_HOST="https://cloudone.trendmicro.com"
+    NEW_API_KEY= os.environ.get("CLOUD_ONE_API_KEY")
+
+    ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
