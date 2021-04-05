@@ -208,9 +208,10 @@ def main(
     )
 
     AddPolicy(allofpolicy, NEW_API_KEY)
-# This is plan B
+
 # This code makes all print statements print out to stdout
-# And then writes those statements to a file, log.dat
+# And then writes those statements to a file
+## Logger is for all stdout, ErrLogger is for stderr
 
 class Logger(object):
     def flush(self):
@@ -246,6 +247,4 @@ class ErrLogger(object):
         self.log.write(message)
 
 sys.stderr = ErrLogger()
-
-# sys.stderr = Logger()
 
