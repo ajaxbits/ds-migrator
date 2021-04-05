@@ -229,6 +229,23 @@ class Logger(object):
 
 sys.stdout = Logger()
 
-# I don't know what this code ever did
-    # logger.debug(main())  
-    # pylint: disable=no-value-for-parameter
+
+class ErrLogger(object):
+    def flush(self):
+        pass
+
+    def __init__(self):
+        self.terminal = sys.stderr
+        filename = datetime.now().strftime("error_%H_%M_%d_%m_%Y.log")
+        self.log = open(filename, "a")
+
+    def write(self, message):
+        timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+        message = timestamp + message
+        self.terminal.write(message)
+        self.log.write(message)
+
+sys.stderr = ErrLogger()
+
+# sys.stderr = Logger()
+

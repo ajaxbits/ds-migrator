@@ -14,13 +14,7 @@ pip install -i https://test.pypi.org/simple dsmigrator
 
 ## Usage
 
-In your python program, import the DS Migrator:
-
-```python
-import dsmigrator
-```
-
-Then simply run this command in your shell:
+Run this command in your shell:
 
 ```bash
 dsmg
