@@ -19,8 +19,6 @@ def ebt_listmaker(
         CreateEventTask(
             allet, nameet, policy_dict, computer_group_dict, NEW_HOST, NEW_API_KEY
         )
-    else:
-        pass
 
 
 def st_listmaker(
@@ -85,15 +83,28 @@ def CreateEventTask(
         modet = []
         for task in allet:
             task_json = rename_json(json.loads(task))
+            oldname = task_json.get("name")
             actions_list = task_json.get("actions")
             if actions_list is not None:
                 for action in actions_list:
                     oldid = action.get("parameterValue")
                     if oldid is not None:
-                        if action["type"] == "assign-policy":
+                        if action["type"] == "assign-policy" and policy_dict[oldid]:
                             action["parameterValue"] = policy_dict[oldid]
-                        elif action["type"] == "assign-group":
+                        if (
+                            action["type"] == "assign-group"
+                            and computer_group_dict[oldid]
+                        ):
                             action["parameterValue"] = computer_group_dict[oldid]
+                        if not policy_dict[oldid]:
+                            print(
+                                f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
+                            )
+                        elif not computer_group_dict[oldid]:
+                            print(
+                                f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
+                            )
+
             modet.append(json.dumps(task_json))
 
         validate_create(modet, EventBasedTasksApiInstance(tenant2key), "Event Based")
@@ -149,19 +160,29 @@ def CreateScheduledTask(
         modst = []
         for task in allst:
             task_json = rename_json(json.loads(task))
+            oldname = task_json.get("name")
             oldcomputergroup = nested_lookup("computerGroupID", task_json)
             oldpolicy = nested_lookup("policyID", task_json)
             if oldcomputergroup:
                 oldid = oldcomputergroup[0]
-                task_json = nested_update(
-                    task_json,
-                    "computerGroupID",
-                    computer_group_dict[oldid],
-                )
-            oldpolicy = nested_lookup("policyID", task_json)
+                if computer_group_dict[oldid]:
+                    task_json = nested_update(
+                        task_json,
+                        "computerGroupID",
+                        computer_group_dict[oldid],
+                    )
+                else:
+                    print(
+                        f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
+                    )
             if oldpolicy:
                 oldid = oldpolicy[0]
-                task_json = nested_update(task_json, "policyID", policy_dict[oldid])
+                if computer_group_dict[oldid]:
+                    task_json = nested_update(task_json, "policyID", policy_dict[oldid])
+                else:
+                    print(
+                        f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
+                    )
             modst.append(json.dumps(task_json))
 
         validate_create(modst, ScheduledTasksApiInstance(tenant2key), "Scheduled")

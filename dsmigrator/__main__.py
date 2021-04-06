@@ -221,7 +221,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     computer_group_dict = computer_group_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
