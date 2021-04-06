@@ -89,23 +89,22 @@ def CreateEventTask(
                 for action in actions_list:
                     oldid = action.get("parameterValue")
                     if oldid is not None:
-                        if action["type"] == "assign-policy" and policy_dict[oldid]:
-                            action["parameterValue"] = policy_dict[oldid]
-                        if (
-                            action["type"] == "assign-group"
-                            and computer_group_dict[oldid]
-                        ):
+                        if (computer_group_dict.get(oldid) is not None) and (action["type"] == "assign-group"):
                             action["parameterValue"] = computer_group_dict[oldid]
-                        if not policy_dict[oldid]:
-                            print(
-                                f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
-                            )
-                        elif not computer_group_dict[oldid]:
+                        elif computer_group_dict.get(oldid) is None:
                             print(
                                 f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                             )
-
-            modet.append(json.dumps(task_json))
+                            task_json = {}
+                        if (policy_dict.get(oldid) is not None) and (action["type"] == "assign-policy"):
+                            action["parameterValue"] = policy_dict[oldid]
+                        elif policy_dict.get(oldid) is None:
+                            print(
+                                f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
+                            )
+                            task_json = {}
+            if task_json:
+                modet.append(json.dumps(task_json))
 
         validate_create(modet, EventBasedTasksApiInstance(tenant2key), "Event Based")
 
@@ -163,9 +162,10 @@ def CreateScheduledTask(
             oldname = task_json.get("name")
             oldcomputergroup = nested_lookup("computerGroupID", task_json)
             oldpolicy = nested_lookup("policyID", task_json)
+            has_smartfolder = bool(nested_lookup("smartFolderID", task_json))
             if oldcomputergroup:
                 oldid = oldcomputergroup[0]
-                if computer_group_dict[oldid]:
+                if computer_group_dict.get(oldid) is not None:
                     task_json = nested_update(
                         task_json,
                         "computerGroupID",
@@ -175,14 +175,20 @@ def CreateScheduledTask(
                     print(
                         f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
+                    task_json = {}
             if oldpolicy:
                 oldid = oldpolicy[0]
-                if computer_group_dict[oldid]:
+                if computer_group_dict.get(oldid) is not None:
                     task_json = nested_update(task_json, "policyID", policy_dict[oldid])
                 else:
                     print(
                         f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
-            modst.append(json.dumps(task_json))
+                    task_json = {}
+            if has_smartfolder:
+                print(f"WARNING: THE SMART FOLDER ASSIGNED IN {oldname} CANNOT BE MIGRATED.")
+                task_json = {}
+            if task_json:
+                modst.append(json.dumps(task_json))
 
         validate_create(modst, ScheduledTasksApiInstance(tenant2key), "Scheduled")
