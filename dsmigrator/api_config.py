@@ -35,6 +35,20 @@ class RestApiConfiguration:
         return deepsecurity.SearchFilter(None, [criteria])
 
 
+class SystemSettingsApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.SystemSettingsApi(self.api_client)
+
+    def modify(self, json_settings):
+        settings = deepsecurity.SystemSettings()
+        for key in json_settings:
+            if not key == "ID":
+                setattr(settings, to_snake(key), json_settings[key])
+        self.api_instance.modify_system_settings(settings, self.api_version)
+        return settings
+
+
 class ComputerGroupsApiInstance(RestApiConfiguration):
     def __init__(self, NEW_API_KEY, overrides=False):
         RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)

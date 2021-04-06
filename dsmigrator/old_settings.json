@@ -1,0 +1,622 @@
+[
+  {
+    "platformSettingSamlIdentityProviderCertificateExpiryWarningDays": {
+      "value": "30"
+    },
+    "platformSettingUpdateAgentSecurityOnMissingDeepSecurityManagerEnabled": {
+      "value": "true"
+    },
+    "platformSettingDdanManualSourceServerUrl": {
+      "value": ""
+    },
+    "platformSettingLoadBalancerManagerPort": {
+      "value": "443"
+    },
+    "platformSettingSmartProtectionFeedbackThreatDetectionsThreshold": {
+      "value": "10"
+    },
+    "platformSettingPrimaryTenantAllowTenantRunPortScanEnabled": {
+      "value": "false"
+    },
+    "intrusionPreventionSettingEventRankSeverityFilterMedium": {
+      "value": "25"
+    },
+    "firewallSettingIntranetConnectivityTestExpectedContentRegex": {
+      "value": ""
+    },
+    "platformSettingEventForwardingSnsEnabled": {
+      "value": "false"
+    },
+    "platformSettingTenantAutoRevokeImpersonationByPrimaryTenantTimeout": {
+      "value": "4 Hours"
+    },
+    "webReputationSettingEventRankRiskBlockedByAdministratorRank": {
+      "value": "100"
+    },
+    "platformSettingPrimaryTenantLockAndHideTenantStorageTabEnabled": {
+      "value": "false"
+    },
+    "antiMalwareSettingEventEmailRecipients": {
+      "value": ""
+    },
+    "platformSettingPrimaryTenantAllowTenantUseDefaultRelayGroupEnabled": {
+      "value": "false"
+    },
+    "platformSettingHttpStrictTransportEnabled": {
+      "value": "false"
+    },
+    "firewallSettingIntranetConnectivityTestUrl": {
+      "value": ""
+    },
+    "platformSettingPrimaryTenantAllowTenantConfigureSnsEnabled": {
+      "value": "true"
+    },
+    "platformSettingTenantUseDefaultRelayGroupFromPrimaryTenantEnabled": {
+      "value": "false"
+    },
+    "platformSettingExportedDiagnosticPackageLocale": {
+      "value": "en_US"
+    },
+    "intrusionPreventionSettingEventRankSeverityFilterCritical": {
+      "value": "100"
+    },
+    "platformSettingUpdateImportedSoftwareAutoDownloadEnabled": {
+      "value": "true"
+    },
+    "platformSettingDemoModeEnabled": {
+      "value": "false"
+    },
+    "platformSettingUserEnforceTermsAndConditionsMessage": {
+      "value": ""
+    },
+    "platformSettingTrendMicroXdrCommonLogReceiverUrl": {
+      "value": ""
+    },
+    "platformSettingManagedDetectResponseCompanyGuid": {
+      "value": ""
+    },
+    "platformSettingAlertDefaultEmailAddress": {
+      "value": ""
+    },
+    "platformSettingAgentInitiatedActivationReactivateClonedEnabled": {
+      "value": "true"
+    },
+    "platformSettingManagedDetectResponseServerUrl": {
+      "value": ""
+    },
+    "platformSettingPrimaryTenantShareManagedDetectResponsesEnabled": {
+      "value": "false"
+    },
+    "platformSettingSamlServiceProviderCertificate": {
+      "value": ""
+    },
+    "platformSettingSyslogConfigId": {
+      "value": "0"
+    },
+    "platformSettingSmtpStartTlsEnabled": {
+      "value": "false"
+    },
+    "platformSettingUserPasswordRequireLettersAndNumbersEnabled": {
+      "value": "false"
+    },
+    "platformSettingPrimaryTenantAllowTenantSynchronizeLdapDirectoriesEnabled": {
+      "value": "true"
+    },
+    "platformSettingLoadBalancerRelayPort": {
+      "value": "4122"
+    },
+    "platformSettingManagedDetectResponseEnabled": {
+      "value": "false"
+    },
+    "platformSettingUpdateRulesPolicyAutoApplyEnabled": {
+      "value": "true"
+    },
+    "platformSettingPrimaryTenantAllowTenantConfigureForgotPasswordEnabled": {
+      "value": "false"
+    },
+    "platformSettingUserPasswordRequireNotSameAsUsernameEnabled": {
+      "value": "false"
+    },
+    "logInspectionSettingEventRankSeverityMedium": {
+      "value": "25"
+    },
+    "antiMalwareSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingUpdateAgentSecurityContactPrimarySourceOnMissingRelayEnabled": {
+      "value": "true"
+    },
+    "firewallSettingEventRankSeverityLogOnly": {
+      "value": "1"
+    },
+    "platformSettingPrimaryTenantLockAndHideTenantDataPrivacyOptionEnabled": {
+      "value": "false"
+    },
+    "applicationControlSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingApiSoapWebServiceEnabled": {
+      "value": "false"
+    },
+    "platformSettingSamlServiceProviderPrivateKey": {
+      "value": ""
+    },
+    "platformSettingWindowsUpgradeOnActivationEnabled": {
+      "value": "false"
+    },
+    "platformSettingSystemEventForwardingSnmpPort": {
+      "value": "162"
+    },
+    "firewallSettingEventRankSeverityDeny": {
+      "value": "100"
+    },
+    "intrusionPreventionSettingEventRankSeverityFilterLow": {
+      "value": "1"
+    },
+    "platformSettingPrimaryTenantAllowTenantControlImpersonationEnabled": {
+      "value": "false"
+    },
+    "platformSettingRecommendationCpuUsageLevel": {
+      "value": "High"
+    },
+    "platformSettingManagedDetectResponseServiceToken": {
+      "value": ""
+    },
+    "platformSettingLoadBalancerHeartbeatAddress": {
+      "value": ""
+    },
+    "platformSettingTrendMicroXdrApiUser": {
+      "value": ""
+    },
+    "platformSettingContentSecurityPolicyReportOnlyEnabled": {
+      "value": "true"
+    },
+    "logInspectionSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingTenantAutoRevokeImpersonationByPrimaryTenantEnabled": {
+      "value": "false"
+    },
+    "antiMalwareSettingEventEmailBodyTemplate": {
+      "value": ""
+    },
+    "platformSettingRetainSecurityUpdatesMax": {
+      "value": "10"
+    },
+    "platformSettingConnectedThreatDefenseControlManagerSourceOption": {
+      "value": "Manually select an Apex Central server"
+    },
+    "antiMalwareSettingEventEmailEnabled": {
+      "value": "false"
+    },
+    "platformSettingUpdateAgentSoftwareUseDownloadCenterOnMissingDeepSecurityManagerEnabled": {
+      "value": "false"
+    },
+    "platformSettingRecommendationOngoingScansEnabled": {
+      "value": "No"
+    },
+    "platformSettingAgentInitiatedActivationToken": {
+      "value": ""
+    },
+    "platformSettingUserPasswordLengthMin": {
+      "value": "8"
+    },
+    "platformSettingPrimaryTenantAllowTenantDatabaseState": {
+      "value": "10"
+    },
+    "platformSettingAwsManagerIdentityUseInstanceRoleEnabled": {
+      "value": "true"
+    },
+    "platformSettingContentSecurityPolicy": {
+      "value": ""
+    },
+    "platformSettingProductUsageDataCollectionEnabled": {
+      "value": "true"
+    },
+    "platformSettingAlertAgentUpdatePendingThreshold": {
+      "value": "7 Days"
+    },
+    "platformSettingUserPasswordRequireSpecialCharactersEnabled": {
+      "value": "false"
+    },
+    "platformSettingUpdateApplianceDefaultAgentVersion": {
+      "value": ""
+    },
+    "platformSettingSystemEventForwardingSnmpEnabled": {
+      "value": "false"
+    },
+    "platformSettingSmtpBounceEmailAddress": {
+      "value": ""
+    },
+    "platformSettingUpdateRelaySecuritySupportAgent9AndEarlierEnabled": {
+      "value": "false"
+    },
+    "platformSettingManagedDetectResponseProxyId": {
+      "value": ""
+    },
+    "platformSettingTrendMicroXdrLogServerUrl": {
+      "value": ""
+    },
+    "platformSettingInactiveAgentCleanupEnabled": {
+      "value": "false"
+    },
+    "platformSettingLoadBalancerRelayAddress": {
+      "value": ""
+    },
+    "platformSettingHttpPublicKeyPinPolicy": {
+      "value": ""
+    },
+    "platformSettingUserSessionIdleTimeout": {
+      "value": "30 Minutes"
+    },
+    "antiMalwareSettingEventEmailSubject": {
+      "value": ""
+    },
+    "platformSettingConnectedThreatDefenseControlManagerUseProxyEnabled": {
+      "value": "false"
+    },
+    "platformSettingUserEnforceTermsAndConditionsEnabled": {
+      "value": "false"
+    },
+    "platformSettingAwsManagerIdentityAccessKey": {
+      "value": ""
+    },
+    "platformSettingConnectedThreatDefenseControlManagerProxyId": {
+      "value": ""
+    },
+    "platformSettingTenantAllowImpersonationByPrimaryTenantEnabled": {
+      "value": "false"
+    },
+    "platformSettingConnectedThreatDefenseControlManagerManualSourceServerUrl": {
+      "value": ""
+    },
+    "platformSettingUserPasswordRequireMixedCaseEnabled": {
+      "value": "false"
+    },
+    "platformSettingTrendMicroXdrIdentityProviderApiUrl": {
+      "value": ""
+    },
+    "platformSettingSmartProtectionFeedbackForSuspiciousFileEnabled": {
+      "value": "true"
+    },
+    "platformSettingPrimaryTenantAllowTenantConfigureSnmpEnabled": {
+      "value": "false"
+    },
+    "platformSettingSmartProtectionFeedbackIndustryType": {
+      "value": "Not specified"
+    },
+    "webReputationSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingRetainServerLogDuration": {
+      "value": "7 Days"
+    },
+    "integrityMonitoringSettingEventRankSeverityMedium": {
+      "value": "25"
+    },
+    "platformSettingProxyManagerCloudProxyId": {
+      "value": ""
+    },
+    "platformSettingUpdateRelaySecurityAllRegionsPatternsDownloadEnabled": {
+      "value": "false"
+    },
+    "platformSettingDdanSubmissionEnabled": {
+      "value": "false"
+    },
+    "webReputationSettingEventRankRiskSuspicious": {
+      "value": "25"
+    },
+    "integrityMonitoringSettingEventRankSeverityCritical": {
+      "value": "100"
+    },
+    "platformSettingSmtpFromEmailAddress": {
+      "value": ""
+    },
+    "firewallSettingGlobalStatefulConfigId": {
+      "value": "0"
+    },
+    "platformSettingEventForwardingSnsTopicArn": {
+      "value": ""
+    },
+    "firewallSettingInternetConnectivityTestExpectedContentRegex": {
+      "value": ""
+    },
+    "platformSettingConnectedThreatDefenseControlManagerManualSourceApiKey": {
+      "value": ""
+    },
+    "platformSettingLoadBalancerManagerAddress": {
+      "value": "EthanPDS12ELB-1713625598.us-east-2.elb.amazonaws.com"
+    },
+    "platformSettingUpdateSecurityPrimarySourceMode": {
+      "value": "Trend Micro ActiveUpdate Server"
+    },
+    "platformSettingPrimaryTenantShareConnectedThreatDefensesEnabled": {
+      "value": "false"
+    },
+    "webReputationSettingEventRankRiskDangerous": {
+      "value": "100"
+    },
+    "platformSettingLoadBalancerHeartbeatPort": {
+      "value": "4120"
+    },
+    "platformSettingUserHideUnlicensedModulesEnabled": {
+      "value": "false"
+    },
+    "platformSettingCaptureEncryptedTrafficEnabled": {
+      "value": "false"
+    },
+    "platformSettingRetainSystemEventDuration": {
+      "value": "53 Weeks"
+    },
+    "platformSettingUserPasswordExpiry": {
+      "value": "Never"
+    },
+    "platformSettingSmartProtectionFeedbackEnabled": {
+      "value": "true"
+    },
+    "integrityMonitoringSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingPrimaryTenantAllowTenantUseScheduledRunScriptTaskEnabled": {
+      "value": "false"
+    },
+    "logInspectionSettingEventRankSeverityCritical": {
+      "value": "100"
+    },
+    "platformSettingPrimaryTenantLockAndHideTenantSmtpTabEnabled": {
+      "value": "false"
+    },
+    "platformSettingDdanProxyId": {
+      "value": ""
+    },
+    "platformSettingAgentInitiatedActivationWithinIpListId": {
+      "value": ""
+    },
+    "platformSettingUpdateSecurityPrimarySourceUrl": {
+      "value": "http://"
+    },
+    "platformSettingAgentlessVcloudProtectionEnabled": {
+      "value": "false"
+    },
+    "platformSettingLinuxUpgradeOnActivationEnabled": {
+      "value": "false"
+    },
+    "platformSettingTrendMicroXdrEnabled": {
+      "value": "false"
+    },
+    "platformSettingActiveSessionsMaxExceededAction": {
+      "value": "Block new sessions"
+    },
+    "platformSettingUpdateHostnameOnIpChangeEnabled": {
+      "value": "false"
+    },
+    "logInspectionSettingEventRankSeverityHigh": {
+      "value": "50"
+    },
+    "platformSettingSmtpRequiresAuthenticationEnabled": {
+      "value": "false"
+    },
+    "platformSettingActiveSessionsMax": {
+      "value": "10"
+    },
+    "platformSettingAwsExternalIdRetrievalEnabled": {
+      "value": "true"
+    },
+    "logInspectionSettingEventRankSeverityLow": {
+      "value": "1"
+    },
+    "platformSettingAzureSsoCertificate": {
+      "value": ""
+    },
+    "platformSettingSmtpUsername": {
+      "value": ""
+    },
+    "platformSettingEventForwardingSnsAdvancedConfigEnabled": {
+      "value": "false"
+    },
+    "firewallSettingInternetConnectivityTestInterval": {
+      "value": "10 Seconds"
+    },
+    "platformSettingWhoisUrl": {
+      "value": ""
+    },
+    "platformSettingDdanSourceOption": {
+      "value": "Manually select a Deep Discovery Analyzer server"
+    },
+    "platformSettingConnectedThreatDefenseControlManagerSuspiciousObjectListComparisonEnabled": {
+      "value": "false"
+    },
+    "platformSettingExportedFileCharacterEncoding": {
+      "value": "US-ASCII"
+    },
+    "platformSettingUserSessionDurationMax": {
+      "value": "No Limit"
+    },
+    "platformSettingUpdateSoftwareAlternateUpdateServerUrls": {
+      "value": ""
+    },
+    "platformSettingRetainCountersDuration": {
+      "value": "13 Weeks"
+    },
+    "platformSettingPrimaryTenantAllowTenantRunComputerDiscoveryEnabled": {
+      "value": "false"
+    },
+    "platformSettingSmartProtectionFeedbackInterval": {
+      "value": "5"
+    },
+    "platformSettingSystemEventForwardingSnmpAddress": {
+      "value": ""
+    },
+    "platformSettingSmtpServerAddress": {
+      "value": ""
+    },
+    "platformSettingPrimaryTenantAllowTenantConfigureSiemEnabled": {
+      "value": "false"
+    },
+    "platformSettingSmtpPassword": {
+      "value": ""
+    },
+    "platformSettingEventForwardingSnsConfigJson": {
+      "value": ""
+    },
+    "firewallSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "webReputationSettingEventRankRiskUntested": {
+      "value": "25"
+    },
+    "platformSettingManagedDetectResponseUseProxyEnabled": {
+      "value": "false"
+    },
+    "platformSettingEventForwardingSnsSecretKey": {
+      "value": ""
+    },
+    "platformSettingLogoBinaryImageImg": {
+      "value": ""
+    },
+    "platformSettingAwsManagerIdentitySecretKey": {
+      "value": ""
+    },
+    "webReputationSettingEventRankRiskHighlySuspicious": {
+      "value": "50"
+    },
+    "platformSettingApiStatusMonitoringEnabled": {
+      "value": "true"
+    },
+    "platformSettingSignInPageMessage": {
+      "value": ""
+    },
+    "platformSettingUserPasswordExpirySendEmailEnabled": {
+      "value": "false"
+    },
+    "platformSettingUserSignInAttemptsAllowedNumber": {
+      "value": "5"
+    },
+    "platformSettingDdanUseProxyEnabled": {
+      "value": "false"
+    },
+    "platformSettingAgentInitiatedActivationEnabled": {
+      "value": "For any computers"
+    },
+    "platformSettingPrimaryTenantAllowTenantConfigureRememberMeOptionEnabled": {
+      "value": "false"
+    },
+    "platformSettingSmartProtectionFeedbackBandwidthMaxKbytes": {
+      "value": "32"
+    },
+    "firewallSettingEventRankSeverityPacketRejection": {
+      "value": "50"
+    },
+    "platformSettingProxyManagerUpdateProxyId": {
+      "value": ""
+    },
+    "platformSettingManagedDetectResponseUsePrimaryTenantSettingsEnabled": {
+      "value": "false"
+    },
+    "platformSettingEventForwardingSnsAccessKey": {
+      "value": ""
+    },
+    "platformSettingAgentInitiatedActivationSpecifyHostnameEnabled": {
+      "value": "true"
+    },
+    "platformSettingPrimaryTenantAllowTenantSyncWithCloudAccountEnabled": {
+      "value": "true"
+    },
+    "platformSettingConnectedThreatDefensesUsePrimaryTenantServerSettingsEnabled": {
+      "value": "false"
+    },
+    "platformSettingInactiveAgentCleanupDuration": {
+      "value": "1 Month"
+    },
+    "platformSettingAgentInitiatedActivationDuplicateHostnameMode": {
+      "value": "Re-activate the existing Computer"
+    },
+    "platformSettingVmwareNsxManagerNode": {
+      "value": "1"
+    },
+    "platformSettingUserEnforceTermsAndConditionsTitle": {
+      "value": ""
+    },
+    "platformSettingPrimaryTenantAllowTenantAddVmwareVcenterEnabled": {
+      "value": "true"
+    },
+    "platformSettingNewTenantDownloadSecurityUpdateEnabled": {
+      "value": "true"
+    },
+    "platformSettingTenantProtectionUsageMonitoringComputerId3": {
+      "value": "Platform"
+    },
+    "platformSettingAllowPacketDataCaptureInNetworkEvents": {
+      "value": "Yes (excluding encrypted traffic)"
+    },
+    "platformSettingAgentInitiatedActivationReactivateUnknownEnabled": {
+      "value": "true"
+    },
+    "platformSettingTenantProtectionUsageMonitoringComputerId2": {
+      "value": "Last Used IP Address"
+    },
+    "platformSettingAgentInitiatedActivationPolicyId": {
+      "value": ""
+    },
+    "platformSettingTenantProtectionUsageMonitoringComputerId1": {
+      "value": "Hostname"
+    },
+    "platformSettingTrendMicroXdrApiServerUrl": {
+      "value": ""
+    },
+    "platformSettingRetainAgentInstallersPerPlatformMax": {
+      "value": "5"
+    },
+    "applicationControlSettingServeRulesetsFromRelaysEnabled": {
+      "value": "false"
+    },
+    "integrityMonitoringSettingEventRankSeverityHigh": {
+      "value": "50"
+    },
+    "platformSettingSamlRetainInactiveExternalAdministratorsDuration": {
+      "value": "365"
+    },
+    "intrusionPreventionSettingRetainEventDuration": {
+      "value": "7 Days"
+    },
+    "platformSettingHttpPublicKeyPinPolicyReportOnlyEnabled": {
+      "value": "true"
+    },
+    "platformSettingSamlServiceProviderName": {
+      "value": ""
+    },
+    "firewallSettingInternetConnectivityTestUrl": {
+      "value": ""
+    },
+    "platformSettingSamlServiceProviderCertificateExpiryWarningDays": {
+      "value": "30"
+    },
+    "platformSettingProxyAgentUpdateProxyId": {
+      "value": ""
+    },
+    "platformSettingDdanAutoSubmissionEnabled": {
+      "value": "false"
+    },
+    "platformSettingDdanManualSourceApiKey": {
+      "value": ""
+    },
+    "platformSettingSamlServiceProviderEntityId": {
+      "value": ""
+    },
+    "intrusionPreventionSettingEventRankSeverityFilterError": {
+      "value": "100"
+    },
+    "intrusionPreventionSettingEventRankSeverityFilterHigh": {
+      "value": "50"
+    },
+    "platformSettingTrendMicroXdrApiKey": {
+      "value": ""
+    },
+    "integrityMonitoringSettingEventRankSeverityLow": {
+      "value": "1"
+    },
+    "platformSettingTrendMicroXdrCompanyId": {
+      "value": ""
+    }
+  }
+]
