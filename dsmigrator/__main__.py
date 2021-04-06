@@ -28,6 +28,7 @@ from dsmigrator.lists import (
 )
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
 from dsmigrator.computer_groups import computer_group_listmaker
+from dsmigrator.system_settings import settings_transfer
 import yaml
 
 
@@ -155,9 +156,13 @@ def main(
     t1iplistall, t1iplistname, t1iplistid, t2iplistid = ip_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    t1statefulall, t1statefulname, t1statefulid, t2statefulid = stateful_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
+    (
+        t1statefulall,
+        t1statefulname,
+        t1statefulid,
+        t2statefulid,
+        stateful_dict,
+    ) = stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     t1contextid, t2contextid = context_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
@@ -165,8 +170,12 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    # ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    # st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    print(stateful_dict)
+    try:
+        settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
+    except Exception:
+        pass
+
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
@@ -232,6 +241,7 @@ def main(
     st_listmaker(
         policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+
 
 # This code makes all print statements print out to stdout
 # And then writes those statements to a file

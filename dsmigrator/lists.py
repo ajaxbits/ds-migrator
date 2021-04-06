@@ -65,7 +65,12 @@ def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
 def stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     t1statefulall, t1statefulname, t1statefulid = StatefulGet(OLD_HOST, OLD_API_KEY)
     t2statefulid = StatefulCreate(t1statefulall, t1statefulname, NEW_HOST, NEW_API_KEY)
-    return t1statefulall, t1statefulname, t1statefulid, t2statefulid
+    stateful_dict = {0: 0}
+    for i in t1statefulid:
+        index = t1statefulid.index(i)
+        if index < len(t2statefulid):
+            stateful_dict[int(i)] = int(t2statefulid[index])
+    return t1statefulall, t1statefulname, t1statefulid, t2statefulid, stateful_dict
 
 
 def context_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):

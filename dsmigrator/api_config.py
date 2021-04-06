@@ -43,8 +43,7 @@ class SystemSettingsApiInstance(RestApiConfiguration):
     def modify(self, json_settings):
         settings = deepsecurity.SystemSettings()
         for key in json_settings:
-            if not key == "ID":
-                setattr(settings, to_snake(key), json_settings[key])
+            setattr(settings, to_snake(key), json_settings[key])
         self.api_instance.modify_system_settings(settings, self.api_version)
         return settings
 
