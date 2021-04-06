@@ -3,10 +3,10 @@
 dist/
 .vim/
 .config
+config.yml
 dsm-py-sdk.zip
 sdk/
 ops_tools/
-config.yml
 .envrc
 envrc.bak
 config.json

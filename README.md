@@ -62,8 +62,6 @@ You can optionally use the following environment variables to pass in your crede
 - One api key for your Cloud One account with "Full Access" permissions
 - A resolvable FQDN to your old Deep Security Manager
 
-**NOTE:** DS Migrator has only been tested on Arch Linux and Ubuntu -- your milage may vary.
-
 **NOTE:** DS Migrator currently only supports migrations from Deep Security 20 and 12.
 
 ## Contributing
@@ -78,5 +76,7 @@ You can optionally use the following environment variables to pass in your crede
 For support, please open an issue on Github.
 
 ## License
+
+GNU General Public License
 
 GNU General Public License

@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "dsmigrator"
-version = "0.1.7"
+version = "0.2.1"
 description = "A cli tool to migrate Trend Micro Deep Security to the cloud."
 authors = ["Alex Jackson <alex_jackson@trendmicro.com>", "Ethan Parent<ethan_parent@trendmicro.com>"]
 readme = "README.md"
 keywords = ["Trend", "Micro", "deepsecurity", "cloudone", "migrator", "trendmicro", "security", "cli"]
 license = "GPLv3"
 homepage = "https://github.com/ajaxbits/ds-migrator"
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -20,6 +23,7 @@ zeep = "^4.0.0"
 requests = "^2.25.1"
 rich = "^10.0.0"
 PyYAML = "^5.4.1"
+nested-lookup = "^0.2.22"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.2"

@@ -23,12 +23,26 @@ from dsmigrator.lists import (
     mac_listmaker,
     ip_listmaker,
     stateful_listmaker,
-    ebt_listmaker,
-    st_listmaker,
     context_listmaker,
     schedule_listmaker,
 )
+from dsmigrator.tasks import ebt_listmaker, st_listmaker
+from dsmigrator.computer_groups import computer_group_listmaker
 import yaml
+
+
+class Logger(object):
+    def flush(self):
+        pass
+
+    def __init__(self):
+        self.terminal = sys.stdout
+        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
+        self.log = open(f"./{filename}", "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
 
 
 # override the click invoke method
@@ -102,6 +116,9 @@ def main(
     insecure,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
+    sys.stdout = Logger()
+    sys.stderr = sys.stdout
+
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
@@ -148,8 +165,8 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # ebt_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+    # st_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
@@ -166,7 +183,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    # print(allofpolicy[1])
     allofpolicy = am_validate_create(
         allofpolicy,
         antimalwareconfig,
@@ -180,7 +196,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    # print(allofpolicy[1])
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
@@ -207,44 +222,22 @@ def main(
         NEW_API_KEY,
     )
 
-    AddPolicy(allofpolicy, NEW_API_KEY)
+    policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
+    computer_group_dict = {}
+    computer_group_dict = computer_group_listmaker(
+        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
+    computer_group_dict[0] = 0
+    ebt_listmaker(
+        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
+    st_listmaker(
+        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+    )
 
 # This code makes all print statements print out to stdout
 # And then writes those statements to a file
 ## Logger is for all stdout, ErrLogger is for stderr
 
-class Logger(object):
-    def flush(self):
-        pass
-
-    def __init__(self):
-        self.terminal = sys.stdout
-        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(filename, "a")
-
-    def write(self, message):
-        timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-        message = timestamp + message
-        self.terminal.write(message)
-        self.log.write(message)
-
-sys.stdout = Logger()
-
-
-class ErrLogger(object):
-    def flush(self):
-        pass
-
-    def __init__(self):
-        self.terminal = sys.stderr
-        filename = datetime.now().strftime("error_%H_%M_%d_%m_%Y.log")
-        self.log = open(filename, "a")
-
-    def write(self, message):
-        timestamp = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-        message = timestamp + message
-        self.terminal.write(message)
-        self.log.write(message)
-
-sys.stderr = ErrLogger()
-
+if __name__ == "__main__":
+    main()  # pylint: disable=no-value-for-parameter

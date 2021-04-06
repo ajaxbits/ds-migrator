@@ -10,6 +10,12 @@ def to_snake(camel_case):
     return snake
 
 
+def to_class_name(snake_case):
+    temp = str(snake_case).split("_")
+    class_name = temp[0] + "".join(ele.title() for ele in temp)
+    return class_name
+
+
 class RestApiConfiguration:
     def __init__(
         self, NEW_API_KEY, NEW_HOST="https://cloudone.trendmicro.com", overrides=False
@@ -27,6 +33,66 @@ class RestApiConfiguration:
         criteria.string_test = "equal"
         criteria.string_value = f"%{name}%"
         return deepsecurity.SearchFilter(None, [criteria])
+
+
+class ComputerGroupsApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.ComputerGroupsApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_computer_groups("v1", search_filter=filter)
+        if results.computer_groups:
+            return results.computer_groups[0].id
+
+    def create(self, json_group):
+        group = deepsecurity.ComputerGroup()
+        for key in json_group:
+            if not key == "ID":
+                setattr(group, to_snake(key), json_group[key])
+        self.api_instance.create_computer_group(group, self.api_version)
+        return group.name
+
+
+class EventBasedTasksApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.EventBasedTasksApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_event_based_tasks("v1", search_filter=filter)
+        if results.event_based_tasks:
+            return results.event_based_tasks[0].id
+
+    def create(self, json_task):
+        task = deepsecurity.EventBasedTask()
+        for key in json_task:
+            if not key == "ID":
+                setattr(task, to_snake(key), json_task[key])
+        self.api_instance.create_event_based_task(task, self.api_version)
+        return task.name
+
+
+class ScheduledTasksApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.ScheduledTasksApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_scheduled_tasks("v1", search_filter=filter)
+        if results.scheduled_tasks:
+            return results.scheduled_tasks[0].id
+
+    def create(self, json_task):
+        task = deepsecurity.ScheduledTask()
+        for key in json_task:
+            if not key == "ID":
+                setattr(task, to_snake(key), json_task[key])
+        self.api_instance.create_scheduled_task(task, self.api_version)
+        return task.name
 
 
 class DirectoryListsApiInstance(RestApiConfiguration):
