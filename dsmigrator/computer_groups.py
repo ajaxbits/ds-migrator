@@ -12,10 +12,10 @@ cert = False
 
 def computer_group_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     computer_group_dict = {}
-    enum_oldetname, etIDs = ListGroup(OLD_HOST, OLD_API_KEY)
-    if etIDs:
-        allet, nameet = GetGroup(etIDs, OLD_HOST, OLD_API_KEY)
-        computer_group_dict = CreateGroup(allet, nameet, NEW_HOST, NEW_API_KEY)
+    enum_oldetname, groupIDs = ListGroup(OLD_HOST, OLD_API_KEY)
+    if groupIDs:
+        allgroup, namegroup = GetGroup(groupIDs, OLD_HOST, OLD_API_KEY)
+        computer_group_dict = CreateGroup(allgroup, namegroup, NEW_HOST, NEW_API_KEY)
     computer_group_dict[0] = 0
     return computer_group_dict
 
