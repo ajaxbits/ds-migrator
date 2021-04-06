@@ -79,3 +79,4 @@ For support, please open an issue on Github.
 
 GNU General Public License
 
+GNU General Public License

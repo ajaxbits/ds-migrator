@@ -233,6 +233,9 @@ def main(
         policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
+# This code makes all print statements print out to stdout
+# And then writes those statements to a file
+## Logger is for all stdout, ErrLogger is for stderr
 
 if __name__ == "__main__":
     main()  # pylint: disable=no-value-for-parameter

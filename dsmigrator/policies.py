@@ -137,6 +137,7 @@ def validate_create(all_old, api_instance, type):
                         "[i]NOTE: This is under construction and will work soon. :)[/i]"
                     )
                     namecheck = -1
+    id_dict[0] = 0
     return id_dict
 
 
