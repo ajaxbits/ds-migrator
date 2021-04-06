@@ -9,11 +9,15 @@ from deepsecurity.rest import ApiException
 
 cert = False
 
+
 def computer_group_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
+    computer_group_dict = {}
     enum_oldetname, etIDs = ListGroup(OLD_HOST, OLD_API_KEY)
     if etIDs:
         allet, nameet = GetGroup(etIDs, OLD_HOST, OLD_API_KEY)
-        return CreateGroup(allet, nameet, NEW_HOST, NEW_API_KEY)
+        computer_group_dict = CreateGroup(allet, nameet, NEW_HOST, NEW_API_KEY)
+    computer_group_dict[0] = 0
+    return computer_group_dict
 
 
 def ListGroup(url_link_final, tenant1key):
@@ -64,6 +68,8 @@ def CreateGroup(allet, nameet, url_link_final_2, tenant2key):
     if nameet:
         modet = []
         for task in allet:
-            task_json= rename_json(json.loads(task))
+            task_json = rename_json(json.loads(task))
             modet.append(json.dumps(task_json))
-        return validate_create_dict(modet, ComputerGroupsApiInstance(tenant2key), "Computer Group")
+        return validate_create_dict(
+            modet, ComputerGroupsApiInstance(tenant2key), "Computer Group"
+        )
