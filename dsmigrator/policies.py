@@ -98,6 +98,11 @@ def validate_create(all_old, api_instance, type):
         oldjson = json.loads(dirlist)
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
+        policysettings = oldjson.get("policySettings")
+        if policysettings is not None:
+            policysettings["platformSettingAgentCommunicationsDirection"] = {
+                "value": "Agent/Appliance Initiated"
+            }
         while namecheck != -1:
             if "parentID" in oldjson.keys():
                 newparentid = id_dict[oldjson["parentID"]]
