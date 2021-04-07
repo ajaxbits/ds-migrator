@@ -3,11 +3,15 @@
 **Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
 
 * [Quickstart](#quickstart)
+* [Capabilities](#capabilities)
+  * [Known limitations](#known-limitations)
 * [Usage](#usage)
   * [Command Reference](#command-reference)
   * [Use Environment Variables](#use-environment-variables)
 * [Requirements](#requirements)
 * [Contributing](#contributing)
+* [Support](#support)
+* [License](#license)
 
 ## Quickstart
 
@@ -16,6 +20,30 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dsmigra
 1. Run ```pip install dsmigrator``` on a machine with access to your DSM.
 
 2. Run ```dsmg -k``` and fill out the credential prompts.
+
+## Capabilities
+
+Here's the current feature map of what the tool can migrate:
+
+- [x] Policies
+- [x] Policy settings
+- [x] Global manager settings
+- [x] Anti-Malware Scan Configurations
+- [x] IPS, LI, and IM custom rules
+- [x] Firewall rules
+- [x] Schedules
+- [x] Contexts
+- [x] IP lists
+- [x] MAC lists
+- [x] Port lists
+- [x] [BETA] Tasks (still quite buggy)
+- [x] [BETA] Computer Groups
+- [ ] Application Control (everything)
+
+### Known limitations
+
+- Cannot migrate customized IM/LI/IP rules. Another tool will be incoming to help aid a manual process in identifying each rule that has been customized, but they will never migrate automatically due to an API limitation
+- Won't migrate cloud accounts. Must be reconfigured/reauthenticated in Cloud One
 
 ## Usage
 
@@ -38,6 +66,13 @@ Options:
 
   -coa, --cloud-one-api-key TEXT  API key for Cloud One Workload Security with
                                   Full Access permissions
+
+  -d, --delete-policies / --keep-policies
+                                  Wipes existing policies in Cloud One (not
+                                  required, but will give best results)
+
+  -t, --tasks                     (BETA) Enable the task migrator (may be
+                                  buggy)
 
   -k, --insecure                  Suppress the InsecureRequestWarning for
                                   self-signed certificates
