@@ -7,11 +7,38 @@ from time import sleep
 import requests
 import urllib3
 import json
+from types import SimpleNamespace
 from dsmigrator.api_config import PolicyApiInstance
 from rich import print
 import click
 
 cert = False
+
+
+def delete_cloud_one_policies(CLOUD_ONE_API_KEY):
+    print("[bold magenta]Deleting Policies from Cloud One...[/bold magenta]")
+    host = "https://cloudone.trendmicro.com/api/policies"
+    message = requests.get(
+        host,
+        verify=False,
+        headers={"api-secret-key": CLOUD_ONE_API_KEY, "api-version": "v1"},
+    )
+    parsed = message.text
+    x = json.loads(parsed, object_hook=lambda d: SimpleNamespace(**d))
+    policyNumbers = []
+    for key in x.policies:
+        policyNumbers.append(key.ID)
+    if policyNumbers:
+        for policyID in policyNumbers:
+            print(f"Deleting policy #{policyID}")
+            policyHost = f"https://cloudone.trendmicro.com/api/policies/{policyID}"
+            r = requests.delete(
+                policyHost,
+                verify=False,
+                headers={"api-secret-key": CLOUD_ONE_API_KEY, "api-version": "v1"},
+            )
+    else:
+        print("No policies detected in Cloud One. Skipping.")
 
 
 def ListAllPolicy(url_link_final, tenant1key):
@@ -38,7 +65,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     antimalwareconfig = []
     allofpolicy = []
     i = 0
-    print("Getting Policy from Tenant 1", flush=True)
+    print("Getting Policy from Deep Security", flush=True)
     for count, part in enumerate(policyIDs):
 
         payload = {}

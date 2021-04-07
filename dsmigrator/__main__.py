@@ -10,7 +10,12 @@ import logging
 import click
 from datetime import datetime
 import dsmigrator.api_config
-from dsmigrator.policies import ListAllPolicy, GetPolicy, AddPolicy
+from dsmigrator.policies import (
+    ListAllPolicy,
+    GetPolicy,
+    AddPolicy,
+    delete_cloud_one_policies,
+)
 from dsmigrator.proxy import proxy_edit
 from dsmigrator.ips import ips_rules_transform
 from dsmigrator.antimalware import am_config_transform, am_validate_create
@@ -77,6 +82,7 @@ def CommandWithConfigFile(config_file_param_name):
     "-oa",
     "--original-api-key",
     prompt="Old DSM API key",
+    hide_input=True,
     help="API key for the old DSM with Full Access permissions",
     envvar="ORIGINAL_API_KEY",
 )
@@ -91,8 +97,23 @@ def CommandWithConfigFile(config_file_param_name):
     "-coa",
     "--cloud-one-api-key",
     prompt="New Cloud One API key",
+    hide_input=True,
     help="API key for Cloud One Workload Security with Full Access permissions",
     envvar="CLOUD_ONE_API_KEY",
+)
+@click.option(
+    "-d",
+    "--delete-policies/--keep-policies",
+    is_flag=True,
+    default=False,
+    prompt="Do you want to wipe existing policies in Cloud One? (not required, but will give best results)",
+    help="Wipes existing policies in Cloud One (not required, but will give best results)",
+)
+@click.option(
+    "-t",
+    "--tasks",
+    is_flag=True,
+    help="(BETA) Enable the task migrator (may be buggy)",
 )
 @click.option(
     "-k",
@@ -115,6 +136,8 @@ def main(
     cloud_one_api_key,
     cert,
     insecure,
+    tasks,
+    delete_policies,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
     sys.stdout = Logger()
@@ -127,6 +150,9 @@ def main(
 
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    if delete_policies:
+        delete_cloud_one_policies(NEW_API_KEY)
 
     old_policy_name_enum, old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
@@ -234,18 +260,24 @@ def main(
     computer_group_dict = computer_group_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    print(computer_group_dict)
-    ebt_listmaker(
-        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    st_listmaker(
-        policy_dict, computer_group_dict, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
+    if tasks:
+        ebt_listmaker(
+            policy_dict,
+            computer_group_dict,
+            OLD_HOST,
+            OLD_API_KEY,
+            NEW_HOST,
+            NEW_API_KEY,
+        )
+        st_listmaker(
+            policy_dict,
+            computer_group_dict,
+            OLD_HOST,
+            OLD_API_KEY,
+            NEW_HOST,
+            NEW_API_KEY,
+        )
 
-
-# This code makes all print statements print out to stdout
-# And then writes those statements to a file
-## Logger is for all stdout, ErrLogger is for stderr
 
 if __name__ == "__main__":
     main()  # pylint: disable=no-value-for-parameter
