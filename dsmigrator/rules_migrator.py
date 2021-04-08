@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
     "-x",
     "--xml-folder",
     prompt="Path to XML folder with IM, LI, and IPS rule export files",
-    help="Path to XML folder with IM, LI, and IPS rule export files.",
+    help="Path to XML folder with IM, LI, and IPS rule export files. NOTE that the files must be named 'Intrusion_Prevention_Rules.xml', 'Log_Inspection_Rules.xml', and 'Integrity_Monitoring_Rules.xml'",
     default="./xml/",
 )
 @click.option(
@@ -61,21 +61,21 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
             self.api_version = "v1"
 
         def search(self, search_filter):
-            if self.module == "ip":
+            if self.module == "Intrusion Prevention":
                 api_instance = deepsecurity.IntrusionPreventionRulesApi(
                     deepsecurity.ApiClient(self.configuration)
                 )
                 return api_instance.search_intrusion_prevention_rules(
                     self.api_version, search_filter=search_filter
                 ).intrusion_prevention_rules
-            elif self.module == "li":
+            elif self.module == "Log Inspection":
                 api_instance = deepsecurity.LogInspectionRulesApi(
                     deepsecurity.ApiClient(self.configuration)
                 )
                 return api_instance.search_log_inspection_rules(
                     self.api_version, search_filter=search_filter
                 ).log_inspection_rules
-            elif self.module == "im":
+            elif self.module == "Integrity Monitoring":
                 api_instance = deepsecurity.IntegrityMonitoringRulesApi(
                     deepsecurity.ApiClient(self.configuration)
                 )
@@ -90,19 +90,19 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
             self.xml = ET.parse(file).getroot()
             self.edited_rules = []
             iterator = {
-                "ip": "PayloadFilter2",
-                "im": "IntegrityRule",
-                "li": "LogInspectionRule",
+                "Intrusion Prevention": "PayloadFilter2",
+                "Integrity Monitoring": "IntegrityRule",
+                "Log Inspection": "LogInspectionRule",
             }
             for rule in self.xml.iter(iterator[self.module]):
                 for child in rule.iter("UserEdited"):
                     if child.text == "true":
                         rule_id = rule.attrib["id"]
                         self.edited_rules.append(int(rule_id))
-            if self.edited_rules:
-                print(
-                    f"Found {len(self.edited_rules)} customized {self.module}  rules!"
-                )
+            if len(self.edited_rules) > 1:
+                print(f"Found {len(self.edited_rules)} customized {self.module} rules!")
+            elif self.edited_rules:
+                print(f"Found {len(self.edited_rules)} customized {self.module} rule!")
             else:
                 print(f"No customized {self.module} rules detected.")
 
@@ -141,26 +141,27 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
         warnings.simplefilter("ignore")
 
     ip = Config(
-        "ip",
+        "Intrusion Prevention",
         f"{xml_folder}Intrusion_Prevention_Rules.xml",
         original_url,
         original_api_key,
         cert,
     )
     im = Config(
-        "im",
+        "Integrity Monitoring",
         f"{xml_folder}Integrity_Monitoring_Rules.xml",
         original_url,
         original_api_key,
         cert,
     )
     li = Config(
-        "li",
+        "Log Inspection",
         f"{xml_folder}Log_Inspection_Rules.xml",
         original_url,
         original_api_key,
         cert,
     )
+    print(f"Creating report at {outfile}...")
     try:
         rule_list = [
             add_module_rules(ip.api, ip.rules),
@@ -171,6 +172,7 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
         print(e)
     json_output = json.dumps(rule_list, indent=2)
     open(outfile, "w").write(json_output)
+    print("DONE!")
 
 
 if __name__ == "__main__":
