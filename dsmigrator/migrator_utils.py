@@ -42,6 +42,7 @@ def http_list_get(type, OLD_HOST, OLD_API_KEY, cert=False):
     Takes in a string type in snake case, outputs a list of string json (for now)
     """
     list_all = []
+    list_name = []
     list_id = []
     endpoint = f"{OLD_HOST}api/{to_api_endpoint(type)}"
     headers = {
@@ -61,7 +62,41 @@ def http_list_get(type, OLD_HOST, OLD_API_KEY, cert=False):
             )
             print(f"#{str(count)} {to_title(type)} ID: {str(item['ID'])}", flush=True)
         print("Done!", flush=True)
-    return list_all, list_id
+    return list_all, list_name, list_id
+
+
+def http_search(
+    type,
+    list_name,
+    OLD_HOST,
+    OLD_API_KEY,
+    cert=False,
+    search_type="name",
+):
+    # returns a list of items
+    all_results = []
+    if not isinstance(list_name, list):
+        list_name = [list_name]
+    for item in list_name:
+        payload = (
+            '{"searchCriteria": [{"fieldName": "'
+            + str(search_type)
+            + '","stringValue": "'
+            + str(item)
+            + '"}]}'
+        )
+        endpoint = f"{OLD_HOST}api/{to_api_endpoint(type)}/search"
+        headers = {
+            "api-secret-key": OLD_API_KEY,
+            "api-version": "v1",
+            "Content-Type": "application/json",
+        }
+        response = requests.request(
+            "POST", endpoint, headers=headers, data=payload, verify=cert
+        )
+        describe = str(response.text)
+        all_results.append(describe)
+    return all_results
 
 
 def validate_create(all_old, api_instance, type):

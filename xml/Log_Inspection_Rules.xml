@@ -1,0 +1,1340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export type="LogInspectionRule" date="April 8, 2021 16:50" version="20.0.313">
+	<LogInspectionRules>
+		<LogInspectionRule doNotMerge="true" id="20">
+			<TBUID>63780BA6-0BA2-EA4F-1A46-EA51B6891214</TBUID>
+			<Name>Default Rules Configuration</Name>
+			<Description>Common configuration rules used the other Log Inspection Rules. By itself this rule does not inspect events, but is required for all the other Log Inspection Rules.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.1156</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs/>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>true</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>01,02,03,04,05,06,07,08</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="28">
+			<TBUID>B7967092-8CE6-A957-92BB-EF06DC8544BE</TBUID>
+			<Name>Mail Server - Microsoft Exchange</Name>
+			<Description>Inspect Microsoft Exchange for events.
+
+Platform: Microsoft Windows
+
+NOTE: To use this Log Inspection Rule, Microsoft Exchange Server should be configured to forward logs in W3C Extended Log File Format. To enable this, check 'Enable Logging' in the 'Default SMTP Virtual Server Properties' dialog for the SMTP Virtual Server, in 'Exchange System Manager' .</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>true</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>3800,3801,3802,3851,3852</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="23">
+			<TBUID>819CE6CB-E1E2-BB85-885F-390499CE0527</TBUID>
+			<Name>FTP Server - Microsoft FTP</Name>
+			<Description>Inspect Microsoft FTP for events.
+
+Platform: Microsoft Windows
+
+NOTE: To use this Log Inspection Rule, enable all Extended logging options of IIS FTP Server.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>11500,11501,11502,11503,11504,11510,11511,11512</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="53">
+			<TBUID>D792378A-63A8-9AC6-3721-B6BA264918CF</TBUID>
+			<Name>Microsoft Windows Events</Name>
+			<Description>Inspect the event logs of Microsoft Windows (2000, XP, 2003) operating systems for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>true</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>18100,18101,18102,18103,18104,18117,18105,18106,18107,18122,18123,18108,18109,18110,18111,18112,18113,18114,18115,18116,18118,18179,18119,18120,18121,18125,18127,18128,18129,18130,18131,18132,18133,18134,18135,18136,18137,18138,18139,18140,18142,18143,18144,18145,18146,18147,18149,18170,18171,18172,18151,18152,18153,18154,18155,18156,18173,18126,18175,18176,18177,18182</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="52">
+			<TBUID>BD1C96D6-0F34-9ADB-B883-8AD709C03EEF</TBUID>
+			<Name>Database Server - MySQL</Name>
+			<Description>This rule inspects MySQL logs.
+ For MySQL versions prior to 5.6, default LogType "mysql_log" is used in the rule.  
+ For MySQL versions above 5.5, please select 'syslog' LogType in the configuration tab. 
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>50100,50105,50106,50107,50108,50120,50121,50125,50126,50180</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="49">
+			<TBUID>11D48CE5-1B7F-295E-64F8-C4466BA82753</TBUID>
+			<Name>Database Server - PostgreSQL</Name>
+			<Description>Inspect PostgreSQL for events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>50500,50501,50502,50503,50504,50505,50510,50511,50512,50520,50521,50580,50581</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="25">
+			<TBUID>E438F5AB-75EF-5BAB-B454-F93D399FED29</TBUID>
+			<Name>Network Monitoring Tool - Arpwatch</Name>
+			<Description>Inspect Arpwatch for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,E7E513C0-5F38-8D85-1916-1155FC0C1522</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>7200,7201,7202,7203,7204,7205,7206</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="14">
+			<TBUID>F6DE0A7A-39FB-8DAB-184B-BE80AF18F89F</TBUID>
+			<Name>PBX Server - Asterisk</Name>
+			<Description>Inspect Asterisk PBX Server for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>6200,6201,6202,6203,6210,6211,6250,6251</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="8">
+			<TBUID>5F97EE97-FEEF-8738-7520-8381F3B2E993</TBUID>
+			<Name>Mail Server - Courier</Name>
+			<Description>Inspect Courier Mail Server for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>3900,3901,3902,3903,3904,3910,3911</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="16">
+			<TBUID>651348C4-54C1-FCD1-6787-5D6A0954E299</TBUID>
+			<Name>Webmail Client - Horde IMP</Name>
+			<Description>Inspect Horde IMP for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>9300,9301,9302,9303,9304,9305,9306,9351,9352</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="9">
+			<TBUID>B0CD7D00-E552-517B-8305-1FCFE7881C9A</TBUID>
+			<Name>Mail Server - IMAPD</Name>
+			<Description>Inspect IMAPD for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>3600,3601,3602,3603,3651</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="35">
+			<TBUID>B94E6A82-7B9C-3B44-E58F-A4D59693059A</TBUID>
+			<Name>Authentication Module - Unix Pluggable Authentication Module</Name>
+			<Description>Inspect Pluggable Authentication Modules for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>5500,5501,5502,5503,5504,5551</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="17">
+			<TBUID>9F3A899C-F7D4-52C6-D529-EA322CD073D2</TBUID>
+			<Name>Authentication Tracking</Name>
+			<Description>Inspect logs and reports on suspicious login activity. This is a generic rule that can be applied with any other rule that defines the group "authentication_success". 
+
+NOTE: This rule only works in conjunction with other rules that define the "authentication_success" group. Some rules that define the group include Application - Secure Shell Daemon (SSHD) , Microsoft Windows Events , Authentication Module - Unix Pluggable Authentication Module , etc.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>17101,17102</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="15">
+			<TBUID>260AE89F-FE01-B1BF-CAA4-B3215C2ED250</TBUID>
+			<Name>FTP Server - ProFTPD.</Name>
+			<Description>Inspect ProFTPD for events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>11200,11201,11202,11203,11204,11205,11206,11207,11208,11209,11210,11211,11212,11213,11214,11215,11216,11217,11218,11219,11220,11221,11251,11252,11253</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="27">
+			<TBUID>EDC2B872-5ECF-6AF0-0E59-F5CB3CE4FDB6</TBUID>
+			<Name>Application - Samba</Name>
+			<Description>Inspect Samba for events.
+
+NOTE: This Log Inspection rule monitors Samba logs from the syslog(/var/log/messages). To be able to use this rule, Samba server should be configured to forward logs to the syslog.
+
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,E7E513C0-5F38-8D85-1916-1155FC0C1522</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>13100,13101,13102,13103,13105</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="13">
+			<TBUID>10E887DD-98B7-BDDB-4586-4A1EA28C964D</TBUID>
+			<Name>Solaris Auditing - Basic Security Mode</Name>
+			<Description>Inspect Solaris BSM Auditing for events.
+
+Platform: Solaris</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>6100,6101,6102,6103,6104,6105,6106</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="46">
+			<TBUID>AC80EE7E-1510-1B3B-0DE6-D9AD9786B6DE</TBUID>
+			<Name>Application - Secure Shell Daemon (SSHD)</Name>
+			<Description>Inspect Secure Shell Daemon (SSHD) for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>5700,5701,5702,5703,5704,5705,5706,5707,5709,5710,5711,5712,5713,5714,5715,5716,5717,5718,5719,5720</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="67">
+			<TBUID>E7E513C0-5F38-8D85-1916-1155FC0C1522</TBUID>
+			<Name>Unix - Syslog</Name>
+			<Description>Inspect Syslog for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>true</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>1001,1002,1003,1004,1005,1006,1007,2301,2501,2502,2503,2504,2505,2506,2701,2800,2801,2802,2803,5100,5101,5102,5103,5104,5105,5106,5107,5108,5109,5110,5111,5112,5113,5130,5131,5200,2830,2831,2834,2832,2833,5300,5301,5302,5309,5310,5311,5303,5304,5305,5308,5306,5307,7101,5901,5902,5903,5904,5400,5401,5402,5403,9100,9101,9102,10100,9200,9201,2900,2901,2902,2903,2930,2932,2933,2934</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="48">
+			<TBUID>2F35C475-01E4-705E-F616-652B5867EC1D</TBUID>
+			<Name>Web Server - Web Access Events</Name>
+			<Description>Inspect Web server logs for events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>31100,31101,31103,31104,31105,31106,31107,31115,31121,31122,31123,31151,31152,31153,31154,31161,31162,31163</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="26">
+			<TBUID>9F80C8C7-5E80-F11C-99D3-BE31A466D80F</TBUID>
+			<Name>Mail Server - Postfix</Name>
+			<Description>Inspect Postfix for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>57700,57701,57702,57703,57704,57705,57706,57707,57708,57709,57710,57711,57712,57713,57714,57716</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="7">
+			<TBUID>01A8C9DE-37E7-DD51-935F-35C24019EF9E</TBUID>
+			<Name>Mail Server - Sendmail</Name>
+			<Description>Inspect Sendmail events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>56600,56601,56602,56603,56604,56605,56606,56607,56608,56609</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="51">
+			<TBUID>0F74BC77-B022-9663-0A06-DCD5DEB5265F</TBUID>
+			<Name>Web Server - Apache</Name>
+			<Description>Inspect Apache Web Server for Events
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>80550,80551,80552,80553,80554,80555,80556,80598,80557,80558,80559,80560,80561,80562,80563,80564,80565,80566,80567,80568,80570,80571,80572,80573,80574,80575,80576,80577,80578,80579,80580,80581,80597,80582,80583,99902,99903,99904,99905,99913,99914,99915,99919</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="12">
+			<TBUID>36EF7568-6A6D-F38D-ED0E-51C9ABF78B18</TBUID>
+			<Name>Proxy Server - Squid</Name>
+			<Description>Inspect squid for events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>80300,80301,80302,80303,80304,80305,80306,80307,80308,80309,80310,80311</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="5">
+			<TBUID>E448A0DF-1A37-D5F1-2988-D170B4162E3B</TBUID>
+			<Name>Application - Telnetd</Name>
+			<Description>Inspect telnetd events
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81300,81301,81303,81304</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="6">
+			<TBUID>2DE0478B-60E0-FDEC-4D72-C8D9B3258FAF</TBUID>
+			<Name>FTP Server - WarFTPd</Name>
+			<Description>Inspect WarFTPd events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>82500,82501,82502,82503,82504,82505,82506,82507,82508,82509,82510,82511,82512</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="18">
+			<TBUID>AF104343-6308-3609-7B8E-E2BA024C904D</TBUID>
+			<Name>FTP Server - Vsftpd</Name>
+			<Description>Inspect Vsftpd for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>80240,80241,80242,80261,80243,80244,80245,80246,80247,80248,80249,80250,80251,80252,80253,802154,80255,80256,80257</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="3">
+			<TBUID>818D91C3-1CEB-D628-A8C2-A1F68A2387B9</TBUID>
+			<Name>FTP Server - Netterm FTPd</Name>
+			<Description>Inspect Netterm FTPd for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81500,81501,81502,81503,81504</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="10">
+			<TBUID>71986919-E527-48DC-CDE8-40864F6CFFAC</TBUID>
+			<Name>Application Server - IBM WebSphere</Name>
+			<Description>Inspect IBM WebSphere Application Server for events
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>82000,82001,82002,82003,82004,82005,82006,82007,82008,82009,82010,82011,82012</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="24">
+			<TBUID>74BE1BCF-D139-0695-0DE1-0C07CFA99CBA</TBUID>
+			<Name>SMTP Server - Exim</Name>
+			<Description>Inspect exim for events.
+
+Platform: Non Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81400,81401,81402,81403,81404,81405,81406,81407,81408,81409</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="4">
+			<TBUID>F04BAC79-9E5E-FB02-2D4A-996CD72C616F</TBUID>
+			<Name>Mail Server - MDaemon</Name>
+			<Description>Inspect Mdaemon for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81700,81701,81702,81703,81704,81705,81706,81707,81708,81709,81710,81711,81714,81715,81716</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="11">
+			<TBUID>5C704054-B197-D101-05DD-0EA79154E415</TBUID>
+			<Name>FTP Server - WS_FTP</Name>
+			<Description>Inspect WS_FTP for events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81900,81901,81911,81902,81903,81904,81905,81906,81907,81908,81909,81910</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="31">
+			<TBUID>16A11AC8-5012-08FF-2EE8-B1927AAF4A4A</TBUID>
+			<Name>Database Server - MSSQL 2000</Name>
+			<Description>Inspect Microsoft SQL Server 2000 logs for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>80100,80101,80102,80103,80104,80105,80106,80107,80108,80109,80110,80111,80131,80132,80133,80134,80135,80136,80137,80138,80139,80141,80180</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="19">
+			<TBUID>67FF9137-80B0-221F-5BC8-F9A755AAF7D2</TBUID>
+			<Name>Database Server - Ingres</Name>
+			<Description>Inspect Ingres for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>81800,81801,81802,81803,81804,81805,81806,81807,81808,81809,81810,81811,81812,81813,81814,81815,81816</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="33">
+			<TBUID>D951FAFF-5B8E-DA1C-3FBF-126764FED9DC</TBUID>
+			<Name>FTP Server - Solaris</Name>
+			<Description>Inspect ftpd for events.
+
+Platform: Solaris</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>82400,82401,82402,82403,82404,82405,82406,82407,82408,82409</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="2">
+			<TBUID>F7DA01C1-C3EC-435B-F513-95F94D2C9173</TBUID>
+			<Name>DHCP Server - Microsoft Windows</Name>
+			<Description>Inspects the logs of Microsoft Windows DHCP Events
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>83401,83402,83403,83404,83405,83406,83407,83408,83409,83410,83411,83412,83413,83414,83415,83416,83417,83418,83419,83420,83421,83422</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="79">
+			<TBUID>B705A218-8958-3544-05AA-37DBE9EAE2B0</TBUID>
+			<Name>DNS Server - Microsoft Windows</Name>
+			<Description>Inspect Microsoft Windows DNS Events
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>85501,85502,85503,85504,85505,85522,85506,85507,85508,85509,85510,85511,85512,85513,85514,85515,85516,85517,85518,85519,85520,85521</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="1">
+			<TBUID>34D95DC0-C016-BBA9-55D1-C7C90E65BF5E</TBUID>
+			<Name>TFTPServer - 3ComTFTP</Name>
+			<Description>Inspect 3Com TFTP Server events
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>85000,85001,85002,85003,85004,85005,85006,85007,85008</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="55">
+			<TBUID>DA33F822-CCC4-7064-3468-34B61AA243B0</TBUID>
+			<Name>Directory Server - Microsoft Windows Active Directory</Name>
+			<Description>Inspect the event logs of Microsoft Windows Active Directory Services.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>85200,85201,85202,85203,85204,85205,85206,85207,85208,85209,85210,85275,85211,85212,85213,85214,85215,85216,85217,85218,85218,85219,85219,85220,85221,85222,85230,85231,85232,85233,85234,85235,85236,85237,85240,85241,85242,85243,85244,85245,85246,85250,85251,85252,85253,85254,85255,85256,85257,85266,85258,85259,85260,85261,85262,85276,85263,85264,85265,85280,85281,85282,85290,85291,85292,85295,85296,85297,85298</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="41">
+			<TBUID>F4D4F36A-7C9A-2F9F-91A7-F188F0A6EF7D</TBUID>
+			<Name>Web Server - Microsoft IIS Server Security</Name>
+			<Description>Inspect Web Server IIS event logs for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>86000,86037,86038,86039,86040,86001,86002,86003,86004,86005,86006,86007,86008,86009,86010,86011,86012,86013,86014,86015,86016,86017,86041,86018,86019,86020,86021,86022,86023,86024,86025,86026,86027,86028,86029,86030,86031,86032,86033,86034,86035,86036,86042,86043,86044,86045</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="44">
+			<TBUID>CF24FD50-3491-8634-5F4B-19AD7260CAA1</TBUID>
+			<Name>Microsoft Windows Security Events</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for Security events.
+
+Platform: Microsoft Windows (2000, XP, 2003)</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>18203,18204,18205,18206,18207,18208,18209,18210,18211,18212,18213,18214,18215,18216,18217,18218,18219,18220,18221,18222,18223,18253,18224,18225,18226,18227,18228,18229,18230,18231,18232,18233,18234,18235,18236,18237,18238,18239,18240,18241,18242,18243,18244,18245,18246,18247,18248,18249,18252,18250,18251</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="59">
+			<TBUID>731A7D5F-F50E-90EB-768C-B0B2DF285C1F</TBUID>
+			<Name>Terminal Server Security - Microsoft Windows</Name>
+			<Description>Inspect Windows Terminal Server Events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>85403,85404</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="30">
+			<TBUID>FB03A859-012E-85CF-68A1-5A029C1AAC94</TBUID>
+			<Name>Routing and Remote Access - Microsoft Windows RRAS Events</Name>
+			<Description>Inspect the Windows event logs of Routing and Remote Access Server (RRAS).
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>85651,85652,85653,85654,85655,85656,85657,85658,85659,85660,85661,85662,85663,85664,85665,85666,85667,85668,85669,85670,85671,85672,85673,85674,85675,85676,85677,85678,85679,85680,85681,85682,85683,85684,85685,85686,85687,85688,85689,85690,85691</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="22">
+			<TBUID>38199DCD-0A6E-5E51-8C3C-F82096F28FB5</TBUID>
+			<Name>Firewall - Microsoft ISA Server</Name>
+			<Description>Inspect Microsoft ISA Server event logs for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>86500,86501,86502,86503,86504,86505,86506,86507,86508,86509,86510,86511,86512,86513,86514,86515,86516,86517,86518,86519,86520</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="29">
+			<TBUID>8F16B937-0339-84CA-F66B-5237E83EFCC3</TBUID>
+			<Name>Remote Access Service - Microsoft Windows RAS Events</Name>
+			<Description>Inspect the Windows event logs of Remote Access Service (RAS).
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>85704,85705,85706,85707,85708,85709,85710,85711,85712,85714</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="21">
+			<TBUID>32F1A736-CA2E-6969-4B8A-FCF386B92482</TBUID>
+			<Name>Web Server - Microsoft IIS Server Shielding</Name>
+			<Description>This rule is to lock down an IIS web server. So these services should ideally not change state on IIS Web server that is locked down. This is a very restrictive rule and hence we want to monitor all changes that happen on such a system.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>86100,86103,86104,86107,86108,86109,86111,86113,86115,86117,86119,86121,86123,86125,86127,86129,86131,86132,86133,86135,86137,86139,86141,86143,86145,86147,86149</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="45">
+			<TBUID>EFECC956-A762-6BA4-91D9-E745BCA7A259</TBUID>
+			<Name>Microsoft Windows Security Events - 2</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for Security events.
+
+Platform: Microsoft Windows 2016, Windows 10,  Windows 2012, Windows 2008, Windows 7, Windows 8 and Windows Vista</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>18406,18407,18408,18409,18410,18411,18412,18413,18414,18415,18416,18417,18418,18419,18420,18421,18422,18423,18424,18425,18426,18427,18428,18429,18430,18431,18432,18433,18434,18435,18436,18437,18438,18439,18440</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="57">
+			<TBUID>02A140CE-6970-3EF8-D7C9-F2936B8BE839</TBUID>
+			<Name>Microsoft Windows Security Events - 1</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for Security events.
+
+Platform: Microsoft Windows 2016, Windows 10,  Windows 2012, Windows 2008, Windows 7, Windows 8 and Windows Vista.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>18306,18307,18308,18309,18310,18311,18312,18313,18314,18315,18316,18317,18318,18319,18320,18321,18322,18323,18324,18325,18326,18329,18330,18331,18332,18333,18334,18335,18336,18337,18338,18339,18340,18341,18342,18343,18344,18345,18350,18346,18347,18348,18349,18351,18352,18353,18354,18357,18358,18360,18361,18362,18363,18364,18365,18366,18367,18368,18369,18370,18371,18373,18376,18377,18378,18379,18380,18382,18383,18384,18385,18386,18387,19811</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="37">
+			<TBUID>385AA690-43F1-A6B4-9ABE-CF30C8047A36</TBUID>
+			<Name>Database Server - Microsoft SQL</Name>
+			<Description>Inspect logs of Microsoft SQL Server for events.
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>80201,80202,80203,80204,80205,80206,80207,80208,80209,80210,80211,80231,80232,80233,80234,80235,80236,80237,80238,80280</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="32">
+			<TBUID>8B990488-8B91-A14B-7A67-1AB590B6525E</TBUID>
+			<Name>FTP Server - IBM AIX</Name>
+			<Description>Inspect ftpd for events.
+
+Platform: AIX</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>102400,102401,102402,102403,102404,102405</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="34">
+			<TBUID>A668A522-3B66-C92D-C518-4E582155455D</TBUID>
+			<Name>Microsoft Exchange Mail Server</Name>
+			<Description>Inspects the event logs of Microsoft Exchange Mail Server.
+
+Platform: Microsoft Windows
+Version: Microsoft Exchange Mail Server 2003</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>4200,4201,4202,4203,4204,4205,4206,4207,4208,4209,4210,4211,4212,4213,4214,4215,4216,4217,4218,4219,4220,4221,4222,4223,4224,4225,4226,4227,4228,4229,4230,4231,4232,4233,4234</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="36">
+			<TBUID>DB4C1A9C-C61D-EE98-A0E1-0D73FFEBB637</TBUID>
+			<Name>Web Application - Wordpress</Name>
+			<Description>This rule inspects Syslog for Wordpress related events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>82300,82301,82302,82303,82304,82305,82306,82310,82311,82312,82313,82314,82320,82321,82322,82323,82324,82334,82335,82336,82337,82338,82340,82341,82342,82343</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="38">
+			<TBUID>40ECA578-073F-32E4-544E-79EC9BB5792F</TBUID>
+			<Name>Application - Apache Hadoop</Name>
+			<Description>Inspect Apache Hadoop logs
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>700000,700001,700003,700008,700009,700010,700011,700012,700013,700014,700015,700016,700018,700019,700020,700021,700022,700023,700024,700025,700026,700027,700028,700029,700030,700031,700032,700033,700034,700035,700036,700037,700038,700039,700040,700041,700042,700043,700044,700045,700046,700074,700075,700076,700077,700078,700079,700080,700081,700082,700083,700084,700085,700086,700002,700017,700053,700054,700055,700056,700057,700058,700059,700060,700061,700062,700063,700064,700090,700091,700092,700093,700094,700095,700096,700097,700098,700099,700103,700104,700065,700066,700067,700068,700069,700110,700111,700112,700113,700114,700115,700116,700101,700130,700070,700071,700072</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="39">
+			<TBUID>5230C5B0-DBA0-A1E4-F3C6-55A6D6CAE248</TBUID>
+			<Name>Web Server - Nginx</Name>
+			<Description>Inspect Nginx Server for Events.
+
+Platform: All supported platforms</Description>
+			<MinimumAgentVersion>7.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>7.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>7900,7920,7921,7901,7960,7902,7910,7903,7940,7941,7942,7922,7923,7905,7906,7907,7908,7909</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="40">
+			<TBUID>A3FA2DFF-397C-742D-890E-2F7DA9F20260</TBUID>
+			<Name>FTP Server - CompleteFTP</Name>
+			<Description>This rule inspects CompleteFTP logs
+
+Platform: Microsoft Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>100030,110030,110031,100037,100031,100033,100035,100044,100036,100038,100040,100041,100032,100045,100042,100043</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="42">
+			<TBUID>BD0D3942-F8E3-9E1E-1306-710A7CFBE763</TBUID>
+			<Name>Application - Docker</Name>
+			<Description>Inspect Docker Daemon logs
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>8900,8990,8901,8904,8905,8906,8951,8902,8991,8910,8911,8912,8913,8914,8915,8916,8917,8918,8919,8920,8921,8922,8923,8903,8992,8950,8969</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="54">
+			<TBUID>6D8DAA74-1800-B930-CB41-68FD63141433</TBUID>
+			<Name>Microsoft Windows Security Events - 3</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for Security events.
+
+Platform: Microsoft Windows 2016, Windows 10,  Windows 2012, Windows 2008, Windows 7, Windows 8 and Windows Vista.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>904001,904002,904003,904004,904012,904013,904014,904015,904016,904018,904022,904023,904024,904025,904026,904081,904047,904029,904030,904082,904031,904032,904035,904036,904037,904041,904042,904043,904044,904046,904048,904049,904050,904051,904052,904053,904054,904055,904056,904057,904058,904059,904060,904061,904062,904070,904071,904072,904073,904074,904078,904084,804090,904085,904075,904085,904098,904075,904086,904087,904088,904089,904090,904091,904092,904093,904094,904095,904096,904097,904099</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="43">
+			<TBUID>7BCE8234-42FC-DF23-F61B-34B56AF47B81</TBUID>
+			<Name>Microsoft Windows Security Events - 4</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for Security events.
+
+Platform: Microsoft Windows 2016, Windows 10,  Windows 2012, Windows 2008, Windows 7, Windows 8 and Windows Vista.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>814000,814001,814002,814003,814004,814005,814006,814007,814008,814009,814010,814011,814012,814013,814014,814015,814016,814017,814018,814019,814020,814021,814022,814023,814024,814025,814026,814027,814028,814029,814030,814031,814032,814033,814034,814035,814036,814037,814038,814039,814040,814041,814042,814043,814044,814045,814046,814047</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="47">
+			<TBUID>B3578528-A45B-7F86-3DAA-493300722379</TBUID>
+			<Name>Auditd</Name>
+			<Description>This rule will monitor events related to auditd
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>true</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914000,914001,914002,914004,914005,914006,914007,914011,914015,914020,914017,914029,914030,914031,914032,914033,914050,914051,914052,914053,914054,914055,914056,914057,914058,914059,914060,914061,914062,914063,914064,914065,914066,914008,914009,914010,914012,914013,914016,914021,914022,914023,914024,914025,914026,914027,914028,914034,914035,914040,914041,914042,914076,914077,914071,914073,914003,914014</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="50">
+			<TBUID>DC35CC60-A2CF-2931-12BD-13D8F11DACBE</TBUID>
+			<Name>Kubernetes</Name>
+			<Description>Inspects the Kubernetes cluster logs.
+
+Note: This LI rule requires configuration to detect the monitored logs. The user has to configure the log file path of "kube-controller-manager" and "kube-apiserver".  Both can be found inside the "/var/log/containers" or "/var/log/pods" directories generally.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>true</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19000,19003,19004,19005,19006,19007,19008,19009,19001,19002</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="56">
+			<TBUID>D0500F9E-D628-A529-D45F-DE9269277340</TBUID>
+			<Name>Microsoft Windows Sysmon Events - 1</Name>
+			<Description>This Log Inspection rule monitors the events generated by System Monitor (Sysmon). It is a Windows system service and device driver that, once installed on a system, remains resident across system reboots to monitor and log system activity to the Windows event log and provides detailed information about process creations, network connections, and changes to file creation time.</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>18862,18863,18855,18841,18803,18813,18844,18861,18834,18823,18800,18814,18839,18813,18823,18834,18823,18802,18813,18835,18803,18803,18833,18861,18850,18859,18857,18864,18824,18859,18821,18807,18851,18807,18819,18807,18859,18832,18823,18823,18813,18823,18842,18842,18840,18861,18807,18804,18848,18823,18812,18849,18829,18829,18829,18829,18865,18820,18828,18813,18813,18811,18859,18811,18800,18841,18834,18834,18834,18856,18821,18826,18856,18806,18806,18806,18806,18866,18824,18859,18859,18833,18833,18851,18845,18806,18859,18832,18832,18806,18806,18818,18859,18861,18861,18820,18857,18861,18861,18812,18861,18851,18861,18807,18861,18808,18861,18814,18814,18823,18823,18842,18861,18861,18831,18823,18812,18820,18834,18823,18809,18809,18809,18814,18861,18822,18818,18818,18832,18820,18818,18832,18820,18849,18844,18827,18851,18854,18832,18832,18854,18844,18858,18858,18846,18834,18834,18834,18834,18834,18833,18833,18838,18801,18801,18801,18833,18834,18834,18834,18834,18834,18834,18834,18858,18858,18853,18838,18847,18805,18800,18852,18825,18825,18834,18853,18833,18833,18833,18860,18849,18849,18845,18837,18843,18800,18825,18846,18825,18816,18833,18835,18833,18814,18839,18813,18823,18834,18823,18814,18813,18835,18814,18822,18822,18822,18822,18822,18822,18822,18822,18822,18822,18822,18822,18822,18867,18868,18869,18836,18823,18870,18872,18871</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="58">
+			<TBUID>FA0B5EE9-B46A-D7E9-6DBD-C6CEA8E24587</TBUID>
+			<Name>Microsoft Windows Sysmon Events - 2</Name>
+			<Description>This Log Inspection rule monitors the events generated by System Monitor (Sysmon). It is a Windows system service and device driver that, once installed on a system, remains resident across system reboots to monitor and log system activity to the Windows event log and provides detailed information about process creations, network connections, and changes to file creation time.</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>18921,18917,18902,18902,18905,18909,18909,18909,18910,18905,18916,18900,18914,18905,18911,18916,18903,18922,18908,18908,18902,18923,18901,18918,18918,18913,18924,18900,18907,18925,18926,18927,18928,18929,18930,18931,18932,18933,18934,18934,18934,18934,18934,18934,18934,18934,18934,18934,18934,18934,18934,18934,18935,18935,18935,18935,18936</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="63">
+			<TBUID>2720CA0C-0DB6-E92B-60E9-5A3A3C885A4F</TBUID>
+			<Name>Microsoft PowerShell Command Execution</Name>
+			<Description>To detect Microsoft PowerShell command execution in Windows.</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19830,19831,19832,19834,19835,19836,19837,19838,19839,19840,19841,19842,19843,19844,19845,19846,19847,19848,19849,19850,19851,19852,19853,19854,19855,19856,19857,19858,19859,19860,19861,19862,19863,19864,19865,19866,19867</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="62">
+			<TBUID>25E55A07-19AA-7C33-B98E-7C48FAFD9C65</TBUID>
+			<Name>Trend Micro Apex One &amp; OfficeScan Directory Traversal Vulnerability</Name>
+			<Description>Trend Micro Apex One and OfficeScan Server are vulnerable to directory traversal vulnerability. If exploited, could allow an attacker to access restricted directories and execute commands and it could lead to remote code execution.</Description>
+			<MinimumAgentVersion>12.0.0.360</MinimumAgentVersion>
+			<MinimumManagerVersion>12.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>16919,16920,16921,16922</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="65">
+			<TBUID>0E2DE4BB-509E-5254-0EEA-E0FCE3A6CC9D</TBUID>
+			<Name>Microsoft Windows Sysmon Events IDs</Name>
+			<Description>This Log Inspection rule monitors the all events generated by System Monitor (Sysmon) Tool.</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>18950,18951,18952,18953,18954,18955,18956,18957,18958,18959,18960,18961,18962,18963,18964,18965,18966,18967,18968,18969,18970,18971,18972</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="64">
+			<TBUID>684A9446-71F7-575D-FE78-D88998CC3B60</TBUID>
+			<Name>Microsoft Windows Management Instrumentation Events</Name>
+			<Description>This rule monitors selected WMI events for malicious activity.</Description>
+			<MinimumAgentVersion>12.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>18950,18951,18951,18951,18951,18951,18951,18951,18952,18952,18952</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="60">
+			<TBUID>7028BBCD-B92B-79E2-4B8C-F0C4CF1C4D47</TBUID>
+			<Name>Microsoft Windows CryptoAPI Spoofing Vulnerability (CVE-2020-0601)</Name>
+			<Description>A spoofing vulnerability exists in the way Windows CryptoAPI (Crypt32.dll) validates Elliptic Curve Cryptography (ECC) certificates. An attacker could exploit the vulnerability by using a spoofed code-signing certificate to sign a malicious executable, making it appear the file was from a trusted, legitimate source, aka 'Windows CryptoAPI Spoofing Vulnerability'. This LI rule detects any attempt to exploit this vulnerability in a patch Windows system.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19103</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="61">
+			<TBUID>A6C1A606-3FB9-DD2B-372C-C9ACC4486239</TBUID>
+			<Name>Microsoft Windows - Remote Desktop Services (ATT&amp;CK T1021.001)</Name>
+			<Description>Inspect the event logs of Microsoft Windows Remote Connection Manager Terminal Services.</Description>
+			<MinimumAgentVersion>12.0.0.360</MinimumAgentVersion>
+			<MinimumManagerVersion>12.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19105</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="66">
+			<TBUID>C71A6C95-C746-CC35-D97A-BF19C5EEA756</TBUID>
+			<Name>Microsoft Windows - Export Certificate and Private Key</Name>
+			<Description>This rule monitors the export of a certificate and private key in Windows, via the local certificate services.</Description>
+			<MinimumAgentVersion>12.5.0.1033</MinimumAgentVersion>
+			<MinimumManagerVersion>12.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>16909,16911,16930</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="68">
+			<TBUID>F5075787-526F-62B7-7746-656F6E35C33D</TBUID>
+			<Name>Docker Daemon Remote API Calls</Name>
+			<Description>This is a rule to monitor the logs of any API calls to docker daemon using the remote API.
+
+Platform: Non-Windows
+
+This rule will work better and provide more results if the log level of the docker daemon is set to debug.
+
+Obs: This rule won't work on systems that uses the journald for their logs such as Ubuntu 16.04+ and CentOS</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs/>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>20000,20199,20198,20001,20002,20003,20004,20005,20006,20007,20008,20009,20010,20011,20012,20013,20014,20015,20016,20017,20018,20019,20020,20021,20022,20023,20024,20025,20197,20196,20026,20027,20028,20029,20030,20031,20032,20033,20034,20035,20036,20037,20038,20039,20040,20195,20041,20042,20043,20044,20045,20046,20047,20048,20049,20050,20051,20052,20053,20054,20055,20056,20057,20058,20059,20060,20061,20062,20063,20064,20065,20066,20067,20068,20069,20070,20071,20072,20073,20074,20075,20075,20076,20077,20078,20079,20080,20081,20082,20083,20084,20085,20086,20087,20088,20089,20090,20091,20092,20093,20094,20095,20096,20097,20098,20099,20100,20101,20102,20103,20104,20105,20106,20200,20400,20600,20800</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="69">
+			<TBUID>85A3740B-7462-6FB0-6A20-2F0EA6A14493</TBUID>
+			<Name>Microsoft Windows User Logon Events</Name>
+			<Description>Inspect the event logs of Microsoft Windows operating systems for users successful logon events based on username and logon type id.
+
+Platform: Microsoft Windows
+
+Note: Configuration options are provided to set the username &amp; logon type id, which needs to be monitored. Administrators are advised to configure this rule to make it work.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>true</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19100,19101,19102,19104</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="70">
+			<TBUID>85B69D58-7968-7951-B872-1029DDD48E03</TBUID>
+			<Name>Trend Micro Deep Security Agent Removal Attempt</Name>
+			<Description>This rule detects any attempt to uninstall the Deep Security Agent from a host that has Agent Self Protection enabled.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>D792378A-63A8-9AC6-3721-B6BA264918CF,63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>19810,19811</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="76">
+			<TBUID>5D5AF8B3-8B18-2F0F-F43D-C8B25DC48BC3</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0007: Discovery</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0007: Discovery
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914083,914113,914086,914084,914089,914088,914091,914114,914092,914094,914096,914109,914095,914111,914101,914102,914103,914104,914105,914015,914106,914107,914112,914090,914093,914108,914110,914115</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="71">
+			<TBUID>B0E32E28-BA83-8E4E-7506-00DB4A30232E</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0003: Persistence</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0003: Persistence
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914210,914211,914212,914213,914214,914215,914217,914218,914219,914220,914221,914222,914223,914224,914225,914226,914227,914228</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="74">
+			<TBUID>74F7AE30-AD3E-3EF2-0992-2634EA52DBD7</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0004: Privilege Escalation</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0004: Privilege Escalation
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914311,914312,914313,914314,914070,914315,914316</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="72">
+			<TBUID>86B9BFD9-466F-0BD0-222E-B0D85840EF25</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0006: Credential Access</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0006: Credential Access
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914411,914412,914413,914416,914417,914414,914415</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="78">
+			<TBUID>162C7C5F-3EB7-C5BB-4651-F5276DB6ED87</TBUID>
+			<Name>Netlogon Elevation Of Privilege Vulnerability (Zerologon) (CVE-2020-1472)</Name>
+			<Description>This LI rule detects vulnerable Netlogon secure channel connection attempt.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,D792378A-63A8-9AC6-3721-B6BA264918CF</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>1</RecommendationsMode>
+			<RuleIDCache>10220,10221,10222,10223,10224</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="73">
+			<TBUID>24811280-60C2-1B67-C704-F5C0759208C9</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0005: Defense Evasion</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0005: Defense Evasion
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914506,914508,914509,914510,914507,914511,914512,914513,914514,914523,914516,914517,914518,914524,914075,914519,914520,914521,914522</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="77">
+			<TBUID>CC916A11-C6F2-2DE6-7D0B-67C0E9985101</TBUID>
+			<Name>Auditd - Mitre ATT&amp;CK TA0008: Lateral Movement</Name>
+			<Description>This Log Inspection rule monitors auditd for events related to techniques that fall under MITRE ATT&amp;CK Tactic TA0008: Lateral Movement
+
+Platform: Non-Windows</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214,B3578528-A45B-7F86-3DAA-493300722379</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>914606,914607,914608,914610</RuleIDCache>
+		</LogInspectionRule>
+		<LogInspectionRule doNotMerge="true" id="75">
+			<TBUID>DD34F892-32D5-96BC-81B9-6DC842D806B6</TBUID>
+			<Name>Microsoft LDAP Query Execution</Name>
+			<Description>To detect Microsoft LDAP query execution in Windows.</Description>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<RequiresTBUIDs>63780BA6-0BA2-EA4F-1A46-EA51B6891214</RequiresTBUIDs>
+			<UserEdited>false</UserEdited>
+			<Alert>false</Alert>
+			<AlertMinSeverity>4</AlertMinSeverity>
+			<DependedOn>false</DependedOn>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<RuleIDCache>19930,19931,19932,19933,19934</RuleIDCache>
+		</LogInspectionRule>
+	</LogInspectionRules>
+</Export>

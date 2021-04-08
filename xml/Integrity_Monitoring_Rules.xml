@@ -1,0 +1,2474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export type="IntegrityRule" date="April 8, 2021 16:50" version="20.0.313">
+	<IntegrityRules>
+		<IntegrityRule doNotMerge="true" id="16">
+			<TBUID>B791DE9B-9481-94AA-B910-FAAE1E44EF2F</TBUID>
+			<Name>Unix - Directory attributes changed for /sbin</Name>
+			<Description>This rule alerts when there is any change in directory attributes for /sbin. The rule also provides configuration options to select directory attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="17">
+			<TBUID>5797A8EF-A30E-DAEF-E016-1DD4C25F0938</TBUID>
+			<Name>Microsoft Windows - System directory attributes changed</Name>
+			<Description>This rule alerts when system directory, %WINDIR%\system32 attributes have changed. The rule also provides configuration options to select directory attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>true</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="61">
+			<TBUID>7C6457CF-F409-B21F-C8B2-E1A43575DF65</TBUID>
+			<Name>Unix - File Attributes Changes In /usr/bin And /usr/sbin Locations</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under '/usr/bin' and '/usr/sbin' path.  This rule also provides configuration options to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="26">
+			<TBUID>651803BA-7214-4036-1993-AE984D661D84</TBUID>
+			<Name>Unix - Permissions of log files changed</Name>
+			<Description>This rule alerts when there is a change in the attribute Permissions of any log file under /var/log path.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="24">
+			<TBUID>5759902D-F2D8-3ABB-C3DE-42CE636B38FC</TBUID>
+			<Name>Microsoft Windows - 'Hosts' file modified</Name>
+			<Description>This rule alerts when there is any change in file attributes of Windows 'Hosts' file found under %WINDIR%\system32\drivers\etc (e.g., C:\WINDOWS\system32\drivers\etc) directory. 
+
+The rule also provides configuration options to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="2">
+			<TBUID>226D6C92-004F-1F0B-5B93-8A689F5BA7A4</TBUID>
+			<Name>Microsoft Windows - Microsoft HTML Viewer dll file modified</Name>
+			<Description>This is an integrity monitoring rule intended to alert when there is any file attribute or content change in mshtml.dll (Microsoft HTML Viewer).
+
+Mshtml.dll is responsible for the rendering of web pages within Internet Explorer and the file can be found under %WINDIR%\system32 directory.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="14">
+			<TBUID>6F2A1680-B323-15C7-43F5-BF51BFD76B82</TBUID>
+			<Name>Microsoft Windows - Network configuration files modified</Name>
+			<Description>This rule alerts when there is any change in file attributes of Network configuration files found under %WINDIR%\inf (e.g., C:\WINDOWS\inf) directory. It monitors files all mfsupra.*nf and net3c.*nf. mssupra.*nf files installs a multifunction device like Supra Dual 56K modem that uses mf.sys as its bus driver and net3c*.*nf files installs 3Com Ethernet PC Card. Typically INF and PNF files exist under %WINDIR%\inf. INF files have Setup information and PNF files have Precompiled Setup information.
+
+The rule also provides configuration options to exclude files from monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="152">
+			<TBUID>6A20EF8B-3B4F-3C67-656C-63EB9AF9182D</TBUID>
+			<Name>Microsoft Windows - Startup Programs Modified (ATT&amp;CK T1112, T1060)</Name>
+			<Description>This rule alerts when there is any change in file attributes of user Startup programs located under Profiles directories. The rule also monitors directory permissions of Startup Programs found under Profiles directory and modifications in the registries entries created by the Startup Programs and Winlogon. 
+
+The rule provides configuration options to select file attributes to monitor and also to enter files to ignore monitoring which were located under %ProfilesDir%\username\Start Menu\Programs\Startup.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="55">
+			<TBUID>B01E8709-F2A9-3708-80A4-5DB003AE3F51</TBUID>
+			<Name>Microsoft Windows - System configuration file modified</Name>
+			<Description>This rule alerts when there is change in attributes of system configuration files such as files with com, bat, ocx extension and all files under CatRoot directory located in %WINDIR%\system32 (e.g., C:\WINDOWS\system32) directory. 
+
+Also the rule provides configuration option to ignore files monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="108">
+			<TBUID>4255223A-631D-241C-8C11-7C49C8ED33D5</TBUID>
+			<Name>Microsoft Windows - System .dll or .exe files modified (ATT&amp;CK T1013)</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size and Contents of .dll or .exe files under %WINDIR%\system32 path. Also the rule provides configuration option to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="52">
+			<TBUID>3434322B-7C3E-77CA-91AC-A990C4F0AE83</TBUID>
+			<Name>Microsoft Windows - System File Modified</Name>
+			<Description>This rule alerts when there is change in attributes of system files like boot.ini, ntldr, autorun.inf, files with com, exe, bat, ocx, pif, sys extension located under %SystemDrive% (e.g. C:) directory. By default we ignore monitoring pagefile.sys and hiberfil.sys files.
+
+Also the rule provides configuration option to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="23">
+			<TBUID>FBAC95F3-70A2-1DC8-1C0D-6EDA4D6EA4C9</TBUID>
+			<Name>Microsoft Windows - Installed software attributes modified</Name>
+			<Description>This rule alerts when there is any change in attributes of installed software or program attributes. It alerts when a program is installed or uninstalled on windows host which are registered under registry entry, HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall. It also monitors change in registry keys and its attributes which were found under this registry path.
+
+Also the rule provides configuration options to ignore monitoring software and to select the InstalledSoftware and RegistryKey attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="155">
+			<TBUID>B8DD5417-E533-A322-931C-1F06760E43C2</TBUID>
+			<Name>Microsoft Windows - Attributes of a service modified (ATT&amp;CK T1050, T1036, T1031)</Name>
+			<Description>This rule is intended to alert when attributes of certain services are modified through Windows Registry as well as all service's attributes changed through Service Configuration Console.
+
+The rule also provides configuration options to ignore monitoring services and to select service attributes for monitoring.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="3">
+			<TBUID>AFF0947F-CD1D-86C6-A974-984CCD8012CB</TBUID>
+			<Name>Microsoft Windows - Default Debugger changed</Name>
+			<Description>This rule alerts when registry data values for Windows default debugger have changed under registry entry, 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion' . 
+
+AeDebug/Debugger - this registry data value is set to activate Dr. Watson's debugger whenever an application faults.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="12">
+			<TBUID>A943354B-B7E1-F6C0-55F7-F573FE9025AA</TBUID>
+			<Name>Microsoft Windows - IE ActiveX Kill bits modified</Name>
+			<Description>This rule alerts when kill bit values change for Internet Explorer ActiveX Controls in Windows registry, HKLM\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility.
+
+The CLSID for an ActiveX control is a GUID for that control. Typically data value of the Compatibility Flags of the ActiveX object CLSID in the registry can be used to disable ActiveX Control by adding the kill bit. That is disabling ActiveX controls from running in any programs on computers.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="13">
+			<TBUID>FF10499C-0B65-94A7-2619-9F40E8F78ED5</TBUID>
+			<Name>Microsoft Windows - Microsoft hotfixes registry keys modified</Name>
+			<Description>This rule alerts when attributes of registry subkeys changed where Windows Hotfix updates found. It monitors the registry paths, HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix and HKLM\SOFTWARE\Microsoft\Updates for the Windows hotfix updates.
+
+The rule also provides configuration options to choose registry key attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="11">
+			<TBUID>04FF2DCB-A27A-1981-86F9-AE3954A451FA</TBUID>
+			<Name>Microsoft Windows - Event Log settings changed</Name>
+			<Description>This rule alerts when attributes of registry subkeys and data values changed for settings of Windows Event Viewer found under registry entry, HKLM\SYSTEM\CurrentControlSet\Services\EventLog. 
+
+By default we monitor change in all registry subkeys under EventLog registry path and change in a few registry data values such as, Application/Sources, Application/File, Application/strictGuestAccess, ImagePath, Start, DisplayName, Type and ObjectName.
+
+The rule also provides configuration options to choose registry key and value attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="4">
+			<TBUID>7C8BF9BA-B940-C91D-3E21-F8B23C29CD8D</TBUID>
+			<Name>Microsoft Windows - 'ActiveX Compatibility' registry keys modified</Name>
+			<Description>This rule alerts when there is any change in the 'ActiveX Compatibility' registry key set, HKLM\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility. It monitors the changes in registry key attributes Group, Owner, Permissions, and LastModified. And also it alerts when there are any new registry keys i.e., new ActiveX Controls are added or when registry keys are deleted.  
+
+The CLSID for an ActiveX control is a GUID for that control. We can disable ActiveX controls from running in any programs on computers by adding the Kill bits to Compatibility Flags registry value.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="5">
+			<TBUID>03162193-7AB5-0D49-DD74-19F79D0D739C</TBUID>
+			<Name>Microsoft Windows - Internet Explorer Browser Settings modified</Name>
+			<Description>This rule alerts when Internet Explorer Browser Settings are modified via Windows Registry. The rule monitors for the change in attributes of registry data values such as Size, Type and Contents under registry, HKLM\SOFTWARE\Microsoft\Internet Explorer. 
+
+We monitor all registry data values of subkeys Main, Styles, MenuExt, Download, Toolbar, Desktop, Search, SearchURL and AboutURLs found for Internet Explorer browser.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="72">
+			<TBUID>00DC1301-7E9F-21E3-2768-0F670378FD2B</TBUID>
+			<Name>FTP Server - WarFTPD</Name>
+			<Description>This alert indicates that the files / registry keys / services created by WarFTPD were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="74">
+			<TBUID>1B4016F0-B23F-72AB-ADF7-8DEE71A2A62C</TBUID>
+			<Name>HTTP Server - Apache</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Apache were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="85">
+			<TBUID>1CE914BD-14D4-7A41-8CCD-F4A5743EF536</TBUID>
+			<Name>HTTP Server - Tomcat</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Tomcat were modified. This could indicate that the software was updated or installed / uninstalled.
+
+Note: This rule should be applied on windows systems only.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="116">
+			<TBUID>3DE7AE6E-AFF0-BB6B-E0D6-699B306CC83C</TBUID>
+			<Name>Local Security Authority (LSA) Authentication Packages modified (ATT&amp;CK T1174)</Name>
+			<Description>This rule alerts when there is a change in the data of the Authentication Packages value of the Local Security Authority (LSA) registry key.
+
+Note: 
+"Authentication Packages" lists the user authentication package that is loaded and called when users attempt to log on to Windows.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="6">
+			<TBUID>7BD9D873-3E7E-8C93-7E37-680F13D90245</TBUID>
+			<Name>Microsoft Windows - SAM Domain Account Users Modified</Name>
+			<Description>This rule alerts when there is a change in registry key entries where SAM Domain Account Users' details found. It monitors the changes in registry key attributes Group, Owner, Permissions, and LastModified. And also it alerts when there are any new registry keys added or deleted.
+
+When a user is added to a domain new registry keys are added under SAM Domain Account registry path. Generally, these registry entries contain user details like login name, user number, sid name, machine name etc.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="18">
+			<TBUID>9D3420CF-FF90-76CF-2BB2-AAA03019AD8A</TBUID>
+			<Name>Microsoft Windows - DNS Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by DNS Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="25">
+			<TBUID>A9C88333-ACAF-B160-799C-D354117F5B39</TBUID>
+			<Name>Unix - Added or Removed Software</Name>
+			<Description>This rule alerts when a software is installed or uninstalled on the target host. The rule monitors software which is registered using RPM packages on Linux/pkginfo on Solaris/swlist on HPUX systems.
+
+The rule also provides configuration option to ignore monitoring software and to select the InstalledSoftware attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="71">
+			<TBUID>D80CAC28-CB1E-4B55-6A67-FD1B78120F05</TBUID>
+			<Name>FTP Server - WS_FTP</Name>
+			<Description>This alert indicates that the files / registry keys created by WS_FTP were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="69">
+			<TBUID>3751008A-0970-7721-DB77-7C8BC7DD71BD</TBUID>
+			<Name>TFTP Server - 3CDaemon</Name>
+			<Description>This alert indicates that the files / registry keys created by 3CDaemon were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="84">
+			<TBUID>558740D8-7221-026C-5AA4-F1EA1C52EF92</TBUID>
+			<Name>HTTP Server - IIS</Name>
+			<Description>This alert indicates that the files / registry keys / services created by IIS were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="73">
+			<TBUID>4247C11C-8912-D34F-AE1C-5FCD89266FC5</TBUID>
+			<Name>FTP Server - NettermFTP</Name>
+			<Description>This alert indicates that the files / registry keys created by NettermFTP were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="70">
+			<TBUID>70E3A2D4-ECFF-36D9-A012-C2F4586CD793</TBUID>
+			<Name>Backup Server - CA BrightStor ARCserve</Name>
+			<Description>This alert indicates that the files/registry keys/services created by CA BrightStor ARCserve Backup server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="67">
+			<TBUID>722215F9-32DB-CB61-A788-3E67C04DE5A7</TBUID>
+			<Name>Database Server - Microsoft SQL Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Microsoft SQL Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="41">
+			<TBUID>94978D27-E802-A3A7-F8E8-25DB73ED7F03</TBUID>
+			<Name>Database Server - MySQL</Name>
+			<Description>This alert indicates that the files / registry keys / services created by MYSQL were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="54">
+			<TBUID>73CF521C-D2DC-73BA-D61A-E5F0E606F9DA</TBUID>
+			<Name>Web Browser - Internet Explorer</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Internet Explorer were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="51">
+			<TBUID>FE582FA8-DD71-A2EF-93B6-EB976F166F30</TBUID>
+			<Name>Web Browser - Mozilla Firefox</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Firefox were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="99">
+			<TBUID>841E29CB-1BE5-D609-8978-F990C43800FE</TBUID>
+			<Name>Trend Micro Deep Security Agent / Relay</Name>
+			<Description>This rule alert indicates that the files / registry keys / services created by Deep Security Agent / Relay were modified. This could indicate that the software was updated or installed / uninstalled.
+
+On windows, the rule look into any change made to installedSoftware, files, directories, registry and services.
+
+On Unix, it monitors installedSoftware, files, directories and process changes. 
+
+The rule also provides interface to configure installation file path.
+
+Note: onChange feature will not work for the DirectorySet entity set in this rule.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.1505</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="159">
+			<TBUID>0D84F6BE-60E7-0A01-3825-E59CDA3DC3DF</TBUID>
+			<Name>Trend Micro Deep Security Manager</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Deep Security Manager were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="97">
+			<TBUID>E450DF14-05EA-16CD-E268-1931B6682EE5</TBUID>
+			<Name>Mail Server - MDaemon</Name>
+			<Description>This alert indicates that the files/registry keys/services created by MDaemon have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="88">
+			<TBUID>4F6C3511-D11E-6F50-A90A-6EFFA3B022B3</TBUID>
+			<Name>Mail Server - MailEnable</Name>
+			<Description>This alert indicates that the files / registry keys / services created by MailEnable were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="95">
+			<TBUID>74543CC9-F106-7AFA-24F0-E4B9E44B3B8C</TBUID>
+			<Name>Mail Server - Microsoft Exchange Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Microsoft Exchange Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="90">
+			<TBUID>341BE54E-645D-1788-13C1-06574534D00E</TBUID>
+			<Name>Mail Server - IBM Lotus Domino</Name>
+			<Description>This alert indicates that the files / registry keys created by IBM Lotus Domino were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="78">
+			<TBUID>473458CB-8ADC-84AC-91C8-33B3FF3C12D1</TBUID>
+			<Name>AntiVirus - Trend Micro OfficeScan Client</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Trend Micro OfficeScan Client were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="75">
+			<TBUID>770A57C7-4196-93DD-9E76-564AE99B42C0</TBUID>
+			<Name>Database Server - Oracle</Name>
+			<Description>This alert indicates that the files/registry keys/services created by Oracle Database Server have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="96">
+			<TBUID>45B8AC43-1783-1FC9-259C-DBD976D932F1</TBUID>
+			<Name>Mail Server - Merak</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Merak were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="87">
+			<TBUID>0FF81CCD-9FE0-B8CE-E725-371FCE93908F</TBUID>
+			<Name>PDF Viewer - Adobe Acrobat</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Adobe Acrobat were modified. This could indicate that the software was updated or installed / uninstalled. This rule is for the Microsoft Windows platform.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="19">
+			<TBUID>743553C4-0604-2B2B-013C-0110C67CF965</TBUID>
+			<Name>Microsoft Windows - FTP Client</Name>
+			<Description>This alert indicates the Microsoft ftp client application has been changed/modified</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="92">
+			<TBUID>82A3F9B4-7A8B-F07C-3836-9AD6AB52DA3F</TBUID>
+			<Name>Directory Service - Novell eDirectory</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Novell eDirectory were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="20">
+			<TBUID>98D93B61-6B46-DAA9-886E-7DC077006FE5</TBUID>
+			<Name>DNS Client</Name>
+			<Description>This alert indicates that the files / registry keys / services created by DNS Client were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="101">
+			<TBUID>02BFFFCC-1D27-3EF0-5CFF-97FCEF0B99FA</TBUID>
+			<Name>Database Server - PostgreSQL</Name>
+			<Description>This alert indicates files/directories/registry keys/services created by PostgreSQL have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="102">
+			<TBUID>5C87C363-652D-9737-9EC9-86FDD5D4FB54</TBUID>
+			<Name>Virtualization Software - VMware Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by VMWare Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="93">
+			<TBUID>1DA1BBF4-E87A-9D0A-E962-72C71547A2C0</TBUID>
+			<Name>Instant Messenger - Yahoo! Messenger</Name>
+			<Description>This is a generic IM rule to monitor the Yahoo messenger related files, folders and registry.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="126">
+			<TBUID>CF997831-5A7B-DBA0-1CDE-00B6503B54D1</TBUID>
+			<Name>Microsoft Windows - Active Directory</Name>
+			<Description>This rule alerts when there is any change in directory attributes and file attributes of all files found in %WINDIR%\system32\NTDS and %WINDIR%\system32\SYSVOL directories. It monitors change in  registry keys and data values created by Microsoft Active Directory. 
+
+The rule also provides configuration options to select file attributes to monitor and to provide file names to ignore monitoring files under %WINDIR%\system32\NTDS and %WINDIR%\system32\SYSVOL directories.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.680</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="80">
+			<TBUID>0A863244-8A4B-5FAA-CC0C-F568CD65B7C8</TBUID>
+			<Name>Application Server - Sun ONE</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Sun ONE Application Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="29">
+			<TBUID>99F379F7-512A-E10D-3799-C270BCB28DD0</TBUID>
+			<Name>Directory Server - Sun ONE</Name>
+			<Description>This alert indicates that the files created by Sun ONE were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="94">
+			<TBUID>D58515F9-9FC0-C98C-ECF9-BC036C15E2D1</TBUID>
+			<Name>Instant Messenger - AOL Instant Messenger</Name>
+			<Description>This alert indicates that the files/registry keys/services created by AOL Instant Messenger have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="98">
+			<TBUID>F52394B0-8C49-93D3-CF87-D43405573FFD</TBUID>
+			<Name>Instant Messenger - MSN Messenger</Name>
+			<Description>This alert indicates that the files/registry keys created by MSN Messenger have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="27">
+			<TBUID>8776C024-DDA7-0FFE-F84D-8FEF68DCF2B3</TBUID>
+			<Name>Web Browser - Apple Safari</Name>
+			<Description>This alert indicates that the files / registry keys created by Apple Safari were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="30">
+			<TBUID>363B7DC0-759A-35AC-0FB9-993FEFEBA7FA</TBUID>
+			<Name>Web Browser - Google Chrome</Name>
+			<Description>This alert indicates that the files / registry keys created by Chrome were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="28">
+			<TBUID>4507B415-F7AA-5C1C-BF7C-3C1FD7274AF3</TBUID>
+			<Name>Web Browser - Opera</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Opera were modified. This could indicate that the software was updated or installed / uninstalled. This rule is for the Microsoft Windows platform.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="76">
+			<TBUID>A75A7F38-6CE7-20DE-A921-510B2BB2D454</TBUID>
+			<Name>Application - IBM WebSphere Application Server</Name>
+			<Description>This alert indicates that the files / services created by IBM WebSphere Application Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="79">
+			<TBUID>87ED47C2-0523-32EF-0D17-99EAC6064F76</TBUID>
+			<Name>Application - Oracle Bea WebLogic Server</Name>
+			<Description>This alert indicates that the files created by Oracle Bea WebLogic Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="160">
+			<TBUID>4ABE571F-8625-E288-287B-CAFEC6789ADF</TBUID>
+			<Name>Unix - Open Port Monitor</Name>
+			<Description>This rule alerts when there is any change in listening ports with change in users owning these ports and protocol details. The rule also provides configuration options to choose user names, port numbers and/or protocol names to monitor.
+Note: The rule is supported on Linux platforms only.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2131</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="48">
+			<TBUID>5041AB61-8C37-F8C6-512A-62B908F8167F</TBUID>
+			<Name>Unix - Process Monitor</Name>
+			<Description>This rule alerts when there is a change in any process attributes such as CommandLine, Group, Path, Process, User, Parent, Threads. 
+
+By default, we do not monitor any process since the change in PID of the process may create many alerts. Hence the rule provides configuration options to include processes to monitor and to select process attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2131</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>true</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="82">
+			<TBUID>7044E231-9BCF-F037-7577-630D6DF47CE9</TBUID>
+			<Name>Database Server - IBM DB2</Name>
+			<Description>This alert indicates that the files/registry keys/services created by IBM DB2 Database Server(for windows) have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="81">
+			<TBUID>A98C7C47-025D-FC56-0CC2-C2F755E5281E</TBUID>
+			<Name>Database Server - Ingres</Name>
+			<Description>This alert indicates that the files / services created by Ingres Database Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="50">
+			<TBUID>14FE8F92-F3E4-E286-8735-84376E79BC45</TBUID>
+			<Name>Directory Server - IBM Tivoli</Name>
+			<Description>This alert indicates that the files / services created by IBM Tivoli Directory Server on windows  were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="42">
+			<TBUID>4C325C4A-D435-8CB8-1478-9A1B540534ED</TBUID>
+			<Name>Application - Kerberos</Name>
+			<Description>This alert indicates that the files/processes created by Kerberos have been modified. This could also indicate the software was installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="59">
+			<TBUID>E91DE92E-0F08-238D-2B72-54734C6A0473</TBUID>
+			<Name>Application - Samba</Name>
+			<Description>This alert indicates that the files / processes created by Samba were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="34">
+			<TBUID>CA512183-7ABE-B5E3-5909-23ACAF2DB2C6</TBUID>
+			<Name>Application - PAM</Name>
+			<Description>This alert indicates that the files/processes created by PAM (Pluggable Authentication Modules) were modified. This could indicate that the software was updated or installed/uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="31">
+			<TBUID>F1F8A77B-E7AC-35A8-DED4-895ECD58E231</TBUID>
+			<Name>Application - mountd</Name>
+			<Description>This alert indicates that the files/processes created by mountd have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="33">
+			<TBUID>9A8377B9-2AC2-FFA6-C58C-B863D8A6B77F</TBUID>
+			<Name>Application - NFS</Name>
+			<Description>This alert indicates that the files/processes related to NFS have been created or modified.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="57">
+			<TBUID>D3E8FEEF-2673-AF5D-BC60-8CC801341CF7</TBUID>
+			<Name>Mail Server - Sendmail</Name>
+			<Description>This alert indicates that the files /  services created by Sendmail were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="39">
+			<TBUID>AF819086-780E-6996-962F-F850568C2421</TBUID>
+			<Name>Application - vixie-cron</Name>
+			<Description>This alert indicates that the files / services created by vixie-cron were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="35">
+			<TBUID>EA772653-B77B-1004-66D8-BA942017597E</TBUID>
+			<Name>Application - Portmapper</Name>
+			<Description>This rule alerts on any change in file, folders or processes related to Portmapper.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="32">
+			<TBUID>47B38421-3CDB-54F6-FC83-ACFF44FA9398</TBUID>
+			<Name>Application - Network Information Server</Name>
+			<Description>This alert indicates that the files/processes created by Network Information Server have been modified.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="36">
+			<TBUID>46AFF668-2797-468F-C4D6-41291422620B</TBUID>
+			<Name>Application - rstatd</Name>
+			<Description>This rule alert indicates that the files / process / services created by rstatd were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="91">
+			<TBUID>08B18102-45A5-0E0E-89C8-7A374E49B172</TBUID>
+			<Name>Mail Server - IPSwitch IMail</Name>
+			<Description>This alert indicates that the files / registry keys / services created by IPSwitch IMail Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="44">
+			<TBUID>0CFB60B8-30AD-418E-47C1-8A7DD6C6B18D</TBUID>
+			<Name>Mail Server - Exim</Name>
+			<Description>This alert indicates that the files created by Exim were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="38">
+			<TBUID>5972146D-03D5-8CA9-036F-2C8A5B76173D</TBUID>
+			<Name>Microsoft Windows - DHCP Client</Name>
+			<Description>This alert indicates that the files / services created by DHCP Client were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="86">
+			<TBUID>D94102FE-896F-562F-2D7B-109279BCE30F</TBUID>
+			<Name>Microsoft Windows - DHCP Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by DHCP Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="77">
+			<TBUID>ECCC400F-BD84-12AD-2D2F-39A1813D213A</TBUID>
+			<Name>Application - OpenSSL</Name>
+			<Description>This alert indicates that the files / registry keys created by OpenSSL were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="37">
+			<TBUID>020FC79D-CD08-B346-24FC-58708ACF2626</TBUID>
+			<Name>Application - telnetd</Name>
+			<Description>This alert indicates that the files/services created by telnetd have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="100">
+			<TBUID>562CC367-E064-7981-1E60-FD16A7EE9CA8</TBUID>
+			<Name>Application - PHP</Name>
+			<Description>This alert indicates that the files/registry keys created by PHP have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="56">
+			<TBUID>38EB1259-6E11-0FB6-A168-B794056A00FD</TBUID>
+			<Name>Application - Postfix</Name>
+			<Description>This alert indicates that the files / processes created by Postfix were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="43">
+			<TBUID>02A6C95A-3CA3-0E83-D354-C98981289E1A</TBUID>
+			<Name>Web Server - Squid</Name>
+			<Description>This alert indicates that the files / services / registry keys created by Squid were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="22">
+			<TBUID>50705A64-3FC0-F8C3-7B06-201AA847A50F</TBUID>
+			<Name>Application - Mailman</Name>
+			<Description>This alert indicates that the files / processes created by Mailman were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="40">
+			<TBUID>536E3F42-6059-C942-924E-2A53A00E20DB</TBUID>
+			<Name>Application - Xorg-x / XFree86 / Xfree86 / Xorg-x11</Name>
+			<Description>This alert indicates that the files/processes created by Xorg-x / XFree86 / Xfree86 / Xorg-x11 have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="49">
+			<TBUID>66CE0966-0D48-3DD3-CDBB-AC8E761330A2</TBUID>
+			<Name>Application - VNC Server</Name>
+			<Description>This alert indicates that the files/processes created by VNC Server have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="21">
+			<TBUID>9D9D0AC4-BA8E-A932-FA62-5B3326049057</TBUID>
+			<Name>Application - CacheFS</Name>
+			<Description>This alert indicates that the files/processes created by CacheFS have been modified.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="45">
+			<TBUID>CCBCAF29-7C5E-11B2-299E-0AE0B23B5A6D</TBUID>
+			<Name>FTP Server - vsftpd</Name>
+			<Description>This alert indicates that the files / services created by FTP server, vsftpd were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="46">
+			<TBUID>67D0E869-BC25-A62C-9D8B-4EFDE4201D60</TBUID>
+			<Name>FTP Server - WU-FTPD</Name>
+			<Description>This alert indicates that the files / registry keys created by WU-FTPD were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="8">
+			<TBUID>6242FDA8-3BD8-6C3F-1A62-DCBED84C4E89</TBUID>
+			<Name>Unix - File attributes changed in /etc location</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under /etc path. 
+
+Also the rule provides configuration options to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="9">
+			<TBUID>979B057C-34A6-12C5-E94B-52A9B05C47F4</TBUID>
+			<Name>Unix - File attributes changed in /lib location</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under /lib path. 
+
+Also the rule provides configuration options to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="1">
+			<TBUID>1ABD4D14-26A7-B1D7-F68D-EDFBF54E6C81</TBUID>
+			<Name>Microsoft Windows - System driver files modified</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size and Contents of .sys files under %WINDIR%\system32\drivers path.
+
+ Also the rule provides configuration option to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="89">
+			<TBUID>04E25FA9-93DA-3BF3-135D-50048877BB8A</TBUID>
+			<Name>Application - OpenSSH</Name>
+			<Description>This alert indicates that the files/registry keys/services created by OpenSSH have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="7">
+			<TBUID>CCF6C7AF-B003-A865-3A71-BE4E3D1BF759</TBUID>
+			<Name>Unix - File attributes changed in /bin location</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under /bin path. 
+
+Also the rule provides configuration options to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="10">
+			<TBUID>3F2DF14E-5533-6F7D-3D83-AC761AB0FB7E</TBUID>
+			<Name>Unix - File attributes changed in /sbin location</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under /sbin path. 
+
+Also the rule provides configuration options to ignore files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="15">
+			<TBUID>DAE04FAD-894F-B55C-DEDB-69E8B5AD2243</TBUID>
+			<Name>Unix - Directory attributes changed for /bin</Name>
+			<Description>This rule alerts when there is any change in directory attributes for /bin. The rule also provides configuration options to select directory attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.682</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="47">
+			<TBUID>94C3E646-0430-2DAF-EC5C-6648B088AD41</TBUID>
+			<Name>Mail Client - Evolution</Name>
+			<Description>This alert indicates that the files created by Evolution Mail Client were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="153">
+			<TBUID>27EF8A57-5C6B-1962-57E7-EA614D9A352A</TBUID>
+			<Name>AntiVirus - Trend Micro OfficeScan Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Trend Micro OfficeScan Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="65">
+			<TBUID>DF6B53A8-059C-CD6F-70AC-787515F18AFC</TBUID>
+			<Name>Microsoft Visual Studio - New Add-In Created</Name>
+			<Description>This rule alerts when any new .addin and .dll files added to default Add-In search locations of Visual Studio.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="63">
+			<TBUID>1C17877A-EE31-8F8A-79D0-CCB22A19499D</TBUID>
+			<Name>Malware - Suspicious Microsoft Windows Files Detected</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.</Description>
+			<Severity>4</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="58">
+			<TBUID>06FA8CB9-EC2E-8FD0-65AE-47677702CEF7</TBUID>
+			<Name>Malware - Suspicious Microsoft Windows Registry Entries Detected</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific registry entity is created or modified.</Description>
+			<Severity>4</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="125">
+			<TBUID>6BE16B1E-335D-F772-66F9-72C529D3FF1D</TBUID>
+			<Name>Unix - Log File Attributes Changes Detected</Name>
+			<Description>This rule alerts when there is a change in any file attributes for a given log file on Unix platform.
+
+Note: The rule provides configuration options to add files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>true</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="124">
+			<TBUID>D2D37135-4B7A-47AE-3455-8261F669CA51</TBUID>
+			<Name>Microsoft Windows - Log File Attributes Changes Detected</Name>
+			<Description>This rule alerts when there is a change in any file attributes for a given log file on Windows platfrom.
+
+Note: The rule provides configuration options to add files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>true</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="151">
+			<TBUID>F3443646-816E-CBCC-E3E0-14B68B8C31D8</TBUID>
+			<Name>Microsoft Windows - AutoRun Registry Entries Modified (ATT&amp;CK T1013, T1060)</Name>
+			<Description>This rule alerts when there is any change in the AutoRun registry entries.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.637</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="53">
+			<TBUID>2F3794FC-C4B5-0198-4751-6F636C561EBD</TBUID>
+			<Name>Application - Apache Hadoop</Name>
+			<Description>This alert indicates that the directories, files and processes created by Apache Hadoop (for non-windows) have been changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.637</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="111">
+			<TBUID>F238F7C3-EBC2-DDD1-084C-D9E3B7D2C776</TBUID>
+			<Name>Task Scheduler Entries Modified (ATT&amp;CK T1168)</Name>
+			<Description>An adversary may use job scheduling to execute programs at system startup or on a scheduled basis for Persistence, to conduct Execution as part of Lateral Movement, to gain root privileges, or to run a process under the context of a specific account.
+
+This rule alerts when a scheduled task is created, modified or deleted.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="64">
+			<TBUID>28E53577-F255-9E8D-B940-82DF422F6C50</TBUID>
+			<Name>Adware - Suspicious Microsoft Windows Superfish Detected</Name>
+			<Description>This generic rule is intended to alert when highly malicious superfish adware specific file or registry entity is created or modified and a superfish adware process is started or stopped.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="127">
+			<TBUID>606E0F7C-1C5B-8D5A-C7A2-082496083D69</TBUID>
+			<Name>TMTR-0012: Suspicious Files Detected In Temporary Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="135">
+			<TBUID>CDBB34F1-FCE6-D531-63EC-467DF254CE78</TBUID>
+			<Name>TMTR-0013: Suspicious Files Detected In Windows Folder</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="131">
+			<TBUID>DC8B8F56-B4C6-B99D-E06A-5F5FCEEC0B11</TBUID>
+			<Name>TMTR-0008: Suspicious Directories Detected In Program Files Folder</Name>
+			<Description>Monitoring Program files folder for suspicious directories creation with specific keyword string matching in name.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="136">
+			<TBUID>6B884326-F9E7-F125-2137-DB1E32416DD2</TBUID>
+			<Name>TMTR-0016: Suspicious Running Processes Detected</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific running processes.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="137">
+			<TBUID>6FB29390-F09D-5859-A6C2-537A861DCBE8</TBUID>
+			<Name>TMTR-0015: Suspicious Service Detected</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific service detected.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="138">
+			<TBUID>8EBC0B7E-DBE4-EAAC-E542-F35F2C8BF846</TBUID>
+			<Name>TMTR-0017: Microsoft Windows - SAM Domain Account Users Modification Detected</Name>
+			<Description>This generic rule is intended to alert when modification detected in SAM domain account users.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="139">
+			<TBUID>10E83E3A-A9EB-A9BB-18B2-833217F1AB59</TBUID>
+			<Name>TMTR-0011: Suspicious Files Detected In System Folder</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="140">
+			<TBUID>99FC360A-92C2-2003-1390-6790044C9D87</TBUID>
+			<Name>TMTR-0007: Suspicious Files Detected In Application Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="141">
+			<TBUID>8D4D2F4E-04AA-9E61-13E5-4B21076D165B</TBUID>
+			<Name>TMTR-0006: Suspicious Files Detected In Application Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="142">
+			<TBUID>0666E804-FA3F-250C-76AA-656D3C7DE247</TBUID>
+			<Name>TMTR-0005: Suspicious Files Detected In Application Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="143">
+			<TBUID>DF38DF0C-0965-8D07-4426-D0EA1E4B5783</TBUID>
+			<Name>TMTR-0014: Suspicious Service Detected</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific service detected.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="144">
+			<TBUID>A0387FFF-873C-B049-A8D2-EEB99355E331</TBUID>
+			<Name>TMTR-0002: Suspicious Files Detected In Operating System Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="128">
+			<TBUID>5073E4A2-ACAC-5D32-26AC-147EB7691C6C</TBUID>
+			<Name>TMTR-0004: Suspicious Files Detected In Operating System Directories</Name>
+			<Description>This generic rule is intended to alert when a highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="129">
+			<TBUID>DFD8BB39-CDED-C1C6-B62E-4F904DEE98B8</TBUID>
+			<Name>TMTR-0003: Suspicious Files Detected In Operating System Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified. 
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="145">
+			<TBUID>148F6C95-A70B-DF56-B820-FD12A5B96543</TBUID>
+			<Name>TMTR-0001: Suspicious Files Detected In Operating System Directories</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="146">
+			<TBUID>BA45EED2-A3BC-7FA9-6888-23ED27973794</TBUID>
+			<Name>TMTR-0010: Suspicious Files Detected In System Folder</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="147">
+			<TBUID>CC3F77CB-A9B0-FED1-0357-1F4131A589FC</TBUID>
+			<Name>TMTR-0009: Suspicious Files Detected In System Folder</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="157">
+			<TBUID>9D9DABF4-FEA0-EB51-F60A-E88A3311B9FD</TBUID>
+			<Name>TMTR-0018: Suspicious Files Detected In User Profile Directory</Name>
+			<Description>This generic rule is intended to alert when a highly suspicious malware specific file entity is created or modified.
+
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="132">
+			<TBUID>75952E3D-662C-9ED1-1B9A-A6F0751A1A45</TBUID>
+			<Name>TMTR-0019: Suspicious Files Detected In System Drivers Directory</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="133">
+			<TBUID>D249EB66-4DD5-54CF-95D0-60EEEC1164A5</TBUID>
+			<Name>TMTR-0020: Suspicious Directories Detected In System Drive</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific  directory entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="148">
+			<TBUID>265B8A82-E922-341E-2E5A-3E2FE231D64F</TBUID>
+			<Name>TMTR-0021: Suspicious Files Detected In System Drive</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>1</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="149">
+			<TBUID>EF1DB3E1-AFB1-D0FA-16AE-B8361E12DEBC</TBUID>
+			<Name>TMTR-0022: Suspicious Files Detected In Recycle Bin</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="150">
+			<TBUID>14F4BD8E-0F40-2A49-C0E7-201232F7CB23</TBUID>
+			<Name>TMTR-0023: Suspicious Changes In NTLM Settings</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific registry entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="134">
+			<TBUID>2766F773-C4B0-2376-1C6E-C6E8BDED0C7C</TBUID>
+			<Name>TMTR-0024: Suspicious Files Detected In C Drive</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="130">
+			<TBUID>3473B2B0-C5BE-770D-337C-494C40E47AAF</TBUID>
+			<Name>TMTR-0026: Suspicious Files Detected In Program FIles Folder</Name>
+			<Description>This generic rule is intended to alert when highly suspicious malware specific file entity is created or modified.
+
+This rule is applicable to Windows platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="105">
+			<TBUID>D827DA69-01E7-6DA2-DA53-0C58440302B9</TBUID>
+			<Name>Application - chrony</Name>
+			<Description>This alert indicates that the files / process created by chrony were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="122">
+			<TBUID>F3327BC8-A573-B43E-63C7-27337C2FE5B3</TBUID>
+			<Name>Microsoft Windows - USB Storage Device Detected (ATT&amp;CK T1092)</Name>
+			<Description>This rule alerts when a USB storage device is plugged in the system. It monitors the changes in registry key to detect the attachment and removal of USB storage device.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="103">
+			<TBUID>2C5441FB-E9A3-CBF9-EEDA-38B5253B4477</TBUID>
+			<Name>Application - Docker</Name>
+			<Description>This rule is intended to monitor the changes related to Docker files on the Docker host.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="62">
+			<TBUID>ECC762D0-56A5-D3E2-A7B2-82D1238CDCFB</TBUID>
+			<Name>Ransomware - WannaCry</Name>
+			<Description>This is intended to alert when ransomware WannaCry related entities like file/directory, registry, service was created or modified.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="60">
+			<TBUID>7DAD62EE-4938-7495-2617-4583D902A4DE</TBUID>
+			<Name>Unix - File Attributes Changes In /usr/etc, /usr/lib, /usr/lib64, /usr/libexec And /usr/local Locations</Name>
+			<Description>This rule alerts when there is a change in file attributes Created, LastModified, Permissions, Owner, Group, Size, Contents and SymLinkPath in any file under '/usr/etc', '/usr/local', '/usr/lib', '/usr/lib64', '/usr/libexec' path. This rule also provides configuration options to ignore/include files for monitoring and to select the file attributes to monitor.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="66">
+			<TBUID>64FBA712-DB7A-9E1C-DF00-73765A6381E8</TBUID>
+			<Name>Ransomware - BADRABBIT</Name>
+			<Description>This rule is intended to alert when ransomware BADRABBIT related files and registries were created or modified.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="106">
+			<TBUID>309556DF-7188-67DB-1F9D-767412D1ADC4</TBUID>
+			<Name>Users and Groups - Create and Delete Activity (ATT&amp;CK T1136)</Name>
+			<Description>This rule detects creation and deletion of users and groups.
+
+Platform: Windows, Non-Windows</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>7.0.0.596</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.1</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="68">
+			<TBUID>86E4309E-0313-3D38-CAC8-E617060FAABF</TBUID>
+			<Name>Kubernetes Cluster Master</Name>
+			<Description>Kubernetes is an open-source system for automating deployment, scaling and management of containerized applications</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="104">
+			<TBUID>4D246AF6-EC6E-29D2-A24A-8313AC0AAF18</TBUID>
+			<Name>Kubernetes Cluster Node</Name>
+			<Description>Kubernetes is an open-source system for automating deployment, scaling and management of containerized applications. This rule is for monitoring Kubernetes Nodes.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="113">
+			<TBUID>08420A46-33D0-D154-35A3-279EB8D2A912</TBUID>
+			<Name>PowerShell (ATT&amp;CK T1086)</Name>
+			<Description>This rule monitors the execution of the  PowerShell, along with PowerShell execution policy registry key, and the WinRM service.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="156">
+			<TBUID>1F123675-0127-C42B-7389-AF51B6139264</TBUID>
+			<Name>.bash_profile and .bashrc (ATT&amp;CK T1156)</Name>
+			<Description>Adversaries can insert code into the files listed in the details tab to gain persistence each time a user logs in or opens a new shell.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="115">
+			<TBUID>44C9AB20-724D-0B85-A7E1-25F9B78E618B</TBUID>
+			<Name>Windows Accessibility Features - ImageFileExecution (ATT&amp;CK T1015,T1183)</Name>
+			<Description>An adversary can modify the way these programs are launched to get a command prompt or backdoor without logging into the system.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="123">
+			<TBUID>51E60140-6D48-1ACB-79A4-66FF3BD1E21C</TBUID>
+			<Name>AppInit DLLs (ATT&amp;CK T1103)</Name>
+			<Description>The monitored registry values can be used and abused by adversaries to obtain persistence and privilege escalation by causing a malicious DLL to be loaded and run in the context of separate processes on the computer.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="112">
+			<TBUID>9672834F-9733-EABE-5BF9-3A0058D5EA34</TBUID>
+			<Name>AppCert DLLs (ATT&amp;CK T1182)</Name>
+			<Description>Dynamic-link libraries (DLLs) that are specified in the AppCertDLLs value in the Registry key HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager are loaded into every process that calls various ubiquitously used application programming interface (API) functions.
+This value can be abused to obtain persistence and privilege escalation by causing a malicious DLL to be loaded and run in the context of separate processes on the computer.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="121">
+			<TBUID>45EAAAAD-8644-19EC-6C90-1C132862AD17</TBUID>
+			<Name>NetSh Helper DLL (ATT&amp;CK T1128)</Name>
+			<Description>Adversaries can use netsh.exe with helper DLLs to proxy execution of arbitrary code in a persistent manner when netsh.exe is executed automatically with another persistence technique or if other persistent software is present on the system.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="110">
+			<TBUID>5E8890B4-EBDF-2AE9-D386-943C5F703A61</TBUID>
+			<Name>Application Shimming (ATT&amp;CK T1138)</Name>
+			<Description>The Microsoft Windows Application Compatibility Infrastructure/Framework (Application Shim) was created to allow for backward compatibility of software as the operating system codebase changes over time.
+
+However, certain shims can be abused. Utilizing these shims may allow an adversary to perform several malicious acts such as elevate privileges, install backdoors, disable defenses like Windows Defender, etc.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="114">
+			<TBUID>E816202C-9FA9-5938-461A-96B50924306C</TBUID>
+			<Name>Clear Command History (ATT&amp;CK T1146)</Name>
+			<Description>Adversaries can use a variety of methods to clear their command history.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="118">
+			<TBUID>4B52636F-530D-0A03-42F9-954DA5C4ECD7</TBUID>
+			<Name>Service Registry Permissions Weakness (ATT&amp;CK T1058)</Name>
+			<Description>Adversaries can change the service binPath/ImagePath to point to a different executable under their control. When the service starts or is restarted, then the adversary-controlled program will execute, allowing the adversary to gain persistence and/or privilege escalation to the account context the service is set to execute under (local/domain account, SYSTEM, LocalService, or NetworkService).</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="117">
+			<TBUID>944B8217-487B-F2A2-A6C5-8A5C2E2F0276</TBUID>
+			<Name>Time Providers (ATT&amp;CK T1209)</Name>
+			<Description>Adversaries may abuse this architecture to establish persistence, specifically by registering and enabling a malicious DLL as a time provider.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="109">
+			<TBUID>6DAD9619-F733-CC3C-35FB-735E7A6DC7A6</TBUID>
+			<Name>Port Monitor (ATT&amp;CK T1013)</Name>
+			<Description>Adversaries can use this technique to load malicious code at startup that will persist on system reboot and execute as SYSTEM.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="120">
+			<TBUID>E0057A18-1722-7A7B-1186-BDC19C435105</TBUID>
+			<Name>Install Root Certificate (ATT&amp;CK T1130)</Name>
+			<Description>Installation of a root certificate on a compromised system would give an adversary a way to degrade the security of that system. Adversaries have used this technique to avoid security warnings prompting users when compromised systems connect over HTTPS to adversary controlled web servers that spoof legitimate websites in order to collect login credentials.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="119">
+			<TBUID>930BED5E-74EF-28A7-4799-CAABBD6FC993</TBUID>
+			<Name>Linux - Removable Devices Detected (ATT&amp;CK T1092)</Name>
+			<Description>Adversaries can perform command and control between compromised hosts on potentially disconnected networks using removable media to transfer commands from system to system.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="107">
+			<TBUID>238CFE8C-C4FE-5F30-BB60-57F95BD7BEF9</TBUID>
+			<Name>Component Object Model Hijacking (ATT&amp;CK T1122, T1112)</Name>
+			<Description>Adversaries can use this system to insert malicious code that can be executed in place of legitimate software through hijacking the COM references and relationships as a means for persistence. 
+Hijacking a COM object requires a change in the Windows Registry to replace a reference to a legitimate system component which may cause that component to not work when executed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="154">
+			<TBUID>68683CD3-60A2-0943-4495-148B8C1E3FEE</TBUID>
+			<Name>AntiVirus - Trend Micro ApexOne Server</Name>
+			<Description>This alert indicates that the files / registry keys / services created by Trend Micro Apex One Server were modified. This could indicate that the software was updated or installed / uninstalled.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="158">
+			<TBUID>851EE9F9-DDC5-D619-D627-4BB28DEB29EE</TBUID>
+			<Name>Trend Micro Apex One And OfficeScan Directory Traversal Vulnerability (CVE-2019-9489)</Name>
+			<Description>Alert(s) of this IM rule indicates that CVE-2019-9489 is being exploited.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="161">
+			<TBUID>7C271580-11B0-FAFF-1322-16D31DCC101D</TBUID>
+			<Name>SaltStack Vulnerabilities Exploitation Detected</Name>
+			<Description>Alert(s) of this IM rule indicates that SaltStack vulnerabilities are being exploited.</Description>
+			<Severity>4</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="162">
+			<TBUID>4BB84F87-84E1-5BA8-67B5-5CF042B38BD6</TBUID>
+			<Name>Local Security Authority (LSA) Notification Packages modified (ATT&amp;CK T1131)</Name>
+			<Description>This rule alerts when there is a change in the data of the Notification Packages value of the Local Security Authority (LSA) registry key. 
+
+Note: 
+"Notification Packages" specifies the dynamic-link libraries (DLLs) that are loaded or called when passwords are set or changed.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="164">
+			<TBUID>D63C5797-D0D0-CB2D-A9CC-6304B2DDDE56</TBUID>
+			<Name>Systemd Service (ATT&amp;CK T1501)</Name>
+			<Description>This rule is intended to monitor the changes related to systemd services in linux host.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.2098</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="163">
+			<TBUID>49FBA2FF-ECCA-F4A9-65E0-19157F6C03AA</TBUID>
+			<Name>CommandLine (ATT&amp;CK T1059)</Name>
+			<Description>This rule monitors the execution of the command prompt.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="165">
+			<TBUID>6BC6EA5B-41B5-16E6-F579-DC437FBCBB23</TBUID>
+			<Name>Unix - Monitor Processes Running From '/tmp' Directories (ATT&amp;CK T1059)</Name>
+			<Description>This rule alerts when there is a process initiated from "/tmp/ and /var/tmp/" directory</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="166">
+			<TBUID>8E99657E-FA61-15ED-87FD-468736A14528</TBUID>
+			<Name>SCP - Remote File Copy (ATT&amp;CK T1105, T1048.001)</Name>
+			<Description>This rule is intended to alert when SCP is used to copy a file
+
+This rule is applicable to linux platforms.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>-1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="167">
+			<TBUID>1CEE5452-F35C-6EC9-9FA9-34E831E73F16</TBUID>
+			<Name>Trend Micro ServerProtect For Linux Command Execution Vulnerability (CVE-2020-24561)</Name>
+			<Description>Alert(s) of this IM rule indicates that CVE-2020-24561 is being exploited.</Description>
+			<Severity>2</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+		<IntegrityRule doNotMerge="true" id="168">
+			<TBUID>6F8A9EF0-9723-4BD7-A328-7BCE5D0C3050</TBUID>
+			<Name>Microsoft Exchange - HAFNIUM Targeted Vulnerabilities</Name>
+			<Description>This rule monitor IOCs related to the Microsoft Exchange vulnerabilities - CVE-2021-26855, CVE-2021-26857, CVE-2021-26858 &amp; CVE-2021-27065 - by HAFNIUM group.
+Triggers of this rule indicate probable exploitation.</Description>
+			<Severity>3</Severity>
+			<AllowOnChange>true</AllowOnChange>
+			<MinimumAgentVersion>6.0.0.0</MinimumAgentVersion>
+			<UserEdited>false</UserEdited>
+			<RequiresConfiguration>false</RequiresConfiguration>
+			<Alert>false</Alert>
+			<RecommendationsMode>1</RecommendationsMode>
+			<Tags/>
+			<MinimumManagerVersion>6.0.0</MinimumManagerVersion>
+		</IntegrityRule>
+	</IntegrityRules>
+</Export>

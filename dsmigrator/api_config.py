@@ -258,3 +258,71 @@ class PolicyApiInstance(RestApiConfiguration):
         self.api_instance.modify_policy(
             id, policy, self.api_version, overrides=self.overrides
         )
+
+
+class LogInspectionApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.LogInspectionRulesApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_log_inspection_rules(
+            "v1", search_filter=filter
+        )
+        if results.log_inspection_rules:
+            return results.log_inspection_rules[0].id
+
+    def create(self, json):
+        object = deepsecurity.LogInspectionRule()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        self.api_instance.create_log_inspection_rule(object, self.api_version)
+        return object.name
+
+
+class IntrusionPreventionApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.IntrusionPreventionRulesApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_intrusion_prevention_rules(
+            "v1", search_filter=filter
+        )
+        if results.intrusion_prevention_rules:
+            return results.intrusion_prevention_rules[0].id
+
+    def create(self, json):
+        object = deepsecurity.IntrusionPreventionRule()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        self.api_instance.create_intrusion_prevention_rule(object, self.api_version)
+        return object.name
+
+
+class IntegrityMonitoringApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.IntegrityMonitoringRulesApi(self.api_client)
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_integrity_monitoring_rules(
+            "v1", search_filter=filter
+        )
+        if results.integrity_monitoring_rules:
+            return results.integrity_monitoring_rules[0].id
+
+    def create(self, json):
+        object = deepsecurity.IntegrityMonitoringRule()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        self.api_instance.create_integrity_monitoring_rule(
+            self.api_version, integrity_monitoring_rule=object
+        )
+        return object.name
