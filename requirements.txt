@@ -71,6 +71,8 @@ lxml==4.6.3; python_version >= "3.6" and python_full_version < "3.0.0" or python
     --hash=sha256:33bb934a044cf32157c12bfcfbb6649807da20aa92c062ef51903415c704704f \
     --hash=sha256:542d454665a3e277f76954418124d67516c5f88e51a900365ed54a9806122b83 \
     --hash=sha256:39b78571b3b30645ac77b95f7c69d1bffc4cf8c3b157c435a34da72e78c82468
+nested-lookup==0.2.22 \
+    --hash=sha256:e39adacd11e879dd6383b0a832cde97edce25d2a29cbc03a9c80fefa3a131e8b
 pygments==2.8.1; python_version >= "3.6" and python_version < "4.0" \
     --hash=sha256:534ef71d539ae97d4c3a4cf7d6f110f214b0e687e92f9cb9d2a3b0d3101289c8 \
     --hash=sha256:2656e1a6edcdabf4275f9a3640db59fd5de107d88e8663c5d4e9a0fa62f77f94
