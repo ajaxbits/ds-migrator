@@ -33,6 +33,7 @@ nose2 = "^0.10.0"
 
 [tool.poetry.scripts]
 dsmg = 'dsmigrator.__main__:main'
+dsmg-rules = 'dsmigrator.rules_migrator:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
