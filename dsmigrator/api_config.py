@@ -1,5 +1,6 @@
 import json
 import deepsecurity
+from deepsecurity.rest import ApiException
 import re
 import os
 
@@ -8,12 +9,6 @@ def to_snake(camel_case):
     pattern = re.compile(r"(?<!^)(?=[A-Z])")
     snake = pattern.sub("_", camel_case).lower()
     return snake
-
-
-def to_class_name(snake_case):
-    temp = str(snake_case).split("_")
-    class_name = temp[0] + "".join(ele.title() for ele in temp)
-    return class_name
 
 
 class RestApiConfiguration:
@@ -208,6 +203,27 @@ class FirewallApiInstance(RestApiConfiguration):
                 setattr(object, to_snake(key), json[key])
         self.api_instance.create_firewall_rule(object, self.api_version)
         return object.name
+
+
+class ApplicationControlRulesetsApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.RulesetsApi(self.api_client)
+
+    def create(self, json, inventory_id):
+        ruleset = deepsecurity.Ruleset()
+        for key in json:
+            if not key == "ID":
+                setattr(ruleset, to_snake(key), json[key])
+        try:
+            self.api_instance.create_ruleset(ruleset, inventory_id, self.api_version)
+            return ruleset.name
+        except ApiException as e:
+            print(
+                "An exception occurred when calling RulesetsApi.create_ruleset: %s\n"
+                % e
+            )
+            pass
 
 
 class PolicyApiInstance(RestApiConfiguration):

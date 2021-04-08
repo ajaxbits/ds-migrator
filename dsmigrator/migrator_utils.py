@@ -1,5 +1,7 @@
 import os
 import json
+import requests
+import urllib3
 from deepsecurity.rest import ApiException
 
 
@@ -15,6 +17,51 @@ def rename_json(json):
     if json["name"]:
         json["name"] = f"{json['name']} - Migrated"
     return json
+
+
+def to_json_name(snake_case):
+    temp = str(snake_case).split("_")
+    json_name = temp[0] + "".join(ele.title() for ele in temp[1:])
+    return json_name
+
+
+def to_api_endpoint(snake_case):
+    temp = str(snake_case).split("_")
+    endpoint_name = "".join(ele for ele in temp)
+    return endpoint_name
+
+
+def to_title(snake_case):
+    temp = str(snake_case).split("_")
+    title = " ".join(ele.title() for ele in temp)
+    return title
+
+
+def http_list_get(type, OLD_HOST, OLD_API_KEY, cert=False):
+    """
+    Takes in a string type in snake case, outputs a list of string json (for now)
+    """
+    list_all = []
+    list_id = []
+    endpoint = f"{OLD_HOST}api/{to_api_endpoint(type)}"
+    headers = {
+        "api-secret-key": OLD_API_KEY,
+        "api-version": "v1",
+        "Content-Type": "application/json",
+    }
+    response = requests.request("GET", endpoint, headers=headers, data={}, verify=cert)
+    describe = str(response.text)
+    response_json = json.loads(describe).get(to_json_name(type))
+    if response_json is not None:
+        for count, item in enumerate(response_json):
+            list_all.append(str(json.dumps(item)))
+            list_id.append(str(item["ID"]))
+            print(
+                f"#{str(count)} {to_title(type)} name: {str(item['name'])}", flush=True
+            )
+            print(f"#{str(count)} {to_title(type)} ID: {str(item['ID'])}", flush=True)
+        print("Done!", flush=True)
+    return list_all, list_id
 
 
 def validate_create(all_old, api_instance, type):
