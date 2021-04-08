@@ -39,6 +39,7 @@ Here's the current feature map of what the tool can migrate:
 - [x] [BETA] Tasks (still quite buggy)
 - [x] [BETA] Computer Groups
 - [ ] Application Control (everything)
+- [ ] Certificate support for authenticated requests
 
 ### Known limitations
 
