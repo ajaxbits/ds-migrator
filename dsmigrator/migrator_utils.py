@@ -184,36 +184,31 @@ def validate_create_dict(all_old, api_instance, type):
 def validate_create_dict_custom(all_old, skeleton_dict, api_instance, type):
     # add printing to this
     custom_list = []
-    for count, ipsapp in enumerate(all_old):
+    for (count, object) in enumerate(all_old):
         namecheck = 1
         rename = 1
-        ipsapp_json = json.loads(ipsapp)
-        old_ipsapp_id = ipsapp_json["ID"]
-        old_ipsapp_name = ipsapp_json["name"]
+        object_json = json.loads(object)
+        old_id = object_json["ID"]
+        old_name = object_json["name"]
         while namecheck != -1:
             try:
-                new_ipsapp_id = api_instance.search(old_ipsapp_name)
-                if new_ipsapp_id is not None:
-                    skeleton_dict[old_ipsapp_id] = new_ipsapp_id
+                new_id = api_instance.search(old_name)
+                if new_id is not None:
+                    skeleton_dict[old_id] = new_id
                     print(
-                        "#" + str(count) + " IPS Application Type: " + old_ipsapp_name,
+                        f"#{str(count)} {type}: {old_name}",
                         flush=True,
                     )
                 else:
-                    custom_list.append(json.dumps(ipsapp_json))
+                    custom_list.append(json.dumps(object_json))
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:
-                    print(
-                        f"{old_ipsapp_name} already exists in new tenant, renaming..."
-                    )
-                    ipsapp_json["name"] = old_ipsapp_name + " {" + str(rename) + "}"
+                    print(f"{old_name} already exists in new tenant, renaming...")
+                    object_json["name"] = old_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
                     print(e.body, flush=True)
-        if custom_list:
-            ipscustomapp_dict = validate_create_dict(
-                custom_list, api_instance, "IPS Custom App"
-            )
+                    pass
     print("Done!", flush=True)
-    return skeleton_dict, ipscustomapp_dict
+    return skeleton_dict, custom_list
