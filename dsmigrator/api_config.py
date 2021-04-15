@@ -165,6 +165,33 @@ class FileListsApiInstance(RestApiConfiguration):
         return filelist.name
 
 
+class ApplicationTypesApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.ApplicationTypesApi(self.api_client)
+
+    # def get(self, id):
+    #     return self.api_instance.describe_application_type(id, "v1")
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_application_types("v1", search_filter=filter)
+        if results.application_types:
+            return results.application_types[0].id
+
+    def create(self, json_application_types_list):
+        application_type = deepsecurity.ApplicationType()
+        for key in json_application_types_list:
+            if not key == "ID":
+                setattr(
+                    application_type,
+                    to_snake(key),
+                    json_application_types_list[key],
+                )
+        self.api_instance.create_application_type(application_type, self.api_version)
+        return application_type.name
+
+
 class AMConfigApiInstance(RestApiConfiguration):
     def __init__(self, NEW_API_KEY, overrides=False):
         RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)

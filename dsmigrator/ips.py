@@ -5,8 +5,11 @@ import urllib3
 from deepsecurity.rest import ApiException
 from nested_lookup import nested_lookup, nested_update
 
-from dsmigrator.api_config import IntrusionPreventionApiInstance
-from dsmigrator.migrator_utils import validate_create
+from dsmigrator.api_config import (
+    ApplicationTypesApiInstance,
+    IntrusionPreventionApiInstance,
+)
+from dsmigrator.migrator_utils import validate_create, validate_create_dict
 
 cert = False
 
@@ -25,25 +28,24 @@ def ips_rules_transform(
     NEW_API_KEY,
 ):
     og_ipsruleid = IPSGet(allofpolicy)
-    og_ipsappid = IPSappGet(allofpolicy)
+    og_ipsappid_dict = IPSappGet(allofpolicy)
 
-    allipsapp, allipsappidnew1, allipsappidold, allipscustomapp = IPSappDescribe(
-        og_ipsappid,
+    ipsappid_dict, ipscustomapp_dict = IPSappDescribe(
+        og_ipsappid_dict,
         t1portlistid,
         t2portlistid,
         OLD_HOST,
-        OLD_API_KEY,
         NEW_HOST,
+        OLD_API_KEY,
         NEW_API_KEY,
     )
 
-    allipsappidnew2 = IPSappCustom(allipsapp, allipscustomapp, NEW_HOST, NEW_API_KEY)
+    # allipsappidnew2 = IPSappCustom(allipsapp, allipscustomapp, NEW_HOST, NEW_API_KEY)
 
     allipsrule, allipsruleidnew1, allipsruleidold, allipscustomrule = IPSDescribe(
         og_ipsruleid,
-        og_ipsappid,
+        og_ipsappid_dict,
         allipsappidnew1,
-        allipsappidnew2,
         allipsappidold,
         allipscustomapp,
         t1scheduleid,
@@ -67,51 +69,47 @@ def ips_rules_transform(
         allipscustomrule,
     )
     aop_replace_ips_apps = IPSappReplace(
-        aop_replace_ips_rules,
-        allipsappidnew1,
-        allipsappidnew2,
-        og_ipsappid,
-        allipsappidold,
-        allipscustomapp,
+        aop_replace_ips_rules, ipsappid_dict, ipscustomapp_dict
     )
     final = aop_replace_ips_apps
     return final
 
 
 def IPSappGet(allofpolicy):
+    # Takes in allofpolicy and creates a skeleton id dict
     ipsappid = []
-    print("IPS application types in Tenant 1", flush=True)
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "applicationTypeIDs" in namejson["intrusionPrevention"]:
-            for count, here2 in enumerate(
-                namejson["intrusionPrevention"]["applicationTypeIDs"]
-            ):
-                ipsappid.append(str(here2))
-    ipsappid = list(dict.fromkeys(ipsappid))
+            for assigned_app_id in namejson["intrusionPrevention"][
+                "applicationTypeIDs"
+            ]:
+                ipsappid.append(assigned_app_id)
+    ipsappid_dict = dict.fromkeys(ipsappid)
+    print("IPS application types in Tenant 1:", flush=True)
     print(ipsappid, flush=True)
-    return ipsappid
+    return ipsappid_dict
 
 
 def IPSappDescribe(
-    ipsappid,
+    ipsappid_dict,
     t1portlistid,
     t2portlistid,
     url_link_final,
-    tenant1key,
     url_link_final_2,
+    tenant1key,
     tenant2key,
 ):
     allipsapp = []
     allipsappname = []
-    allipsappidnew1 = []
-    allipsappidold = []
     allipscustomapp = []
+    ipsapp_api_instance = ApplicationTypesApiInstance(tenant2key)
+
     print("Searching IPS application types in Tenant 1...", flush=True)
-    if ipsappid:
-        for count, dirlist in enumerate(ipsappid):
+    if ipsappid_dict:
+        for count, name in enumerate(list(ipsappid_dict.keys())):
             payload = {}
-            url = url_link_final + "api/applicationtypes/" + str(dirlist)
+            url = url_link_final + "api/applicationtypes/" + str(name)
             headers = {
                 "api-secret-key": tenant1key,
                 "api-version": "v1",
@@ -121,189 +119,142 @@ def IPSappDescribe(
                 "GET", url, headers=headers, data=payload, verify=cert
             )
             describe = str(response.text)
-            allipsapp.append(describe)
-            ipsappjson = json.loads(describe)
-            allipsappname.append(str(ipsappjson["name"]))
-            print(
-                "#"
-                + str(count)
-                + " IPS Application Type name: "
-                + str(ipsappjson["name"]),
-                flush=True,
-            )
-            index3 = describe.find("portListID")
-            if index3 != -1:
-                indexpart = describe[index3 + 10 :]
-                startIndex = indexpart.find(":")
-                if startIndex != -1:  # i.e. if the first quote was found
-                    endIndex3 = indexpart.find(",", startIndex + 1)
-                    if (
-                        startIndex != -1 and endIndex3 != -1
-                    ):  # i.e. both quotes were found
-                        indexid1 = indexpart[startIndex + 1 : endIndex3]
-                        indexid5 = describe[index3 : index3 + 10 + endIndex3]
-                        indexnum = t1portlistid.index(indexid1)
-                        listpart = indexid5.replace(indexid1, t2portlistid[indexnum])
-                        allipsapp[count] = describe.replace(indexid5, listpart)
-            print("#" + str(count) + " IPS Application Type ID: " + dirlist, flush=True)
+            try:
+                ipsappjson = json.loads(describe)
+                allipsappname.append(str(ipsappjson["name"]))
+                print(
+                    "#"
+                    + str(count)
+                    + " IPS Application Type name: "
+                    + str(ipsappjson["name"]),
+                    flush=True,
+                )
+                old_port_list_id = ipsappjson.get("portListID")
+                if old_port_list_id is not None:
+                    indexnum = t1portlistid.index(str(old_port_list_id))
+                    ipsappjson["portListID"] = t2portlistid[indexnum]
+                allipsapp.append(json.dumps(ipsappjson))
+                print(
+                    "#" + str(count) + " IPS Application Type ID: " + name, flush=True
+                )
+            except:
+                print(describe)
     print("Done!", flush=True)
     print("Searching and Modifying IPS application types in Tenant 2...", flush=True)
-    for count, dirlist in enumerate(allipsappname):
-        payload = (
-            '{"searchCriteria": [{"fieldName": "name","stringValue": "'
-            + dirlist
-            + '"}]}'
-        )
-        url = url_link_final_2 + "api/applicationtypes/search"
-        headers = {
-            "api-secret-key": tenant2key,
-            "api-version": "v1",
-            "Content-Type": "application/json",
-        }
-        response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
-        )
-        describe = str(response.text)
-        taskjson = json.loads(describe)
-        if not "message" in taskjson:
-            index = describe.find(dirlist)
-            if index != -1:
-                index = describe.find('"ID"')
-                if index != -1:
-                    indexpart = describe[index + 4 :]
-                    startIndex = indexpart.find(":")
-                    if startIndex != -1:  # i.e. if the first quote was found
-                        endIndex = indexpart.find("}", startIndex + 1)
-                        if (
-                            startIndex != -1 and endIndex != -1
-                        ):  # i.e. both quotes were found
-                            indexid = indexpart[startIndex + 1 : endIndex]
-                            allipsappidnew1.append(str(indexid))
-                            allipsappidold.append(count)
-                            payload = allipsapp[count]
-                            url = (
-                                url_link_final_2
-                                + "api/applicationtypes/"
-                                + str(indexid)
-                            )
-                            headers = {
-                                "api-secret-key": tenant2key,
-                                "api-version": "v1",
-                                "Content-Type": "application/json",
-                            }
-                            response = requests.request(
-                                "POST", url, headers=headers, data=payload, verify=cert
-                            )
-                            print(
-                                "#"
-                                + str(count)
-                                + " IPS Application Type ID: "
-                                + indexid,
-                                flush=True,
-                            )
+    # add printing to this
+    for count, ipsapp in enumerate(allipsapp):
+        namecheck = 1
+        rename = 1
+        ipsapp_json = json.loads(ipsapp)
+        old_ipsapp_id = ipsapp_json["ID"]
+        old_ipsapp_name = ipsapp_json["name"]
+        while namecheck != -1:
+            try:
+                new_ipsapp_id = ipsapp_api_instance.search(old_ipsapp_name)
+                if new_ipsapp_id is not None:
+                    ipsappid_dict[old_ipsapp_id] = new_ipsapp_id
+                    print(
+                        "#" + str(count) + " IPS Application Type: " + old_ipsapp_name,
+                        flush=True,
+                    )
                 else:
-                    print(describe, flush=True)
-                    print(payload, flush=True)
-            else:
-                allipscustomapp.append(count)
-        else:
-            print(describe, flush=True)
-            print(payload, flush=True)
-    print("Done!", flush=True)
-    return allipsapp, allipsappidnew1, allipsappidold, allipscustomapp
-
-
-def IPSappCustom(allipsapp, allipscustomapp, url_link_final_2, tenant2key):
-    allipsappidnew2 = []
-    if allipscustomapp:
-        print("Creating IPS application Type Custom Rule...", flush=True)
-        for count, indexnum in enumerate(allipscustomapp):
-            payload = allipsapp[indexnum]
-            url = url_link_final_2 + "api/applicationtypes"
-            headers = {
-                "api-secret-key": tenant2key,
-                "api-version": "v1",
-                "Content-Type": "application/json",
-            }
-            response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                    allipscustomapp.append(json.dumps(ipsapp_json))
+                namecheck = -1
+            except ApiException as e:
+                if "already exists" in e.body:
+                    print(
+                        f"{old_ipsapp_name} already exists in new tenant, renaming..."
+                    )
+                    ipsapp_json["name"] = old_ipsapp_name + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+        if allipscustomapp:
+            ipscustomapp_dict = validate_create_dict(
+                allipscustomapp, ipsapp_api_instance, "IPS Custom App"
             )
-            describe = str(response.text)
-            index = describe.find('"ID"')
-            if index != -1:
-                indexpart = describe[index + 4 :]
-                startIndex = indexpart.find(":")
-                if startIndex != -1:  # i.e. if the first quote was found
-                    endIndex = indexpart.find("}", startIndex + 1)
-                    if (
-                        startIndex != -1 and endIndex != -1
-                    ):  # i.e. both quotes were found
-                        indexid = indexpart[startIndex + 1 : endIndex]
-                        allipsappidnew2.append(str(indexid))
-                        print(
-                            "#"
-                            + str(count)
-                            + " IPS Application Type ID: "
-                            + str(indexid),
-                            flush=True,
-                        )
-            else:
-                print(describe, flush=True)
-                print(payload, flush=True)
-        print("Done!", flush=True)
-    return allipsappidnew2
+    print("Done!", flush=True)
+    return ipsappid_dict, ipscustomapp_dict
 
 
-def IPSappReplace(
-    allofpolicy,
-    allipsappidnew1,
-    allipsappidnew2,
-    ipsappid,
-    allipsappidold,
-    allipscustomapp,
-):
-    for count, describe in enumerate(allofpolicy):
-        taskjson = json.loads(describe)
-        if "applicationTypeIDs" in taskjson["intrusionPrevention"]:
-            if allipsappidnew1 or allipsappidnew2:
-                for count1, this in enumerate(
-                    taskjson["intrusionPrevention"]["applicationTypeIDs"]
-                ):
-                    checkindex = ipsappid.index(str(this))
-                    if checkindex in allipsappidold:
-                        checkindex1 = allipsappidold.index(checkindex)
-                        taskjson["intrusionPrevention"]["applicationTypeIDs"][
-                            count1
-                        ] = allipsappidnew1[checkindex1]
-                    elif checkindex in allipscustomapp:
-                        checkindex1 = allipscustomapp.index(checkindex)
-                        taskjson["intrusionPrevention"]["applicationTypeIDs"][
-                            count1
-                        ] = allipsappidnew2[checkindex1]
-        allofpolicy[count] = json.dumps(taskjson)
+# def IPSappCustom(allipsapp, allipscustomapp, url_link_final_2, tenant2key):
+#     allipsappidnew2 = []
+#     if allipscustomapp:
+#         print("Creating IPS application Type Custom Rule...", flush=True)
+#         for count, indexnum in enumerate(allipscustomapp):
+#             payload = allipsapp[indexnum]
+#             url = url_link_final_2 + "api/applicationtypes"
+#             headers = {
+#                 "api-secret-key": tenant2key,
+#                 "api-version": "v1",
+#                 "Content-Type": "application/json",
+#             }
+#             response = requests.request(
+#                 "POST", url, headers=headers, data=payload, verify=cert
+#             )
+#             describe = str(response.text)
+#             index = describe.find('"ID"')
+#             if index != -1:
+#                 indexpart = describe[index + 4 :]
+#                 startIndex = indexpart.find(":")
+#                 if startIndex != -1:  # i.e. if the first quote was found
+#                     endIndex = indexpart.find("}", startIndex + 1)
+#                     if (
+#                         startIndex != -1 and endIndex != -1
+#                     ):  # i.e. both quotes were found
+#                         indexid = indexpart[startIndex + 1 : endIndex]
+#                         allipsappidnew2.append(str(indexid))
+#                         print(
+#                             "#"
+#                             + str(count)
+#                             + " IPS Application Type ID: "
+#                             + str(indexid),
+#                             flush=True,
+#                         )
+#             else:
+#                 print(describe, flush=True)
+#                 print(payload, flush=True)
+#         print("Done!", flush=True)
+#     return allipsappidnew2
+
+
+def IPSappReplace(allofpolicy, ipsappid_dict, ipscustomapp_dict):
+    for count, policy in enumerate(allofpolicy):
+        policyjson = json.loads(policy)
+        if "applicationTypeIDs" in policyjson["intrusionPrevention"]:
+            all_ipsapp_ids_list = policyjson["intrusionPrevention"][
+                "applicationTypeIDs"
+            ]
+            for id in all_ipsapp_ids_list:
+                new_ipsapp_id = ipsappid_dict.get(id)
+                new_ipscustomapp_id = ipscustomapp_dict.get(id)
+                if new_ipsapp_id is not None:
+                    id = new_ipsapp_id
+                elif new_ipscustomapp_id is not None:
+                    id = new_ipscustomapp_id
+        allofpolicy[count] = json.dumps(policyjson)
     return allofpolicy
 
 
 def IPSGet(allofpolicy):
+    # Takes in allofpolicy and creates a skeleton id dict
     ipsruleid = []
-    print("IPS rules in Tenant 1", flush=True)
     for describe in allofpolicy:
         namejson = json.loads(describe)
-        if "ruleIDs" in namejson["intrusionPrevention"]:
-            for count, here2 in enumerate(namejson["intrusionPrevention"]["ruleIDs"]):
-                ipsruleid.append(str(here2))
-    ipsruleid = list(dict.fromkeys(ipsruleid))
+        if "applicationTypeIDs" in namejson["intrusionPrevention"]:
+            for assigned_app_id in namejson["intrusionPrevention"][
+                "applicationTypeIDs"
+            ]:
+                ipsruleid.append(assigned_app_id)
+    ipsruleid_dict = dict.fromkeys(ipsruleid)
+    print("IPS rules in Tenant 1:", flush=True)
     print(ipsruleid, flush=True)
-    return ipsruleid
+    return ipsruleid_dict
 
 
 def IPSDescribe(
+    ipsruleid_dict
     ipsruleid,
-    ipsappid,
-    allipsappidnew1,
-    allipsappidnew2,
-    allipsappidold,
-    allipscustomapp,
     t1scheduleid,
     t2scheduleid,
     t1contextid,

@@ -1,0 +1,12 @@
+{
+  "maxItems": 0,
+  "searchCriteria": [
+    {
+      "fieldName": "string",
+      "stringTest": "equal",
+      "stringValue": "string",
+      "stringWildcards": true
+    }
+  ],
+  "sortByObjectID": true
+}

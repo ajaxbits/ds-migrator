@@ -147,34 +147,73 @@ def validate_create_dict(all_old, api_instance, type):
         namecheck = 1
         rename = 1
         oldjson = json.loads(dirlist)
-        oldname = oldjson["name"]
-        oldid = oldjson["ID"]
+        oldname = oldjson.get("name")
+        oldid = oldjson.get("ID")
+        if (oldname is not None) and (oldid is not None):
+            while namecheck != -1:
+                try:
+                    newname = api_instance.create(oldjson)
+                    newid = api_instance.search(newname)
+                    print(
+                        "#"
+                        + str(count)
+                        + " "
+                        + type.capitalize()
+                        + " List ID: "
+                        + str(newid)
+                        + ", Name: "
+                        + newname,
+                        flush=True,
+                    )
+                    new_dict[oldid] = newid
+                    namecheck = -1
+                except ApiException as e:
+                    error_json = json.loads(e.body)
+                    if "name already exists" in error_json["message"]:
+                        print(
+                            f"{oldjson['name']} already exists in new tenant, renaming..."
+                        )
+                        oldjson["name"] = oldname + " {" + str(rename) + "}"
+                        rename = rename + 1
+                    else:
+                        print(e.body, flush=True)
+                        namecheck = -1
+    return new_dict
+
+
+def validate_create_dict_custom(all_old, skeleton_dict, api_instance, type):
+    # add printing to this
+    custom_list = []
+    for count, ipsapp in enumerate(all_old):
+        namecheck = 1
+        rename = 1
+        ipsapp_json = json.loads(ipsapp)
+        old_ipsapp_id = ipsapp_json["ID"]
+        old_ipsapp_name = ipsapp_json["name"]
         while namecheck != -1:
             try:
-                newname = api_instance.create(oldjson)
-                newid = api_instance.search(newname)
-                print(
-                    "#"
-                    + str(count)
-                    + " "
-                    + type.capitalize()
-                    + " List ID: "
-                    + str(newid)
-                    + ", Name: "
-                    + newname,
-                    flush=True,
-                )
-                new_dict[oldid] = newid
+                new_ipsapp_id = api_instance.search(old_ipsapp_name)
+                if new_ipsapp_id is not None:
+                    skeleton_dict[old_ipsapp_id] = new_ipsapp_id
+                    print(
+                        "#" + str(count) + " IPS Application Type: " + old_ipsapp_name,
+                        flush=True,
+                    )
+                else:
+                    custom_list.append(json.dumps(ipsapp_json))
                 namecheck = -1
             except ApiException as e:
-                error_json = json.loads(e.body)
-                if "name already exists" in error_json["message"]:
+                if "already exists" in e.body:
                     print(
-                        f"{oldjson['name']} already exists in new tenant, renaming..."
+                        f"{old_ipsapp_name} already exists in new tenant, renaming..."
                     )
-                    oldjson["name"] = oldname + " {" + str(rename) + "}"
+                    ipsapp_json["name"] = old_ipsapp_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
                     print(e.body, flush=True)
-                    namecheck = -1
-    return new_dict
+        if custom_list:
+            ipscustomapp_dict = validate_create_dict(
+                custom_list, api_instance, "IPS Custom App"
+            )
+    print("Done!", flush=True)
+    return skeleton_dict, ipscustomapp_dict
