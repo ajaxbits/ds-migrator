@@ -199,7 +199,7 @@ def validate_create_dict_custom(all_old, skeleton_dict, api_instance, type):
                         f"#{str(count)} {type}: {old_name}",
                         flush=True,
                     )
-                else:
+                elif "template" in object_json:
                     custom_list.append(json.dumps(object_json))
                 namecheck = -1
             except ApiException as e:
