@@ -56,12 +56,11 @@ def ips_rules_transform(
         NEW_API_KEY,
     )
 
-    aop_replace_ips_rules = IPSReplace(allofpolicy, ipsruleid_dict, ipscustomrule_dict)
-    aop_replace_ips_apps = IPSappReplace(
-        aop_replace_ips_rules, ipsappid_dict, ipscustomapp_dict
+    aop_replace_ips_apps = IPSappReplace(allofpolicy, ipsappid_dict, ipscustomapp_dict)
+    aop_replace_ips_rules = IPSReplace(
+        aop_replace_ips_apps, ipsruleid_dict, ipscustomrule_dict
     )
-    final = aop_replace_ips_apps
-    return final
+    return aop_replace_ips_rules
 
 
 def IPSappGet(allofpolicy):
@@ -124,16 +123,45 @@ def IPSappDescribe(
                     ipsappjson["portListID"] = t2portlistid[indexnum]
                 allipsapp.append(json.dumps(ipsappjson))
                 print(
-                    "#" + str(count) + " IPS Application Type ID: " + name, flush=True
+                    "#"
+                    + str(count)
+                    + " IPS Application Type ID: "
+                    + str(ipsappjson["ID"]),
+                    flush=True,
                 )
             except:
                 print(describe)
     print("Done!", flush=True)
     print("Searching and Modifying IPS application types in Tenant 2...", flush=True)
     # add printing to this
-    ipsappid_dict, allipscustomapp = validate_create_dict_custom(
-        allipsapp, ipsappid_dict, ipsapp_api_instance, "IPS Application Type"
-    )
+    allipscustomapp = []
+    for (count, object) in enumerate(allipsapp):
+        namecheck = 1
+        rename = 1
+        object_json = json.loads(object)
+        old_id = object_json["ID"]
+        old_name = object_json["name"]
+        while namecheck != -1:
+            try:
+                new_id = ipsapp_api_instance.search(old_name)
+                if new_id is not None:
+                    ipsappid_dict[old_id] = new_id
+                    print(
+                        f"#{str(count)} {type}: {old_name}",
+                        flush=True,
+                    )
+                else:
+                    allipscustomapp.append(json.dumps(object_json))
+                namecheck = -1
+            except ApiException as e:
+                if "already exists" in e.body:
+                    print(f"{old_name} already exists in new tenant, renaming...")
+                    object_json["name"] = old_name + " {" + str(rename) + "}"
+                    rename = rename + 1
+                else:
+                    print(e.body, flush=True)
+                    pass
+    print("Done!", flush=True)
     if allipscustomapp:
         ipscustomapp_dict = validate_create_dict(
             allipscustomapp, ipsapp_api_instance, "IPS Custom App"
@@ -219,7 +247,9 @@ def IPSDescribe(
                     indexnum = t1contextid.index(str(ipsjson["contextID"]))
                     ipsjson["contextID"] = t2contextid[indexnum]
 
-                print("#" + str(count) + " IPS Rule ID: " + describe, flush=True)
+                print(
+                    "#" + str(count) + " IPS Rule ID: " + str(ipsjson["ID"]), flush=True
+                )
                 allipsrule.append(json.dumps(ipsjson))
             except:
                 print(describe)
