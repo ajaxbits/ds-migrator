@@ -220,7 +220,7 @@ def IPSDescribe(
                     ipsjson["contextID"] = t2contextid[indexnum]
 
                 print("#" + str(count) + " IPS Rule ID: " + describe, flush=True)
-                allipsrule[count] = json.dumps(ipsjson)
+                allipsrule.append(json.dumps(ipsjson))
             except:
                 print(describe)
 
