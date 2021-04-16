@@ -151,13 +151,13 @@ def IPSappReplace(allofpolicy, ipsappid_dict, ipscustomapp_dict):
             all_ipsapp_ids_list = policyjson["intrusionPrevention"][
                 "applicationTypeIDs"
             ]
-            for id in all_ipsapp_ids_list:
-                new_ipsapp_id = ipsappid_dict.get(id)
-                new_ipscustomapp_id = ipscustomapp_dict.get(id)
+            for index, ipsapp_id in enumerate(all_ipsapp_ids_list):
+                new_ipsapp_id = ipsappid_dict.get(ipsapp_id)
+                new_ipscustomapp_id = ipscustomapp_dict.get(ipsapp_id)
                 if new_ipsapp_id is not None:
-                    id = new_ipsapp_id
+                    all_ipsapp_ids_list[index] = new_ipsapp_id
                 elif new_ipscustomapp_id is not None:
-                    id = new_ipscustomapp_id
+                    all_ipsapp_ids_list[index] = new_ipscustomapp_id
         allofpolicy[count] = json.dumps(policyjson)
     return allofpolicy
 
@@ -244,12 +244,12 @@ def IPSReplace(allofpolicy, ipsruleid_dict, ipscustomrule_dict):
         policyjson = json.loads(policy)
         if "ruleIDs" in policyjson["intrusionPrevention"]:
             all_ips_rule_ids_list = policyjson["intrusionPrevention"]["ruleIDs"]
-            for id in all_ips_rule_ids_list:
-                new_ipsrule_id = ipsruleid_dict.get(id)
-                new_ipscustomrule_id = ipscustomrule_dict.get(id)
+            for index, ipsrule_id in enumerate(all_ips_rule_ids_list):
+                new_ipsrule_id = ipsruleid_dict.get(ipsrule_id)
+                new_ipscustomrule_id = ipscustomrule_dict.get(ipsrule_id)
                 if new_ipsrule_id is not None:
-                    id = new_ipsrule_id
+                    all_ips_rule_ids_list[index] = new_ipsrule_id
                 elif new_ipscustomrule_id is not None:
-                    id = new_ipscustomrule_id
+                    all_ips_rule_ids_list[index] = new_ipscustomrule_id
         allofpolicy[count] = json.dumps(policyjson)
     return allofpolicy
