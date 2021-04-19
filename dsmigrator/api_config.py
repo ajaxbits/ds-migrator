@@ -8,6 +8,7 @@ import os
 def to_snake(camel_case):
     pattern = re.compile(r"(?<!^)(?=[A-Z])")
     snake = pattern.sub("_", camel_case).lower()
+    snake = snake.replace("application_type_i_d", "application_type_id")
     return snake
 
 

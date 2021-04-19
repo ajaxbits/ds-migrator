@@ -50,6 +50,8 @@ def ips_rules_transform(
         t2scheduleid,
         t1contextid,
         t2contextid,
+        ipsappid_dict,
+        ipscustomapp_dict,
         OLD_HOST,
         OLD_API_KEY,
         NEW_HOST,
@@ -147,7 +149,7 @@ def IPSappDescribe(
                 if new_id is not None:
                     ipsappid_dict[old_id] = new_id
                     print(
-                        f"#{str(count)} {type}: {old_name}",
+                        f"#{str(count)} IPS Application Type: {old_name}",
                         flush=True,
                     )
                 else:
@@ -210,6 +212,8 @@ def IPSDescribe(
     t2scheduleid,
     t1contextid,
     t2contextid,
+    ips_appid_dict,
+    ipscustomapp_dict,
     url_link_final,
     tenant1key,
     url_link_final_2,
@@ -240,6 +244,13 @@ def IPSDescribe(
                     "#" + str(count) + " IPS Rule name: " + str(ipsjson["name"]),
                     flush=True,
                 )
+                old_appid = ipsjson.get("applicationTypeID")
+                new_premade_appid = ips_appid_dict.get(old_appid)
+                new_custom_appid = ipscustomapp_dict.get(old_appid)
+                if new_premade_appid is not None:
+                    ipsjson["applicationTypeID"] = new_premade_appid
+                elif new_custom_appid is not None:
+                    ipsjson["applicationTypeID"] = new_custom_appid
                 if "scheduleID" in ipsjson:
                     indexnum = t1scheduleid.index(str(ipsjson["scheduleID"]))
                     ipsjson["scheduleID"] = t2scheduleid[indexnum]
