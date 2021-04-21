@@ -2,8 +2,8 @@
 .direnv/
 dist/
 .vim/
-.vscode/
 .config
+xml/
 config.yml
 dsm-py-sdk.zip
 sdk/
