@@ -43,18 +43,17 @@ from dsmigrator.tasks import ebt_listmaker, st_listmaker
 
 install()
 
-
 console = Console()
 
 
 def ascii_art():
     console.print(
-        """
+        """\
                                                       
               %###################,               
           #############################           
-       ######################\.         `#        
-     #################################,    \      
+       ######################\\.         `#        
+     #################################,    \\      
    #####################################     #    
   #######################################     #   
  ##############  ########################    .##  
@@ -66,9 +65,9 @@ def ascii_art():
   ###       ###################      ############ 
    #        ###############       (#############  
     #         #######.         ###############&   
-      \                   .##################     
+      \\                   .##################     
         %.          ######################        
-           \###########################           
+           \\###########################           
                ###################               
     """,
         style="bold red",
@@ -108,18 +107,36 @@ def CommandWithConfigFile(config_file_param_name):
     return CustomCommandClass
 
 
+def validate_api_keys(ctx, param, api_key):
+    last_equal = api_key[-1] == "="
+    first_validation_bit = api_key.split("-")
+    last_validation_bit = first_validation_bit[4].split(":")
+    clean_list = [i for i in first_validation_bit[0:4]]
+    clean_list.append(last_validation_bit[0])
+    validate_list = [len(i) for i in clean_list]
+    validate_list.append(last_equal)
+
+    if validate_list == [8, 4, 4, 4, 12, True]:
+        return api_key
+    else:
+        raise click.BadParameter(
+            "Invalid API key format, please double-check the input."
+        )
+
+
 @click.command(cls=CommandWithConfigFile("config_file"))
 @click.option("--config-file", type=click.Path(), is_eager=True)
 @click.option(
     "-ou",
     "--original-url",
-    prompt="Old DSM url",
-    help="A resolvable FQDN for the old DSM, with port number (e.g. https://192.168.1.1:4119)",
+    prompt="Old DSM address and port (e.g. https://10.10.10.10:4119/)",
+    help="A resolvable FQDN for the old DSM, with port number (e.g. https://192.168.1.1:4119/)",
     envvar="ORIGINAL_URL",
 )
 @click.option(
     "-oa",
     "--original-api-key",
+    callback=validate_api_keys,
     prompt="Old DSM API key",
     hide_input=True,
     help="API key for the old DSM with Full Access permissions",
