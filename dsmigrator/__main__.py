@@ -82,7 +82,6 @@ def CommandWithConfigFile(config_file_param_name):
     "-oa",
     "--original-api-key",
     prompt="Old DSM API key",
-    hide_input=True,
     help="API key for the old DSM with Full Access permissions",
     envvar="ORIGINAL_API_KEY",
 )
@@ -97,7 +96,6 @@ def CommandWithConfigFile(config_file_param_name):
     "-coa",
     "--cloud-one-api-key",
     prompt="New Cloud One API key",
-    hide_input=True,
     help="API key for Cloud One Workload Security with Full Access permissions",
     envvar="CLOUD_ONE_API_KEY",
 )
