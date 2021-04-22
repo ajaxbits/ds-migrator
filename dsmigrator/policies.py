@@ -26,7 +26,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY):
     parsed = message.text
     x = json.loads(parsed, object_hook=lambda d: SimpleNamespace(**d))
     policyNumbers = []
-    for key in x.policies:
+    for key in x.policies:  # ERRORS here
         policyNumbers.append(key.ID)
     if policyNumbers:
         for policyID in policyNumbers:
