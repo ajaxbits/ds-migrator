@@ -5,6 +5,13 @@ import urllib3
 from deepsecurity.rest import ApiException
 
 
+def safe_list_get(l: list, idx: int):
+    try:
+        return l[idx]
+    except IndexError:
+        return None
+
+
 def value_exists(some_json, key):
     value = some_json.get(key)
     if value is not None:
@@ -141,7 +148,17 @@ def validate_create(all_old, api_instance, type):
     return all_new
 
 
-def validate_create_dict(all_old, api_instance, type):
+def validate_create_dict(all_old: list, api_instance, type: str):
+    """Take in a list of old objects, create the objects in Cloud One, then make a mapping of oldids to new ids for use later
+
+    Args:
+        all_old (list): a list of json strings that are provided as output of other functions
+        api_instance (api_instance type found in api_config): configure in api_config
+        type (str): The type of operation being performed, for printing (e.g. "Intrusion Prevention Rule")
+
+    Returns:
+        dict: A dict of form {oldid1:newid1, oldid2:newid2, ...}
+    """
     new_dict = {}
     for count, dirlist in enumerate(all_old):
         namecheck = 1
@@ -181,15 +198,27 @@ def validate_create_dict(all_old, api_instance, type):
     return new_dict
 
 
-def validate_create_dict_custom(all_old, skeleton_dict, api_instance, type):
-    # add printing to this
+def validate_create_dict_custom(
+    all_old: list, skeleton_dict: dict, api_instance, type: str
+):
+    """Transforms a list of pre-defined DS objects in json into a id mapping dict and a list of custom items
+
+    Args:
+        all_old (list): list of pre-defined objects as json strings
+        skeleton_dict (dict): A skeleton of the final ID mapping of form {oldid1: None, oldid2: None,...}
+        api_instance (ApiInstance): The requisite ApiInstance object defined in api_config
+        type (str): The type of operation being performed, for printing (e.g. "Intrusion Prevention Rule")
+
+    Returns:
+        (dict, list): A dict of form {oldid:newid,...} for all common pre-defined objects, and a list of custom objects as strings of json
+    """
     custom_list = []
-    for (count, object) in enumerate(all_old):
+    for (count, json_string) in enumerate(all_old):
         namecheck = 1
         rename = 1
-        object_json = json.loads(object)
-        old_id = object_json["ID"]
-        old_name = object_json["name"]
+        item_json = json.loads(json_string)
+        old_id = item_json["ID"]
+        old_name = item_json["name"]
         while namecheck != -1:
             try:
                 new_id = api_instance.search(old_name)
@@ -199,13 +228,13 @@ def validate_create_dict_custom(all_old, skeleton_dict, api_instance, type):
                         f"#{str(count)} {type}: {old_name}",
                         flush=True,
                     )
-                elif "template" in object_json:
-                    custom_list.append(json.dumps(object_json))
+                elif "template" in item_json:
+                    custom_list.append(json.dumps(item_json))
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:
                     print(f"{old_name} already exists in new tenant, renaming...")
-                    object_json["name"] = old_name + " {" + str(rename) + "}"
+                    item_json["name"] = old_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
                     print(e.body, flush=True)

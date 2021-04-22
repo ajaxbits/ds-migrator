@@ -47,19 +47,19 @@ def port_listmaker(
 ):
     t1portlistall, t1portlistname, t1portlistid = PortListGet(OLD_HOST, OLD_API_KEY)
     t2portlistid = PortListCreate(t1portlistall, t1portlistname, NEW_HOST, NEW_API_KEY)
-    return (t1portlistall, t1portlistname, t1portlistid, t2portlistid)
+    return t1portlistid, t2portlistid
 
 
 def mac_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
-    t1maclistall, t1maclistname, t1maclistid = MacListGet(OLD_HOST, OLD_API_KEY)
+    t1maclistname, t1maclistid = MacListGet(OLD_HOST, OLD_API_KEY)
     t2maclistid = MacListCreate(t1maclistid, t1maclistname, NEW_HOST, NEW_API_KEY)
-    return t1maclistall, t1maclistname, t1maclistid, t2maclistid
+    return t1maclistid, t2maclistid
 
 
 def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
-    t1iplistall, t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
+    t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
     t2iplistid = IpListCreate(t1iplistid, t1iplistname, NEW_HOST, NEW_API_KEY)
-    return t1iplistall, t1iplistname, t1iplistid, t2iplistid
+    return t1iplistid, t2iplistid
 
 
 def stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
@@ -70,7 +70,7 @@ def stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
         index = t1statefulid.index(i)
         if index < len(t2statefulid):
             stateful_dict[int(i)] = int(t2statefulid[index])
-    return t1statefulall, t1statefulname, t1statefulid, t2statefulid, stateful_dict
+    return t1statefulid, t2statefulid, stateful_dict
 
 
 def context_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
@@ -332,7 +332,7 @@ def MacListGet(url_link_final, tenant1key):
             print("#" + str(count) + " Mac List ID: " + str(here["ID"]), flush=True)
 
         print("Done!", flush=True)
-    return t1maclistall, t1maclistname, t1maclistid
+    return t1maclistname, t1maclistid
 
 
 def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
@@ -432,7 +432,7 @@ def IpListGet(url_link_final, tenant1key):
             t1iplistid.append(str(here["ID"]))
             print("#" + str(count) + " IP List ID: " + str(here["ID"]), flush=True)
         print("Done!", flush=True)
-    return t1iplistall, t1iplistname, t1iplistid
+    return t1iplistname, t1iplistid
 
 
 def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):

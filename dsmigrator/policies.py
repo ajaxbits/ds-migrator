@@ -2,21 +2,19 @@ import sys
 import os
 import deepsecurity
 from deepsecurity.rest import ApiException
-import time
-from time import sleep
 import requests
 import urllib3
 import json
 from types import SimpleNamespace
 from dsmigrator.api_config import PolicyApiInstance
-from rich import print
-import click
+from rich.progress import Progress
 
 cert = False
 
 
-def delete_cloud_one_policies(CLOUD_ONE_API_KEY):
-    print("[bold magenta]Deleting Policies from Cloud One...[/bold magenta]")
+def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
+    print("Deleting Policies from Cloud One...")
+
     host = "https://cloudone.trendmicro.com/api/policies"
     message = requests.get(
         host,
@@ -32,7 +30,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY):
         for policyID in policyNumbers:
             print(f"Deleting policy #{policyID}")
             policyHost = f"https://cloudone.trendmicro.com/api/policies/{policyID}"
-            r = requests.delete(
+            requests.delete(
                 policyHost,
                 verify=False,
                 headers={"api-secret-key": CLOUD_ONE_API_KEY, "api-version": "v1"},
@@ -51,14 +49,13 @@ def ListAllPolicy(url_link_final, tenant1key):
     }
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
-    index = 0
     oldpolicyname = []
     oldpolicyid = []
     namejson = json.loads(describe)
     for policy in namejson["policies"]:
         oldpolicyname.append(str(policy["name"]))
         oldpolicyid.append(str(policy["ID"]))
-    return enumerate(oldpolicyname), oldpolicyid
+    return oldpolicyid
 
 
 def GetPolicy(policyIDs, url_link_final, tenant1key):
