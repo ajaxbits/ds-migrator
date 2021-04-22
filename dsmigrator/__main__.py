@@ -75,6 +75,13 @@ def ascii_art():
     )
 
 
+ascii_art()
+console.print(
+    "Welcome to the Trend Micro Policy Migration Tool",
+    style="bold red",
+)
+
+
 class Logger(object):
     def flush(self):
         pass
@@ -108,17 +115,22 @@ def CommandWithConfigFile(config_file_param_name):
 
 
 def validate_api_keys(ctx, param, api_key):
-    last_equal = api_key[-1] == "="
-    first_validation_bit = api_key.split("-")
-    last_validation_bit = first_validation_bit[4].split(":")
-    clean_list = [i for i in first_validation_bit[0:4]]
-    clean_list.append(last_validation_bit[0])
-    validate_list = [len(i) for i in clean_list]
-    validate_list.append(last_equal)
+    try:
+        last_equal = api_key[-1] == "="
+        first_validation_bit = api_key.split("-")
+        last_validation_bit = first_validation_bit[4].split(":")
+        clean_list = [i for i in first_validation_bit[0:4]]
+        clean_list.append(last_validation_bit[0])
+        validate_list = [len(i) for i in clean_list]
+        validate_list.append(last_equal)
 
-    if validate_list == [8, 4, 4, 4, 12, True]:
-        return api_key
-    else:
+        if validate_list == [8, 4, 4, 4, 12, True]:
+            return api_key
+        else:
+            raise click.BadParameter(
+                "Invalid API key format, please double-check the input."
+            )
+    except IndexError:
         raise click.BadParameter(
             "Invalid API key format, please double-check the input."
         )
@@ -337,9 +349,4 @@ def main(
 
 
 if __name__ == "__main__":
-    ascii_art()
-    console.print(
-        "Welcome to the Trend Micro Policy Migration Tool",
-        style="bold red",
-    )
     main()  # pylint: disable=no-value-for-parameter
