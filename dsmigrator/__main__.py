@@ -1,40 +1,78 @@
+import datetime
+import logging
 import os
 import sys
-import datetime
-import deepsecurity
 import time
+import traceback
+from datetime import datetime
+
+import click
+import deepsecurity
 import requests
 import urllib3
-import traceback
-import logging
-import click
-from datetime import datetime
+import yaml
+from rich.console import Console, OverflowMethod
+from rich.logging import RichHandler
+from rich.traceback import install
+
 import dsmigrator.api_config
+from dsmigrator.antimalware import am_config_transform, am_validate_create
+from dsmigrator.computer_groups import computer_group_listmaker
+from dsmigrator.firewall import firewall_config_transform
+from dsmigrator.integrity import im_config_transform
+from dsmigrator.ips import ips_rules_transform
+from dsmigrator.lists import (
+    context_listmaker,
+    directory_listmaker,
+    ip_listmaker,
+    mac_listmaker,
+    port_listmaker,
+    schedule_listmaker,
+    stateful_listmaker,
+)
+from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
-    ListAllPolicy,
-    GetPolicy,
     AddPolicy,
+    GetPolicy,
+    ListAllPolicy,
     delete_cloud_one_policies,
 )
 from dsmigrator.proxy import proxy_edit
-from dsmigrator.ips import ips_rules_transform
-from dsmigrator.antimalware import am_config_transform, am_validate_create
-from dsmigrator.integrity import im_config_transform
-from dsmigrator.loginspection import li_config_transform
-from dsmigrator.firewall import firewall_config_transform
-from dsmigrator.lists import (
-    directory_listmaker,
-    port_listmaker,
-    mac_listmaker,
-    ip_listmaker,
-    stateful_listmaker,
-    context_listmaker,
-    schedule_listmaker,
-)
-from dsmigrator.tasks import ebt_listmaker, st_listmaker
-from dsmigrator.computer_groups import computer_group_listmaker
 from dsmigrator.system_settings import settings_transfer
-import yaml
+from dsmigrator.tasks import ebt_listmaker, st_listmaker
+
+install()
+
+console = Console()
+
+
+def ascii_art():
+    console.print(
+        """\
+                                                      
+              %###################,               
+          #############################           
+       ######################\\.         `#        
+     #################################,    \\      
+   #####################################     #    
+  #######################################     #   
+ ##############  ########################    .##  
+(##########(    ########################     ###( 
+#####(              ###################     ##### 
+######(      ########################     (###### 
+ #####       #######################      ########
+ ####       ######################      ######### 
+  ###       ###################      ############ 
+   #        ###############       (#############  
+    #         #######.         ###############&   
+      \\                   .##################     
+        %.          ######################        
+           \\###########################           
+               ###################               
+    """,
+        style="bold red",
+        overflow="crop",
+    )
 
 
 class Logger(object):
@@ -69,18 +107,36 @@ def CommandWithConfigFile(config_file_param_name):
     return CustomCommandClass
 
 
+def validate_api_keys(ctx, param, api_key):
+    last_equal = api_key[-1] == "="
+    first_validation_bit = api_key.split("-")
+    last_validation_bit = first_validation_bit[4].split(":")
+    clean_list = [i for i in first_validation_bit[0:4]]
+    clean_list.append(last_validation_bit[0])
+    validate_list = [len(i) for i in clean_list]
+    validate_list.append(last_equal)
+
+    if validate_list == [8, 4, 4, 4, 12, True]:
+        return api_key
+    else:
+        raise click.BadParameter(
+            "Invalid API key format, please double-check the input."
+        )
+
+
 @click.command(cls=CommandWithConfigFile("config_file"))
 @click.option("--config-file", type=click.Path(), is_eager=True)
 @click.option(
     "-ou",
     "--original-url",
-    prompt="Old DSM url",
-    help="A resolvable FQDN for the old DSM, with port number (e.g. https://192.168.1.1:4119)",
+    prompt="Old DSM address and port (e.g. https://10.10.10.10:4119/)",
+    help="A resolvable FQDN for the old DSM, with port number (e.g. https://192.168.1.1:4119/)",
     envvar="ORIGINAL_URL",
 )
 @click.option(
     "-oa",
     "--original-api-key",
+    callback=validate_api_keys,
     prompt="Old DSM API key",
     help="API key for the old DSM with Full Access permissions",
     envvar="ORIGINAL_API_KEY",
@@ -140,7 +196,6 @@ def main(
     """Moves your on-prem DS deployment to the cloud!"""
     sys.stdout = Logger()
     sys.stderr = sys.stdout
-
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
@@ -150,18 +205,22 @@ def main(
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if delete_policies:
+        console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
-    old_policy_name_enum, old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
+    old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
+    console.rule("Initial Data Collection")
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
+    console.rule("Anti-Malware Configurations")
     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
         antimalwareconfig, OLD_HOST, OLD_API_KEY
     )
 
+    console.rule("Lists")
     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
         amdirectorylist,
         amfileextensionlist,
@@ -171,18 +230,14 @@ def main(
         NEW_API_KEY,
     )
 
-    t1portlistall, t1portlistname, t1portlistid, t2portlistid = port_listmaker(
+    t1portlistid, t2portlistid = port_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    t1maclistall, t1maclistname, t1maclistid, t2maclistid = mac_listmaker(
+    t1maclistid, t2maclistid = mac_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    t1iplistall, t1iplistname, t1iplistid, t2iplistid = ip_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
+    t1iplistid, t2iplistid = ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
     (
-        t1statefulall,
-        t1statefulname,
         t1statefulid,
         t2statefulid,
         stateful_dict,
@@ -194,15 +249,13 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    print(stateful_dict)
-    try:
-        settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
-    except Exception:
-        pass
+    console.rule("DSM Settings")
+    settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
 
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
+    console.rule("Intrusion Prevention Module")
     allofpolicy = ips_rules_transform(
         allofpolicy,
         t1portlistid,
@@ -216,6 +269,7 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.rule("Anti-Malware Module")
     allofpolicy = am_validate_create(
         allofpolicy,
         antimalwareconfig,
@@ -229,12 +283,15 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.rule("Integrity Monitoring Module")
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.rule("Log Inspection Module")
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.rule("Firewall Module")
     allofpolicy = firewall_config_transform(
         allofpolicy,
         t1iplistid,
@@ -254,8 +311,10 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.rule("Final Policy Migration")
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     if tasks:
+        console.rule("Tasks")
         computer_group_dict = computer_group_listmaker(
             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
         )
@@ -278,4 +337,9 @@ def main(
 
 
 if __name__ == "__main__":
+    ascii_art()
+    console.print(
+        "Welcome to the Trend Micro Policy Migration Tool",
+        style="bold red",
+    )
     main()  # pylint: disable=no-value-for-parameter
