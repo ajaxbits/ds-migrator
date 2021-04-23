@@ -48,7 +48,6 @@ def ListEventTask(url_link_final, tenant1key):
         headers=headers,
         data=payload,
         verify=cert,
-        retries=10,
     )
     describe = str(response.text)
     oldetname = []
@@ -80,7 +79,6 @@ def GetEventTask(etIDs, url_link_final, tenant1key):
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             allet.append(describe)
@@ -141,7 +139,6 @@ def ListScheduledTask(url_link_final, tenant1key):
         headers=headers,
         data=payload,
         verify=cert,
-        retries=10,
     )
     oldstname = []
     oldstid = []
@@ -172,7 +169,6 @@ def GetScheduledTask(stIDs, url_link_final, tenant1key):
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             allst.append(describe)

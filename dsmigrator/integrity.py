@@ -66,7 +66,6 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             allimrule.append(describe)
@@ -94,7 +93,6 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             headers=headers,
             data=payload,
             verify=cert,
-            retries=10,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -157,7 +155,6 @@ def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')

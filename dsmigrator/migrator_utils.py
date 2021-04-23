@@ -112,7 +112,6 @@ def http_search(
             headers=headers,
             data=payload,
             verify=cert,
-            retries=10,
         )
         describe = str(response.text)
         all_results.append(describe)

@@ -128,7 +128,6 @@ def FirewallDescribe(
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             allfirewallrule.append(describe)
@@ -186,7 +185,6 @@ def FirewallDescribe(
             headers=headers,
             data=payload,
             verify=cert,
-            retries=10,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -219,7 +217,6 @@ def FirewallDescribe(
                                 headers=headers,
                                 data=payload,
                                 verify=cert,
-                                retries=10,
                             )
                             console.log(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
@@ -291,7 +288,6 @@ def FirewallCustom(
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')

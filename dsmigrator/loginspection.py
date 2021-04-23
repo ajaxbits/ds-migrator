@@ -67,7 +67,6 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             alllirule.append(describe)
@@ -95,7 +94,6 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             headers=headers,
             data=payload,
             verify=cert,
-            retries=10,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -144,7 +142,6 @@ def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')

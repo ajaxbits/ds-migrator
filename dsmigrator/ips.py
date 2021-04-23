@@ -113,7 +113,6 @@ def IPSappDescribe(
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             try:
@@ -243,7 +242,6 @@ def IPSDescribe(
                 headers=headers,
                 data=payload,
                 verify=cert,
-                retries=10,
             )
             describe = str(response.text)
             try:

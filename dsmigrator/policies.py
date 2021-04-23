@@ -55,7 +55,6 @@ def ListAllPolicy(url_link_final, tenant1key):
         headers=headers,
         data=payload,
         verify=cert,
-        retries=10,
     )
     describe = str(response.text)
     oldpolicyname = []
@@ -87,7 +86,6 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
             headers=headers,
             data=payload,
             verify=cert,
-            retries=10,
         )
 
         describe = str(response.text)

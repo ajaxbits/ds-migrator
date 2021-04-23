@@ -1,5 +1,5 @@
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import console, log
 import deepsecurity
 from deepsecurity.rest import ApiException
 import re
@@ -112,9 +112,14 @@ class DirectoryListsApiInstance(RestApiConfiguration):
 
     def search(self, name):
         filter = self.name_search_filter(name)
-        results = self.api_instance.search_directory_lists("v1", search_filter=filter)
-        if results.directory_lists:
-            return results.directory_lists[0].id
+        try:
+            results = self.api_instance.search_directory_lists(
+                "v1", search_filter=filter
+            )
+            if results.directory_lists:
+                return results.directory_lists[0].id
+        except ApiException as e:
+            log.exception(e)
 
     def create(self, json_dirlist):
         dirlist = deepsecurity.DirectoryList()
@@ -232,27 +237,6 @@ class FirewallApiInstance(RestApiConfiguration):
                 setattr(object, to_snake(key), json[key])
         self.api_instance.create_firewall_rule(object, self.api_version)
         return object.name
-
-
-class ApplicationControlRulesetsApiInstance(RestApiConfiguration):
-    def __init__(self, NEW_API_KEY, overrides=False):
-        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
-        self.api_instance = deepsecurity.RulesetsApi(self.api_client)
-
-    def create(self, json, inventory_id):
-        ruleset = deepsecurity.Ruleset()
-        for key in json:
-            if not key == "ID":
-                setattr(ruleset, to_snake(key), json[key])
-        try:
-            self.api_instance.create_ruleset(ruleset, inventory_id, self.api_version)
-            return ruleset.name
-        except ApiException as e:
-            console.log(
-                "An exception occurred when calling RulesetsApi.create_ruleset: %s\n"
-                % e
-            )
-            pass
 
 
 class PolicyApiInstance(RestApiConfiguration):

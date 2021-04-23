@@ -174,20 +174,20 @@ console.print(
     is_flag=True,
     help="Suppress the InsecureRequestWarning for self-signed certificates",
 )
-@click.option(
-    "-c",
-    "--cert",
-    default=False,
-    show_default=True,
-    help="(Optional) Allows the use of a cert file",
-)
+# @click.option(
+#     "-c",
+#     "--cert",
+#     default=False,
+#     show_default=True,
+#     help="(Optional) Allows the use of a cert file",
+# )
 def main(
     config_file,
     original_url,
     original_api_key,
     new_url,
     cloud_one_api_key,
-    cert,
+    # cert,
     insecure,
     tasks,
     delete_policies,
