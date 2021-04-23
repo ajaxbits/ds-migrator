@@ -20,18 +20,22 @@
                ###################               
     
 Welcome to the Trend Micro Policy Migration Tool
-───────────────────────────────── Delete C1 Policies ─────────────────────────────────
-[07:05:29] Deleting Policies from Cloud One...                          policies.py:17
-           No policies detected in Cloud One. Skipping.                 policies.py:40
-────────────────────────────── Initial Data Collection ───────────────────────────────
-[07:05:30] Getting Policy from Deep Security                            policies.py:66
-           #0 Policy ID: 1                                              policies.py:83
-[07:05:31] #1 Policy ID: 2                                              policies.py:83
-           #2 Policy ID: 3                                              policies.py:83
-           #3 Policy ID: 15                                             policies.py:83
-[07:05:32] #4 Policy ID: 17                                             policies.py:83
-──────────────────────────── Anti-Malware Configurations ─────────────────────────────
-           Getting Anti-Malware configuration from Tenant 1          antimalware.py:71
-           #0 Anti-Malware Config ID: 1                              antimalware.py:97
-           #1 Anti-Malware Config ID: 2                              antimalware.py:97
-[07:05:33] #2 Anti-Malware Config ID: 3                              antimalware.py:97
+──────────────────────────────────────────────────────────────── Delete C1 Policies ────────────────────────────────────────────────────────────────
+[07:52:01] Deleting Policies from Cloud One...                                                                                        policies.py:17
+[07:52:02] Deleting policy #795                                                                                                       policies.py:32
+           Deleting policy #796                                                                                                       policies.py:32
+           Deleting policy #797                                                                                                       policies.py:32
+[07:52:03] Deleting policy #798                                                                                                       policies.py:32
+           Deleting policy #799                                                                                                       policies.py:32
+───────────────────────────────────────────────────────────── Initial Data Collection ──────────────────────────────────────────────────────────────
+[07:52:04] Getting Policy from Deep Security                                                                                          policies.py:66
+           #0 Policy ID: 1                                                                                                            policies.py:83
+           #1 Policy ID: 2                                                                                                            policies.py:83
+[07:52:05] #2 Policy ID: 3                                                                                                            policies.py:83
+[07:52:07] #3 Policy ID: 15                                                                                                           policies.py:83
+           #4 Policy ID: 17                                                                                                           policies.py:83
+─────────────────────────────────────────────────────────── Anti-Malware Configurations ────────────────────────────────────────────────────────────
+           Getting Anti-Malware configuration from Tenant 1                                                                        antimalware.py:71
+           #0 Anti-Malware Config ID: 1                                                                                            antimalware.py:97
+[07:52:08] #1 Anti-Malware Config ID: 2                                                                                            antimalware.py:97
+           #2 Anti-Malware Config ID: 3                                                                                            antimalware.py:97
