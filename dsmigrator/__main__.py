@@ -11,6 +11,7 @@ import click
 import deepsecurity
 import requests
 import urllib3
+import urllib3
 import yaml
 from rich.console import Console, OverflowMethod
 from rich.logging import RichHandler
@@ -31,6 +32,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
+from dsmigrator.logging import *
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -41,10 +43,6 @@ from dsmigrator.policies import (
 from dsmigrator.proxy import proxy_edit
 from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
-
-install()
-
-console = Console()
 
 
 def ascii_art():
@@ -76,25 +74,7 @@ def ascii_art():
     )
 
 
-ascii_art()
-console.print(
-    "Welcome to the Trend Micro Policy Migration Tool",
-    style="bold red",
-)
-
-
-class Logger(object):
-    def flush(self):
-        pass
-
-    def __init__(self):
-        self.terminal = sys.stdout
-        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(f"./{filename}", "a", encoding="utf-8")
-
-    def write(self, message):
-        self.terminal.write(message)
-        self.log.write(message)
+filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
 
 
 # override the click invoke method
@@ -131,10 +111,17 @@ def validate_api_keys(ctx, param, api_key):
             raise click.BadParameter(
                 "Invalid API key format, please double-check the input."
             )
-    except IndexError:
+    except:
         raise click.BadParameter(
             "Invalid API key format, please double-check the input."
         )
+
+
+ascii_art()
+console.print(
+    "Welcome to the Trend Micro Policy Migration Tool",
+    style="bold red",
+)
 
 
 @click.command(cls=CommandWithConfigFile("config_file"))
@@ -188,27 +175,25 @@ def validate_api_keys(ctx, param, api_key):
     is_flag=True,
     help="Suppress the InsecureRequestWarning for self-signed certificates",
 )
-@click.option(
-    "-c",
-    "--cert",
-    default=False,
-    show_default=True,
-    help="(Optional) Allows the use of a cert file",
-)
+# @click.option(
+#     "-c",
+#     "--cert",
+#     default=False,
+#     show_default=True,
+#     help="(Optional) Allows the use of a cert file",
+# )
 def main(
     config_file,
     original_url,
     original_api_key,
     new_url,
     cloud_one_api_key,
-    cert,
+    # cert,
     insecure,
     tasks,
     delete_policies,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
-    sys.stdout = Logger()
-    sys.stderr = sys.stdout
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
@@ -218,21 +203,25 @@ def main(
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if delete_policies:
+        console.save_text(filename)
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
     old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
+    console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Configurations")
     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
         antimalwareconfig, OLD_HOST, OLD_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("Lists")
     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
         amdirectorylist,
@@ -262,12 +251,14 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("DSM Settings")
     settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
 
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
+    console.save_text(filename, clear=False)
     console.rule("Intrusion Prevention Module")
     allofpolicy = ips_rules_transform(
         allofpolicy,
@@ -282,6 +273,7 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Module")
     allofpolicy = am_validate_create(
         allofpolicy,
@@ -296,14 +288,17 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Integrity Monitoring Module")
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.save_text(filename, clear=False)
     console.rule("Log Inspection Module")
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.save_text(filename, clear=False)
     console.rule("Firewall Module")
     allofpolicy = firewall_config_transform(
         allofpolicy,
@@ -324,9 +319,11 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Final Policy Migration")
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     if tasks:
+        console.save_text(filename, clear=False)
         console.rule("Tasks")
         computer_group_dict = computer_group_listmaker(
             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
@@ -350,5 +347,4 @@ def main(
 
 
 if __name__ == "__main__":
-    os.environ["PYTHONIOENCODING"] = "utf-8"
     main()  # pylint: disable=no-value-for-parameter

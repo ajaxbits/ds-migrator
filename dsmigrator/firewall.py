@@ -4,7 +4,9 @@ import time
 from time import sleep
 import requests
 import urllib3
+import urllib3
 import json
+from dsmigrator.logging import console
 
 cert = False
 
@@ -72,7 +74,7 @@ def FirewallGet(allofpolicy):
     firewallruleid = []
     policystateful = []
     # find all Firewall rules
-    print("Firewall rules in Tenant 1", flush=True)
+    console.log("Firewall rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "globalStatefulConfigurationID" in namejson["firewall"]:
@@ -83,7 +85,7 @@ def FirewallGet(allofpolicy):
             for count, here2 in enumerate(namejson["firewall"]["ruleIDs"]):
                 firewallruleid.append(str(here2))
     firewallruleid = list(dict.fromkeys(firewallruleid))
-    print(firewallruleid, flush=True)
+    console.log(firewallruleid)
     return firewallruleid, policystateful
 
 
@@ -110,7 +112,7 @@ def FirewallDescribe(
     allfirewallruleidold = []
     allfirewallcustomrule = []
     # describe Firewall rules
-    print("Searching and Modifying Firewall rules in Tenant 1...", flush=True)
+    console.log("Searching and Modifying Firewall rules in Tenant 1...")
     if firewallruleid:
         for count, dirlist in enumerate(firewallruleid):
             payload = {}
@@ -121,19 +123,22 @@ def FirewallDescribe(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
             )
             describe = str(response.text)
             allfirewallrule.append(describe)
             firewalljson = json.loads(describe)
             allfirewallrulename.append(str(firewalljson["name"]))
-            print(
+            console.log(
                 "#" + str(count) + " Firewall rule name: " + str(firewalljson["name"]),
-                flush=True,
             )
-            print("#" + str(count) + " Firewall rule ID: " + dirlist, flush=True)
-    print("Done!", flush=True)
-    print("Replacing firewall rule IDs configuration in tenant 2...", flush=True)
+            console.log("#" + str(count) + " Firewall rule ID: " + dirlist)
+    console.log("Done!")
+    console.log("Replacing firewall rule IDs configuration in tenant 2...")
     for count, describe in enumerate(allfirewallrule):
         firewalljson = json.loads(describe)
         if "scheduleID" in firewalljson:
@@ -175,7 +180,11 @@ def FirewallDescribe(
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -203,11 +212,14 @@ def FirewallDescribe(
                                 "Content-Type": "application/json",
                             }
                             response = requests.request(
-                                "POST", url, headers=headers, data=payload, verify=cert
+                                "POST",
+                                url,
+                                headers=headers,
+                                data=payload,
+                                verify=cert,
                             )
-                            print(
+                            console.log(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
-                                flush=True,
                             )
                         else:
                             endIndex = indexpart.find("}", startIndex + 1)
@@ -236,19 +248,18 @@ def FirewallDescribe(
                                     data=payload,
                                     verify=cert,
                                 )
-                                print(
+                                console.log(
                                     "#" + str(count) + " Firewall rule ID: " + indexid,
-                                    flush=True,
                                 )
                 else:
-                    print(describe, flush=True)
-                    print(payload, flush=True)
+                    console.log(describe)
+                    console.log(payload)
             else:
                 allfirewallcustomrule.append(count)
         else:
-            print(describe, flush=True)
-            print(payload, flush=True)
-    print("Done!", flush=True)
+            console.log(describe)
+            console.log(payload)
+    console.log("Done!")
     return (
         allfirewallrule,
         allfirewallruleidnew1,
@@ -262,7 +273,7 @@ def FirewallCustom(
 ):
     allfirewallruleidnew2 = []
     if allfirewallcustomrule:
-        print("Creating Firewall Custom Rule...", flush=True)
+        console.log("Creating Firewall Custom Rule...")
         for count, indexnum in enumerate(allfirewallcustomrule):
             payload = allfirewallrule[indexnum]
             url = url_link_final_2 + "api/firewallrules"
@@ -272,7 +283,11 @@ def FirewallCustom(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
             )
             describe = str(response.text)
             index = describe.find('"ID"')
@@ -286,9 +301,8 @@ def FirewallCustom(
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allfirewallruleidnew2.append(str(indexid))
-                        print(
+                        console.log(
                             "#" + str(count) + " Firewall rule ID: " + indexid,
-                            flush=True,
                         )
                     else:
                         endIndex = indexpart.find("}", startIndex + 1)
@@ -297,16 +311,13 @@ def FirewallCustom(
                         ):  # i.e. both quotes were found
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allfirewallruleidnew2.append(str(indexid))
-                            print(
+                            console.log(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
-                                flush=True,
                             )
             else:
-                print(describe, flush=True)
-                print(payload, flush=True)
-        print("Done!", flush=True)
-    # print("all new firewall rule custom rule")
-    # print(allfirewallruleidnew2)
+                console.log(describe)
+                console.log(payload)
+        console.log("Done!")
     return allfirewallruleidnew2
 
 

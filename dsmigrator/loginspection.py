@@ -4,7 +4,9 @@ import time
 from time import sleep
 import requests
 import urllib3
+import urllib3
 import json
+from dsmigrator.logging import console
 
 cert = False
 
@@ -32,14 +34,14 @@ def li_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KE
 
 def LIGet(allofpolicy):
     liruleid = []
-    print("Log Inspection rules in Tenant 1", flush=True)
+    console.log("Log Inspection rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "ruleIDs" in namejson["logInspection"]:
             for count, here2 in enumerate(namejson["logInspection"]["ruleIDs"]):
                 liruleid.append(str(here2))
     liruleid = list(dict.fromkeys(liruleid))
-    print(liruleid, flush=True)
+    console.log(liruleid)
     return liruleid
 
 
@@ -49,7 +51,7 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
     allliruleidnew1 = []
     allliruleidold = []
     alllicustomrule = []
-    print("Searching LI rules in Tenant 1...", flush=True)
+    console.log("Searching LI rules in Tenant 1...")
     if liruleid:
         for count, dirlist in enumerate(liruleid):
             payload = {}
@@ -60,18 +62,20 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
             )
             describe = str(response.text)
             alllirule.append(describe)
             lijson = json.loads(describe)
             alllirulename.append(str(lijson["name"]))
-            print(
-                "#" + str(count) + " LI rule name: " + str(lijson["name"]), flush=True
-            )
-            print("#" + str(count) + " LI rule ID: " + dirlist, flush=True)
-    print("Done!", flush=True)
-    print("Searching and Modifying LI rule in Tenant 2...", flush=True)
+            console.log("#" + str(count) + " LI rule name: " + str(lijson["name"]))
+            console.log("#" + str(count) + " LI rule ID: " + dirlist)
+    console.log("Done!")
+    console.log("Searching and Modifying LI rule in Tenant 2...")
     for count, dirlist in enumerate(alllirulename):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -85,7 +89,11 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -104,24 +112,22 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allliruleidnew1.append(str(indexid))
                             allliruleidold.append(count)
-                            print(
-                                "#" + str(count) + " LI rule ID: " + indexid, flush=True
-                            )
+                            console.log("#" + str(count) + " LI rule ID: " + indexid)
                 else:
-                    print(describe, flush=True)
-                    print(payload, flush=True)
+                    console.log(describe)
+                    console.log(payload)
             else:
                 alllicustomrule.append(count)
         else:
-            print(describe, flush=True)
-            print(payload, flush=True)
+            console.log(describe)
+            console.log(payload)
     return alllirule, allliruleidnew1, allliruleidold, alllicustomrule
 
 
 def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
     allliruleidnew2 = []
     if alllicustomrule:
-        print("Creating new custom LI rule in Tenant 2...", flush=True)
+        console.log("Creating new custom LI rule in Tenant 2...")
         for count, indexnum in enumerate(alllicustomrule):
             payload = alllirule[indexnum]
             url = url_link_final_2 + "api/loginspectionrules"
@@ -131,7 +137,11 @@ def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
             )
             describe = str(response.text)
             index = describe.find('"ID"')
@@ -145,13 +155,13 @@ def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allliruleidnew2.append(str(indexid))
-                        print("#" + str(count) + " LI rule ID: " + indexid, flush=True)
+                        console.log("#" + str(count) + " LI rule ID: " + indexid)
             else:
-                print(describe, flush=True)
-                print(payload, flush=True)
-        # print("all new LI rule custom rule", flush=True)
-        # print(allliruleidnew2, flush=True)
-        print("Done!", flush=True)
+                console.log(describe)
+                console.log(payload)
+        # console.log("all new LI rule custom rule")
+        # console.log(allliruleidnew2)
+        console.log("Done!")
     return allliruleidnew2
 
 

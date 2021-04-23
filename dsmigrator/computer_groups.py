@@ -2,7 +2,9 @@ import sys
 import os
 import requests
 import urllib3
+import urllib3
 import json
+from dsmigrator.logging import console
 from dsmigrator.api_config import ComputerGroupsApiInstance
 from dsmigrator.migrator_utils import validate_create_dict, value_exists, rename_json
 from deepsecurity.rest import ApiException
@@ -28,7 +30,13 @@ def ListGroup(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+    )
     describe = str(response.text)
     oldetname = []
     oldetid = []
@@ -43,7 +51,7 @@ def ListGroup(url_link_final, tenant1key):
 def GetGroup(etIDs, url_link_final, tenant1key):
     allet = []
     nameet = []
-    print("Getting Target Task...", flush=True)
+    console.log("Getting Target Task...")
     if etIDs:
         for part in etIDs:
             payload = {}
@@ -54,7 +62,11 @@ def GetGroup(etIDs, url_link_final, tenant1key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
             )
             describe = str(response.text)
             allet.append(describe)
@@ -64,7 +76,7 @@ def GetGroup(etIDs, url_link_final, tenant1key):
 
 
 def CreateGroup(allet, nameet, url_link_final_2, tenant2key):
-    print("Creating group to target Account...", flush=True)
+    console.log("Creating group to target Account...")
     if nameet:
         modet = []
         for task in allet:

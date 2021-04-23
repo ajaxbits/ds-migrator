@@ -4,7 +4,9 @@ import deepsecurity
 from deepsecurity.rest import ApiException
 import requests
 import urllib3
+import urllib3
 import json
+from dsmigrator.logging import console, log
 from types import SimpleNamespace
 from dsmigrator.api_config import PolicyApiInstance
 from rich.progress import Progress
@@ -13,7 +15,7 @@ cert = False
 
 
 def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
-    print("Deleting Policies from Cloud One...")
+    console.log("Deleting Policies from Cloud One...")
 
     host = "https://cloudone.trendmicro.com/api/policies"
     message = requests.get(
@@ -28,7 +30,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
         policyNumbers.append(key.ID)
     if policyNumbers:
         for policyID in policyNumbers:
-            print(f"Deleting policy #{policyID}")
+            console.log(f"Deleting policy #{policyID}")
             policyHost = f"https://cloudone.trendmicro.com/api/policies/{policyID}"
             requests.delete(
                 policyHost,
@@ -36,7 +38,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
                 headers={"api-secret-key": CLOUD_ONE_API_KEY, "api-version": "v1"},
             )
     else:
-        print("No policies detected in Cloud One. Skipping.")
+        console.log("No policies detected in Cloud One. Skipping.")
 
 
 def ListAllPolicy(url_link_final, tenant1key):
@@ -47,7 +49,13 @@ def ListAllPolicy(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+    )
     describe = str(response.text)
     oldpolicyname = []
     oldpolicyid = []
@@ -62,7 +70,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     antimalwareconfig = []
     allofpolicy = []
     i = 0
-    print("Getting Policy from Deep Security", flush=True)
+    console.log("Getting Policy from Deep Security")
     for count, part in enumerate(policyIDs):
 
         payload = {}
@@ -73,13 +81,17 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "GET", url, headers=headers, data=payload, verify=cert
+            "GET",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
         )
 
         describe = str(response.text)
         i = i + 1
         allofpolicy.append(describe)
-        print("#" + str(count) + " Policy ID: " + str(part), flush=True)
+        console.log("#" + str(count) + " Policy ID: " + str(part))
         rtscan = describe.find("realTimeScanConfigurationID")
         if rtscan != -1:
             rtpart = describe[rtscan + 28 :]
@@ -122,21 +134,20 @@ def validate_create(all_old, api_instance, type):
         oldjson = json.loads(dirlist)
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
-        policysettings = oldjson.get("policySettings")
-        if policysettings is not None:
-            policysettings["platformSettingAgentCommunicationsDirection"] = {
+        # cleanup input
+        # policysettings = oldjson.get("policySettings")
+        if "policySettings" in oldjson.keys():
+            oldjson["policySettings"]["platformSettingAgentCommunicationsDirection"] = {
                 "value": "Agent/Appliance Initiated"
             }
+        if "parentID" in oldjson.keys():
+            oldjson["parentID"] = id_dict[oldjson["parentID"]]
         while namecheck != -1:
-            if "parentID" in oldjson.keys():
-                newparentid = id_dict[oldjson["parentID"]]
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname).id
                 id_dict[oldid] = newid
-                if "parentID" in oldjson.keys():
-                    api_instance.modify_parent(newid, newparentid)
-                print(
+                console.log(
                     "#"
                     + str(count)
                     + " "
@@ -145,25 +156,21 @@ def validate_create(all_old, api_instance, type):
                     + str(newid)
                     + ", Name: "
                     + newname,
-                    flush=True,
                 )
                 all_new.append(str(newid))
                 namecheck = -1
             except ApiException as e:
                 error_json = json.loads(e.body)
                 if "name already exists" in error_json["message"]:
-                    print(
+                    console.log(
                         f"{oldjson['name']} already exists in new tenant, renaming..."
                     )
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    print(e.body)
-                    print(
-                        f"[bold bright_red]WARNING[/bold bright_red]: {oldname} could not be transferred. Please transfer manually."
-                    )
-                    print(
-                        "[i]NOTE: This is under construction and will work soon. :)[/i]"
+                    log.exception(e)
+                    log.critical(
+                        f"{oldname} could not be transferred. Please transfer manually."
                     )
                     namecheck = -1
     id_dict[0] = 0
@@ -174,6 +181,6 @@ cert = False
 
 
 def AddPolicy(allofpolicy, NEW_API_KEY):
-    print("Creating Policy to Tenant 2 with new ID", flush=True)
+    console.log("Creating Policy to Tenant 2 with new ID")
     if allofpolicy:
         return validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")
