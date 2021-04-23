@@ -3,6 +3,7 @@ import os
 import requests
 import urllib3
 import json
+from dsmigrator.logging import console
 from nested_lookup import nested_lookup, nested_update
 from dsmigrator.api_config import ScheduledTasksApiInstance, EventBasedTasksApiInstance
 from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
@@ -55,7 +56,7 @@ def ListEventTask(url_link_final, tenant1key):
 def GetEventTask(etIDs, url_link_final, tenant1key):
     allet = []
     nameet = []
-    print("Getting Target Task...", flush=True)
+    console.log("Getting Target Task...")
     if etIDs:
         for part in etIDs:
             payload = {}
@@ -78,7 +79,7 @@ def GetEventTask(etIDs, url_link_final, tenant1key):
 def CreateEventTask(
     allet, nameet, policy_dict, computer_group_dict, url_link_final_2, tenant2key
 ):
-    print("Creating Task to target Account...", flush=True)
+    console.log("Creating Task to target Account...")
     if nameet:
         modet = []
         for task in allet:
@@ -89,17 +90,21 @@ def CreateEventTask(
                 for action in actions_list:
                     oldid = action.get("parameterValue")
                     if oldid is not None:
-                        if (computer_group_dict.get(oldid) is not None) and (action["type"] == "assign-group"):
+                        if (computer_group_dict.get(oldid) is not None) and (
+                            action["type"] == "assign-group"
+                        ):
                             action["parameterValue"] = computer_group_dict[oldid]
                         elif computer_group_dict.get(oldid) is None:
-                            print(
+                            console.log(
                                 f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                             )
                             task_json = {}
-                        if (policy_dict.get(oldid) is not None) and (action["type"] == "assign-policy"):
+                        if (policy_dict.get(oldid) is not None) and (
+                            action["type"] == "assign-policy"
+                        ):
                             action["parameterValue"] = policy_dict[oldid]
                         elif policy_dict.get(oldid) is None:
-                            print(
+                            console.log(
                                 f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                             )
                             task_json = {}
@@ -131,7 +136,7 @@ def ListScheduledTask(url_link_final, tenant1key):
 def GetScheduledTask(stIDs, url_link_final, tenant1key):
     allst = []
     namest = []
-    print("Getting Target Task...", flush=True)
+    console.log("Getting Target Task...")
     if stIDs:
         for part in stIDs:
             payload = {}
@@ -154,7 +159,7 @@ def GetScheduledTask(stIDs, url_link_final, tenant1key):
 def CreateScheduledTask(
     allst, namest, policy_dict, computer_group_dict, url_link_final_2, tenant2key
 ):
-    print("Creating Task to target Account...", flush=True)
+    console.log("Creating Task to target Account...")
     if namest:
         modst = []
         for task in allst:
@@ -172,7 +177,7 @@ def CreateScheduledTask(
                         computer_group_dict[oldid],
                     )
                 else:
-                    print(
+                    console.log(
                         f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
                     task_json = {}
@@ -181,12 +186,14 @@ def CreateScheduledTask(
                 if computer_group_dict.get(oldid) is not None:
                     task_json = nested_update(task_json, "policyID", policy_dict[oldid])
                 else:
-                    print(
+                    console.log(
                         f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
                     task_json = {}
             if has_smartfolder:
-                print(f"WARNING: THE SMART FOLDER ASSIGNED IN {oldname} CANNOT BE MIGRATED.")
+                console.log(
+                    f"WARNING: THE SMART FOLDER ASSIGNED IN {oldname} CANNOT BE MIGRATED."
+                )
                 task_json = {}
             if task_json:
                 modst.append(json.dumps(task_json))

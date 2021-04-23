@@ -3,6 +3,7 @@ import os
 import requests
 import urllib3
 import json
+from dsmigrator.logging import console
 from dsmigrator.api_config import SystemSettingsApiInstance
 from deepsecurity.rest import ApiException
 
@@ -20,7 +21,7 @@ def ListSettings(url_link_final, tenant1key):
     response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
     describe = str(response.text)
     settings_dict = json.loads(describe)
-    # print(settings_dict)
+    # console.log(settings_dict)
     return settings_dict
 
 
@@ -88,7 +89,7 @@ no_fly_list = [
 
 
 def TransferSettings(settings_dict, no_fly_list, stateful_dict, tenant2key):
-    print("Transferring system settings...", flush=True)
+    console.log("Transferring system settings...")
     sanitized_settings_dict = {}
     for setting, value_dict in settings_dict.items():
         if setting not in no_fly_list:
@@ -96,7 +97,7 @@ def TransferSettings(settings_dict, no_fly_list, stateful_dict, tenant2key):
     try:
         SystemSettingsApiInstance(tenant2key).modify(sanitized_settings_dict)
     except ApiException as e:
-        print(e.body)
+        console.log(e.body)
         pass
 
 

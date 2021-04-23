@@ -21,9 +21,17 @@
     
 Welcome to the Trend Micro Policy Migration Tool
 ───────────────────────────────── Delete C1 Policies ─────────────────────────────────
+[07:05:29] Deleting Policies from Cloud One...                          policies.py:17
+           No policies detected in Cloud One. Skipping.                 policies.py:40
 ────────────────────────────── Initial Data Collection ───────────────────────────────
+[07:05:30] Getting Policy from Deep Security                            policies.py:66
+           #0 Policy ID: 1                                              policies.py:83
+[07:05:31] #1 Policy ID: 2                                              policies.py:83
+           #2 Policy ID: 3                                              policies.py:83
+           #3 Policy ID: 15                                             policies.py:83
+[07:05:32] #4 Policy ID: 17                                             policies.py:83
 ──────────────────────────── Anti-Malware Configurations ─────────────────────────────
-[06:46:37] Getting Anti-Malware configuration from Tenant 1          antimalware.py:70
-           #0 Anti-Malware Config ID: 1                              antimalware.py:96
-           #1 Anti-Malware Config ID: 2                              antimalware.py:96
-[06:46:38] #2 Anti-Malware Config ID: 3                              antimalware.py:96
+           Getting Anti-Malware configuration from Tenant 1          antimalware.py:71
+           #0 Anti-Malware Config ID: 1                              antimalware.py:97
+           #1 Anti-Malware Config ID: 2                              antimalware.py:97
+[07:05:33] #2 Anti-Malware Config ID: 3                              antimalware.py:97

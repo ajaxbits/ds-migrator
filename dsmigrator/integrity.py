@@ -5,6 +5,7 @@ from time import sleep
 import requests
 import urllib3
 import json
+from dsmigrator.logging import console
 
 cert = False
 
@@ -31,14 +32,14 @@ def im_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KE
 
 def IMGet(allofpolicy):
     imruleid = []
-    print("IM rules in Tenant 1", flush=True)
+    console.log("IM rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "ruleIDs" in namejson["integrityMonitoring"]:
             for count, here2 in enumerate(namejson["integrityMonitoring"]["ruleIDs"]):
                 imruleid.append(str(here2))
     imruleid = list(dict.fromkeys(imruleid))
-    print(imruleid, flush=True)
+    console.log(imruleid)
     return imruleid
 
 
@@ -48,7 +49,7 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
     allimruleidnew1 = []
     allimruleidold = []
     allimcustomrule = []
-    print("Searching IM rules in Tenant 1...", flush=True)
+    console.log("Searching IM rules in Tenant 1...")
     if imruleid:
         for count, dirlist in enumerate(imruleid):
             payload = {}
@@ -65,12 +66,10 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             allimrule.append(describe)
             imjson = json.loads(describe)
             allimrulename.append(str(imjson["name"]))
-            print(
-                "#" + str(count) + " IPS rule name: " + str(imjson["name"]), flush=True
-            )
-            print("#" + str(count) + " IM rule ID: " + str(dirlist), flush=True)
-    print("Done!", flush=True)
-    print("Searching and Modifying IM rule in Tenant 2...", flush=True)
+            console.log("#" + str(count) + " IPS rule name: " + str(imjson["name"]))
+            console.log("#" + str(count) + " IM rule ID: " + str(dirlist))
+    console.log("Done!")
+    console.log("Searching and Modifying IM rule in Tenant 2...")
     for count, dirlist in enumerate(allimrulename):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -103,9 +102,8 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allimruleidnew1.append(str(indexid))
                             allimruleidold.append(count)
-                            print(
+                            console.log(
                                 "#" + str(count) + " IM rule ID: " + str(indexid),
-                                flush=True,
                             )
                         else:
                             endIndex = indexpart.find("}", startIndex + 1)
@@ -115,26 +113,25 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                                 indexid = indexpart[startIndex + 1 : endIndex]
                                 allimruleidnew1.append(str(indexid))
                                 allimruleidold.append(count)
-                                print(
+                                console.log(
                                     "#" + str(count) + " IM rule ID: " + str(indexid),
-                                    flush=True,
                                 )
                 else:
-                    print(describe, flush=True)
-                    print(payload, flush=True)
+                    console.log(describe)
+                    console.log(payload)
             else:
                 allimcustomrule.append(count)
         else:
-            print(describe, flush=True)
-            print(payload, flush=True)
-    print("Done!", flush=True)
+            console.log(describe)
+            console.log(payload)
+    console.log("Done!")
     return allimrule, allimruleidnew1, allimruleidold, allimcustomrule
 
 
 def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
     allimruleidnew2 = []
     if allimcustomrule:
-        print("Creating new custom IM rule in Tenant 2...", flush=True)
+        console.log("Creating new custom IM rule in Tenant 2...")
         for count, indexnum in enumerate(allimcustomrule):
             payload = allimrule[indexnum]
             url = url_link_final_2 + "api/integritymonitoringrules"
@@ -158,14 +155,13 @@ def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allimruleidnew2.append(str(indexid))
-                        print(
+                        console.log(
                             "#" + str(count) + " IM rule ID: " + str(indexid),
-                            flush=True,
                         )
             else:
-                print(describe, flush=True)
-                print(payload, flush=True)
-        print("Done!", flush=True)
+                console.log(describe)
+                console.log(payload)
+        console.log("Done!")
 
     return allimruleidnew2
 

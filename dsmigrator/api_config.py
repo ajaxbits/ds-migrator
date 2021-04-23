@@ -1,4 +1,5 @@
 import json
+from dsmigrator.logging import console
 import deepsecurity
 from deepsecurity.rest import ApiException
 import re
@@ -247,7 +248,7 @@ class ApplicationControlRulesetsApiInstance(RestApiConfiguration):
             self.api_instance.create_ruleset(ruleset, inventory_id, self.api_version)
             return ruleset.name
         except ApiException as e:
-            print(
+            console.log(
                 "An exception occurred when calling RulesetsApi.create_ruleset: %s\n"
                 % e
             )

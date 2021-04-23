@@ -1,6 +1,7 @@
 import unittest
 import urllib3
 import json
+from dsmigrator.logging import console
 import os
 from dsmigrator.lists import *
 

@@ -1,10 +1,11 @@
-from __future__ import print_function
+# from __future__ import console.log_function
 from pathlib import Path
 import click
 import sys, warnings
 import deepsecurity
 from deepsecurity.rest import ApiException
 import json
+from dsmigrator.logging import console
 import xml.etree.ElementTree as ET
 
 
@@ -50,7 +51,7 @@ import xml.etree.ElementTree as ET
     help="(Optional) Allows the use of a cert file",
 )
 def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=False):
-    print("Searching for customized rules...")
+    console.log("Searching for customized rules...")
 
     class ApiInstance:
         def __init__(self, module, ORIGINAL_URL, ORIGINAL_API_KEY, cert=False):
@@ -100,11 +101,15 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
                         rule_id = rule.attrib["id"]
                         self.edited_rules.append(int(rule_id))
             if len(self.edited_rules) > 1:
-                print(f"Found {len(self.edited_rules)} customized {self.module} rules!")
+                console.log(
+                    f"Found {len(self.edited_rules)} customized {self.module} rules!"
+                )
             elif self.edited_rules:
-                print(f"Found {len(self.edited_rules)} customized {self.module} rule!")
+                console.log(
+                    f"Found {len(self.edited_rules)} customized {self.module} rule!"
+                )
             else:
-                print(f"No customized {self.module} rules detected.")
+                console.log(f"No customized {self.module} rules detected.")
 
     def add_module_rules(api_instance, edited_rules_list):
         rule_list = {
@@ -161,7 +166,7 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
         original_api_key,
         cert,
     )
-    print(f"Creating report at {outfile}...")
+    console.log(f"Creating report at {outfile}...")
     try:
         rule_list = [
             add_module_rules(ip.api, ip.rules),
@@ -169,10 +174,10 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
             add_module_rules(li.api, li.rules),
         ]
     except ApiException as e:
-        print(e)
+        console.log(e)
     json_output = json.dumps(rule_list, indent=2)
     open(outfile, "w").write(json_output)
-    print("DONE!")
+    console.log("DONE!")
 
 
 if __name__ == "__main__":

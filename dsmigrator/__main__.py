@@ -337,9 +337,14 @@ def main(
 
 
 if __name__ == "__main__":
+    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
     ascii_art()
     console.print(
         "Welcome to the Trend Micro Policy Migration Tool",
         style="bold red",
     )
-    main()  # pylint: disable=no-value-for-parameter
+    try:
+        main()  # pylint: disable=no-value-for-parameter
+        console.save_text(filename)
+    except:
+        console.save_text(filename)
