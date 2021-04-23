@@ -4,6 +4,7 @@ import time
 from time import sleep
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 
@@ -122,7 +123,12 @@ def FirewallDescribe(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             allfirewallrule.append(describe)
@@ -175,7 +181,12 @@ def FirewallDescribe(
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -203,7 +214,12 @@ def FirewallDescribe(
                                 "Content-Type": "application/json",
                             }
                             response = requests.request(
-                                "POST", url, headers=headers, data=payload, verify=cert
+                                "POST",
+                                url,
+                                headers=headers,
+                                data=payload,
+                                verify=cert,
+                                retries=10,
                             )
                             console.log(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
@@ -270,7 +286,12 @@ def FirewallCustom(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')

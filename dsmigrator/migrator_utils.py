@@ -5,6 +5,7 @@ import os
 
 import requests
 import urllib3
+import urllib3
 from deepsecurity.rest import ApiException
 
 from rich.logging import RichHandler
@@ -106,7 +107,12 @@ def http_search(
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", endpoint, headers=headers, data=payload, verify=cert
+            "POST",
+            endpoint,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         all_results.append(describe)

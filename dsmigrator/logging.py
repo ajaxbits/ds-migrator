@@ -1,7 +1,6 @@
 import logging
-from rich.console import Console, OverflowMethod
+from rich.console import Console
 from rich.logging import RichHandler
-from rich.traceback import install
 
 FORMAT = "%(message)s"
 logging.basicConfig(

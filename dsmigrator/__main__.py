@@ -10,6 +10,7 @@ import click
 import deepsecurity
 import requests
 import urllib3
+import urllib3
 import yaml
 from rich.console import Console, OverflowMethod
 from rich.logging import RichHandler
@@ -30,6 +31,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
+from dsmigrator.logging import *
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -40,7 +42,6 @@ from dsmigrator.policies import (
 from dsmigrator.proxy import proxy_edit
 from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
-from dsmigrator.logging import *
 
 
 def ascii_art():

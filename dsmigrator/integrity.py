@@ -4,6 +4,7 @@ import time
 from time import sleep
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 
@@ -60,7 +61,12 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             allimrule.append(describe)
@@ -83,7 +89,12 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         taskjson = json.loads(describe)
@@ -141,7 +152,12 @@ def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')

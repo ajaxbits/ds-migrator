@@ -3,6 +3,7 @@ from dsmigrator.logging import console
 
 import requests
 import urllib3
+import urllib3
 from deepsecurity.rest import ApiException
 from nested_lookup import nested_lookup, nested_update
 
@@ -107,7 +108,12 @@ def IPSappDescribe(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             try:
@@ -232,7 +238,12 @@ def IPSDescribe(
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             try:

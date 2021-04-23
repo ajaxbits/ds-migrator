@@ -1,7 +1,7 @@
 {
-    "python.formatting.blackPath": "/nix/store/lsbji63yqv5myzjqdph9gbd0xf8vk6lm-python3-3.7.10-env/bin/black",
+    "python.formatting.blackPath": "/nix/store/pri7mlav0bkvgm7npcllhyzw1ifjs3hw-python3-3.7.10-env/bin/black",
     "editor.formatOnSave": true,
-    "python.pythonPath": "/nix/store/lsbji63yqv5myzjqdph9gbd0xf8vk6lm-python3-3.7.10-env/bin/python",
+    "python.pythonPath": "/nix/store/pri7mlav0bkvgm7npcllhyzw1ifjs3hw-python3-3.7.10-env/bin/python",
     "files.watcherExclude": {
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,

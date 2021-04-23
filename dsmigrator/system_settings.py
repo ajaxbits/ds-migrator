@@ -2,6 +2,7 @@ import sys
 import os
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 from dsmigrator.api_config import SystemSettingsApiInstance
@@ -18,7 +19,14 @@ def ListSettings(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     settings_dict = json.loads(describe)
     # console.log(settings_dict)

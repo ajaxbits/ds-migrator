@@ -2,6 +2,7 @@ import sys
 import os
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 from dsmigrator.api_config import ComputerGroupsApiInstance
@@ -29,7 +30,14 @@ def ListGroup(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     oldetname = []
     oldetid = []
@@ -55,7 +63,12 @@ def GetGroup(etIDs, url_link_final, tenant1key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             allet.append(describe)

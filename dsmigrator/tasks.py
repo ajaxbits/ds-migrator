@@ -2,6 +2,7 @@ import sys
 import os
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 from nested_lookup import nested_lookup, nested_update
@@ -41,7 +42,14 @@ def ListEventTask(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     oldetname = []
     oldetid = []
@@ -67,7 +75,12 @@ def GetEventTask(etIDs, url_link_final, tenant1key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             allet.append(describe)
@@ -122,7 +135,14 @@ def ListScheduledTask(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     oldstname = []
     oldstid = []
     st_json = json.loads(str(response.text)).get("scheduledTasks")
@@ -147,7 +167,12 @@ def GetScheduledTask(stIDs, url_link_final, tenant1key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "GET", url, headers=headers, data=payload, verify=cert
+                "GET",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             allst.append(describe)

@@ -4,6 +4,7 @@ import time
 from time import sleep
 import requests
 import urllib3
+import urllib3
 import json
 from dsmigrator.logging import console
 from dsmigrator.api_config import (
@@ -98,7 +99,12 @@ def DirListTenant1(directorylist, url_link_final, tenant1key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "GET", url, headers=headers, data=payload, verify=cert
+            "GET",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         alldirectory.append(describe)
@@ -118,7 +124,12 @@ def FileExtensionListTenant1(fileextentionlist, url_link_final, tenant1key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "GET", url, headers=headers, data=payload, verify=cert
+            "GET",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         allfileextention.append(describe)
@@ -138,7 +149,12 @@ def FileListTenant1(filelist, url_link_final, tenant1key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "GET", url, headers=headers, data=payload, verify=cert
+            "GET",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         allfilelist.append(describe)
@@ -219,7 +235,14 @@ def PortListGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     ports_json = json.loads(describe).get("portLists")
     if ports_json is not None:
@@ -249,7 +272,12 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         index = describe.find(dirlist)
@@ -272,7 +300,12 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         t2portlistid.append(str(indexid))
                         console.log("#" + str(count) + " Port List ID:" + indexid)
@@ -285,7 +318,12 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')
@@ -319,7 +357,14 @@ def MacListGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     mac_json = json.loads(describe).get("macLists")
     if mac_json is not None:
@@ -350,7 +395,12 @@ def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         index = describe.find(dirlist)
@@ -373,7 +423,12 @@ def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         t2maclistid.append(str(indexid))
                         console.log("#" + str(count) + " MAC List ID: " + indexid)
@@ -386,7 +441,12 @@ def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')
@@ -420,7 +480,14 @@ def IpListGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     ip_json = json.loads(describe).get("ipLists")
     if ip_json:
@@ -450,7 +517,12 @@ def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
             "Content-Type": "application/json",
         }
         response = requests.request(
-            "POST", url, headers=headers, data=payload, verify=cert
+            "POST",
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+            retries=10,
         )
         describe = str(response.text)
         index = describe.find(dirlist)
@@ -473,7 +545,12 @@ def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         t2iplistid.append(str(indexid))
                         console.log("#" + str(count) + " IP List ID: " + indexid)
@@ -486,7 +563,12 @@ def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             index = describe.find('"ID"')
@@ -520,7 +602,14 @@ def StatefulGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     stateful_json = json.loads(describe).get("statefulConfigurations")
     if stateful_json is not None:
@@ -553,7 +642,12 @@ def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             taskjson = json.loads(describe)
@@ -573,7 +667,12 @@ def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
@@ -599,7 +698,12 @@ def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
                         "Content-Type": "application/json",
                     }
                     response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
+                        "POST",
+                        url,
+                        headers=headers,
+                        data=payload,
+                        verify=cert,
+                        retries=10,
                     )
                     describe = str(response.text)
                     taskjson = json.loads(describe)
@@ -632,7 +736,14 @@ def ContextGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     contexts_json = json.loads(describe).get("contexts")
     if contexts_json is not None:
@@ -665,7 +776,12 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             taskjson = json.loads(describe)
@@ -681,7 +797,12 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
@@ -707,7 +828,12 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
                         "Content-Type": "application/json",
                     }
                     response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
+                        "POST",
+                        url,
+                        headers=headers,
+                        data=payload,
+                        verify=cert,
+                        retries=10,
                     )
                     describe = str(response.text)
                     taskjson = json.loads(describe)
@@ -737,7 +863,14 @@ def ScheduleGet(url_link_final, tenant1key):
         "api-version": "v1",
         "Content-Type": "application/json",
     }
-    response = requests.request("GET", url, headers=headers, data=payload, verify=cert)
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        data=payload,
+        verify=cert,
+        retries=10,
+    )
     describe = str(response.text)
     schedules_json = json.loads(describe).get("schedules")
     if schedules_json is not None:
@@ -770,7 +903,12 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                 "Content-Type": "application/json",
             }
             response = requests.request(
-                "POST", url, headers=headers, data=payload, verify=cert
+                "POST",
+                url,
+                headers=headers,
+                data=payload,
+                verify=cert,
+                retries=10,
             )
             describe = str(response.text)
             taskjson = json.loads(describe)
@@ -786,7 +924,12 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                             "Content-Type": "application/json",
                         }
                         response = requests.request(
-                            "POST", url, headers=headers, data=payload, verify=cert
+                            "POST",
+                            url,
+                            headers=headers,
+                            data=payload,
+                            verify=cert,
+                            retries=10,
                         )
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
@@ -812,7 +955,12 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                         "Content-Type": "application/json",
                     }
                     response = requests.request(
-                        "POST", url, headers=headers, data=payload, verify=cert
+                        "POST",
+                        url,
+                        headers=headers,
+                        data=payload,
+                        verify=cert,
+                        retries=10,
                     )
                     describe = str(response.text)
                     taskjson = json.loads(describe)
