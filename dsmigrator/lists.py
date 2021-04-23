@@ -193,7 +193,6 @@ def DirListTenant2(alldirectory, NEW_API_KEY):
         alldirectorynew = validate_create(
             alldirectory, DirectoryListsApiInstance(NEW_API_KEY), "directory"
         )
-        console.log("new directory list")
     console.log(alldirectorynew)
     return alldirectorynew
 

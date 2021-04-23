@@ -10,6 +10,7 @@ def to_snake(camel_case):
     pattern = re.compile(r"(?<!^)(?=[A-Z])")
     snake = pattern.sub("_", camel_case).lower()
     snake = snake.replace("application_type_i_d", "application_type_id")
+    snake = snake.replace("_i_d", "_id")
     return snake
 
 
@@ -112,14 +113,9 @@ class DirectoryListsApiInstance(RestApiConfiguration):
 
     def search(self, name):
         filter = self.name_search_filter(name)
-        try:
-            results = self.api_instance.search_directory_lists(
-                "v1", search_filter=filter
-            )
-            if results.directory_lists:
-                return results.directory_lists[0].id
-        except ApiException as e:
-            log.exception(e)
+        results = self.api_instance.search_directory_lists("v1", search_filter=filter)
+        if results.directory_lists:
+            return results.directory_lists[0].id
 
     def create(self, json_dirlist):
         dirlist = deepsecurity.DirectoryList()

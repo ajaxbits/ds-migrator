@@ -5,14 +5,7 @@ import os
 
 import requests
 import urllib3
-import urllib3
 from deepsecurity.rest import ApiException
-
-from rich.logging import RichHandler
-
-# # rich logging
-# class Logging:
-#     def __init__(self):
 
 
 def safe_list_get(l: list, idx: int):

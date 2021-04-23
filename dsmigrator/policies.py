@@ -6,7 +6,7 @@ import requests
 import urllib3
 import urllib3
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import console, log
 from types import SimpleNamespace
 from dsmigrator.api_config import PolicyApiInstance
 from rich.progress import Progress
@@ -134,20 +134,19 @@ def validate_create(all_old, api_instance, type):
         oldjson = json.loads(dirlist)
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
-        policysettings = oldjson.get("policySettings")
-        if policysettings is not None:
-            policysettings["platformSettingAgentCommunicationsDirection"] = {
+        # cleanup input
+        # policysettings = oldjson.get("policySettings")
+        if "policySettings" in oldjson.keys():
+            oldjson["policySettings"]["platformSettingAgentCommunicationsDirection"] = {
                 "value": "Agent/Appliance Initiated"
             }
+        if "parentID" in oldjson.keys():
+            oldjson["parentID"] = id_dict[oldjson["parentID"]]
         while namecheck != -1:
-            if "parentID" in oldjson.keys():
-                newparentid = id_dict[oldjson["parentID"]]
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname).id
                 id_dict[oldid] = newid
-                if "parentID" in oldjson.keys():
-                    api_instance.modify_parent(newid, newparentid)
                 console.log(
                     "#"
                     + str(count)
@@ -169,12 +168,9 @@ def validate_create(all_old, api_instance, type):
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    console.log(e.body)
-                    console.log(
-                        f"[bold bright_red]WARNING[/bold bright_red]: {oldname} could not be transferred. Please transfer manually."
-                    )
-                    console.log(
-                        "[i]NOTE: This is under construction and will work soon. :)[/i]"
+                    log.exception(e)
+                    log.critical(
+                        f"{oldname} could not be transferred. Please transfer manually."
                     )
                     namecheck = -1
     id_dict[0] = 0
