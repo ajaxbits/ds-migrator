@@ -305,8 +305,6 @@ def FirewallCustom(
                 print(describe, flush=True)
                 print(payload, flush=True)
         print("Done!", flush=True)
-    # print("all new firewall rule custom rule")
-    # print(allfirewallruleidnew2)
     return allfirewallruleidnew2
 
 

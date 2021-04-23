@@ -40,10 +40,7 @@ from dsmigrator.policies import (
 from dsmigrator.proxy import proxy_edit
 from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
-
-install()
-
-console = Console()
+from dsmigrator.logging import *
 
 
 def ascii_art():
@@ -82,7 +79,8 @@ class Logger(object):
     def __init__(self):
         self.terminal = sys.stdout
         filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(f"./{filename}", "a")
+        # self.log = open(f"./{filename}", "a")
+        self.log = open(f"./{filename}", "a", encoding="utf-8")
 
     def write(self, message):
         self.terminal.write(message)
@@ -196,8 +194,8 @@ def main(
     delete_policies,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
-    sys.stdout = Logger()
-    sys.stderr = sys.stdout
+    # sys.stdout = Logger()
+    # sys.stderr = sys.stdout
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
