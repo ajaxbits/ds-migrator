@@ -72,19 +72,7 @@ def ascii_art():
     )
 
 
-class Logger(object):
-    def flush(self):
-        pass
-
-    def __init__(self):
-        self.terminal = sys.stdout
-        filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        # self.log = open(f"./{filename}", "a")
-        self.log = open(f"./{filename}", "a", encoding="utf-8")
-
-    def write(self, message):
-        self.terminal.write(message)
-        self.log.write(message)
+filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
 
 
 # override the click invoke method
@@ -106,20 +94,32 @@ def CommandWithConfigFile(config_file_param_name):
 
 
 def validate_api_keys(ctx, param, api_key):
-    last_equal = api_key[-1] == "="
-    first_validation_bit = api_key.split("-")
-    last_validation_bit = first_validation_bit[4].split(":")
-    clean_list = [i for i in first_validation_bit[0:4]]
-    clean_list.append(last_validation_bit[0])
-    validate_list = [len(i) for i in clean_list]
-    validate_list.append(last_equal)
+    try:
+        last_equal = api_key[-1] == "="
+        first_validation_bit = api_key.split("-")
+        last_validation_bit = first_validation_bit[4].split(":")
+        clean_list = [i for i in first_validation_bit[0:4]]
+        clean_list.append(last_validation_bit[0])
+        validate_list = [len(i) for i in clean_list]
+        validate_list.append(last_equal)
 
-    if validate_list == [8, 4, 4, 4, 12, True]:
-        return api_key
-    else:
+        if validate_list == [8, 4, 4, 4, 12, True]:
+            return api_key
+        else:
+            raise click.BadParameter(
+                "Invalid API key format, please double-check the input."
+            )
+    except:
         raise click.BadParameter(
             "Invalid API key format, please double-check the input."
         )
+
+
+ascii_art()
+console.print(
+    "Welcome to the Trend Micro Policy Migration Tool",
+    style="bold red",
+)
 
 
 @click.command(cls=CommandWithConfigFile("config_file"))
@@ -136,7 +136,6 @@ def validate_api_keys(ctx, param, api_key):
     "--original-api-key",
     callback=validate_api_keys,
     prompt="Old DSM API key",
-    hide_input=True,
     help="API key for the old DSM with Full Access permissions",
     envvar="ORIGINAL_API_KEY",
 )
@@ -151,7 +150,6 @@ def validate_api_keys(ctx, param, api_key):
     "-coa",
     "--cloud-one-api-key",
     prompt="New Cloud One API key",
-    hide_input=True,
     help="API key for Cloud One Workload Security with Full Access permissions",
     envvar="CLOUD_ONE_API_KEY",
 )
@@ -194,8 +192,6 @@ def main(
     delete_policies,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
-    # sys.stdout = Logger()
-    # sys.stderr = sys.stdout
     OLD_API_KEY = original_api_key
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
@@ -205,21 +201,25 @@ def main(
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if delete_policies:
+        console.save_text(filename)
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
     old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
+    console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Configurations")
     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
         antimalwareconfig, OLD_HOST, OLD_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("Lists")
     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
         amdirectorylist,
@@ -249,12 +249,14 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
+    console.save_text(filename, clear=False)
     console.rule("DSM Settings")
     settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
 
     proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
 
     # TRANSFORM
+    console.save_text(filename, clear=False)
     console.rule("Intrusion Prevention Module")
     allofpolicy = ips_rules_transform(
         allofpolicy,
@@ -269,6 +271,7 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Module")
     allofpolicy = am_validate_create(
         allofpolicy,
@@ -283,14 +286,17 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Integrity Monitoring Module")
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.save_text(filename, clear=False)
     console.rule("Log Inspection Module")
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
+    console.save_text(filename, clear=False)
     console.rule("Firewall Module")
     allofpolicy = firewall_config_transform(
         allofpolicy,
@@ -311,9 +317,11 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
+    console.save_text(filename, clear=False)
     console.rule("Final Policy Migration")
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     if tasks:
+        console.save_text(filename, clear=False)
         console.rule("Tasks")
         computer_group_dict = computer_group_listmaker(
             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
@@ -337,14 +345,4 @@ def main(
 
 
 if __name__ == "__main__":
-    filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-    ascii_art()
-    console.print(
-        "Welcome to the Trend Micro Policy Migration Tool",
-        style="bold red",
-    )
-    try:
-        main()  # pylint: disable=no-value-for-parameter
-        console.save_text(filename)
-    except:
-        console.save_text(filename)
+    main()  # pylint: disable=no-value-for-parameter
