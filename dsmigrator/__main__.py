@@ -1,5 +1,6 @@
 import datetime
 import logging
+import codecs
 import os
 import sys
 import time
@@ -89,7 +90,7 @@ class Logger(object):
     def __init__(self):
         self.terminal = sys.stdout
         filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
-        self.log = open(f"./{filename}", "a")
+        self.log = open(f"./{filename}", "a", encoding="utf-8")
 
     def write(self, message):
         self.terminal.write(message)
@@ -349,4 +350,5 @@ def main(
 
 
 if __name__ == "__main__":
+    os.environ["PYTHONIOENCODING"] = "utf-8"
     main()  # pylint: disable=no-value-for-parameter
