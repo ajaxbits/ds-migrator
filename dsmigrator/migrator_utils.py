@@ -1,7 +1,9 @@
 import json
-from dsmigrator.logging import console
+import sys
+from dsmigrator.logging import console, log
 import logging
 import os
+from typing import Union
 
 import requests
 import urllib3
@@ -45,6 +47,44 @@ def to_title(snake_case):
     temp = str(snake_case).split("_")
     title = " ".join(ele.title() for ele in temp)
     return title
+
+
+def safe_request(
+    old_api_key: str, http_method: str, url: str, payload: dict, cert: Union[str, bool]
+) -> requests.models.Response:
+    """
+    Makes a request through the requests module, and handles errors through rich
+
+    Args:
+        old_api_key (str): self-explanatory
+        http_method (str): "GET", "POST", etc
+        url (str): of form "https://www.google.com/"
+        payload (dict): Dict version of json payload
+        cert (Union[str, bool]): if using a cert, pass string file path here. If not, pass False.
+
+    Returns:
+        requests.models.Response: Response object from Requests
+    """
+    headers = {
+        "api-secret-key": old_api_key,
+        "api-version": "v1",
+        "Content-Type": "application/json",
+    }
+    try:
+        return requests.request(
+            http_method,
+            url,
+            headers=headers,
+            data=payload,
+            verify=cert,
+        )
+    except Exception as e:
+        log.exception(e)
+        log.critical(
+            "Having trouble connecting to the old DSM. Please ensure the url and routes are correct."
+        )
+        log.critical("Aborting...")
+        sys.exit(0)
 
 
 def http_list_get(type, OLD_HOST, OLD_API_KEY, cert=False):

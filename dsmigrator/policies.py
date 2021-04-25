@@ -1,15 +1,17 @@
-import sys
+import json
 import os
+import sys
+from types import SimpleNamespace
+
 import deepsecurity
-from deepsecurity.rest import ApiException
 import requests
 import urllib3
-import urllib3
-import json
-from dsmigrator.logging import console, log
-from types import SimpleNamespace
-from dsmigrator.api_config import PolicyApiInstance
+from deepsecurity.rest import ApiException
 from rich.progress import Progress
+
+from dsmigrator.api_config import PolicyApiInstance
+from dsmigrator.migrator_utils import safe_request
+from dsmigrator.logging import console, log
 
 cert = False
 
@@ -44,18 +46,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
 def ListAllPolicy(url_link_final, tenant1key):
     payload = {}
     url = url_link_final + "api/policies"
-    headers = {
-        "api-secret-key": tenant1key,
-        "api-version": "v1",
-        "Content-Type": "application/json",
-    }
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        data=payload,
-        verify=cert,
-    )
+    response = safe_request(tenant1key, "GET", url, payload=payload, cert=cert)
     describe = str(response.text)
     oldpolicyname = []
     oldpolicyid = []
@@ -72,29 +63,16 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     i = 0
     console.log("Getting Policy from Deep Security")
     for count, part in enumerate(policyIDs):
-
         payload = {}
         url = url_link_final + "api/policies/" + str(part)
-        headers = {
-            "api-secret-key": tenant1key,
-            "api-version": "v1",
-            "Content-Type": "application/json",
-        }
-        response = requests.request(
-            "GET",
-            url,
-            headers=headers,
-            data=payload,
-            verify=cert,
-        )
-
-        describe = str(response.text)
+        response = safe_request(tenant1key, "GET", url, payload=payload, cert=cert)
+        policy_string = str(response.text)
         i = i + 1
-        allofpolicy.append(describe)
+        allofpolicy.append(policy_string)
         console.log("#" + str(count) + " Policy ID: " + str(part))
-        rtscan = describe.find("realTimeScanConfigurationID")
+        rtscan = policy_string.find("realTimeScanConfigurationID")
         if rtscan != -1:
-            rtpart = describe[rtscan + 28 :]
+            rtpart = policy_string[rtscan + 28 :]
             startIndex = rtpart.find(":")
             if startIndex != -1:  # i.e. if the first quote was found
                 endIndex = rtpart.find(",", startIndex + 1)
@@ -102,9 +80,9 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
                     rtid = rtpart[startIndex + 1 : endIndex]
                     antimalwareconfig.append(str(rtid))
 
-        mscan = describe.find("manualScanConfigurationID")
+        mscan = policy_string.find("manualScanConfigurationID")
         if mscan != -1:
-            mpart = describe[mscan + 26 :]
+            mpart = policy_string[mscan + 26 :]
             startIndex = mpart.find(":")
             if startIndex != -1:  # i.e. if the first quote was found
                 endIndex = mpart.find(",", startIndex + 1)
@@ -112,9 +90,9 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
                     mid = mpart[startIndex + 1 : endIndex]
                     antimalwareconfig.append(str(mid))
 
-        sscan = describe.find("scheduledScanConfigurationID")
+        sscan = policy_string.find("scheduledScanConfigurationID")
         if sscan != -1:
-            spart = describe[sscan + 29 :]
+            spart = policy_string[sscan + 29 :]
             startIndex = spart.find(":")
             if startIndex != -1:  # i.e. if the first quote was found
                 endIndex = spart.find("}", startIndex + 1)
@@ -125,7 +103,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     return antimalwareconfig, allofpolicy
 
 
-def validate_create(all_old, api_instance, type):
+def policy_validate_create(all_old, api_instance, type):
     all_new = []
     id_dict = {}
     for count, dirlist in enumerate(all_old):
@@ -135,7 +113,6 @@ def validate_create(all_old, api_instance, type):
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
         # cleanup input
-        # policysettings = oldjson.get("policySettings")
         if "policySettings" in oldjson.keys():
             oldjson["policySettings"]["platformSettingAgentCommunicationsDirection"] = {
                 "value": "Agent/Appliance Initiated"
@@ -169,7 +146,7 @@ def validate_create(all_old, api_instance, type):
                     rename = rename + 1
                 else:
                     log.exception(e)
-                    log.critical(
+                    log.error(
                         f"{oldname} could not be transferred. Please transfer manually."
                     )
                     namecheck = -1
@@ -183,4 +160,6 @@ cert = False
 def AddPolicy(allofpolicy, NEW_API_KEY):
     console.log("Creating Policy to Tenant 2 with new ID")
     if allofpolicy:
-        return validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")
+        return policy_validate_create(
+            allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy"
+        )
