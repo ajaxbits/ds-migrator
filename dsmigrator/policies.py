@@ -1,15 +1,17 @@
-import sys
+import json
 import os
+import sys
+from types import SimpleNamespace
+
 import deepsecurity
-from deepsecurity.rest import ApiException
 import requests
 import urllib3
-import urllib3
-import json
-from dsmigrator.logging import console, log
-from types import SimpleNamespace
-from dsmigrator.api_config import PolicyApiInstance
+from deepsecurity.rest import ApiException
 from rich.progress import Progress
+
+from dsmigrator.api_config import PolicyApiInstance
+from dsmigrator.migrator_utils import safe_request
+from dsmigrator.logging import console, log
 
 cert = False
 
@@ -44,18 +46,27 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
 def ListAllPolicy(url_link_final, tenant1key):
     payload = {}
     url = url_link_final + "api/policies"
-    headers = {
-        "api-secret-key": tenant1key,
-        "api-version": "v1",
-        "Content-Type": "application/json",
-    }
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        data=payload,
-        verify=cert,
-    )
+    # headers = {
+    #     "api-secret-key": tenant1key,
+    #     "api-version": "v1",
+    #     "Content-Type": "application/json",
+    # }
+    response = safe_request(tenant1key, "GET", url, payload=payload, cert=cert)
+    # try:
+    #     response = requests.request(
+    #         "GET",
+    #         url,
+    #         headers=headers,
+    #         data=payload,
+    #         verify=cert,
+    #     )
+    # except Exception as e:
+    #     log.exception(e)
+    #     log.critical(
+    #         "Having trouble connecting to the old DSM. Please ensure the url and routes are correct."
+    #     )
+    #     log.critical("Aborting...")
+    #     sys.exit(1)
     describe = str(response.text)
     oldpolicyname = []
     oldpolicyid = []
@@ -125,7 +136,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     return antimalwareconfig, allofpolicy
 
 
-def validate_create(all_old, api_instance, type):
+def policy_validate_create(all_old, api_instance, type):
     all_new = []
     id_dict = {}
     for count, dirlist in enumerate(all_old):
@@ -135,7 +146,6 @@ def validate_create(all_old, api_instance, type):
         oldname = oldjson["name"]
         oldid = oldjson["ID"]
         # cleanup input
-        # policysettings = oldjson.get("policySettings")
         if "policySettings" in oldjson.keys():
             oldjson["policySettings"]["platformSettingAgentCommunicationsDirection"] = {
                 "value": "Agent/Appliance Initiated"
@@ -169,7 +179,7 @@ def validate_create(all_old, api_instance, type):
                     rename = rename + 1
                 else:
                     log.exception(e)
-                    log.critical(
+                    log.error(
                         f"{oldname} could not be transferred. Please transfer manually."
                     )
                     namecheck = -1
@@ -183,4 +193,6 @@ cert = False
 def AddPolicy(allofpolicy, NEW_API_KEY):
     console.log("Creating Policy to Tenant 2 with new ID")
     if allofpolicy:
-        return validate_create(allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy")
+        return policy_validate_create(
+            allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy"
+        )

@@ -2,8 +2,8 @@ import unittest
 import urllib3
 import json
 from dsmigrator.logging import console
+from dsmigrator.migrator_utils import safe_request
 import os
-from dsmigrator.lists import *
 
 OLD_API_KEY = os.environ.get("ORIGINAL_API_KEY")
 OLD_HOST = os.environ.get("ORIGINAL_URL")
@@ -12,28 +12,13 @@ NEW_HOST = os.environ.get("NEW_URL")
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 cert = False
 
-test_ebt_dict = {
-    "eventBasedTasks": [
-        {
-            "name": "Computer Moved",
-            "type": "computer-moved-by-system",
-            "enabled": True,
-            "actions": [{"type": "deactivate"}],
-            "conditions": [{"field": "applianceProtectionActivated", "value": "true"}],
-            "ID": 5,
-        }
-    ]
-}
 
-
-class TestLists(unittest.TestCase):
-    def test_listeventtask(self):
-        self.assertEqual(
-            ListEventTask(OLD_HOST, OLD_API_KEY)[1],
-            ["5"],
-            "Should be Advanced Real-Time Scan Configuration",
+class TestSafeHttp(unittest.TestCase):
+    def test_basic_connection(self):
+        response = safe_request(
+            OLD_API_KEY, "GET", url=f"{OLD_HOST}api/policies", payload={}, cert=False
         )
-        self.assertEqual.__self__.maxDiff = None
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == "__main__":
