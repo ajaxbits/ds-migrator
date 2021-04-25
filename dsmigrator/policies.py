@@ -1,4 +1,5 @@
 import json
+import typing
 import os
 import sys
 from types import SimpleNamespace
@@ -103,7 +104,24 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     return antimalwareconfig, allofpolicy
 
 
-def policy_validate_create(all_old, api_instance, type):
+def policy_validate_create(
+    all_old: typing.List[str], api_instance: PolicyApiInstance, type: str
+) -> typing.Dict[int, int]:
+    """
+    Takes in a list of json strings that represent policies, sets some key
+    settings, assigns the proper parent ID to each, creates each policy,
+    renames if necessary, and outputs a dictionary of form
+    {oldid: newid, ...} for future use.
+
+    Args:
+        all_old (typing.List[str]): A list containing strings of json data
+                                    representing policies
+        api_instance (PolicyApiInstance): From api_config, a wrapper SDK class
+        type (str): The type of output for printing purposes
+
+    Returns:
+        typing.Dict[int, int]: dict of form {oldid:newid, ...}
+    """
     all_new = []
     id_dict = {}
     for count, dirlist in enumerate(all_old):
@@ -117,8 +135,17 @@ def policy_validate_create(all_old, api_instance, type):
             oldjson["policySettings"]["platformSettingAgentCommunicationsDirection"] = {
                 "value": "Agent/Appliance Initiated"
             }
-        if "parentID" in oldjson.keys():
-            oldjson["parentID"] = id_dict[oldjson["parentID"]]
+        # Modify parent ID. If errors, to prevent wasted time, create policy at base level.
+        try:
+            if "parentID" in oldjson.keys():
+                oldjson["parentID"] = id_dict[oldjson["parentID"]]
+        except Exception as e:
+            log.exception(e)
+            log.error(
+                "ParentID error. Creating policy at base level, please set inheritance manually."
+            )
+            del oldjson["parentID"]
+            pass
         while namecheck != -1:
             try:
                 newname = api_instance.create(oldjson)
@@ -157,7 +184,7 @@ def policy_validate_create(all_old, api_instance, type):
 cert = False
 
 
-def AddPolicy(allofpolicy, NEW_API_KEY):
+def AddPolicy(allofpolicy: typing.List[str], NEW_API_KEY: str) -> typing.Dict[int, int]:
     console.log("Creating Policy to Tenant 2 with new ID")
     if allofpolicy:
         return policy_validate_create(
