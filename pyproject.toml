@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dsmigrator"
-version = "0.4.7"
+version = "0.4.8"
 description = "A cli tool to migrate Trend Micro Deep Security to the cloud."
 authors = ["Alex Jackson <alex_jackson@trendmicro.com>", "Ethan Parent<ethan_parent@trendmicro.com>"]
 readme = "README.md"
