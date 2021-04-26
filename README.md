@@ -8,10 +8,8 @@
 </p>
 <p align="center">Automatically.</p>
 
-
-<!-- # Trend Micro Deep Security Migrator
-
-**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.** -->
+<details>
+  <summary>TABLE OF CONTENTS</summary>
 
 - [Quickstart](#quickstart)
 - [Capabilities](#capabilities)
@@ -23,6 +21,7 @@
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
+</details>
 
 ## Quickstart
 
