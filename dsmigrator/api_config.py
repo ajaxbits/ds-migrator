@@ -1,5 +1,5 @@
 import json
-from dsmigrator.logging import console, log
+from dsmigrator.logging import console, error_console, filename, log
 import deepsecurity
 from deepsecurity.rest import ApiException
 import re

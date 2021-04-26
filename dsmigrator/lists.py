@@ -12,7 +12,12 @@ from dsmigrator.api_config import (
     FileListsApiInstance,
     FileExtensionListsApiInstance,
 )
-from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
+from dsmigrator.migrator_utils import (
+    validate_create,
+    value_exists,
+    rename_json,
+    safe_request,
+)
 
 cert = False
 
@@ -53,14 +58,14 @@ def port_listmaker(
 
 
 def mac_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
-    t1maclistname, t1maclistid = MacListGet(OLD_HOST, OLD_API_KEY)
-    t2maclistid = MacListCreate(t1maclistid, t1maclistname, NEW_HOST, NEW_API_KEY)
+    t1maclistall, t1maclistname, t1maclistid = MacListGet(OLD_HOST, OLD_API_KEY)
+    t2maclistid = MacListCreate(t1maclistall, t1maclistname, NEW_HOST, NEW_API_KEY)
     return t1maclistid, t2maclistid
 
 
 def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
-    t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
-    t2iplistid = IpListCreate(t1iplistid, t1iplistname, NEW_HOST, NEW_API_KEY)
+    t1iplistall, t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
+    t2iplistid = IpListCreate(t1iplistall, t1iplistname, NEW_HOST, NEW_API_KEY)
     return t1iplistid, t2iplistid
 
 
@@ -224,20 +229,8 @@ def PortListGet(url_link_final, tenant1key):
     t1portlistname = []
     t1portlistid = []
     console.log("Getting All Port List...")
-    payload = {}
     url = url_link_final + "api/portlists"
-    headers = {
-        "api-secret-key": tenant1key,
-        "api-version": "v1",
-        "Content-Type": "application/json",
-    }
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        data=payload,
-        verify=cert,
-    )
+    response = safe_request(tenant1key, "GET", url, payload={}, cert=cert)
     describe = str(response.text)
     ports_json = json.loads(describe).get("portLists")
     if ports_json is not None:
@@ -301,7 +294,7 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
                             verify=cert,
                         )
                         t2portlistid.append(str(indexid))
-                        console.log("#" + str(count) + " Port List ID:" + indexid)
+                        console.log("#" + str(count) + " Port List ID: " + indexid)
         else:
             payload = t1portlistall[count]
             url = url_link_final_2 + "api/portlists"
@@ -342,32 +335,20 @@ def MacListGet(url_link_final, tenant1key):
     t1maclistname = []
     t1maclistid = []
     console.log("Getting All Mac List...")
-    payload = {}
     url = url_link_final + "api/maclists"
-    headers = {
-        "api-secret-key": tenant1key,
-        "api-version": "v1",
-        "Content-Type": "application/json",
-    }
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        data=payload,
-        verify=cert,
-    )
+    response = safe_request(tenant1key, "GET", url, payload={}, cert=cert)
     describe = str(response.text)
     mac_json = json.loads(describe).get("macLists")
     if mac_json is not None:
         for count, here in enumerate(mac_json):
-            t1maclistall.append(str(json.dumps(here)))
+            t1maclistall.append(json.dumps(here))
             t1maclistname.append(str(here["name"]))
             console.log("#" + str(count) + " Mac List name: " + str(here["name"]))
             t1maclistid.append(str(here["ID"]))
             console.log("#" + str(count) + " Mac List ID: " + str(here["ID"]))
 
         console.log("Done!")
-    return t1maclistname, t1maclistid
+    return t1maclistall, t1maclistname, t1maclistid
 
 
 def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
@@ -479,13 +460,13 @@ def IpListGet(url_link_final, tenant1key):
     ip_json = json.loads(describe).get("ipLists")
     if ip_json:
         for count, here in enumerate(ip_json):
-            t1iplistall.append(str(json.dumps(here)))
+            t1iplistall.append(json.dumps(here))
             t1iplistname.append(str(here["name"]))
             console.log("#" + str(count) + " IP List name: " + str(here["name"]))
             t1iplistid.append(str(here["ID"]))
             console.log("#" + str(count) + " IP List ID: " + str(here["ID"]))
         console.log("Done!")
-    return t1iplistname, t1iplistid
+    return t1iplistall, t1iplistname, t1iplistid
 
 
 def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
