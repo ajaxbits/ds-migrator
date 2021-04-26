@@ -6,7 +6,7 @@ import requests
 import urllib3
 import urllib3
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import console, log
 
 
 def proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid):
@@ -79,9 +79,16 @@ def proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid):
             if here:
                 if here != "NONE":
                     indexnum = t1iplistid.index(here)
-                    policyjson["policySettings"][
-                        "firewallSettingEventLogFileIgnoreSourceIpListId"
-                    ]["value"] = t2iplistid[indexnum]
+                    try:
+                        policyjson["policySettings"][
+                            "firewallSettingEventLogFileIgnoreSourceIpListId"
+                        ]["value"] = t2iplistid[indexnum]
+                    except Exception as e:
+                        log.exception(e)
+                        log.error(
+                            f"Error in policy settings transfer for firewall event exceptions for {policyjson.get('name')}. Transfer will continue, but double check after transfer."
+                        )
+                        pass
 
             here = policyjson["policySettings"][
                 "webReputationSettingMonitorPortListId"

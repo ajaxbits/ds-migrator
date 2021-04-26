@@ -252,9 +252,25 @@ def main(
 
     console.save_text(filename, clear=False)
     console.rule("DSM Settings")
-    settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
+    try:
+        settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
+    except Exception as e:
+        log.exception(e)
+        log.error("There was an error in the DSM settings transfer.")
+        log.error(
+            "Transfer will continue, but please double check the settings in Cloud One."
+        )
+        pass
 
-    proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
+    try:
+        proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
+    except Exception as e:
+        log.exception(e)
+        log.error("There was a critical error in transferring proxy settings.")
+        log.error(
+            "Transfer will continue, but please double check the proxy settings in Cloud One"
+        )
+        pass
 
     # TRANSFORM
     console.save_text(filename, clear=False)

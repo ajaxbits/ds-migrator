@@ -64,8 +64,8 @@ def mac_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
 
 
 def ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
-    t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
-    t2iplistid = IpListCreate(t1iplistid, t1iplistname, NEW_HOST, NEW_API_KEY)
+    t1iplistall, t1iplistname, t1iplistid = IpListGet(OLD_HOST, OLD_API_KEY)
+    t2iplistid = IpListCreate(t1iplistall, t1iplistname, NEW_HOST, NEW_API_KEY)
     return t1iplistid, t2iplistid
 
 
@@ -460,13 +460,13 @@ def IpListGet(url_link_final, tenant1key):
     ip_json = json.loads(describe).get("ipLists")
     if ip_json:
         for count, here in enumerate(ip_json):
-            t1iplistall.append(str(json.dumps(here)))
+            t1iplistall.append(json.dumps(here))
             t1iplistname.append(str(here["name"]))
             console.log("#" + str(count) + " IP List name: " + str(here["name"]))
             t1iplistid.append(str(here["ID"]))
             console.log("#" + str(count) + " IP List ID: " + str(here["ID"]))
         console.log("Done!")
-    return t1iplistname, t1iplistid
+    return t1iplistall, t1iplistname, t1iplistid
 
 
 def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
