@@ -1,6 +1,6 @@
+import codecs
 import datetime
 import logging
-import codecs
 import os
 import sys
 import time
@@ -10,7 +10,6 @@ from datetime import datetime
 import click
 import deepsecurity
 import requests
-import urllib3
 import urllib3
 import yaml
 from rich.console import Console, OverflowMethod
@@ -32,7 +31,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
-from dsmigrator.logging import console, error_console, error_console, log, filename
+from dsmigrator.logging import console, error_console, filename, log
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -45,9 +44,9 @@ from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
 
 
-def ascii_art():
-    console.print(
-        """\
+# Welcome Banner
+console.print(
+    """\
                                                       
               %###################,               
           #############################           
@@ -69,27 +68,43 @@ def ascii_art():
            \\###########################           
                ###################               
     """,
-        style="bold red",
-        overflow="crop",
-    )
+    style="bold red",
+    overflow="crop",
+)
+console.print(
+    "Welcome to the Trend Micro Policy Migration Tool",
+    style="bold red",
+)
 
 
-# override the click invoke method
-def CommandWithConfigFile(config_file_param_name):
-    class CustomCommandClass(click.Command):
-        def invoke(self, ctx):
-            config_file = ctx.params[config_file_param_name]
-            if config_file is not None:
-                with open(config_file) as f:
-                    config_data = yaml.safe_load(f)
-                    for param, value in ctx.params.items():
-                        if value is None and param in config_data:
-                            ctx.params[param] = config_data[param]
-                            ctx.params[param].prompt = None
+# Init helpers
 
-            return super(CustomCommandClass, self).invoke(ctx)
 
-    return CustomCommandClass
+def validate_url(ctx, param, url: str) -> str:
+    """
+    Makes sure urls start with 'http' and end with a '/'
+
+    Args:
+        ctx: necessary for click
+        param: necessary for click
+        url (str): url string
+
+    Raises:
+        click.BadParameter: kicks the user out of the cli and lets them know
+                            about the specific error
+
+    Returns:
+        str: a sanitized url
+    """
+    try:
+        assert url[0:4] == "http"
+        if url[-1] != "/":
+            url = url + "/"
+        return url
+    except:
+        raise click.BadParameter(
+            "DSM url must start with http, please double-check input"
+        )
 
 
 def validate_api_keys(ctx, param, api_key):
@@ -114,11 +129,27 @@ def validate_api_keys(ctx, param, api_key):
         )
 
 
-ascii_art()
-console.print(
-    "Welcome to the Trend Micro Policy Migration Tool",
-    style="bold red",
-)
+# override the click invoke method
+
+
+def CommandWithConfigFile(config_file_param_name):
+    class CustomCommandClass(click.Command):
+        def invoke(self, ctx):
+            config_file = ctx.params[config_file_param_name]
+            if config_file is not None:
+                with open(config_file) as f:
+                    config_data = yaml.safe_load(f)
+                    for param, value in ctx.params.items():
+                        if value is None and param in config_data:
+                            ctx.params[param] = config_data[param]
+                            ctx.params[param].prompt = None
+
+            return super(CustomCommandClass, self).invoke(ctx)
+
+    return CustomCommandClass
+
+
+# pass options
 
 
 @click.command(cls=CommandWithConfigFile("config_file"))
@@ -126,6 +157,7 @@ console.print(
 @click.option(
     "-ou",
     "--original-url",
+    callback=validate_url,
     prompt="Old DSM address and port (e.g. https://10.10.10.10:4119/)",
     help="A resolvable FQDN for the old DSM, with port number (e.g. https://192.168.1.1:4119/)",
     envvar="ORIGINAL_URL",
@@ -179,6 +211,10 @@ console.print(
 #     show_default=True,
 #     help="(Optional) Allows the use of a cert file",
 # )
+
+# Main tool
+
+
 def main(
     config_file,
     original_url,
