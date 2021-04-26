@@ -31,7 +31,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
-from dsmigrator.logging import *
+from dsmigrator.logging import console, error_console, error_console, log, filename
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -58,12 +58,12 @@ def ascii_art():
 (##########(    ########################     ###( 
 #####(              ###################     ##### 
 ######(      ########################     (###### 
- #####       #######################      ########
+######       #######################      #######
  ####       ######################      ######### 
-  ###       ###################      ############ 
+  ###       ###################      ########### 
    #        ###############       (#############  
     #         #######.         ###############&   
-      \\                   .##################     
+      \\                   .#################     
         %.          ######################        
            \\###########################           
                ###################               
@@ -71,9 +71,6 @@ def ascii_art():
         style="bold red",
         overflow="crop",
     )
-
-
-filename = datetime.now().strftime("migrator_%H_%M_%d_%m_%Y.log")
 
 
 # override the click invoke method
@@ -260,6 +257,9 @@ def main(
         log.error(
             "Transfer will continue, but please double check the settings in Cloud One."
         )
+        with open(filename, "a") as logfile:
+            logfile.write(f"{error_console.export_text(clear=False)}\n")
+            logfile.close()
         pass
 
     try:
@@ -270,6 +270,9 @@ def main(
         log.error(
             "Transfer will continue, but please double check the proxy settings in Cloud One"
         )
+        with open(filename, "a") as logfile:
+            logfile.write(f"{error_console.export_text(clear=False)}\n")
+            logfile.close()
         pass
 
     # TRANSFORM

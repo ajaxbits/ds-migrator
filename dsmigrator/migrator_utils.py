@@ -1,6 +1,6 @@
 import json
 import sys
-from dsmigrator.logging import console, log
+from dsmigrator.logging import console, error_console, filename, log
 import logging
 import os
 from typing import Union
@@ -80,10 +80,13 @@ def safe_request(
         )
     except Exception as e:
         log.exception(e)
-        log.critical(
+        log.error(
             "Having trouble connecting to the old DSM. Please ensure the url and routes are correct."
         )
-        log.critical("Aborting...")
+        log.error("Aborting...")
+        with open(filename, "a") as logfile:
+            logfile.write(f"{error_console.export_text(clear=False)}\n")
+            logfile.close()
         sys.exit(0)
 
 
