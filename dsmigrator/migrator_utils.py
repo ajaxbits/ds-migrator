@@ -1,49 +1,42 @@
 import json
-import sys
-from dsmigrator.logging import console, error_console, filename, log
 import logging
 import os
-from typing import Union
+import sys
+from typing import List, Tuple, Union
 
 import requests
 import urllib3
 from deepsecurity.rest import ApiException
 
-
-def safe_list_get(l: list, idx: int):
-    try:
-        return l[idx]
-    except IndexError:
-        return None
+from dsmigrator.api_config import RestApiConfiguration
+from dsmigrator.logging import console, error_console, filename, log
 
 
-def value_exists(some_json, key):
-    value = some_json.get(key)
-    if value is not None:
-        return value
-    else:
-        return False
+def rename_json(json: dict) -> dict:
+    """
+    Adds 'Migrated' to the end of items
 
+    Args:
+        json (dict): dict of some kind from json
 
-def rename_json(json):
+    Returns:
+        dict: same dict with different 'name' key
+    """
     if json["name"]:
         json["name"] = f"{json['name']} - Migrated"
     return json
 
 
-def to_json_name(snake_case):
-    temp = str(snake_case).split("_")
-    json_name = temp[0] + "".join(ele.title() for ele in temp[1:])
-    return json_name
+def to_title(snake_case: str) -> str:
+    """
+    Takes a snake case string and turns it into a title case string
 
+    Args:
+        snake_case (str): snake case string
 
-def to_api_endpoint(snake_case):
-    temp = str(snake_case).split("_")
-    endpoint_name = "".join(ele for ele in temp)
-    return endpoint_name
-
-
-def to_title(snake_case):
+    Returns:
+        str: title case string
+    """
     temp = str(snake_case).split("_")
     title = " ".join(ele.title() for ele in temp)
     return title
@@ -90,71 +83,21 @@ def safe_request(
         sys.exit(0)
 
 
-def http_list_get(type, OLD_HOST, OLD_API_KEY, cert=False):
+def validate_create(
+    all_old: List[str], api_instance: RestApiConfiguration, type: str
+) -> List[str]:
     """
-    Takes in a string type in snake case, outputs a list of string json (for now)
+    Takes in old json objects, creates them in Cloud one, and returns a list of
+    the new object IDs in Cloud One
+
+    Args:
+        all_old (List[str]): list of string-formatted json objects from DS
+        api_instance (RestApiConfiguration): SDK module wrapper object configured from api_config
+        type (str): what to display during printing (e.g. 'Antimalware Configuration')
+
+    Returns:
+        List[str]: A list of all the objects' new IDs in Cloud One (as strings)
     """
-    list_all = []
-    list_name = []
-    list_id = []
-    endpoint = f"{OLD_HOST}api/{to_api_endpoint(type)}"
-    headers = {
-        "api-secret-key": OLD_API_KEY,
-        "api-version": "v1",
-        "Content-Type": "application/json",
-    }
-    response = requests.request("GET", endpoint, headers=headers, data={}, verify=cert)
-    describe = str(response.text)
-    response_json = json.loads(describe).get(to_json_name(type))
-    if response_json is not None:
-        for count, item in enumerate(response_json):
-            list_all.append(str(json.dumps(item)))
-            list_id.append(str(item["ID"]))
-            console.log(f"#{str(count)} {to_title(type)} name: {str(item['name'])}")
-            console.log(f"#{str(count)} {to_title(type)} ID: {str(item['ID'])}")
-        console.log("Done!")
-    return list_all, list_name, list_id
-
-
-def http_search(
-    type,
-    list_name,
-    OLD_HOST,
-    OLD_API_KEY,
-    cert=False,
-    search_type="name",
-):
-    # returns a list of items
-    all_results = []
-    if not isinstance(list_name, list):
-        list_name = [list_name]
-    for item in list_name:
-        payload = (
-            '{"searchCriteria": [{"fieldName": "'
-            + str(search_type)
-            + '","stringValue": "'
-            + str(item)
-            + '"}]}'
-        )
-        endpoint = f"{OLD_HOST}api/{to_api_endpoint(type)}/search"
-        headers = {
-            "api-secret-key": OLD_API_KEY,
-            "api-version": "v1",
-            "Content-Type": "application/json",
-        }
-        response = requests.request(
-            "POST",
-            endpoint,
-            headers=headers,
-            data=payload,
-            verify=cert,
-        )
-        describe = str(response.text)
-        all_results.append(describe)
-    return all_results
-
-
-def validate_create(all_old, api_instance, type):
     all_new = []
     for count, dirlist in enumerate(all_old):
         namecheck = 1
@@ -194,12 +137,14 @@ def validate_create(all_old, api_instance, type):
     return all_new
 
 
-def validate_create_dict(all_old: list, api_instance, type: str):
+def validate_create_dict(
+    all_old: list, api_instance: RestApiConfiguration, type: str
+) -> dict:
     """Take in a list of old objects, create the objects in Cloud One, then make a mapping of oldids to new ids for use later
 
     Args:
         all_old (list): a list of json strings that are provided as output of other functions
-        api_instance (api_instance type found in api_config): configure in api_config
+        api_instance (RestApiConfiguration): an sdk configuration from api_config
         type (str): The type of operation being performed, for console.loging (e.g. "Intrusion Prevention Rule")
 
     Returns:
@@ -245,7 +190,7 @@ def validate_create_dict(all_old: list, api_instance, type: str):
 
 def validate_create_dict_custom(
     all_old: list, skeleton_dict: dict, api_instance, type: str
-):
+) -> Tuple[dict, list]:
     """Transforms a list of pre-defined DS objects in json into a id mapping dict and a list of custom items
 
     Args:
@@ -255,7 +200,7 @@ def validate_create_dict_custom(
         type (str): The type of operation being performed, for console.loging (e.g. "Intrusion Prevention Rule")
 
     Returns:
-        (dict, list): A dict of form {oldid:newid,...} for all common pre-defined objects, and a list of custom objects as strings of json
+        Tuple[(dict, list)]: A dict of form {oldid:newid,...} for all common pre-defined objects, and a list of custom objects as strings of json
     """
     custom_list = []
     for (count, json_string) in enumerate(all_old):

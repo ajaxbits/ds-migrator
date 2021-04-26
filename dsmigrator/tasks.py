@@ -7,7 +7,7 @@ import json
 from dsmigrator.logging import console
 from nested_lookup import nested_lookup, nested_update
 from dsmigrator.api_config import ScheduledTasksApiInstance, EventBasedTasksApiInstance
-from dsmigrator.migrator_utils import validate_create, value_exists, rename_json
+from dsmigrator.migrator_utils import validate_create, rename_json
 
 cert = False
 

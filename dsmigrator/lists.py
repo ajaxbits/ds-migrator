@@ -14,7 +14,6 @@ from dsmigrator.api_config import (
 )
 from dsmigrator.migrator_utils import (
     validate_create,
-    value_exists,
     rename_json,
     safe_request,
 )
