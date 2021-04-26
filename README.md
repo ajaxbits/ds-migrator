@@ -2,7 +2,7 @@
   <img src="./logo.png" />
 </p>
 
-<p align="center" style="font-size: xx-large; font-weight: bold">Trend Micro Deep Security Migrator</p>
+<h1 align="center" style="border-bottom: none">Trend Micro Policy Migrator</h1>
 <p align="center">
   Moves your existing on-prem Deep Security deployment to CloudOne Workload Security.
 </p>
