@@ -1,17 +1,28 @@
-# Trend Micro Deep Security Migrator
+<p align="center">
+  <img src="./logo.png" />
+</p>
 
-**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.**
+<h1 align="center">Trend Micro Deep Security Migrator</h2>
+<p align="center">
+  Moves your existing on-prem Deep Security deployment to CloudOne Workload Security.
+</p>
+<p align="center">Automatically.</p>
 
-* [Quickstart](#quickstart)
-* [Capabilities](#capabilities)
-  * [Known limitations](#known-limitations)
-* [Usage](#usage)
-  * [Command Reference](#command-reference)
-  * [Use Environment Variables](#use-environment-variables)
-* [Requirements](#requirements)
-* [Contributing](#contributing)
-* [Support](#support)
-* [License](#license)
+
+<!-- # Trend Micro Deep Security Migrator
+
+**Moves your existing on-prem DS deployment to CloudOne Workload security. Automatically.** -->
+
+- [Quickstart](#quickstart)
+- [Capabilities](#capabilities)
+  - [Known limitations](#known-limitations)
+- [Usage](#usage)
+  - [Command Reference](#command-reference)
+  - [Use Environment Variables](#use-environment-variables)
+- [Requirements](#requirements)
+- [Contributing](#contributing)
+- [Support](#support)
+- [License](#license)
 
 ## Quickstart
 
@@ -39,7 +50,7 @@ Here's the current feature map of what the tool can migrate:
 - [x] [BETA] Tasks (still quite buggy)
 - [x] [BETA] Computer Groups
 - [ ] Application Control (everything)
-- [ ] Certificate support for authenticated requests
+- [ ] Self-signed certificate support for authenticated requests
 
 ### Known limitations
 
@@ -87,9 +98,9 @@ Options:
 
 You can optionally use the following environment variables to pass in your credentials:
 
-- ORIGINAL_API_KEY
-- ORIGINAL_URL
-- CLOUD_ONE_API_KEY
+- `ORIGINAL_API_KEY`
+- `ORIGINAL_URL`
+- `CLOUD_ONE_API_KEY`
 
 ## Requirements
 
@@ -105,14 +116,10 @@ You can optionally use the following environment variables to pass in your crede
 1. Run ./dev-setup.sh, which will download nix and nix flakes.
 2. Run `nix develop` which will download and build dependencies, and drop you in a shell.
 
-(only tested on Arch and Ubuntu so far, so your mileage may vary)
-
 ## Support
 
 For support, please open an issue on Github.
 
 ## License
-
-GNU General Public License
 
 GNU General Public License

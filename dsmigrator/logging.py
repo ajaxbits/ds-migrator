@@ -7,6 +7,7 @@ filename = datetime.now().strftime("dsmigrator_%H_%M_%d_%m_%Y.log")
 
 console = Console(record=True, log_path=False)
 error_console = Console(record=True, stderr=True)
+
 FORMAT = "%(message)s"
 logging.basicConfig(
     level="WARNING",
