@@ -1,8 +1,8 @@
-<p align="center">
+<p align="center" style="padding-top: 2em">
   <img src="./logo.png" />
 </p>
 
-<h1 align="center">Trend Micro Deep Security Migrator</h2>
+<h2 align="center">Trend Micro Deep Security Migrator</h2>
 <p align="center">
   Moves your existing on-prem Deep Security deployment to CloudOne Workload Security.
 </p>
