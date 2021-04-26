@@ -2,6 +2,7 @@
 .direnv/
 dist/
 .vim/
+.vscode/
 .config
 xml/
 config.yml

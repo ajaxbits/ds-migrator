@@ -1,5 +1,0 @@
-─────────────────────────────────────────────────────────── Anti-Malware Configurations ────────────────────────────────────────────────────────────
-           Getting Anti-Malware configuration from Tenant 1                                                                        antimalware.py:71
-           #0 Anti-Malware Config ID: 1                                                                                            antimalware.py:97
-[09:02:02] #1 Anti-Malware Config ID: 2                                                                                            antimalware.py:97
-           #2 Anti-Malware Config ID: 3                                                                                            antimalware.py:97
