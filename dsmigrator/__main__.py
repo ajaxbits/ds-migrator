@@ -204,6 +204,11 @@ def CommandWithConfigFile(config_file_param_name):
     is_flag=True,
     help="Suppress the InsecureRequestWarning for self-signed certificates",
 )
+@click.option(
+    "-f",
+    "--filter",
+    help="A list of policy names in form '[name, name, ...]' which are the only ones which will be transferred.",
+)
 # @click.option(
 #     "-c",
 #     "--cert",
@@ -225,6 +230,7 @@ def main(
     insecure,
     tasks,
     delete_policies,
+    filter,
 ):
     """Moves your on-prem DS deployment to the cloud!"""
     OLD_API_KEY = original_api_key
@@ -240,10 +246,32 @@ def main(
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
-    old_policy_id_list = ListAllPolicy(OLD_HOST, OLD_API_KEY)
+    old_policy_id_list, oldpolicynameid_dict = ListAllPolicy(OLD_HOST, OLD_API_KEY)
+    # filter out unwanted policies
+    if filter:
+        console.rule("Filter Out Unwanted Policies")
+        if (filter[0] != "[") or (filter[-1] != "]"):
+            log.error(
+                "Please pass in filter names in form '[name1, name2, ...]', making note of brackets"
+            )
+            raise TypeError
+        name_list = filter[1:-1].split(", ")
+        old_policy_id_list = []
+        for desired_policy in name_list:
+            # validate
+            if '"' in desired_policy:
+                log.error(
+                    "Please pass in filter names in form '[name1, name2, ...]', making note of quoting conventions"
+                )
+                raise TypeError
+            desired_id = oldpolicynameid_dict.get(desired_policy)
+            if desired_id is not None:
+                old_policy_id_list.append(desired_id)
+        console.log(f"New desired policy IDs: {old_policy_id_list}")
 
     console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
+
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )

@@ -49,13 +49,13 @@ def ListAllPolicy(url_link_final, tenant1key):
     url = url_link_final + "api/policies"
     response = safe_request(tenant1key, "GET", url, payload=payload, cert=cert)
     describe = str(response.text)
-    oldpolicyname = []
+    oldpolicynameid_dict = {}
     oldpolicyid = []
     namejson = json.loads(describe)
     for policy in namejson["policies"]:
-        oldpolicyname.append(str(policy["name"]))
+        oldpolicynameid_dict[str(policy["name"])] = str(policy["ID"])
         oldpolicyid.append(str(policy["ID"]))
-    return oldpolicyid
+    return oldpolicyid, oldpolicynameid_dict
 
 
 def GetPolicy(policyIDs, url_link_final, tenant1key):
