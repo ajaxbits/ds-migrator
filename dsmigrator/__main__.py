@@ -308,7 +308,7 @@ def main(
     t1contextid, t2contextid = context_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    t1scheduleid, t2scheduleid = schedule_listmaker(
+    schedule_id_dict, t1scheduleid, t2scheduleid = schedule_listmaker(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
@@ -368,6 +368,7 @@ def main(
         amallfileextentionnew,
         amfilelist,
         amallfilelistnew,
+        schedule_id_dict,
         NEW_HOST,
         NEW_API_KEY,
     )

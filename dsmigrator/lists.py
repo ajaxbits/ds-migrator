@@ -87,8 +87,10 @@ def context_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
 
 def schedule_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
     t1scheduleall, t1schedulename, t1scheduleid = ScheduleGet(OLD_HOST, OLD_API_KEY)
-    t2scheduleid = ScheduleCreate(t1scheduleall, t1schedulename, NEW_HOST, NEW_API_KEY)
-    return t1scheduleid, t2scheduleid
+    schedule_id_dict, t2scheduleid = ScheduleCreate(
+        t1scheduleall, t1schedulename, NEW_HOST, NEW_API_KEY
+    )
+    return schedule_id_dict, t1scheduleid, t2scheduleid
 
 
 def DirListTenant1(directorylist, url_link_final, tenant1key):
@@ -842,13 +844,18 @@ def ScheduleGet(url_link_final, tenant1key):
 
 
 def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
+    schedule_id_dict = {}
     t2scheduleid = []
     console.log("Transfering All Schedule Configuration...")
     if t1schedulename:
-        for count, dirlist in enumerate(t1schedulename):
+        for count, schedule in enumerate(t1scheduleall):
+            schedule_json = json.loads(schedule)
+            old_id = schedule_json.get("ID")
+            old_name = schedule_json.get("name")
+            # for count, dirlist in enumerate(t1schedulename):
             payload = (
                 '{"searchCriteria": [{"fieldName": "name","stringValue": "'
-                + dirlist
+                + old_name
                 + '"}]}'
             )
             url = url_link_final_2 + "api/schedules/search"
@@ -886,6 +893,7 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                         )
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
+                        new_id = taskjson1["ID"]
                         t2scheduleid.append(str(taskjson1["ID"]))
                         console.log(
                             "#"
@@ -916,6 +924,7 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                     )
                     describe = str(response.text)
                     taskjson = json.loads(describe)
+                    new_id = taskjson["ID"]
                     t2scheduleid.append(str(taskjson["ID"]))
                     console.log(
                         "#" + str(count) + " Schedule Config name: " + taskjson["name"],
@@ -926,8 +935,9 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                         + " Schedule Config ID: "
                         + str(taskjson["ID"]),
                     )
+                schedule_id_dict[old_id] = new_id
             else:
                 console.log(describe)
                 console.log(payload)
     console.log("Done!")
-    return t2scheduleid
+    return schedule_id_dict, t2scheduleid
