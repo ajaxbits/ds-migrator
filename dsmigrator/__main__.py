@@ -16,8 +16,8 @@ from rich.console import Console, OverflowMethod
 from rich.logging import RichHandler
 from rich.traceback import install
 
-import dsmigrator.api_config
 from dsmigrator.antimalware import am_config_transform, am_validate_create
+from dsmigrator.api_config import CheckAPIAccess
 from dsmigrator.computer_groups import computer_group_listmaker
 from dsmigrator.firewall import firewall_config_transform
 from dsmigrator.integrity import im_config_transform
@@ -42,7 +42,6 @@ from dsmigrator.policies import (
 from dsmigrator.proxy import proxy_edit
 from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
-
 
 # Welcome Banner
 console.print(
@@ -241,13 +240,33 @@ def main(
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+    # Double-check that creds will work
+    console.rule("Validating Credentials")
+    validation_result1 = CheckAPIAccess(original_url, original_api_key)
+    validation_result2 = CheckAPIAccess(new_url, cloud_one_api_key)
+
+    if validation_result1 and validation_result2:
+        console.log("Successfully authenticated!")
+    else:
+        log.error("Something went wrong with authentication.")
+        log.error(
+            "Double-check that your api key is correct, active, and has 'Full Access' permissions."
+        )
+        log.error("Aborting...")
+        with open(filename, "a") as logfile:
+            logfile.write(f"{error_console.export_text(clear=False)}\n")
+            logfile.close()
+        sys.exit(0)
+
     if delete_policies:
         console.save_text(filename)
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
+    # Populate Initial Data
     old_policy_id_list, oldpolicynameid_dict = ListAllPolicy(OLD_HOST, OLD_API_KEY)
-    # filter out unwanted policies
+
+    # Filter Module
     if filter:
         console.rule("Filter Out Unwanted Policies")
         if (filter[0] != "[") or (filter[-1] != "]"):

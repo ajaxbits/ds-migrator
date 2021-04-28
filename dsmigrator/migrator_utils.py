@@ -8,7 +8,6 @@ import requests
 import urllib3
 from deepsecurity.rest import ApiException
 
-from dsmigrator.api_config import RestApiConfiguration
 from dsmigrator.logging import console, error_console, filename, log
 
 
@@ -83,9 +82,7 @@ def safe_request(
         sys.exit(0)
 
 
-def validate_create(
-    all_old: List[str], api_instance: RestApiConfiguration, type: str
-) -> List[str]:
+def validate_create(all_old: List[str], api_instance, type: str) -> List[str]:
     """
     Takes in old json objects, creates them in Cloud one, and returns a list of
     the new object IDs in Cloud One
@@ -137,9 +134,7 @@ def validate_create(
     return all_new
 
 
-def validate_create_dict(
-    all_old: list, api_instance: RestApiConfiguration, type: str
-) -> dict:
+def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
     """Take in a list of old objects, create the objects in Cloud One, then make a mapping of oldids to new ids for use later
 
     Args:
