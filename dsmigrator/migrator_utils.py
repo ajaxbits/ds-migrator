@@ -11,6 +11,13 @@ from deepsecurity.rest import ApiException
 from dsmigrator.logging import console, error_console, filename, log
 
 
+def safe_list_get(l: list, idx: int):
+    try:
+        return l[idx]
+    except IndexError:
+        return None
+
+
 def rename_json(json: dict) -> dict:
     """
     Adds 'Migrated' to the end of items
