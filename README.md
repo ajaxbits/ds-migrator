@@ -37,7 +37,6 @@ Here's the current feature map of what the tool can migrate:
 
 - [x] Policies
 - [x] Policy settings
-- [x] Global manager settings
 - [x] Anti-Malware Scan Configurations
 - [x] IPS, LI, and IM custom rules
 - [x] Firewall rules
