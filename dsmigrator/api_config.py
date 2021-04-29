@@ -1,9 +1,15 @@
 import json
-from dsmigrator.logging import console, error_console, filename, log
-import deepsecurity
-from deepsecurity.rest import ApiException
-import re
 import os
+import re
+import sys
+from typing import Union
+
+import deepsecurity
+import requests
+from deepsecurity.rest import ApiException
+
+from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.migrator_utils import safe_request
 
 
 def to_snake(camel_case):
@@ -12,6 +18,64 @@ def to_snake(camel_case):
     snake = snake.replace("application_type_i_d", "application_type_id")
     snake = snake.replace("_i_d", "_id")
     return snake
+
+
+def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> bool:
+    """
+    Checks to make sure the API access key provided is valid for the given DSM URL
+
+    Args:
+        url (str): The url of the old DSM
+        tenantkey (str): The API key to be checked
+        cert (Union[str, bool], optional): Either the string of the cert file, or a boolean to disable cert checking. Defaults to False.
+
+    Returns:
+        bool: True if validation passes, False if it fails
+    """
+    url = url + "api/apikeys/current"
+    result = None
+    key_list = [i.split("-") for i in tenantkey.split(":")]
+    first_identifier = key_list[0][0]
+    key_list[0] = ["*" * len(i) for i in key_list[0][1:]]
+    key_list[0].insert(0, first_identifier)
+    key_list[1:] = [["*" * len(x) for x in i] for i in key_list[1:]]
+    obfuscated_key = ":".join(["-".join(i) for i in key_list])
+    try:
+        payload = {}
+        headers = {
+            "api-secret-key": tenantkey,
+            "api-version": "v1",
+            "Content-Type": "application/json",
+        }
+        response = requests.request(
+            "GET", url, headers=headers, data=payload, verify=cert
+        )
+        console.log(f"Checking api key {obfuscated_key}...")
+        if "active" and "true" in response.text:
+            result = True
+        else:
+            log.error(response.text)
+            result = False
+            log.error(
+                "Double-check that your api key is correct, active, and has 'Full Access' permissions."
+            )
+            log.error("Aborting...")
+            with open(filename, "a") as logfile:
+                logfile.write(f"{error_console.export_text(clear=False)}\n")
+                logfile.close()
+            sys.exit(0)
+    except Exception as e:
+        log.exception(e)
+        result = False
+        log.error(
+            "Double-check that your api key is correct, active, and has 'Full Access' permissions."
+        )
+        log.error("Aborting...")
+        with open(filename, "a") as logfile:
+            logfile.write(f"{error_console.export_text(clear=False)}\n")
+            logfile.close()
+        sys.exit(0)
+    return result
 
 
 class RestApiConfiguration:
