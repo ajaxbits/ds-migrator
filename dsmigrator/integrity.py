@@ -71,7 +71,7 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             allimrule.append(describe)
             imjson = json.loads(describe)
             allimrulename.append(str(imjson["name"]))
-            console.log("#" + str(count) + " IPS rule name: " + str(imjson["name"]))
+            console.log("#" + str(count) + " IM rule name: " + str(imjson["name"]))
             console.log("#" + str(count) + " IM rule ID: " + str(dirlist))
     console.log("Done!")
     console.log("Searching and Modifying IM rule in Tenant 2...")
