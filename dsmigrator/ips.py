@@ -1,8 +1,7 @@
 import json
-from dsmigrator.logging import console
+from typing import Dict, List
 
 import requests
-import urllib3
 import urllib3
 from deepsecurity.rest import ApiException
 from nested_lookup import nested_lookup, nested_update
@@ -11,6 +10,7 @@ from dsmigrator.api_config import (
     ApplicationTypesApiInstance,
     IntrusionPreventionApiInstance,
 )
+from dsmigrator.logging import console, log, error_console, filename
 from dsmigrator.migrator_utils import (
     validate_create,
     validate_create_dict,
@@ -67,8 +67,16 @@ def ips_rules_transform(
     return aop_replace_ips_rules
 
 
-def IPSappGet(allofpolicy):
-    # Takes in allofpolicy and creates a skeleton id dict
+def IPSappGet(allofpolicy: List[str]) -> Dict[int, None]:
+    """
+    Parses allofpolicy and returns an IPS app skeleton dict
+
+    Args:
+        allofpolicy (List[str]): allofpolicy list of json strings
+
+    Returns:
+        Dict[int, None]: ips app id dict, with oldids, ready to be matched with new ids
+    """
     ipsappid = []
     for describe in allofpolicy:
         namejson = json.loads(describe)
@@ -139,7 +147,6 @@ def IPSappDescribe(
                 console.log(describe)
     console.log("Done!")
     console.log("Searching and Modifying IPS application types in Tenant 2...")
-    # add console.loging to this
     allipscustomapp = []
     for (count, object) in enumerate(allipsapp):
         namecheck = 1
@@ -284,7 +291,22 @@ def IPSDescribe(
     return ipsruleid_dict, ipscustomrule_dict
 
 
-def IPSReplace(allofpolicy, ipsruleid_dict, ipscustomrule_dict):
+def IPSReplace(
+    allofpolicy: List[str],
+    ipsruleid_dict: Dict[int, int],
+    ipscustomrule_dict: Dict[int, int],
+) -> List[str]:
+    """
+    Takes in the rule dictionaries for custom and predefined rules and transforms allofpolicy to match1
+
+    Args:
+        allofpolicy (List[str]): list of json strings representing policies
+        ipsruleid_dict (Dict[int, int]): mapping of oldid:newid for ipsrules
+        ipscustomrule_dict (Dict[int, int]): mapping of oldid:newid for ips custom rules
+
+    Returns:
+        List[str]: allofpolicy with ips rule ids modified
+    """
     for count, policy in enumerate(allofpolicy):
         policyjson = json.loads(policy)
         if "ruleIDs" in policyjson["intrusionPrevention"]:
@@ -296,5 +318,11 @@ def IPSReplace(allofpolicy, ipsruleid_dict, ipscustomrule_dict):
                     all_ips_rule_ids_list[index] = new_ipsrule_id
                 elif new_ipscustomrule_id is not None:
                     all_ips_rule_ids_list[index] = new_ipscustomrule_id
+                else:
+                    all_ips_rule_ids_list.remove(ipsrule_id)
+                    log.warning(f"Removing ips rule {ipsrule_id} as outlined earlier.")
+                    with open(filename, "a") as logfile:
+                        logfile.write(f"{error_console.export_text(clear=False)}\n")
+                        logfile.close()
         allofpolicy[count] = json.dumps(policyjson)
     return allofpolicy
