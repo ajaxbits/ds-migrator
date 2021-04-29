@@ -40,7 +40,6 @@ from dsmigrator.policies import (
     delete_cloud_one_policies,
 )
 from dsmigrator.proxy import proxy_edit
-from dsmigrator.system_settings import settings_transfer
 from dsmigrator.tasks import ebt_listmaker, st_listmaker
 
 
@@ -313,20 +312,7 @@ def main(
     )
 
     console.save_text(filename, clear=False)
-    console.rule("DSM Settings")
-    try:
-        settings_transfer(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY, stateful_dict)
-    except Exception as e:
-        log.exception(e)
-        log.error("There was an error in the DSM settings transfer.")
-        log.error(
-            "Transfer will continue, but please double check the settings in Cloud One."
-        )
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
-        pass
-
+    console.rule("Proxy Settings")
     try:
         proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
     except Exception as e:
