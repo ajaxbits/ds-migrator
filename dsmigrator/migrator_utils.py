@@ -221,6 +221,16 @@ def validate_create_dict_custom(
                     )
                 elif "template" in item_json:
                     custom_list.append(json.dumps(item_json))
+                else:
+                    log.warning(
+                        f"{old_name} is not valid in Workload Security and will not be transferred."
+                    )
+                    log.warning(
+                        f"Consider transferring {old_name} manually using the xml export feature in the GUI."
+                    )
+                    with open(filename, "a") as logfile:
+                        logfile.write(f"{error_console.export_text(clear=False)}\n")
+                        logfile.close()
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:
@@ -228,7 +238,7 @@ def validate_create_dict_custom(
                     item_json["name"] = old_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    console.log(e.body)
+                    log.error(e.body)
                     pass
     console.log("Done!")
     return skeleton_dict, custom_list
