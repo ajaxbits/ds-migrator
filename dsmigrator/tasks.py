@@ -4,7 +4,7 @@ import requests
 import urllib3
 import urllib3
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import log
 from nested_lookup import nested_lookup, nested_update
 from dsmigrator.api_config import ScheduledTasksApiInstance, EventBasedTasksApiInstance
 from dsmigrator.migrator_utils import validate_create, rename_json

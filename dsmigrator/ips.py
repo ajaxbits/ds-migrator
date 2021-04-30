@@ -10,7 +10,7 @@ from dsmigrator.api_config import (
     ApplicationTypesApiInstance,
     IntrusionPreventionApiInstance,
 )
-from dsmigrator.logging import console, log, error_console, filename
+from dsmigrator.logging import log
 from dsmigrator.migrator_utils import (
     validate_create,
     validate_create_dict,
@@ -321,8 +321,5 @@ def IPSReplace(
                 else:
                     all_ips_rule_ids_list.remove(ipsrule_id)
                     log.warning(f"Removing ips rule {ipsrule_id} as outlined earlier.")
-                    with open(filename, "a") as logfile:
-                        logfile.write(f"{error_console.export_text(clear=False)}\n")
-                        logfile.close()
         allofpolicy[count] = json.dumps(policyjson)
     return allofpolicy

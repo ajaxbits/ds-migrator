@@ -12,7 +12,7 @@ from rich.progress import Progress
 
 from dsmigrator.api_config import PolicyApiInstance
 from dsmigrator.migrator_utils import safe_request
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import log
 
 cert = False
 
@@ -141,13 +141,10 @@ def policy_validate_create(
                 oldjson["parentID"] = id_dict[oldjson["parentID"]]
         except Exception as e:
             log.exception(e)
-            log.error(
+            log.warning(
                 "ParentID error. Creating policy at base level, please set inheritance manually."
             )
             del oldjson["parentID"]
-            with open(filename, "a") as logfile:
-                logfile.write(f"{error_console.export_text(clear=False)}\n")
-                logfile.close()
             pass
         while namecheck != -1:
             try:
@@ -179,9 +176,6 @@ def policy_validate_create(
                     log.error(
                         f"{oldname} could not be transferred. Please transfer manually."
                     )
-                    with open(filename, "a") as logfile:
-                        logfile.write(f"{error_console.export_text(clear=False)}\n")
-                        logfile.close()
                     namecheck = -1
     id_dict[0] = 0
     return id_dict

@@ -31,7 +31,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import console, log
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -254,9 +254,6 @@ def main(
             "Double-check that your api key is correct, active, and has 'Full Access' permissions."
         )
         log.error("Aborting...")
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
         sys.exit(0)
 
     if delete_policies:
@@ -337,9 +334,6 @@ def main(
         log.error(
             "Transfer will continue, but please double check the proxy settings in Cloud One"
         )
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
         pass
 
     # TRANSFORM

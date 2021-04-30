@@ -3,34 +3,34 @@ from datetime import datetime
 from rich.console import Console
 from rich.logging import RichHandler
 
-filename = datetime.now().strftime("dsmigrator_%H_%M_%d_%m_%Y.log")
 
-console = Console(record=True, log_path=False)
-error_console = Console(record=True, stderr=True)
+console = Console(log_path=False)
+error_console = True
 
-STDOUT_FORMAT = "%(message)s"
 LOG_FILE_FORMAT = logging.Formatter("%(asctime)s — %(levelname)s — %(message)s")
+LOG_FILE = datetime.now().strftime("dsmigrator_%H_%M_%d_%m_%Y.log")
 
 
 def get_file_handler():
-    file_handler = logging.FileHandler("alex.log")
+    file_handler = logging.FileHandler(LOG_FILE)
     file_handler.setFormatter(LOG_FILE_FORMAT)
     return file_handler
 
 
-def get_stream_handler():
-    stream_handler = RichHandler(console=console)
+def get_console_handler():
+    stream_handler = RichHandler(console=console, show_path=False)
     stream_handler.setLevel(logging.INFO)
     return stream_handler
 
 
 logging.basicConfig(
     level="DEBUG",
-    format=STDOUT_FORMAT,
+    format="%(message)s",
     datefmt="[%X]",
     handlers=[
-        get_stream_handler(),
+        get_console_handler(),
         get_file_handler(),
     ],
 )
+
 log = logging.getLogger("dsmigrator")

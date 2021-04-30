@@ -8,7 +8,7 @@ import requests
 import urllib3
 from deepsecurity.rest import ApiException
 
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import log
 
 
 def safe_list_get(l: list, idx: int):
@@ -79,13 +79,10 @@ def safe_request(
         )
     except Exception as e:
         log.exception(e)
-        log.error(
+        log.critical(
             "Having trouble connecting to the old DSM. Please ensure the url and routes are correct."
         )
-        log.error("Aborting...")
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
+        log.critical("Aborting...")
         sys.exit(0)
 
 
@@ -228,9 +225,6 @@ def validate_create_dict_custom(
                     log.warning(
                         f"Consider transferring {old_name} manually using the xml export feature in the GUI."
                     )
-                    with open(filename, "a") as logfile:
-                        logfile.write(f"{error_console.export_text(clear=False)}\n")
-                        logfile.close()
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:

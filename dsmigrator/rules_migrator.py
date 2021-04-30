@@ -5,7 +5,7 @@ import sys, warnings
 import deepsecurity
 from deepsecurity.rest import ApiException
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import log
 import xml.etree.ElementTree as ET
 
 
