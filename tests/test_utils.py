@@ -1,7 +1,7 @@
 import unittest
 import urllib3
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import log
 from dsmigrator.migrator_utils import safe_request
 import os
 

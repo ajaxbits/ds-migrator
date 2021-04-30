@@ -6,7 +6,7 @@ import requests
 import urllib3
 import urllib3
 import json
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import log
 
 
 def proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid):
@@ -88,9 +88,6 @@ def proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid):
                         log.error(
                             f"Error in policy settings transfer for firewall event exceptions for {policyjson.get('name')}. Transfer will continue, but double check after transfer."
                         )
-                        with open(filename, "a") as logfile:
-                            logfile.write(f"{error_console.export_text(clear=False)}\n")
-                            logfile.close()
                         pass
 
             here = policyjson["policySettings"][

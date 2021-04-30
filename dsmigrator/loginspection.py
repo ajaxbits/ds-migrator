@@ -6,7 +6,7 @@ import requests
 import urllib3
 import urllib3
 import json
-from dsmigrator.logging import console
+from dsmigrator.logging import log
 
 cert = False
 
@@ -34,14 +34,14 @@ def li_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KE
 
 def LIGet(allofpolicy):
     liruleid = []
-    console.log("Log Inspection rules in Tenant 1")
+    log.info("Log Inspection rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "ruleIDs" in namejson["logInspection"]:
             for count, here2 in enumerate(namejson["logInspection"]["ruleIDs"]):
                 liruleid.append(str(here2))
     liruleid = list(dict.fromkeys(liruleid))
-    console.log(liruleid)
+    log.info(liruleid)
     return liruleid
 
 
@@ -51,7 +51,7 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
     allliruleidnew1 = []
     allliruleidold = []
     alllicustomrule = []
-    console.log("Searching LI rules in Tenant 1...")
+    log.info("Searching LI rules in Tenant 1...")
     if liruleid:
         for count, dirlist in enumerate(liruleid):
             payload = {}
@@ -72,10 +72,10 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             alllirule.append(describe)
             lijson = json.loads(describe)
             alllirulename.append(str(lijson["name"]))
-            console.log("#" + str(count) + " LI rule name: " + str(lijson["name"]))
-            console.log("#" + str(count) + " LI rule ID: " + dirlist)
-    console.log("Done!")
-    console.log("Searching and Modifying LI rule in Tenant 2...")
+            log.info("#" + str(count) + " LI rule name: " + str(lijson["name"]))
+            log.info("#" + str(count) + " LI rule ID: " + dirlist)
+    log.info("Done!")
+    log.info("Searching and Modifying LI rule in Tenant 2...")
     for count, dirlist in enumerate(alllirulename):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -112,22 +112,22 @@ def LIDescribe(liruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allliruleidnew1.append(str(indexid))
                             allliruleidold.append(count)
-                            console.log("#" + str(count) + " LI rule ID: " + indexid)
+                            log.info("#" + str(count) + " LI rule ID: " + indexid)
                 else:
-                    console.log(describe)
-                    console.log(payload)
+                    log.info(describe)
+                    log.info(payload)
             else:
                 alllicustomrule.append(count)
         else:
-            console.log(describe)
-            console.log(payload)
+            log.info(describe)
+            log.info(payload)
     return alllirule, allliruleidnew1, allliruleidold, alllicustomrule
 
 
 def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
     allliruleidnew2 = []
     if alllicustomrule:
-        console.log("Creating new custom LI rule in Tenant 2...")
+        log.info("Creating new custom LI rule in Tenant 2...")
         for count, indexnum in enumerate(alllicustomrule):
             payload = alllirule[indexnum]
             url = url_link_final_2 + "api/loginspectionrules"
@@ -155,13 +155,13 @@ def LICustom(alllirule, alllicustomrule, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allliruleidnew2.append(str(indexid))
-                        console.log("#" + str(count) + " LI rule ID: " + indexid)
+                        log.info("#" + str(count) + " LI rule ID: " + indexid)
             else:
-                console.log(describe)
-                console.log(payload)
-        # console.log("all new LI rule custom rule")
-        # console.log(allliruleidnew2)
-        console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+        # log.info("all new LI rule custom rule")
+        # log.info(allliruleidnew2)
+        log.info("Done!")
     return allliruleidnew2
 
 
