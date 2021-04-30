@@ -15,17 +15,22 @@ LOG_FILE_FORMAT = logging.Formatter("%(asctime)s — %(levelname)s — %(message
 def get_file_handler():
     file_handler = logging.FileHandler("alex.log")
     file_handler.setFormatter(LOG_FILE_FORMAT)
-    file_handler.setLevel(logging.DEBUG)
     return file_handler
 
 
+def get_stream_handler():
+    stream_handler = RichHandler(console=console)
+    stream_handler.setLevel(logging.INFO)
+    return stream_handler
+
+
 logging.basicConfig(
-    level="INFO",
+    level="DEBUG",
     format=STDOUT_FORMAT,
     datefmt="[%X]",
     handlers=[
-        RichHandler(rich_tracebacks=True, tracebacks_show_locals=True, console=console),
+        get_stream_handler(),
         get_file_handler(),
     ],
 )
-log = logging.getLogger("rich")
+log = logging.getLogger("dsmigrator")

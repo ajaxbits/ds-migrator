@@ -260,7 +260,6 @@ def main(
         sys.exit(0)
 
     if delete_policies:
-        console.save_text(filename)
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
@@ -289,20 +288,17 @@ def main(
                 old_policy_id_list.append(desired_id)
         log.info(f"New desired policy IDs: {old_policy_id_list}")
 
-    console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
 
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Configurations")
     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
         antimalwareconfig, OLD_HOST, OLD_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Lists")
     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
         amdirectorylist,
@@ -332,7 +328,6 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Proxy Settings")
     try:
         proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
@@ -348,7 +343,6 @@ def main(
         pass
 
     # TRANSFORM
-    console.save_text(filename, clear=False)
     console.rule("Intrusion Prevention Module")
     allofpolicy = ips_rules_transform(
         allofpolicy,
@@ -363,7 +357,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Module")
     allofpolicy = am_validate_create(
         allofpolicy,
@@ -379,17 +372,14 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Integrity Monitoring Module")
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    console.save_text(filename, clear=False)
     console.rule("Log Inspection Module")
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    console.save_text(filename, clear=False)
     console.rule("Firewall Module")
     allofpolicy = firewall_config_transform(
         allofpolicy,
@@ -410,11 +400,9 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Final Policy Migration")
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     if tasks:
-        console.save_text(filename, clear=False)
         console.rule("Tasks")
         computer_group_dict = computer_group_listmaker(
             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
