@@ -54,6 +54,8 @@ Here's the current feature map of what the tool can migrate:
 
 - Cannot migrate customized IM/LI/IP rules. Another tool will be incoming to help aid a manual process in identifying each rule that has been customized, but they will never migrate automatically due to an API limitation
 - Won't migrate cloud accounts. Must be reconfigured/reauthenticated in Cloud One
+- Doesn't migrate DSM settings, make sure to check these manually.
+- Application Control support is not on the roadmap currently. Please open an issue if this is 
 
 ## Usage
 
@@ -66,7 +68,7 @@ Usage: dsmg [OPTIONS]
 
 Options:
   -ou, --original-url TEXT        A resolvable FQDN for the old DSM, with port
-                                  number (e.g. https://192.168.1.1:4119)
+                                  number (e.g. https://192.168.1.1:4119/)
 
   -oa, --original-api-key TEXT    API key for the old DSM with Full Access
                                   permissions
@@ -87,8 +89,9 @@ Options:
   -k, --insecure                  Suppress the InsecureRequestWarning for
                                   self-signed certificates
 
-  -c, --cert TEXT                 (Optional) Allows the use of a cert file
-                                  [default: False]
+  -f, --filter TEXT               A list of policy names in form '[name, name,
+                                  ...]' which are the only ones which will be
+                                  transferred.
 
   --help                          Show this message and exit.
 ```
