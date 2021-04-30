@@ -51,7 +51,7 @@ def ListGroup(url_link_final, tenant1key):
 def GetGroup(etIDs, url_link_final, tenant1key):
     allet = []
     nameet = []
-    console.log("Getting Target Task...")
+    log.info("Getting Target Task...")
     if etIDs:
         for part in etIDs:
             payload = {}
@@ -76,7 +76,7 @@ def GetGroup(etIDs, url_link_final, tenant1key):
 
 
 def CreateGroup(allet, nameet, url_link_final_2, tenant2key):
-    console.log("Creating group to target Account...")
+    log.info("Creating group to target Account...")
     if nameet:
         modet = []
         for task in allet:

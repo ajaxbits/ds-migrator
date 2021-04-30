@@ -86,8 +86,8 @@ def IPSappGet(allofpolicy: List[str]) -> Dict[int, None]:
             ]:
                 ipsappid.append(assigned_app_id)
     ipsappid_dict = dict.fromkeys(ipsappid)
-    console.log("IPS application types in Tenant 1:")
-    console.log(ipsappid)
+    log.info("IPS application types in Tenant 1:")
+    log.info(ipsappid)
     return ipsappid_dict
 
 
@@ -105,7 +105,7 @@ def IPSappDescribe(
     allipscustomapp = []
     ipsapp_api_instance = ApplicationTypesApiInstance(tenant2key)
 
-    console.log("Searching IPS application types in Tenant 1...")
+    log.info("Searching IPS application types in Tenant 1...")
     if ipsappid_dict:
         for count, name in enumerate(list(ipsappid_dict.keys())):
             payload = {}
@@ -126,7 +126,7 @@ def IPSappDescribe(
             try:
                 ipsappjson = json.loads(describe)
                 allipsappname.append(str(ipsappjson["name"]))
-                console.log(
+                log.info(
                     "#"
                     + str(count)
                     + " IPS Application Type name: "
@@ -137,16 +137,16 @@ def IPSappDescribe(
                     indexnum = t1portlistid.index(str(old_port_list_id))
                     ipsappjson["portListID"] = t2portlistid[indexnum]
                 allipsapp.append(json.dumps(ipsappjson))
-                console.log(
+                log.info(
                     "#"
                     + str(count)
                     + " IPS Application Type ID: "
                     + str(ipsappjson["ID"]),
                 )
             except:
-                console.log(describe)
-    console.log("Done!")
-    console.log("Searching and Modifying IPS application types in Tenant 2...")
+                log.info(describe)
+    log.info("Done!")
+    log.info("Searching and Modifying IPS application types in Tenant 2...")
     allipscustomapp = []
     for (count, object) in enumerate(allipsapp):
         namecheck = 1
@@ -159,7 +159,7 @@ def IPSappDescribe(
                 new_id = ipsapp_api_instance.search(old_name)
                 if new_id is not None:
                     ipsappid_dict[old_id] = new_id
-                    console.log(
+                    log.info(
                         f"#{str(count)} IPS Application Type: {old_name}",
                     )
                 else:
@@ -167,20 +167,20 @@ def IPSappDescribe(
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:
-                    console.log(f"{old_name} already exists in new tenant, renaming...")
+                    log.info(f"{old_name} already exists in new tenant, renaming...")
                     object_json["name"] = old_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    console.log(e.body)
+                    log.info(e.body)
                     pass
-    console.log("Done!")
+    log.info("Done!")
     if allipscustomapp:
         ipscustomapp_dict = validate_create_dict(
             allipscustomapp, ipsapp_api_instance, "IPS Custom App"
         )
     else:
         ipscustomapp_dict = {}
-    console.log("Done!")
+    log.info("Done!")
     return ipsappid_dict, ipscustomapp_dict
 
 
@@ -211,8 +211,8 @@ def IPSGet(allofpolicy):
             for assigned_rule_id in namejson["intrusionPrevention"]["ruleIDs"]:
                 ipsruleid.append(assigned_rule_id)
     ipsruleid_dict = dict.fromkeys(ipsruleid)
-    console.log("IPS rules in Tenant 1:")
-    console.log(ipsruleid)
+    log.info("IPS rules in Tenant 1:")
+    log.info(ipsruleid)
     return ipsruleid_dict
 
 
@@ -232,7 +232,7 @@ def IPSDescribe(
     allipsrule = []
     allipsrulename = []
     ipsrule_api_instance = IntrusionPreventionApiInstance(tenant2key)
-    console.log("Searching IPS rules in Tenant 1...")
+    log.info("Searching IPS rules in Tenant 1...")
 
     if ipsruleid_dict:
         for count, dirlist in enumerate(list(ipsruleid_dict.keys())):
@@ -254,7 +254,7 @@ def IPSDescribe(
             try:
                 ipsjson = json.loads(describe)
                 allipsrulename.append(str(ipsjson["name"]))
-                console.log(
+                log.info(
                     "#" + str(count) + " IPS Rule name: " + str(ipsjson["name"]),
                 )
                 old_appid = ipsjson.get("applicationTypeID")
@@ -271,13 +271,13 @@ def IPSDescribe(
                     indexnum = t1contextid.index(str(ipsjson["contextID"]))
                     ipsjson["contextID"] = t2contextid[indexnum]
 
-                console.log("#" + str(count) + " IPS Rule ID: " + str(ipsjson["ID"]))
+                log.info("#" + str(count) + " IPS Rule ID: " + str(ipsjson["ID"]))
                 allipsrule.append(json.dumps(ipsjson))
             except:
-                console.log(describe)
+                log.info(describe)
 
-    console.log("Done!")
-    console.log("Searching and Modifying IPS rule in Tenant 2...")
+    log.info("Done!")
+    log.info("Searching and Modifying IPS rule in Tenant 2...")
     ipsruleid_dict, allipscustomrule = validate_create_dict_custom(
         allipsrule, ipsruleid_dict, ipsrule_api_instance, "IPS Rule"
     )
@@ -287,7 +287,7 @@ def IPSDescribe(
         )
     else:
         ipscustomrule_dict = {}
-    console.log("Done!")
+    log.info("Done!")
     return ipsruleid_dict, ipscustomrule_dict
 
 

@@ -112,7 +112,7 @@ def validate_create(all_old: List[str], api_instance, type: str) -> List[str]:
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname)
-                console.log(
+                log.info(
                     "#"
                     + str(count)
                     + " "
@@ -130,13 +130,13 @@ def validate_create(all_old: List[str], api_instance, type: str) -> List[str]:
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
                 elif "Name must be unique" in error_json["message"]:
-                    console.log(
+                    log.info(
                         f"{oldjson['name']} already exists in new tenant, renaming...",
                     )
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
-                    console.log(e.body)
+                    log.info(e.body)
                     namecheck = -1
     return all_new
 
@@ -147,7 +147,7 @@ def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
     Args:
         all_old (list): a list of json strings that are provided as output of other functions
         api_instance (RestApiConfiguration): an sdk configuration from api_config
-        type (str): The type of operation being performed, for console.loging (e.g. "Intrusion Prevention Rule")
+        type (str): The type of operation being performed, for log.infoing (e.g. "Intrusion Prevention Rule")
 
     Returns:
         dict: A dict of form {oldid1:newid1, oldid2:newid2, ...}
@@ -164,7 +164,7 @@ def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
                 try:
                     newname = api_instance.create(oldjson)
                     newid = api_instance.search(newname)
-                    console.log(
+                    log.info(
                         "#"
                         + str(count)
                         + " "
@@ -179,13 +179,13 @@ def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
                 except ApiException as e:
                     error_json = json.loads(e.body)
                     if "name already exists" in error_json["message"]:
-                        console.log(
+                        log.info(
                             f"{oldjson['name']} already exists in new tenant, renaming..."
                         )
                         oldjson["name"] = oldname + " {" + str(rename) + "}"
                         rename = rename + 1
                     else:
-                        console.log(e.body)
+                        log.info(e.body)
                         namecheck = -1
     return new_dict
 
@@ -199,7 +199,7 @@ def validate_create_dict_custom(
         all_old (list): list of pre-defined objects as json strings
         skeleton_dict (dict): A skeleton of the final ID mapping of form {oldid1: None, oldid2: None,...}
         api_instance (ApiInstance): The requisite ApiInstance object defined in api_config
-        type (str): The type of operation being performed, for console.loging (e.g. "Intrusion Prevention Rule")
+        type (str): The type of operation being performed, for log.infoing (e.g. "Intrusion Prevention Rule")
 
     Returns:
         Tuple[(dict, list)]: A dict of form {oldid:newid,...} for all common pre-defined objects, and a list of custom objects as strings of json
@@ -216,7 +216,7 @@ def validate_create_dict_custom(
                 new_id = api_instance.search(old_name)
                 if new_id is not None:
                     skeleton_dict[old_id] = new_id
-                    console.log(
+                    log.info(
                         f"#{str(count)} {type}: {old_name}",
                     )
                 elif "template" in item_json:
@@ -234,11 +234,11 @@ def validate_create_dict_custom(
                 namecheck = -1
             except ApiException as e:
                 if "already exists" in e.body:
-                    console.log(f"{old_name} already exists in new tenant, renaming...")
+                    log.info(f"{old_name} already exists in new tenant, renaming...")
                     item_json["name"] = old_name + " {" + str(rename) + "}"
                     rename = rename + 1
                 else:
                     log.error(e.body)
                     pass
-    console.log("Done!")
+    log.info("Done!")
     return skeleton_dict, custom_list

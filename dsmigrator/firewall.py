@@ -74,7 +74,7 @@ def FirewallGet(allofpolicy):
     firewallruleid = []
     policystateful = []
     # find all Firewall rules
-    console.log("Firewall rules in Tenant 1")
+    log.info("Firewall rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "globalStatefulConfigurationID" in namejson["firewall"]:
@@ -85,7 +85,7 @@ def FirewallGet(allofpolicy):
             for count, here2 in enumerate(namejson["firewall"]["ruleIDs"]):
                 firewallruleid.append(str(here2))
     firewallruleid = list(dict.fromkeys(firewallruleid))
-    console.log(firewallruleid)
+    log.info(firewallruleid)
     return firewallruleid, policystateful
 
 
@@ -112,7 +112,7 @@ def FirewallDescribe(
     allfirewallruleidold = []
     allfirewallcustomrule = []
     # describe Firewall rules
-    console.log("Searching and Modifying Firewall rules in Tenant 1...")
+    log.info("Searching and Modifying Firewall rules in Tenant 1...")
     if firewallruleid:
         for count, dirlist in enumerate(firewallruleid):
             payload = {}
@@ -133,12 +133,12 @@ def FirewallDescribe(
             allfirewallrule.append(describe)
             firewalljson = json.loads(describe)
             allfirewallrulename.append(str(firewalljson["name"]))
-            console.log(
+            log.info(
                 "#" + str(count) + " Firewall rule name: " + str(firewalljson["name"]),
             )
-            console.log("#" + str(count) + " Firewall rule ID: " + dirlist)
-    console.log("Done!")
-    console.log("Replacing firewall rule IDs configuration in tenant 2...")
+            log.info("#" + str(count) + " Firewall rule ID: " + dirlist)
+    log.info("Done!")
+    log.info("Replacing firewall rule IDs configuration in tenant 2...")
     for count, describe in enumerate(allfirewallrule):
         firewalljson = json.loads(describe)
         if "scheduleID" in firewalljson:
@@ -218,7 +218,7 @@ def FirewallDescribe(
                                 data=payload,
                                 verify=cert,
                             )
-                            console.log(
+                            log.info(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
                             )
                         else:
@@ -248,18 +248,18 @@ def FirewallDescribe(
                                     data=payload,
                                     verify=cert,
                                 )
-                                console.log(
+                                log.info(
                                     "#" + str(count) + " Firewall rule ID: " + indexid,
                                 )
                 else:
-                    console.log(describe)
-                    console.log(payload)
+                    log.info(describe)
+                    log.info(payload)
             else:
                 allfirewallcustomrule.append(count)
         else:
-            console.log(describe)
-            console.log(payload)
-    console.log("Done!")
+            log.info(describe)
+            log.info(payload)
+    log.info("Done!")
     return (
         allfirewallrule,
         allfirewallruleidnew1,
@@ -273,7 +273,7 @@ def FirewallCustom(
 ):
     allfirewallruleidnew2 = []
     if allfirewallcustomrule:
-        console.log("Creating Firewall Custom Rule...")
+        log.info("Creating Firewall Custom Rule...")
         for count, indexnum in enumerate(allfirewallcustomrule):
             payload = allfirewallrule[indexnum]
             url = url_link_final_2 + "api/firewallrules"
@@ -301,7 +301,7 @@ def FirewallCustom(
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allfirewallruleidnew2.append(str(indexid))
-                        console.log(
+                        log.info(
                             "#" + str(count) + " Firewall rule ID: " + indexid,
                         )
                     else:
@@ -311,13 +311,13 @@ def FirewallCustom(
                         ):  # i.e. both quotes were found
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allfirewallruleidnew2.append(str(indexid))
-                            console.log(
+                            log.info(
                                 "#" + str(count) + " Firewall rule ID: " + indexid,
                             )
             else:
-                console.log(describe)
-                console.log(payload)
-        console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+        log.info("Done!")
     return allfirewallruleidnew2
 
 

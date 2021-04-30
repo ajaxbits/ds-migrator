@@ -33,14 +33,14 @@ def im_config_transform(allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KE
 
 def IMGet(allofpolicy):
     imruleid = []
-    console.log("IM rules in Tenant 1")
+    log.info("IM rules in Tenant 1")
     for describe in allofpolicy:
         namejson = json.loads(describe)
         if "ruleIDs" in namejson["integrityMonitoring"]:
             for count, here2 in enumerate(namejson["integrityMonitoring"]["ruleIDs"]):
                 imruleid.append(str(here2))
     imruleid = list(dict.fromkeys(imruleid))
-    console.log(imruleid)
+    log.info(imruleid)
     return imruleid
 
 
@@ -50,7 +50,7 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
     allimruleidnew1 = []
     allimruleidold = []
     allimcustomrule = []
-    console.log("Searching IM rules in Tenant 1...")
+    log.info("Searching IM rules in Tenant 1...")
     if imruleid:
         for count, dirlist in enumerate(imruleid):
             payload = {}
@@ -71,10 +71,10 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             allimrule.append(describe)
             imjson = json.loads(describe)
             allimrulename.append(str(imjson["name"]))
-            console.log("#" + str(count) + " IM rule name: " + str(imjson["name"]))
-            console.log("#" + str(count) + " IM rule ID: " + str(dirlist))
-    console.log("Done!")
-    console.log("Searching and Modifying IM rule in Tenant 2...")
+            log.info("#" + str(count) + " IM rule name: " + str(imjson["name"]))
+            log.info("#" + str(count) + " IM rule ID: " + str(dirlist))
+    log.info("Done!")
+    log.info("Searching and Modifying IM rule in Tenant 2...")
     for count, dirlist in enumerate(allimrulename):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -111,7 +111,7 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                             indexid = indexpart[startIndex + 1 : endIndex]
                             allimruleidnew1.append(str(indexid))
                             allimruleidold.append(count)
-                            console.log(
+                            log.info(
                                 "#" + str(count) + " IM rule ID: " + str(indexid),
                             )
                         else:
@@ -122,25 +122,25 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
                                 indexid = indexpart[startIndex + 1 : endIndex]
                                 allimruleidnew1.append(str(indexid))
                                 allimruleidold.append(count)
-                                console.log(
+                                log.info(
                                     "#" + str(count) + " IM rule ID: " + str(indexid),
                                 )
                 else:
-                    console.log(describe)
-                    console.log(payload)
+                    log.info(describe)
+                    log.info(payload)
             else:
                 allimcustomrule.append(count)
         else:
-            console.log(describe)
-            console.log(payload)
-    console.log("Done!")
+            log.info(describe)
+            log.info(payload)
+    log.info("Done!")
     return allimrule, allimruleidnew1, allimruleidold, allimcustomrule
 
 
 def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
     allimruleidnew2 = []
     if allimcustomrule:
-        console.log("Creating new custom IM rule in Tenant 2...")
+        log.info("Creating new custom IM rule in Tenant 2...")
         for count, indexnum in enumerate(allimcustomrule):
             payload = allimrule[indexnum]
             url = url_link_final_2 + "api/integritymonitoringrules"
@@ -168,13 +168,13 @@ def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         allimruleidnew2.append(str(indexid))
-                        console.log(
+                        log.info(
                             "#" + str(count) + " IM rule ID: " + str(indexid),
                         )
             else:
-                console.log(describe)
-                console.log(payload)
-        console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+        log.info("Done!")
 
     return allimruleidnew2
 

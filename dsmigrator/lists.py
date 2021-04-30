@@ -95,7 +95,7 @@ def schedule_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY):
 
 def DirListTenant1(directorylist, url_link_final, tenant1key):
     alldirectory = []
-    console.log("Getting lists from Tenant 1, if any.")
+    log.info("Getting lists from Tenant 1, if any.")
     for dirlist in directorylist:
         payload = {}
         url = url_link_final + "api/directorylists/" + str(dirlist)
@@ -113,8 +113,8 @@ def DirListTenant1(directorylist, url_link_final, tenant1key):
         )
         describe = str(response.text)
         alldirectory.append(describe)
-    console.log("Tenant1 directory list")
-    console.log(directorylist)
+    log.info("Tenant1 directory list")
+    log.info(directorylist)
     return alldirectory
 
 
@@ -137,8 +137,8 @@ def FileExtensionListTenant1(fileextentionlist, url_link_final, tenant1key):
         )
         describe = str(response.text)
         allfileextention.append(describe)
-    console.log("Tenant1 file extention list")
-    console.log(fileextentionlist)
+    log.info("Tenant1 file extention list")
+    log.info(fileextentionlist)
     return allfileextention
 
 
@@ -161,8 +161,8 @@ def FileListTenant1(filelist, url_link_final, tenant1key):
         )
         describe = str(response.text)
         allfilelist.append(describe)
-    console.log("Tenant1 file list")
-    console.log(filelist)
+    log.info("Tenant1 file list")
+    log.info(filelist)
     return allfilelist
 
 
@@ -193,35 +193,35 @@ def RenameLists(alldirectory, allfilelist, allfileextention):
 
 
 def DirListTenant2(alldirectory, NEW_API_KEY):
-    console.log("Creating directory list in tenant 2, if any")
+    log.info("Creating directory list in tenant 2, if any")
     alldirectorynew = []
     if alldirectory:
         alldirectorynew = validate_create(
             alldirectory, DirectoryListsApiInstance(NEW_API_KEY), "directory"
         )
-    console.log(alldirectorynew)
+    log.info(alldirectorynew)
     return alldirectorynew
 
 
 def FileListTenant2(allfile, NEW_API_KEY):
-    console.log("Creating file list in tenant 2, if any")
+    log.info("Creating file list in tenant 2, if any")
     allfilenew = []
     if allfile:
         allfilenew = validate_create(allfile, FileListsApiInstance(NEW_API_KEY), "file")
-    console.log("new file list")
-    console.log(allfilenew)
+    log.info("new file list")
+    log.info(allfilenew)
     return allfilenew
 
 
 def FileExtensionListTenant2(allfileext, NEW_API_KEY):
-    console.log("Creating file extension list in tenant 2, if any")
+    log.info("Creating file extension list in tenant 2, if any")
     allfileextnew = []
     if allfileext:
         allfileextnew = validate_create(
             allfileext, FileExtensionListsApiInstance(NEW_API_KEY), "file extension"
         )
-    console.log("new file extension list")
-    console.log(allfileextnew)
+    log.info("new file extension list")
+    log.info(allfileextnew)
     return allfileextnew
 
 
@@ -229,7 +229,7 @@ def PortListGet(url_link_final, tenant1key):
     t1portlistall = []
     t1portlistname = []
     t1portlistid = []
-    console.log("Getting All Port List...")
+    log.info("Getting All Port List...")
     url = url_link_final + "api/portlists"
     response = safe_request(tenant1key, "GET", url, payload={}, cert=cert)
     describe = str(response.text)
@@ -238,16 +238,16 @@ def PortListGet(url_link_final, tenant1key):
         for count, here in enumerate(ports_json):
             t1portlistall.append(str(json.dumps(here)))
             t1portlistname.append(str(here["name"]))
-            console.log("#" + str(count) + " Port List name: " + str(here["name"]))
+            log.info("#" + str(count) + " Port List name: " + str(here["name"]))
             t1portlistid.append(str(here["ID"]))
-            console.log("#" + str(count) + " Port List ID: " + str(here["ID"]))
-        console.log("Done!")
+            log.info("#" + str(count) + " Port List ID: " + str(here["ID"]))
+        log.info("Done!")
     return t1portlistall, t1portlistname, t1portlistid
 
 
 def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
     t2portlistid = []
-    console.log("Transfering All Port List...")
+    log.info("Transfering All Port List...")
     for count, dirlist in enumerate(t1portlistname):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -295,7 +295,7 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
                             verify=cert,
                         )
                         t2portlistid.append(str(indexid))
-                        console.log("#" + str(count) + " Port List ID: " + indexid)
+                        log.info("#" + str(count) + " Port List ID: " + indexid)
         else:
             payload = t1portlistall[count]
             url = url_link_final_2 + "api/portlists"
@@ -323,11 +323,11 @@ def PortListCreate(t1portlistall, t1portlistname, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         t2portlistid.append(str(indexid))
-                        console.log("#" + str(count) + " Port List ID:" + indexid)
+                        log.info("#" + str(count) + " Port List ID:" + indexid)
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return t2portlistid
 
 
@@ -335,7 +335,7 @@ def MacListGet(url_link_final, tenant1key):
     t1maclistall = []
     t1maclistname = []
     t1maclistid = []
-    console.log("Getting All Mac List...")
+    log.info("Getting All Mac List...")
     url = url_link_final + "api/maclists"
     response = safe_request(tenant1key, "GET", url, payload={}, cert=cert)
     describe = str(response.text)
@@ -344,17 +344,17 @@ def MacListGet(url_link_final, tenant1key):
         for count, here in enumerate(mac_json):
             t1maclistall.append(json.dumps(here))
             t1maclistname.append(str(here["name"]))
-            console.log("#" + str(count) + " Mac List name: " + str(here["name"]))
+            log.info("#" + str(count) + " Mac List name: " + str(here["name"]))
             t1maclistid.append(str(here["ID"]))
-            console.log("#" + str(count) + " Mac List ID: " + str(here["ID"]))
+            log.info("#" + str(count) + " Mac List ID: " + str(here["ID"]))
 
-        console.log("Done!")
+        log.info("Done!")
     return t1maclistall, t1maclistname, t1maclistid
 
 
 def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
     t2maclistid = []
-    console.log("Transfering All Mac List...")
+    log.info("Transfering All Mac List...")
     for count, dirlist in enumerate(t1maclistname):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -402,7 +402,7 @@ def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
                             verify=cert,
                         )
                         t2maclistid.append(str(indexid))
-                        console.log("#" + str(count) + " MAC List ID: " + indexid)
+                        log.info("#" + str(count) + " MAC List ID: " + indexid)
         else:
             payload = t1maclistall[count]
             url = url_link_final_2 + "api/maclists"
@@ -430,11 +430,11 @@ def MacListCreate(t1maclistall, t1maclistname, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         t2maclistid.append(str(indexid))
-                        console.log("#" + str(count) + " MAC List ID: " + indexid)
+                        log.info("#" + str(count) + " MAC List ID: " + indexid)
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return t2maclistid
 
 
@@ -442,7 +442,7 @@ def IpListGet(url_link_final, tenant1key):
     t1iplistall = []
     t1iplistname = []
     t1iplistid = []
-    console.log("Getting All IP List...")
+    log.info("Getting All IP List...")
     payload = {}
     url = url_link_final + "api/iplists"
     headers = {
@@ -463,16 +463,16 @@ def IpListGet(url_link_final, tenant1key):
         for count, here in enumerate(ip_json):
             t1iplistall.append(json.dumps(here))
             t1iplistname.append(str(here["name"]))
-            console.log("#" + str(count) + " IP List name: " + str(here["name"]))
+            log.info("#" + str(count) + " IP List name: " + str(here["name"]))
             t1iplistid.append(str(here["ID"]))
-            console.log("#" + str(count) + " IP List ID: " + str(here["ID"]))
-        console.log("Done!")
+            log.info("#" + str(count) + " IP List ID: " + str(here["ID"]))
+        log.info("Done!")
     return t1iplistall, t1iplistname, t1iplistid
 
 
 def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
     t2iplistid = []
-    console.log("Transfering All IP List...")
+    log.info("Transfering All IP List...")
     for count, dirlist in enumerate(t1iplistname):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
@@ -520,7 +520,7 @@ def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
                             verify=cert,
                         )
                         t2iplistid.append(str(indexid))
-                        console.log("#" + str(count) + " IP List ID: " + indexid)
+                        log.info("#" + str(count) + " IP List ID: " + indexid)
         else:
             payload = t1iplistall[count]
             url = url_link_final_2 + "api/iplists"
@@ -548,11 +548,11 @@ def IpListCreate(t1iplistall, t1iplistname, url_link_final_2, tenant2key):
                     ):  # i.e. both quotes were found
                         indexid = indexpart[startIndex + 1 : endIndex]
                         t2iplistid.append(str(indexid))
-                        console.log("#" + str(count) + " IP List ID: " + indexid)
+                        log.info("#" + str(count) + " IP List ID: " + indexid)
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return t2iplistid
 
 
@@ -560,7 +560,7 @@ def StatefulGet(url_link_final, tenant1key):
     t1statefulall = []
     t1statefulname = []
     t1statefulid = []
-    console.log("Getting All Stateful Configuration...")
+    log.info("Getting All Stateful Configuration...")
     payload = {}
     url = url_link_final + "api/statefulconfigurations"
     headers = {
@@ -581,18 +581,18 @@ def StatefulGet(url_link_final, tenant1key):
         for count, here in enumerate(stateful_json):
             t1statefulall.append(str(json.dumps(here)))
             t1statefulname.append(str(here["name"]))
-            console.log(
+            log.info(
                 "#" + str(count) + " Stateful Config name: " + str(here["name"]),
             )
             t1statefulid.append(str(here["ID"]))
-            console.log("#" + str(count) + " Stateful Config ID: " + str(here["ID"]))
-        console.log("Done")
+            log.info("#" + str(count) + " Stateful Config ID: " + str(here["ID"]))
+        log.info("Done")
     return t1statefulall, t1statefulname, t1statefulid
 
 
 def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
     t2statefulid = []
-    console.log("Transfering All Stateful Configuration...")
+    log.info("Transfering All Stateful Configuration...")
     if t1statefulname:
         for count, dirlist in enumerate(t1statefulname):
             payload = (
@@ -640,13 +640,13 @@ def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
                         t2statefulid.append(str(taskjson1["ID"]))
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Stateful Config name: "
                             + taskjson1["name"],
                         )
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Stateful Config ID: "
@@ -670,19 +670,19 @@ def StatefulCreate(t1statefulall, t1statefulname, url_link_final_2, tenant2key):
                     describe = str(response.text)
                     taskjson = json.loads(describe)
                     t2statefulid.append(str(taskjson["ID"]))
-                    console.log(
+                    log.info(
                         "#" + str(count) + " Stateful Config name: " + taskjson["name"],
                     )
-                    console.log(
+                    log.info(
                         "#"
                         + str(count)
                         + " Stateful Config ID: "
                         + str(taskjson["ID"]),
                     )
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return t2statefulid
 
 
@@ -690,7 +690,7 @@ def ContextGet(url_link_final, tenant1key):
     t1contextall = []
     t1contextname = []
     t1contextid = []
-    console.log("Getting All Context Configuration...")
+    log.info("Getting All Context Configuration...")
     payload = {}
     url = url_link_final + "api/contexts"
     headers = {
@@ -711,18 +711,18 @@ def ContextGet(url_link_final, tenant1key):
         for count, here in enumerate(contexts_json):
             t1contextall.append(str(json.dumps(here)))
             t1contextname.append(str(here["name"]))
-            console.log(
+            log.info(
                 "#" + str(count) + " Context Config name: " + str(here["name"]),
             )
             t1contextid.append(str(here["ID"]))
-            console.log("#" + str(count) + " Context Config ID: " + str(here["ID"]))
-        console.log("Done")
+            log.info("#" + str(count) + " Context Config ID: " + str(here["ID"]))
+        log.info("Done")
     return t1contextall, t1contextname, t1contextid
 
 
 def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
     t2contextid = []
-    console.log("Transfering All Context Configuration...")
+    log.info("Transfering All Context Configuration...")
     if t1contextname:
         for count, dirlist in enumerate(t1contextname):
             payload = (
@@ -766,13 +766,13 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
                         describe = str(response.text)
                         taskjson1 = json.loads(describe)
                         t2contextid.append(str(taskjson1["ID"]))
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Context Config name: "
                             + taskjson1["name"],
                         )
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Context Config ID: "
@@ -796,16 +796,16 @@ def ContextCreate(t1contextall, t1contextname, url_link_final_2, tenant2key):
                     describe = str(response.text)
                     taskjson = json.loads(describe)
                     t2contextid.append(str(taskjson["ID"]))
-                    console.log(
+                    log.info(
                         "#" + str(count) + " Context Config name: " + taskjson["name"],
                     )
-                    console.log(
+                    log.info(
                         "#" + str(count) + " Context Config ID: " + str(taskjson["ID"]),
                     )
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return t2contextid
 
 
@@ -813,7 +813,7 @@ def ScheduleGet(url_link_final, tenant1key):
     t1scheduleall = []
     t1schedulename = []
     t1scheduleid = []
-    console.log("Getting All Schedule Configuration...")
+    log.info("Getting All Schedule Configuration...")
     payload = {}
     url = url_link_final + "api/schedules"
     headers = {
@@ -834,19 +834,19 @@ def ScheduleGet(url_link_final, tenant1key):
         for count, here in enumerate(schedules_json):
             t1scheduleall.append(str(json.dumps(here)))
             t1schedulename.append(str(here["name"]))
-            console.log(
+            log.info(
                 "#" + str(count) + " Schedule Config name: " + str(here["name"]),
             )
             t1scheduleid.append(str(here["ID"]))
-            console.log("#" + str(count) + " Schedule Config ID: " + str(here["ID"]))
-        console.log("Done")
+            log.info("#" + str(count) + " Schedule Config ID: " + str(here["ID"]))
+        log.info("Done")
     return t1scheduleall, t1schedulename, t1scheduleid
 
 
 def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
     schedule_id_dict = {}
     t2scheduleid = []
-    console.log("Transfering All Schedule Configuration...")
+    log.info("Transfering All Schedule Configuration...")
     if t1schedulename:
         for count, schedule in enumerate(t1scheduleall):
             schedule_json = json.loads(schedule)
@@ -895,13 +895,13 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                         taskjson1 = json.loads(describe)
                         new_id = taskjson1["ID"]
                         t2scheduleid.append(str(taskjson1["ID"]))
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Schedule Config name: "
                             + taskjson1["name"],
                         )
-                        console.log(
+                        log.info(
                             "#"
                             + str(count)
                             + " Schedule Config ID: "
@@ -926,10 +926,10 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                     taskjson = json.loads(describe)
                     new_id = taskjson["ID"]
                     t2scheduleid.append(str(taskjson["ID"]))
-                    console.log(
+                    log.info(
                         "#" + str(count) + " Schedule Config name: " + taskjson["name"],
                     )
-                    console.log(
+                    log.info(
                         "#"
                         + str(count)
                         + " Schedule Config ID: "
@@ -937,7 +937,7 @@ def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
                     )
                 schedule_id_dict[old_id] = new_id
             else:
-                console.log(describe)
-                console.log(payload)
-    console.log("Done!")
+                log.info(describe)
+                log.info(payload)
+    log.info("Done!")
     return schedule_id_dict, t2scheduleid

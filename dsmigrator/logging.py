@@ -9,9 +9,7 @@ console = Console(record=True, log_path=False)
 error_console = Console(record=True, stderr=True)
 
 STDOUT_FORMAT = "%(message)s"
-LOG_FILE_FORMAT = logging.Formatter(
-    "%(asctime)s — %(name)s — %(levelname)s — %(message)s"
-)
+LOG_FILE_FORMAT = logging.Formatter("%(asctime)s — %(levelname)s — %(message)s")
 
 
 def get_file_handler():

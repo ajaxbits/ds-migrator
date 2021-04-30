@@ -1,4 +1,4 @@
-# from __future__ import console.log_function
+# from __future__ import log.info_function
 from pathlib import Path
 import click
 import sys, warnings
@@ -51,7 +51,7 @@ import xml.etree.ElementTree as ET
     help="(Optional) Allows the use of a cert file",
 )
 def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=False):
-    console.log("Searching for customized rules...")
+    log.info("Searching for customized rules...")
 
     class ApiInstance:
         def __init__(self, module, ORIGINAL_URL, ORIGINAL_API_KEY, cert=False):
@@ -101,15 +101,15 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
                         rule_id = rule.attrib["id"]
                         self.edited_rules.append(int(rule_id))
             if len(self.edited_rules) > 1:
-                console.log(
+                log.info(
                     f"Found {len(self.edited_rules)} customized {self.module} rules!"
                 )
             elif self.edited_rules:
-                console.log(
+                log.info(
                     f"Found {len(self.edited_rules)} customized {self.module} rule!"
                 )
             else:
-                console.log(f"No customized {self.module} rules detected.")
+                log.info(f"No customized {self.module} rules detected.")
 
     def add_module_rules(api_instance, edited_rules_list):
         rule_list = {
@@ -166,7 +166,7 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
         original_api_key,
         cert,
     )
-    console.log(f"Creating report at {outfile}...")
+    log.info(f"Creating report at {outfile}...")
     try:
         rule_list = [
             add_module_rules(ip.api, ip.rules),
@@ -174,10 +174,10 @@ def main(xml_folder, outfile, original_url, original_api_key, insecure, cert=Fal
             add_module_rules(li.api, li.rules),
         ]
     except ApiException as e:
-        console.log(e)
+        log.info(e)
     json_output = json.dumps(rule_list, indent=2)
     open(outfile, "w").write(json_output)
-    console.log("DONE!")
+    log.info("DONE!")
 
 
 if __name__ == "__main__":

@@ -63,7 +63,7 @@ def ListEventTask(url_link_final, tenant1key):
 def GetEventTask(etIDs, url_link_final, tenant1key):
     allet = []
     nameet = []
-    console.log("Getting Target Task...")
+    log.info("Getting Target Task...")
     if etIDs:
         for part in etIDs:
             payload = {}
@@ -90,7 +90,7 @@ def GetEventTask(etIDs, url_link_final, tenant1key):
 def CreateEventTask(
     allet, nameet, policy_dict, computer_group_dict, url_link_final_2, tenant2key
 ):
-    console.log("Creating Task to target Account...")
+    log.info("Creating Task to target Account...")
     if nameet:
         modet = []
         for task in allet:
@@ -106,7 +106,7 @@ def CreateEventTask(
                         ):
                             action["parameterValue"] = computer_group_dict[oldid]
                         elif computer_group_dict.get(oldid) is None:
-                            console.log(
+                            log.info(
                                 f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                             )
                             task_json = {}
@@ -115,7 +115,7 @@ def CreateEventTask(
                         ):
                             action["parameterValue"] = policy_dict[oldid]
                         elif policy_dict.get(oldid) is None:
-                            console.log(
+                            log.info(
                                 f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                             )
                             task_json = {}
@@ -153,7 +153,7 @@ def ListScheduledTask(url_link_final, tenant1key):
 def GetScheduledTask(stIDs, url_link_final, tenant1key):
     allst = []
     namest = []
-    console.log("Getting Target Task...")
+    log.info("Getting Target Task...")
     if stIDs:
         for part in stIDs:
             payload = {}
@@ -180,7 +180,7 @@ def GetScheduledTask(stIDs, url_link_final, tenant1key):
 def CreateScheduledTask(
     allst, namest, policy_dict, computer_group_dict, url_link_final_2, tenant2key
 ):
-    console.log("Creating Task to target Account...")
+    log.info("Creating Task to target Account...")
     if namest:
         modst = []
         for task in allst:
@@ -198,7 +198,7 @@ def CreateScheduledTask(
                         computer_group_dict[oldid],
                     )
                 else:
-                    console.log(
+                    log.info(
                         f"WARNING: THE COMPUTER GROUP ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
                     task_json = {}
@@ -207,12 +207,12 @@ def CreateScheduledTask(
                 if computer_group_dict.get(oldid) is not None:
                     task_json = nested_update(task_json, "policyID", policy_dict[oldid])
                 else:
-                    console.log(
+                    log.info(
                         f"WARNING: THE POLICY ASSIGNED IN {oldname} DOES NOT EXIST. TASK WILL NOT BE MIGRATED"
                     )
                     task_json = {}
             if has_smartfolder:
-                console.log(
+                log.info(
                     f"WARNING: THE SMART FOLDER ASSIGNED IN {oldname} CANNOT BE MIGRATED."
                 )
                 task_json = {}

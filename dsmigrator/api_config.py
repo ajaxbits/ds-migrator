@@ -50,7 +50,7 @@ def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> 
         response = requests.request(
             "GET", url, headers=headers, data=payload, verify=cert
         )
-        console.log(f"Checking api key {obfuscated_key}...")
+        log.info(f"Checking api key {obfuscated_key}...")
         if "active" and "true" in response.text:
             result = True
         else:

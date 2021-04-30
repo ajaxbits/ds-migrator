@@ -247,7 +247,7 @@ def main(
     validation_result2 = CheckAPIAccess(new_url, cloud_one_api_key)
 
     if validation_result1 and validation_result2:
-        console.log("Successfully authenticated!")
+        log.info("Successfully authenticated!")
     else:
         log.error("Something went wrong with authentication.")
         log.error(
@@ -287,7 +287,7 @@ def main(
             desired_id = oldpolicynameid_dict.get(desired_policy)
             if desired_id is not None:
                 old_policy_id_list.append(desired_id)
-        console.log(f"New desired policy IDs: {old_policy_id_list}")
+        log.info(f"New desired policy IDs: {old_policy_id_list}")
 
     console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
@@ -438,4 +438,7 @@ def main(
 
 
 if __name__ == "__main__":
-    main()  # pylint: disable=no-value-for-parameter
+    try:
+        main()  # pylint: disable=no-value-for-parameter
+    except Exception:
+        log.exception("Fatal error in main.")
