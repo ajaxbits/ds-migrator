@@ -31,7 +31,7 @@ from dsmigrator.lists import (
     schedule_listmaker,
     stateful_listmaker,
 )
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import console, log
 from dsmigrator.loginspection import li_config_transform
 from dsmigrator.policies import (
     AddPolicy,
@@ -236,6 +236,8 @@ def main(
     NEW_API_KEY = cloud_one_api_key
     NEW_HOST = new_url
 
+    log.info("starting tool")
+
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -245,20 +247,16 @@ def main(
     validation_result2 = CheckAPIAccess(new_url, cloud_one_api_key)
 
     if validation_result1 and validation_result2:
-        console.log("Successfully authenticated!")
+        log.info("Successfully authenticated!")
     else:
         log.error("Something went wrong with authentication.")
         log.error(
             "Double-check that your api key is correct, active, and has 'Full Access' permissions."
         )
         log.error("Aborting...")
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
         sys.exit(0)
 
     if delete_policies:
-        console.save_text(filename)
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
@@ -285,22 +283,19 @@ def main(
             desired_id = oldpolicynameid_dict.get(desired_policy)
             if desired_id is not None:
                 old_policy_id_list.append(desired_id)
-        console.log(f"New desired policy IDs: {old_policy_id_list}")
+        log.info(f"New desired policy IDs: {old_policy_id_list}")
 
-    console.save_text(filename, clear=False)
     console.rule("Initial Data Collection")
 
     antimalwareconfig, allofpolicy = GetPolicy(
         old_policy_id_list, OLD_HOST, OLD_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Configurations")
     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
         antimalwareconfig, OLD_HOST, OLD_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Lists")
     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
         amdirectorylist,
@@ -330,7 +325,6 @@ def main(
         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
 
-    console.save_text(filename, clear=False)
     console.rule("Proxy Settings")
     try:
         proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
@@ -340,13 +334,9 @@ def main(
         log.error(
             "Transfer will continue, but please double check the proxy settings in Cloud One"
         )
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
         pass
 
     # TRANSFORM
-    console.save_text(filename, clear=False)
     console.rule("Intrusion Prevention Module")
     allofpolicy = ips_rules_transform(
         allofpolicy,
@@ -361,7 +351,6 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Anti-Malware Module")
     allofpolicy = am_validate_create(
         allofpolicy,
@@ -377,17 +366,14 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Integrity Monitoring Module")
     allofpolicy = im_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    console.save_text(filename, clear=False)
     console.rule("Log Inspection Module")
     allofpolicy = li_config_transform(
         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
     )
-    console.save_text(filename, clear=False)
     console.rule("Firewall Module")
     allofpolicy = firewall_config_transform(
         allofpolicy,
@@ -408,11 +394,9 @@ def main(
         NEW_HOST,
         NEW_API_KEY,
     )
-    console.save_text(filename, clear=False)
     console.rule("Final Policy Migration")
     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
     if tasks:
-        console.save_text(filename, clear=False)
         console.rule("Tasks")
         computer_group_dict = computer_group_listmaker(
             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
@@ -436,4 +420,7 @@ def main(
 
 
 if __name__ == "__main__":
-    main()  # pylint: disable=no-value-for-parameter
+    try:
+        main()  # pylint: disable=no-value-for-parameter
+    except Exception:
+        log.exception("Fatal error in main.")

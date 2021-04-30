@@ -8,7 +8,7 @@ import deepsecurity
 import requests
 from deepsecurity.rest import ApiException
 
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import log
 from dsmigrator.migrator_utils import safe_request
 
 
@@ -50,7 +50,7 @@ def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> 
         response = requests.request(
             "GET", url, headers=headers, data=payload, verify=cert
         )
-        console.log(f"Checking api key {obfuscated_key}...")
+        log.info(f"Checking api key {obfuscated_key}...")
         if "active" and "true" in response.text:
             result = True
         else:
@@ -60,9 +60,6 @@ def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> 
                 "Double-check that your api key is correct, active, and has 'Full Access' permissions."
             )
             log.error("Aborting...")
-            with open(filename, "a") as logfile:
-                logfile.write(f"{error_console.export_text(clear=False)}\n")
-                logfile.close()
             sys.exit(0)
     except Exception as e:
         log.exception(e)
@@ -71,9 +68,6 @@ def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> 
             "Double-check that your api key is correct, active, and has 'Full Access' permissions."
         )
         log.error("Aborting...")
-        with open(filename, "a") as logfile:
-            logfile.write(f"{error_console.export_text(clear=False)}\n")
-            logfile.close()
         sys.exit(0)
     return result
 

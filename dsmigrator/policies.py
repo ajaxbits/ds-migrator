@@ -12,13 +12,13 @@ from rich.progress import Progress
 
 from dsmigrator.api_config import PolicyApiInstance
 from dsmigrator.migrator_utils import safe_request
-from dsmigrator.logging import console, error_console, filename, log
+from dsmigrator.logging import log
 
 cert = False
 
 
 def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
-    console.log("Deleting Policies from Cloud One...")
+    log.info("Deleting Policies from Cloud One...")
 
     host = "https://cloudone.trendmicro.com/api/policies"
     message = requests.get(
@@ -33,7 +33,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
         policyNumbers.append(key.ID)
     if policyNumbers:
         for policyID in policyNumbers:
-            console.log(f"Deleting policy #{policyID}")
+            log.info(f"Deleting policy #{policyID}")
             policyHost = f"https://cloudone.trendmicro.com/api/policies/{policyID}"
             requests.delete(
                 policyHost,
@@ -41,7 +41,7 @@ def delete_cloud_one_policies(CLOUD_ONE_API_KEY: str):
                 headers={"api-secret-key": CLOUD_ONE_API_KEY, "api-version": "v1"},
             )
     else:
-        console.log("No policies detected in Cloud One. Skipping.")
+        log.info("No policies detected in Cloud One. Skipping.")
 
 
 def ListAllPolicy(url_link_final, tenant1key):
@@ -62,7 +62,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
     antimalwareconfig = []
     allofpolicy = []
     i = 0
-    console.log("Getting Policy from Deep Security")
+    log.info("Getting Policy from Deep Security")
     for count, part in enumerate(policyIDs):
         payload = {}
         url = url_link_final + "api/policies/" + str(part)
@@ -70,7 +70,7 @@ def GetPolicy(policyIDs, url_link_final, tenant1key):
         policy_string = str(response.text)
         i = i + 1
         allofpolicy.append(policy_string)
-        console.log("#" + str(count) + " Policy ID: " + str(part))
+        log.info("#" + str(count) + " Policy ID: " + str(part))
         rtscan = policy_string.find("realTimeScanConfigurationID")
         if rtscan != -1:
             rtpart = policy_string[rtscan + 28 :]
@@ -141,20 +141,17 @@ def policy_validate_create(
                 oldjson["parentID"] = id_dict[oldjson["parentID"]]
         except Exception as e:
             log.exception(e)
-            log.error(
+            log.warning(
                 "ParentID error. Creating policy at base level, please set inheritance manually."
             )
             del oldjson["parentID"]
-            with open(filename, "a") as logfile:
-                logfile.write(f"{error_console.export_text(clear=False)}\n")
-                logfile.close()
             pass
         while namecheck != -1:
             try:
                 newname = api_instance.create(oldjson)
                 newid = api_instance.search(newname).id
                 id_dict[oldid] = newid
-                console.log(
+                log.info(
                     "#"
                     + str(count)
                     + " "
@@ -169,7 +166,7 @@ def policy_validate_create(
             except ApiException as e:
                 error_json = json.loads(e.body)
                 if "name already exists" in error_json["message"]:
-                    console.log(
+                    log.info(
                         f"{oldjson['name']} already exists in new tenant, renaming..."
                     )
                     oldjson["name"] = oldname + " {" + str(rename) + "}"
@@ -179,9 +176,6 @@ def policy_validate_create(
                     log.error(
                         f"{oldname} could not be transferred. Please transfer manually."
                     )
-                    with open(filename, "a") as logfile:
-                        logfile.write(f"{error_console.export_text(clear=False)}\n")
-                        logfile.close()
                     namecheck = -1
     id_dict[0] = 0
     return id_dict
@@ -191,7 +185,7 @@ cert = False
 
 
 def AddPolicy(allofpolicy: typing.List[str], NEW_API_KEY: str) -> typing.Dict[int, int]:
-    console.log("Creating Policy to Tenant 2 with new ID")
+    log.info("Creating Policy to Tenant 2 with new ID")
     if allofpolicy:
         return policy_validate_create(
             allofpolicy, PolicyApiInstance(NEW_API_KEY), "policy"
