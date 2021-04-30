@@ -236,6 +236,8 @@ def main(
     NEW_API_KEY = cloud_one_api_key
     NEW_HOST = new_url
 
+    log.info("starting tool")
+
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
