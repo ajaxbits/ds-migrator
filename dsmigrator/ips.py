@@ -10,7 +10,9 @@ from dsmigrator.api_config import (
     ApplicationTypesApiInstance,
     IntrusionPreventionApiInstance,
 )
+
 from dsmigrator.logging import log
+
 from dsmigrator.migrator_utils import (
     validate_create,
     validate_create_dict,
@@ -144,9 +146,11 @@ def IPSappDescribe(
                     + str(ipsappjson["ID"]),
                 )
             except:
+
                 log.info(describe)
     log.info("Done!")
     log.info("Searching and Modifying IPS application types in Tenant 2...")
+
     allipscustomapp = []
     for (count, object) in enumerate(allipsapp):
         namecheck = 1

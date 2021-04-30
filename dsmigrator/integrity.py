@@ -75,6 +75,7 @@ def IMDescribe(imruleid, url_link_final, tenant1key, url_link_final_2, tenant2ke
             log.info("#" + str(count) + " IM rule ID: " + str(dirlist))
     log.info("Done!")
     log.info("Searching and Modifying IM rule in Tenant 2...")
+
     for count, dirlist in enumerate(allimrulename):
         payload = (
             '{"searchCriteria": [{"fieldName": "name","stringValue": "'
