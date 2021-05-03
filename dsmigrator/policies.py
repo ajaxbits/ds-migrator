@@ -122,8 +122,32 @@ def policy_validate_create(
     Returns:
         typing.Dict[int, int]: dict of form {oldid:newid, ...}
     """
+
+    def sort_policies(list_item: str) -> int:
+        """
+        Loads a list item from allofpolicy, finds the parentID if there is one,
+        and returns an integer that is used to sort allofpolicy sequentially by
+        parentID.
+
+        Args:
+            list_item (str): item from allofpolicy
+
+        Returns:
+            int: index number representing the parentID heirarchy of a
+                 particular policy
+        """
+        item = json.loads(list_item)
+        parent_ID = item.get("parentID")
+        if parent_ID is not None:
+            sorter = parent_ID
+        else:
+            sorter = 0
+        return sorter
+
     all_new = []
     id_dict = {}
+    all_old.sort(key=sort_policies)
+
     for count, dirlist in enumerate(all_old):
         namecheck = 1
         rename = 1
