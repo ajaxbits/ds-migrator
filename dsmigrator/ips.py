@@ -2,22 +2,14 @@ import json
 from typing import Dict, List
 
 import requests
-import urllib3
 from deepsecurity.rest import ApiException
-from nested_lookup import nested_lookup, nested_update
 
 from dsmigrator.api_config import (
     ApplicationTypesApiInstance,
     IntrusionPreventionApiInstance,
 )
-
 from dsmigrator.logging import log
-
-from dsmigrator.migrator_utils import (
-    validate_create,
-    validate_create_dict,
-    validate_create_dict_custom,
-)
+from dsmigrator.migrator_utils import validate_create_dict, validate_create_dict_custom
 
 cert = False
 

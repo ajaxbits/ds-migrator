@@ -1,13 +1,11 @@
-import sys
-import os
-import requests
-import urllib3
-import urllib3
 import json
-from dsmigrator.logging import log
+
+import requests
 from nested_lookup import nested_lookup, nested_update
-from dsmigrator.api_config import ScheduledTasksApiInstance, EventBasedTasksApiInstance
-from dsmigrator.migrator_utils import validate_create, rename_json
+
+from dsmigrator.api_config import EventBasedTasksApiInstance, ScheduledTasksApiInstance
+from dsmigrator.logging import log
+from dsmigrator.migrator_utils import rename_json, validate_create
 
 cert = False
 

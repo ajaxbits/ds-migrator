@@ -1,11 +1,7 @@
-import sys
-import os
-import time
-from time import sleep
-import requests
-import urllib3
-import urllib3
 import json
+
+import requests
+
 from dsmigrator.logging import log
 
 cert = False
@@ -176,7 +172,6 @@ def IMCustom(allimrule, allimcustomrule, url_link_final_2, tenant2key):
                 log.info(describe)
                 log.info(payload)
         log.info("Done!")
-
     return allimruleidnew2
 
 

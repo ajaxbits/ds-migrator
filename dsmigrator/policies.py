@@ -1,18 +1,13 @@
 import json
 import typing
-import os
-import sys
 from types import SimpleNamespace
 
-import deepsecurity
 import requests
-import urllib3
 from deepsecurity.rest import ApiException
-from rich.progress import Progress
 
 from dsmigrator.api_config import PolicyApiInstance
-from dsmigrator.migrator_utils import safe_request
 from dsmigrator.logging import log
+from dsmigrator.migrator_utils import safe_request
 
 cert = False
 

@@ -1,11 +1,8 @@
 import json
-import logging
-import os
 import sys
 from typing import List, Tuple, Union
 
 import requests
-import urllib3
 from deepsecurity.rest import ApiException
 
 from dsmigrator.logging import log

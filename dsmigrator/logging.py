@@ -1,8 +1,8 @@
 import logging
 from datetime import datetime
+
 from rich.console import Console
 from rich.logging import RichHandler
-
 
 console = Console(log_path=False)
 error_console = True

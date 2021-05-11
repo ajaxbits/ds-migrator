@@ -1,22 +1,14 @@
-import sys
-import os
-import time
-from time import sleep
-import requests
-import urllib3
-import urllib3
 import json
-from dsmigrator.logging import log
+
+import requests
+
 from dsmigrator.api_config import (
     DirectoryListsApiInstance,
-    FileListsApiInstance,
     FileExtensionListsApiInstance,
+    FileListsApiInstance,
 )
-from dsmigrator.migrator_utils import (
-    validate_create,
-    rename_json,
-    safe_request,
-)
+from dsmigrator.logging import log
+from dsmigrator.migrator_utils import safe_request, validate_create
 
 cert = False
 

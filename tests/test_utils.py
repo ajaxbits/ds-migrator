@@ -1,9 +1,8 @@
-import unittest
-import urllib3
-import json
-from dsmigrator.logging import log
-from dsmigrator.migrator_utils import safe_request
 import os
+import unittest
+
+import urllib3
+from dsmigrator.migrator_utils import safe_request
 
 OLD_API_KEY = os.environ.get("ORIGINAL_API_KEY")
 OLD_HOST = os.environ.get("ORIGINAL_URL")

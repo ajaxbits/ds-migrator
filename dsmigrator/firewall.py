@@ -1,11 +1,7 @@
-import sys
-import os
-import time
-from time import sleep
-import requests
-import urllib3
-import urllib3
 import json
+
+import requests
+
 from dsmigrator.logging import log
 
 cert = False
