@@ -1,15 +1,11 @@
-import json
-import os
 import re
 import sys
 from typing import Union
 
 import deepsecurity
 import requests
-from deepsecurity.rest import ApiException
 
 from dsmigrator.logging import log
-from dsmigrator.migrator_utils import safe_request
 
 
 def to_snake(camel_case):

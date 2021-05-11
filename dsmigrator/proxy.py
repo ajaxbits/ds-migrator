@@ -1,11 +1,5 @@
-import sys
-import os
-import time
-from time import sleep
-import requests
-import urllib3
-import urllib3
 import json
+
 from dsmigrator.logging import log
 
 

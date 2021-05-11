@@ -1,20 +1,8 @@
-import codecs
-import datetime
-import logging
-import os
 import sys
-import time
-import traceback
-from datetime import datetime
 
 import click
-import deepsecurity
-import requests
 import urllib3
 import yaml
-from rich.console import Console, OverflowMethod
-from rich.logging import RichHandler
-from rich.traceback import install
 
 from dsmigrator.antimalware import am_config_transform, am_validate_create
 from dsmigrator.api_config import CheckAPIAccess
@@ -95,18 +83,20 @@ def validate_url(ctx, param, url: str) -> str:
         str: a sanitized url
     """
     try:
+        url = url.strip()
         assert url[0:4] == "http"
         if url[-1] != "/":
             url = url + "/"
         return url
     except:
         raise click.BadParameter(
-            "DSM url must start with http, please double-check input"
+            "DSM url must start with 'https://' or , please double-check input"
         )
 
 
 def validate_api_keys(ctx, param, api_key):
     try:
+        api_key = api_key.strip()
         last_equal = api_key[-1] == "="
         first_validation_bit = api_key.split("-")
         last_validation_bit = first_validation_bit[4].split(":")
@@ -235,8 +225,6 @@ def main(
     OLD_HOST = original_url
     NEW_API_KEY = cloud_one_api_key
     NEW_HOST = new_url
-
-    log.info("starting tool")
 
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

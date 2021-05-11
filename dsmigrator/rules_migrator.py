@@ -1,12 +1,13 @@
-# from __future__ import log.info_function
-from pathlib import Path
+import json
+import sys
+import warnings
+import xml.etree.ElementTree as ET
+
 import click
-import sys, warnings
 import deepsecurity
 from deepsecurity.rest import ApiException
-import json
+
 from dsmigrator.logging import log
-import xml.etree.ElementTree as ET
 
 
 @click.command()
