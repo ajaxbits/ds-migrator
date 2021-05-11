@@ -102,6 +102,8 @@ def validate_create(all_old: List[str], api_instance, type: str) -> List[str]:
         rename = 1
         oldjson = json.loads(dirlist)
         oldname = oldjson["name"]
+        # Mutate name to include '- Migrated'
+        oldjson["name"] = f"{oldname} - Migrated"
         while namecheck != -1:
             try:
                 newname = api_instance.create(oldjson)
@@ -154,6 +156,8 @@ def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
         oldname = oldjson.get("name")
         oldid = oldjson.get("ID")
         if (oldname is not None) and (oldid is not None):
+            # Mutate name to include '- Migrated'
+            oldjson["name"] = f"{oldname} - Migrated"
             while namecheck != -1:
                 try:
                     newname = api_instance.create(oldjson)

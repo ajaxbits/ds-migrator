@@ -165,6 +165,8 @@ def policy_validate_create(
             )
             del oldjson["parentID"]
             pass
+        # Mutate policy name to create proper inheritance
+        oldjson["name"] = f"{oldname} - Migrated"
         while namecheck != -1:
             try:
                 newname = api_instance.create(oldjson)
