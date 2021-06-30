@@ -70,13 +70,13 @@ def CheckAPIAccess(url: str, tenantkey: str, cert: Union[str, bool] = False) -> 
 
 class RestApiConfiguration:
     def __init__(
-        self, NEW_API_KEY, NEW_HOST="https://cloudone.trendmicro.com", overrides=False
+        self, API_KEY, HOST="https://cloudone.trendmicro.com/", overrides=False
     ):
         self.configuration = deepsecurity.Configuration()
         self.api_client = deepsecurity.ApiClient(self.configuration)
         self.overrides = overrides
-        self.configuration.host = "https://cloudone.trendmicro.com/api"
-        self.configuration.api_key["api-secret-key"] = NEW_API_KEY
+        self.configuration.host = f"{HOST}api"
+        self.configuration.api_key["api-secret-key"] = API_KEY
         self.api_version = "v1"
 
     def name_search_filter(self, name):
@@ -389,3 +389,54 @@ class IntegrityMonitoringApiInstance(RestApiConfiguration):
             self.api_version, integrity_monitoring_rule=object
         )
         return object.name
+
+
+class ComputersApiInstance(RestApiConfiguration):
+    def __init__(self, API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, API_KEY, overrides)
+        self.api_instance = deepsecurity.ComputersApi(self.api_client)
+
+    def list(self, expand="all"):
+        computer_list = self.api_instance.list_computers(
+            api_version="v1", expand=expand
+        )
+        return computer_list["computers"]
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        results = self.api_instance.search_computers("v1", search_filter=filter)
+        if results.computers:
+            return results.computers[0].id
+
+    def create(self, json):
+        object = deepsecurity.IntegrityMonitoringRule()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        self.api_instance.create_computer(self.api_version, computer=object)
+        return object.name
+
+
+class ComputerMoveTaskApiInstance(RestApiConfiguration):
+    def __init__(self, API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, API_KEY, overrides)
+        self.api_instance = deepsecurity.ComputerMoveTasksApi(self.api_client)
+        return True
+
+    def create(self, dict, policy_id_dict):
+        object = deepsecurity.ComputerMoveTask()
+
+        computer_id = dict.get("ID")
+        deep_security_policy_id = dict.get("policyID")
+        workload_security_policy_id = policy_id_dict.get(deep_security_policy_id)
+
+        if computer_id is not None:
+            setattr(object, "computer_id", dict[key])
+        if (deep_security_policy_id is not None) and (
+            workload_security_policy_id is not None
+        ):
+            setattr(object, "workload_security_policy_id", workload_security_policy_id)
+        self.api_instance.create_computer_move_task(
+            computer_move_task=object, api_version=self.api_version
+        )
+        return object.move_state
