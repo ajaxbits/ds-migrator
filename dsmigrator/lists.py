@@ -836,7 +836,7 @@ def ScheduleGet(url_link_final, tenant1key):
 
 
 def ScheduleCreate(t1scheduleall, t1schedulename, url_link_final_2, tenant2key):
-    schedule_id_dict = {}
+    schedule_id_dict = {0: 0}
     t2scheduleid = []
     log.info("Transfering All Schedule Configuration...")
     if t1schedulename:

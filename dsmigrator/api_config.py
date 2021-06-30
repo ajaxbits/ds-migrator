@@ -3,7 +3,9 @@ import sys
 from typing import Union
 
 import deepsecurity
+from deepsecurity.models import policy
 import requests
+from deepsecurity.rest import ApiException
 
 from dsmigrator.logging import log
 
@@ -440,3 +442,53 @@ class ComputerMoveTaskApiInstance(RestApiConfiguration):
             computer_move_task=object, api_version=self.api_version
         )
         return object.move_state
+
+
+class InterfaceTypesApiInstance(RestApiConfiguration):
+    def __init__(self, NEW_API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, NEW_API_KEY, overrides)
+        self.api_instance = deepsecurity.InterfaceTypesApi(self.api_client)
+
+    def list(self, policy_id):
+        try:
+            results = self.api_instance.list_interface_types(policy_id, "v1")
+            if results.interface_types:
+                return results.interface_types
+        except ApiException as e:
+            log.error(
+                f"An exception occurred when calling InterfaceTypesApi.list_interface_types when searching on policy ID {policy_id}: %s\n"
+                % e
+            )
+
+    def search(self, name):
+        filter = self.name_search_filter(name)
+        try:
+            results = self.api_instance.search_interface_types(
+                "v1", search_filter=filter
+            )
+            if results.interface_types:
+                return results.interface_types[0].id
+        except ApiException as e:
+            log.error(
+                f"An exception occurred when calling InterfaceTypesApi.search_interface_types when searching for interface {name}: %s\n"
+                % e
+            )
+
+    def create(self, json, policy_id):
+        object = deepsecurity.InterfaceType()
+        for key in json:
+            if not key == "ID":
+                setattr(object, to_snake(key), json[key])
+        try:
+            self.api_instance.create_interface_type(
+                policy_id, self.api_version, interface_types=object
+            )
+            return object.name
+        except ApiException as e:
+            log.error(
+                "An exception occurred when calling InterfaceTypesApi.create_interface_type: %s\n"
+                % e
+            )
+            log.debug(
+                f"API object passed to InterfaceTypesApi.create_interface:\n{object}"
+            )

@@ -293,7 +293,7 @@ def IPSReplace(
     ipscustomrule_dict: Dict[int, int],
 ) -> List[str]:
     """
-    Takes in the rule dictionaries for custom and predefined rules and transforms allofpolicy to match1
+    Takes in the rule dictionaries for custom and predefined rules and transforms allofpolicy to match
 
     Args:
         allofpolicy (List[str]): list of json strings representing policies
