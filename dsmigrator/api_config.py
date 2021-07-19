@@ -419,6 +419,28 @@ class ComputersApiInstance(RestApiConfiguration):
         return object.name
 
 
+class WorkloadSecurityLinksApiInstance(RestApiConfiguration):
+    def __init__(self, API_KEY, overrides=False):
+        RestApiConfiguration.__init__(self, API_KEY, overrides)
+        self.api_instance = deepsecurity.WorkloadSecurityLinksApi(self.api_client)
+        self.workload_security_url = "https://cloudone.trendmicro.com"
+        self.workload_security_api_key = API_KEY
+        self.workload_security_ca = ""
+        return True
+
+    def create(self, dict, policy_id_dict):
+        workload_security_link = deepsecurity.WorkloadSecurityLink()
+
+        try:
+            response = self.api_instance.create_workload_security_link(
+                workload_security_link, self.api_version
+            )
+        except:
+            pass
+
+        return response
+
+
 class ComputerMoveTaskApiInstance(RestApiConfiguration):
     def __init__(self, API_KEY, overrides=False):
         RestApiConfiguration.__init__(self, API_KEY, overrides)
@@ -433,7 +455,7 @@ class ComputerMoveTaskApiInstance(RestApiConfiguration):
         workload_security_policy_id = policy_id_dict.get(deep_security_policy_id)
 
         if computer_id is not None:
-            setattr(object, "computer_id", dict[key])
+            setattr(object, "computer_id", computer_id)
         if (deep_security_policy_id is not None) and (
             workload_security_policy_id is not None
         ):
