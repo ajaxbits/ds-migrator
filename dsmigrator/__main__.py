@@ -1,4 +1,5 @@
 import sys
+import time
 
 import click
 import urllib3
@@ -205,8 +206,8 @@ def main(
     NEW_API_KEY = cloud_one_api_key
     NEW_HOST = new_url
 
-    ds_api = DSMApi(f"{OLD_HOST}/api", OLD_API_KEY, False)
-    workload_api = WorkloadApi(f"{NEW_HOST}/api", NEW_API_KEY, False)
+    ds_api = DSMApi(f"{OLD_HOST}api", OLD_API_KEY, False)
+    workload_api = WorkloadApi(f"{NEW_HOST}api", NEW_API_KEY, False)
 
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -234,6 +235,26 @@ def main(
     create_c1ws_link(OLD_HOST, OLD_API_KEY, NEW_API_KEY)
 
     console.rule("Migrating Policies")
+    policy_migration_response = ds_api.create_policy_migration_task()
+    log.debug(f"status response: {policy_migration_response}")
+    log.info(f"migration_task: {policy_migration_response}\n")
+    migration_task_id = policy_migration_response.get("ID")
+    migration_task_status = policy_migration_response.get("status")
+    migration_task_guid = policy_migration_response.get("taskGUID")
+
+    log.info("waiting for migration to complete...")
+
+    while migration_task_status != "complete":
+        r = ds_api.describe_policy_migration_task(migration_task_id)
+        migration_task_status = r.get("status")
+        time.sleep(2)
+
+    log.debug(f"status response: {r}")
+    log.info("Migration Task Complete!")
+
+
+
+
 
 
 if __name__ == "__main__":

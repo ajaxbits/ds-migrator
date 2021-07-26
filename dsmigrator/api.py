@@ -1,6 +1,9 @@
 import requests
+import json
 import sys
+import time
 from dsmigrator.logging import log
+
 
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
@@ -28,7 +31,6 @@ class ApiConfig:
 
     def get_policies(self) -> dict:
         uri = self._compose_uri("/policies?overrides=true")
-        print(f"> GET {uri}")
         r = requests.get(
             uri,
             verify=self.verify_server_cert,
@@ -39,7 +41,6 @@ class ApiConfig:
 
     def update_policy(self, policy_id: int, data) -> dict:
         uri = self._compose_uri(f"/policies/{policy_id}")
-        print(f"> POST {uri}")
         r = requests.post(
             uri,
             json=data,
@@ -55,7 +56,6 @@ class ApiConfig:
 
     def get_ip_list(self, ip_list_id: int) -> dict:
         uri = self._compose_uri(f"/iplists/{ip_list_id}")
-        print(f"> GET {uri}")
         r = requests.get(
             uri,
             verify=self.verify_server_cert,
@@ -73,7 +73,6 @@ class ApiConfig:
             if policy_id == None
             else self._compose_uri(f"/iplists/{policy_id}")
         )
-        print(f"> POST {uri}")
         r = requests.post(
             uri,
             json=data,
@@ -138,10 +137,25 @@ class DSMApi(ApiConfig):
 
     def create_policy_migration_task(self):
         uri = self._compose_uri(f"/policymigrationtasks")
-        print(f"> POST {uri}")
+
         r = requests.post(
             uri,
             data={},
+            verify=self.verify_server_cert,
+            headers={
+                "api-secret-key": self.api_key,
+                "api-version": "v1",
+                "content-type": "application/json",
+            },
+        )
+        r.raise_for_status()
+        return r.json()
+
+    def describe_policy_migration_task(self, policy_migration_task_id):
+        uri = self._compose_uri(f"/policymigrationtasks/{policy_migration_task_id}")
+
+        r = requests.get(
+            uri,
             verify=self.verify_server_cert,
             headers={
                 "api-secret-key": self.api_key,
@@ -156,3 +170,13 @@ class DSMApi(ApiConfig):
 class WorkloadApi(ApiConfig):
     def __init__(self, api_endpoint, api_key, verify_server_cert):
         ApiConfig.__init__(self, api_endpoint, api_key, verify_server_cert)
+
+    def describe_policy_import_task(self, policy_import_task_id: int) -> dict:
+        uri = self._compose_uri(f"/policyimporttasks/{policy_import_task_id}")
+        r = requests.get(
+            uri,
+            verify=self.verify_server_cert,
+            headers={"api-secret-key": self.api_key, "api-version": "v1"},
+        )
+        r.raise_for_status()
+        return r.json()
