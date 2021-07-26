@@ -2,6 +2,7 @@ import requests
 import json
 from dsmigrator.logging import console, log
 
+
 def create_c1ws_link(dsm_endpoint, ds_api_key, c1ws_api_key):
     url = f"{dsm_endpoint}api/workloadsecuritylinks"
     print(url)
