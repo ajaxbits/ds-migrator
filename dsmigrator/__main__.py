@@ -4,6 +4,7 @@ import click
 import urllib3
 import yaml
 
+from dsmigrator.workload_security_link import create_c1ws_link
 from dsmigrator.antimalware import am_config_transform, am_validate_create
 from dsmigrator.api_config import CheckAPIAccess
 from dsmigrator.computer_groups import computer_group_listmaker
@@ -33,26 +34,26 @@ from dsmigrator.tasks import ebt_listmaker, st_listmaker
 # Welcome Banner
 console.print(
     """\
-                                                      
-              %###################,               
-          #############################           
-       ######################\\.         `#        
-     #################################,    \\      
-   #####################################     #    
-  #######################################     #   
- ##############  ########################    .##  
-(##########(    ########################     ###( 
-#####(              ###################     ##### 
-######(      ########################     (###### 
+
+              %###################,
+          #############################
+       ######################\\.         `#
+     #################################,    \\
+   #####################################     #
+  #######################################     #
+ ##############  ########################    .##
+(##########(    ########################     ###(
+#####(              ###################     #####
+######(      ########################     (######
 ######       #######################      #######
- ####       ######################      ######### 
-  ###       ###################      ########### 
-   #        ###############       (#############  
-    #         #######.         ###############&   
-      \\                   .#################     
-        %.          ######################        
-           \\###########################           
-               ###################               
+ ####       ######################      #########
+  ###       ###################      ###########
+   #        ###############       (#############
+    #         #######.         ###############&
+      \\                   .#################
+        %.          ######################
+           \\###########################
+               ###################
     """,
     style="bold red",
     overflow="crop",
@@ -248,163 +249,166 @@ def main(
         console.rule("Delete C1 Policies")
         delete_cloud_one_policies(NEW_API_KEY)
 
-    # Populate Initial Data
-    old_policy_id_list, oldpolicynameid_dict = ListAllPolicy(OLD_HOST, OLD_API_KEY)
+    create_c1ws_link(OLD_HOST, OLD_API_KEY, NEW_API_KEY)
 
-    # Filter Module
-    if filter:
-        console.rule("Filter Out Unwanted Policies")
-        if (filter[0] != "[") or (filter[-1] != "]"):
-            log.error(
-                "Please pass in filter names in form '[name1, name2, ...]', making note of brackets"
-            )
-            raise TypeError
-        name_list = filter[1:-1].split(", ")
-        old_policy_id_list = []
-        for desired_policy in name_list:
-            # validate
-            if '"' in desired_policy:
-                log.error(
-                    "Please pass in filter names in form '[name1, name2, ...]', making note of quoting conventions"
-                )
-                raise TypeError
-            desired_id = oldpolicynameid_dict.get(desired_policy)
-            if desired_id is not None:
-                old_policy_id_list.append(desired_id)
-        log.info(f"New desired policy IDs: {old_policy_id_list}")
 
-    console.rule("Initial Data Collection")
+#     # Populate Initial Data
+#     old_policy_id_list, oldpolicynameid_dict = ListAllPolicy(OLD_HOST, OLD_API_KEY)
 
-    antimalwareconfig, allofpolicy = GetPolicy(
-        old_policy_id_list, OLD_HOST, OLD_API_KEY
-    )
+#     # Filter Module
+#     if filter:
+#         console.rule("Filter Out Unwanted Policies")
+#         if (filter[0] != "[") or (filter[-1] != "]"):
+#             log.error(
+#                 "Please pass in filter names in form '[name1, name2, ...]', making note of brackets"
+#             )
+#             raise TypeError
+#         name_list = filter[1:-1].split(", ")
+#         old_policy_id_list = []
+#         for desired_policy in name_list:
+#             # validate
+#             if '"' in desired_policy:
+#                 log.error(
+#                     "Please pass in filter names in form '[name1, name2, ...]', making note of quoting conventions"
+#                 )
+#                 raise TypeError
+#             desired_id = oldpolicynameid_dict.get(desired_policy)
+#             if desired_id is not None:
+#                 old_policy_id_list.append(desired_id)
+#         log.info(f"New desired policy IDs: {old_policy_id_list}")
 
-    console.rule("Anti-Malware Configurations")
-    amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
-        antimalwareconfig, OLD_HOST, OLD_API_KEY
-    )
+#     console.rule("Initial Data Collection")
 
-    console.rule("Lists")
-    amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
-        amdirectorylist,
-        amfileextensionlist,
-        amfilelist,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_API_KEY,
-    )
+#     antimalwareconfig, allofpolicy = GetPolicy(
+#         old_policy_id_list, OLD_HOST, OLD_API_KEY
+#     )
 
-    t1portlistid, t2portlistid = port_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    t1maclistid, t2maclistid = mac_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    t1iplistid, t2iplistid = ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    (
-        t1statefulid,
-        t2statefulid,
-        stateful_dict,
-    ) = stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    t1contextid, t2contextid = context_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    schedule_id_dict, t1scheduleid, t2scheduleid = schedule_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
+#     console.rule("Anti-Malware Configurations")
+#     amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
+#         antimalwareconfig, OLD_HOST, OLD_API_KEY
+#     )
 
-    console.rule("Proxy Settings")
-    try:
-        proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
-    except Exception as e:
-        log.exception(e)
-        log.error("There was a critical error in transferring proxy settings.")
-        log.error(
-            "Transfer will continue, but please double check the proxy settings in Cloud One"
-        )
-        pass
+#     console.rule("Lists")
+#     amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
+#         amdirectorylist,
+#         amfileextensionlist,
+#         amfilelist,
+#         OLD_HOST,
+#         OLD_API_KEY,
+#         NEW_API_KEY,
+#     )
 
-    # TRANSFORM
-    console.rule("Intrusion Prevention Module")
-    allofpolicy = ips_rules_transform(
-        allofpolicy,
-        t1portlistid,
-        t2portlistid,
-        t1scheduleid,
-        t2scheduleid,
-        t1contextid,
-        t2contextid,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Anti-Malware Module")
-    allofpolicy = am_validate_create(
-        allofpolicy,
-        antimalwareconfig,
-        allamconfig,
-        amdirectorylist,
-        amalldirectorynew,
-        amfileextensionlist,
-        amallfileextentionnew,
-        amfilelist,
-        amallfilelistnew,
-        schedule_id_dict,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Integrity Monitoring Module")
-    allofpolicy = im_config_transform(
-        allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    console.rule("Log Inspection Module")
-    allofpolicy = li_config_transform(
-        allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    console.rule("Firewall Module")
-    allofpolicy = firewall_config_transform(
-        allofpolicy,
-        t1iplistid,
-        t2iplistid,
-        t1maclistid,
-        t2maclistid,
-        t1portlistid,
-        t2portlistid,
-        t1statefulid,
-        t2statefulid,
-        t1scheduleid,
-        t2scheduleid,
-        t1contextid,
-        t2contextid,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Final Policy Migration")
-    policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
-    if tasks:
-        console.rule("Tasks")
-        computer_group_dict = computer_group_listmaker(
-            OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-        )
-        ebt_listmaker(
-            policy_dict,
-            computer_group_dict,
-            OLD_HOST,
-            OLD_API_KEY,
-            NEW_HOST,
-            NEW_API_KEY,
-        )
-        st_listmaker(
-            policy_dict,
-            computer_group_dict,
-            OLD_HOST,
-            OLD_API_KEY,
-            NEW_HOST,
-            NEW_API_KEY,
-        )
+#     t1portlistid, t2portlistid = port_listmaker(
+#         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+#     t1maclistid, t2maclistid = mac_listmaker(
+#         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+#     t1iplistid, t2iplistid = ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+#     (
+#         t1statefulid,
+#         t2statefulid,
+#         stateful_dict,
+#     ) = stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
+#     t1contextid, t2contextid = context_listmaker(
+#         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+#     schedule_id_dict, t1scheduleid, t2scheduleid = schedule_listmaker(
+#         OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+
+#     console.rule("Proxy Settings")
+#     try:
+#         proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
+#     except Exception as e:
+#         log.exception(e)
+#         log.error("There was a critical error in transferring proxy settings.")
+#         log.error(
+#             "Transfer will continue, but please double check the proxy settings in Cloud One"
+#         )
+#         pass
+
+#     # TRANSFORM
+#     console.rule("Intrusion Prevention Module")
+#     allofpolicy = ips_rules_transform(
+#         allofpolicy,
+#         t1portlistid,
+#         t2portlistid,
+#         t1scheduleid,
+#         t2scheduleid,
+#         t1contextid,
+#         t2contextid,
+#         OLD_HOST,
+#         OLD_API_KEY,
+#         NEW_HOST,
+#         NEW_API_KEY,
+#     )
+#     console.rule("Anti-Malware Module")
+#     allofpolicy = am_validate_create(
+#         allofpolicy,
+#         antimalwareconfig,
+#         allamconfig,
+#         amdirectorylist,
+#         amalldirectorynew,
+#         amfileextensionlist,
+#         amallfileextentionnew,
+#         amfilelist,
+#         amallfilelistnew,
+#         schedule_id_dict,
+#         NEW_HOST,
+#         NEW_API_KEY,
+#     )
+#     console.rule("Integrity Monitoring Module")
+#     allofpolicy = im_config_transform(
+#         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+#     console.rule("Log Inspection Module")
+#     allofpolicy = li_config_transform(
+#         allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#     )
+#     console.rule("Firewall Module")
+#     allofpolicy = firewall_config_transform(
+#         allofpolicy,
+#         t1iplistid,
+#         t2iplistid,
+#         t1maclistid,
+#         t2maclistid,
+#         t1portlistid,
+#         t2portlistid,
+#         t1statefulid,
+#         t2statefulid,
+#         t1scheduleid,
+#         t2scheduleid,
+#         t1contextid,
+#         t2contextid,
+#         OLD_HOST,
+#         OLD_API_KEY,
+#         NEW_HOST,
+#         NEW_API_KEY,
+#     )
+#     console.rule("Final Policy Migration")
+#     policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
+#     if tasks:
+#         console.rule("Tasks")
+#         computer_group_dict = computer_group_listmaker(
+#             OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
+#         )
+#         ebt_listmaker(
+#             policy_dict,
+#             computer_group_dict,
+#             OLD_HOST,
+#             OLD_API_KEY,
+#             NEW_HOST,
+#             NEW_API_KEY,
+#         )
+#         st_listmaker(
+#             policy_dict,
+#             computer_group_dict,
+#             OLD_HOST,
+#             OLD_API_KEY,
+#             NEW_HOST,
+#             NEW_API_KEY,
+#         )
 
 
 if __name__ == "__main__":

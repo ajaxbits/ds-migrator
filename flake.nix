@@ -14,7 +14,16 @@
           projectDir = ./.;
           python = pkgs.python38;
         };
+        app = pkgs.poetry2nix.mkPoetryApplication {
+          projectDir = ./.;
+          python = pkgs.python38;
+        };
       in {
+        packages.dsmigrator = app;
+
+        defaultPackage = self.packages.${system}.dsmigrator;
+        defaultApp = self.packages.${system}.dsmigrator;
+
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             poetry

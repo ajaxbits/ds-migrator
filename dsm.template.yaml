@@ -101,6 +101,10 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
       - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: !Sub "${DevIP}/32"
+      - IpProtocol: tcp
         FromPort: 443
         ToPort: 443
         CidrIp: !Sub "${DevIP}/32"
@@ -253,10 +257,10 @@ Resources:
           #Download proper installer per OS
           echo "$(date) -- Downloading DSM installer"
 
-          if [[ "$OS" == *"7.6"* || "$OS" == *"7.7"* || "$OS" == *"7.8"* ]] ; then
+          if [[ $OS == *"7.6"* || $OS == *"7.7"* || $OS == *"7.8"* ]] ; then
               managerInstaller="$downloadUrl/products/deepsecurity/en/$dsmMajorVersion/Manager-Linux-$dsmVersion.x64.sh"
               download $managerInstaller -o Manager-Linux.sh
-          elif [[ "$OS" == *"Amazon"* ]] ; then
+          elif [[ $OS == *"Amazon"* ]] ; then
               DSActivationCode=""
               managerInstaller="$downloadUrl/products/deepsecurity/en/$dsmMajorVersion/Manager-AWS_Marketplace_Upgrade-$dsmVersion.x64.zip"
               download $managerInstaller -o Manager-Amazon-Linux.zip
