@@ -1,11 +1,15 @@
 import json
+import os
+import datetime
 import sys
 from typing import List, Tuple, Union
 
 import requests
-from deepsecurity.rest import ApiException
 
 from dsmigrator.logging import log
+
+policy_mapping = None
+suffix = f" - migrated ({datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()})"
 
 
 def safe_list_get(l: list, idx: int):
@@ -82,158 +86,22 @@ def safe_request(
         log.critical("Aborting...")
         sys.exit(0)
 
-
-def validate_create(all_old: List[str], api_instance, type: str) -> List[str]:
-    """
-    Takes in old json objects, creates them in Cloud one, and returns a list of
-    the new object IDs in Cloud One
-
-    Args:
-        all_old (List[str]): list of string-formatted json objects from DS
-        api_instance (RestApiConfiguration): SDK module wrapper object configured from api_config
-        type (str): what to display during printing (e.g. 'Antimalware Configuration')
-
-    Returns:
-        List[str]: A list of all the objects' new IDs in Cloud One (as strings)
-    """
-    all_new = []
-    for count, dirlist in enumerate(all_old):
-        namecheck = 1
-        rename = 1
-        oldjson = json.loads(dirlist)
-        oldname = oldjson["name"]
-        # Mutate name to include '- Migrated'
-        oldjson["name"] = f"{oldname} - Migrated"
-        while namecheck != -1:
-            try:
-                newname = api_instance.create(oldjson)
-                newid = api_instance.search(newname)
-                log.info(
-                    "#"
-                    + str(count)
-                    + " "
-                    + type.capitalize()
-                    + " ID: "
-                    + str(newid)
-                    + ", Name: "
-                    + newname,
-                )
-                all_new.append(str(newid))
-                namecheck = -1
-            except ApiException as e:
-                error_json = json.loads(e.body)
-                if "name already exists" in error_json["message"]:
-                    oldjson["name"] = oldname + " {" + str(rename) + "}"
-                    rename = rename + 1
-                elif "Name must be unique" in error_json["message"]:
-                    log.info(
-                        f"{oldjson['name']} already exists in new tenant, renaming...",
-                    )
-                    oldjson["name"] = oldname + " {" + str(rename) + "}"
-                    rename = rename + 1
-                else:
-                    log.info(e.body)
-                    namecheck = -1
-    return all_new
+def _load_policy_mapping(migration_task_response: dict):
+    global policy_mapping
+    policy_mapping = {}
+    for map in migration_task_response["policyMappings"]:
+        dsm_id = map["migrateFrom"]["policyID"]
+        c1ws_id = map["migrateTo"]["policyID"]
+        policy_mapping[dsm_id] = c1ws_id
+        log.info(f"Policy ID mapping: {dsm_id} -> {c1ws_id}")
 
 
-def validate_create_dict(all_old: list, api_instance, type: str) -> dict:
-    """Take in a list of old objects, create the objects in Cloud One, then make a mapping of oldids to new ids for use later
-
-    Args:
-        all_old (list): a list of json strings that are provided as output of other functions
-        api_instance (RestApiConfiguration): an sdk configuration from api_config
-        type (str): The type of operation being performed, for log.infoing (e.g. "Intrusion Prevention Rule")
-
-    Returns:
-        dict: A dict of form {oldid1:newid1, oldid2:newid2, ...}
-    """
-    new_dict = {}
-    for count, dirlist in enumerate(all_old):
-        namecheck = 1
-        rename = 1
-        oldjson = json.loads(dirlist)
-        oldname = oldjson.get("name")
-        oldid = oldjson.get("ID")
-        if (oldname is not None) and (oldid is not None):
-            # Mutate name to include '- Migrated'
-            oldjson["name"] = f"{oldname} - Migrated"
-            while namecheck != -1:
-                try:
-                    newname = api_instance.create(oldjson)
-                    newid = api_instance.search(newname)
-                    log.info(
-                        "#"
-                        + str(count)
-                        + " "
-                        + type.capitalize()
-                        + " List ID: "
-                        + str(newid)
-                        + ", Name: "
-                        + newname,
-                    )
-                    new_dict[oldid] = newid
-                    namecheck = -1
-                except ApiException as e:
-                    error_json = json.loads(e.body)
-                    if "name already exists" in error_json["message"]:
-                        log.info(
-                            f"{oldjson['name']} already exists in new tenant, renaming..."
-                        )
-                        oldjson["name"] = oldname + " {" + str(rename) + "}"
-                        rename = rename + 1
-                    else:
-                        log.info(e.body)
-                        namecheck = -1
-    return new_dict
+def get_c1ws_policy_id(dsm_policy_id: int, migration_task_response) -> int:
+    if policy_mapping is None:
+        _load_policy_mapping(migration_task_response)
+    return policy_mapping[dsm_policy_id]
 
 
-def validate_create_dict_custom(
-    all_old: list, skeleton_dict: dict, api_instance, type: str
-) -> Tuple[dict, list]:
-    """Transforms a list of pre-defined DS objects in json into a id mapping dict and a list of custom items
+def get_suffix() -> str:
+    return suffix
 
-    Args:
-        all_old (list): list of pre-defined objects as json strings
-        skeleton_dict (dict): A skeleton of the final ID mapping of form {oldid1: None, oldid2: None,...}
-        api_instance (ApiInstance): The requisite ApiInstance object defined in api_config
-        type (str): The type of operation being performed, for log.infoing (e.g. "Intrusion Prevention Rule")
-
-    Returns:
-        Tuple[(dict, list)]: A dict of form {oldid:newid,...} for all common pre-defined objects, and a list of custom objects as strings of json
-    """
-    custom_list = []
-    for (count, json_string) in enumerate(all_old):
-        namecheck = 1
-        rename = 1
-        item_json = json.loads(json_string)
-        old_id = item_json["ID"]
-        old_name = item_json["name"]
-        while namecheck != -1:
-            try:
-                new_id = api_instance.search(old_name)
-                if new_id is not None:
-                    skeleton_dict[old_id] = new_id
-                    log.info(
-                        f"#{str(count)} {type}: {old_name}",
-                    )
-                elif "template" in item_json:
-                    custom_list.append(json.dumps(item_json))
-                else:
-                    log.warning(
-                        f"{old_name} is not valid in Workload Security and will not be transferred."
-                    )
-                    log.warning(
-                        f"Consider transferring {old_name} manually using the xml export feature in the GUI."
-                    )
-                namecheck = -1
-            except ApiException as e:
-                if "already exists" in e.body:
-                    log.info(f"{old_name} already exists in new tenant, renaming...")
-                    item_json["name"] = old_name + " {" + str(rename) + "}"
-                    rename = rename + 1
-                else:
-                    log.error(e.body)
-                    pass
-    log.info("Done!")
-    return skeleton_dict, custom_list

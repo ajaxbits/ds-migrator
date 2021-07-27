@@ -1,4 +1,6 @@
 import sys
+import os
+import json
 import time
 
 import click
@@ -7,6 +9,9 @@ import yaml
 
 from dsmigrator.logging import console, log
 from dsmigrator.api import WorkloadApi, DSMApi
+from dsmigrator.iplists import do_ip_lists
+from dsmigrator.proxies import do_proxies
+from dsmigrator.syslogs import do_syslog_configs
 
 from dsmigrator.workload_security_link import create_c1ws_link
 
@@ -240,17 +245,46 @@ def main(
     log.info(f"migration_task: {policy_migration_response}\n")
     migration_task_id = policy_migration_response.get("ID")
     migration_task_status = policy_migration_response.get("status")
-    migration_task_guid = policy_migration_response.get("taskGUID")
 
     log.info("waiting for migration to complete...")
 
     while migration_task_status != "complete":
-        r = ds_api.describe_policy_migration_task(migration_task_id)
-        migration_task_status = r.get("status")
+        migration_task_response = ds_api.describe_policy_migration_task(migration_task_id)
+        migration_task_status = migration_task_response.get("status")
         time.sleep(2)
 
-    log.debug(f"status response: {r}")
-    log.info("Migration Task Complete!")
+    log.debug(f"status response: {migration_task_response}")
+    print(migration_task_response)
+    log.info("Policy Migration Complete!")
+
+    console.rule("new stuff!")
+
+
+    USAGE = """
+    Use following environment variable to specify parameters to the utility.
+        MIG_DSM_ENDPOINT        The DSM API endpoint, e.g. https://dsmhost.local:4119/api
+        MIG_DSM_APIKEY          The API key to access the DSM
+        MIG_C1WS_ENDPOINT       (optional) The C1WS API endpoint, default is https://workload.us-1.cloudone.trendmicro.com/api
+        MIG_C1WS_APIKEY         The API key to access C1WS
+        MIG_TASK_RESPONSE       File path of migration task response json, e.g. /path/to/response.json
+
+        MIG_PROXY_MAPPING       File path of C1WS-DSM proxy id mapping, e.g. /path/to/proxy_map.json
+        MIG_SYSLOG_MAPPING      File path of C1WS-DSM syslog configuration id mapping, e.g. /path/to/syslog_map.json
+
+    Command line:
+        python postmigration.py [iplist] [syslog] [proxy] [all]
+    """
+
+
+    log.info("\n*** process post-migration for iplists ***")
+    do_ip_lists(ds_api, workload_api, migration_task_response)
+    log.info("\n*** process post-migration for proxies ***")
+    do_proxies(ds_api, workload_api, migration_task_response)
+    log.info("\n*** process post-migration for syslog configurations ***")
+    do_syslog_configs(ds_api, workload_api, migration_task_response)
+
+
+
 
 
 
