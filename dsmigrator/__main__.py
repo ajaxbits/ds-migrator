@@ -1,58 +1,43 @@
 import sys
+import os
+import json
+import time
 
 import click
 import urllib3
 import yaml
 
-from dsmigrator.antimalware import am_config_transform, am_validate_create
-from dsmigrator.api_config import CheckAPIAccess
-from dsmigrator.computer_groups import computer_group_listmaker
-from dsmigrator.firewall import firewall_config_transform
-from dsmigrator.integrity import im_config_transform
-from dsmigrator.ips import ips_rules_transform
-from dsmigrator.lists import (
-    context_listmaker,
-    directory_listmaker,
-    ip_listmaker,
-    mac_listmaker,
-    port_listmaker,
-    schedule_listmaker,
-    stateful_listmaker,
-)
 from dsmigrator.logging import console, log
-from dsmigrator.loginspection import li_config_transform
-from dsmigrator.policies import (
-    AddPolicy,
-    GetPolicy,
-    ListAllPolicy,
-    delete_cloud_one_policies,
-)
-from dsmigrator.proxy import proxy_edit
-from dsmigrator.tasks import ebt_listmaker, st_listmaker
+from dsmigrator.api import WorkloadApi, DSMApi
+from dsmigrator.iplists import do_ip_lists
+from dsmigrator.proxies import do_proxies
+from dsmigrator.syslogs import do_syslog_configs
+
+from dsmigrator.workload_security_link import create_c1ws_link
 
 # Welcome Banner
 console.print(
     """\
-                                                      
-              %###################,               
-          #############################           
-       ######################\\.         `#        
-     #################################,    \\      
-   #####################################     #    
-  #######################################     #   
- ##############  ########################    .##  
-(##########(    ########################     ###( 
-#####(              ###################     ##### 
-######(      ########################     (###### 
+
+              %###################,
+          #############################
+       ######################\\.         `#
+     #################################,    \\
+   #####################################     #
+  #######################################     #
+ ##############  ########################    .##
+(##########(    ########################     ###(
+#####(              ###################     #####
+######(      ########################     (######
 ######       #######################      #######
- ####       ######################      ######### 
-  ###       ###################      ########### 
-   #        ###############       (#############  
-    #         #######.         ###############&   
-      \\                   .#################     
-        %.          ######################        
-           \\###########################           
-               ###################               
+ ####       ######################      #########
+  ###       ###################      ###########
+   #        ###############       (#############
+    #         #######.         ###############&
+      \\                   .#################
+        %.          ######################
+           \\###########################
+               ###################
     """,
     style="bold red",
     overflow="crop",
@@ -226,13 +211,16 @@ def main(
     NEW_API_KEY = cloud_one_api_key
     NEW_HOST = new_url
 
+    ds_api = DSMApi(f"{OLD_HOST}api", OLD_API_KEY, False)
+    workload_api = WorkloadApi(f"{NEW_HOST}api", NEW_API_KEY, False)
+
     if insecure:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # Double-check that creds will work
     console.rule("Validating Credentials")
-    validation_result1 = CheckAPIAccess(original_url, original_api_key)
-    validation_result2 = CheckAPIAccess(new_url, cloud_one_api_key)
+    validation_result1 = ds_api.check_api_access()
+    validation_result2 = workload_api.check_api_access()
 
     if validation_result1 and validation_result2:
         log.info("Successfully authenticated!")
@@ -246,165 +234,61 @@ def main(
 
     if delete_policies:
         console.rule("Delete C1 Policies")
-        delete_cloud_one_policies(NEW_API_KEY)
+        # delete_cloud_one_policies(NEW_API_KEY)
 
-    # Populate Initial Data
-    old_policy_id_list, oldpolicynameid_dict = ListAllPolicy(OLD_HOST, OLD_API_KEY)
+    console.rule("Creating C1WS Link")
+    create_c1ws_link(OLD_HOST, OLD_API_KEY, NEW_API_KEY)
 
-    # Filter Module
-    if filter:
-        console.rule("Filter Out Unwanted Policies")
-        if (filter[0] != "[") or (filter[-1] != "]"):
-            log.error(
-                "Please pass in filter names in form '[name1, name2, ...]', making note of brackets"
-            )
-            raise TypeError
-        name_list = filter[1:-1].split(", ")
-        old_policy_id_list = []
-        for desired_policy in name_list:
-            # validate
-            if '"' in desired_policy:
-                log.error(
-                    "Please pass in filter names in form '[name1, name2, ...]', making note of quoting conventions"
-                )
-                raise TypeError
-            desired_id = oldpolicynameid_dict.get(desired_policy)
-            if desired_id is not None:
-                old_policy_id_list.append(desired_id)
-        log.info(f"New desired policy IDs: {old_policy_id_list}")
+    console.rule("Migrating Policies")
+    policy_migration_response = ds_api.create_policy_migration_task()
+    log.debug(f"status response: {policy_migration_response}")
+    log.info(f"migration_task: {policy_migration_response}\n")
+    migration_task_id = policy_migration_response.get("ID")
+    migration_task_status = policy_migration_response.get("status")
 
-    console.rule("Initial Data Collection")
+    log.info("waiting for migration to complete...")
 
-    antimalwareconfig, allofpolicy = GetPolicy(
-        old_policy_id_list, OLD_HOST, OLD_API_KEY
-    )
+    while migration_task_status != "complete":
+        migration_task_response = ds_api.describe_policy_migration_task(migration_task_id)
+        migration_task_status = migration_task_response.get("status")
+        time.sleep(2)
 
-    console.rule("Anti-Malware Configurations")
-    amdirectorylist, amfileextensionlist, amfilelist, allamconfig = am_config_transform(
-        antimalwareconfig, OLD_HOST, OLD_API_KEY
-    )
+    log.debug(f"status response: {migration_task_response}")
+    print(migration_task_response)
+    log.info("Policy Migration Complete!")
 
-    console.rule("Lists")
-    amalldirectorynew, amallfileextentionnew, amallfilelistnew = directory_listmaker(
-        amdirectorylist,
-        amfileextensionlist,
-        amfilelist,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_API_KEY,
-    )
+    console.rule("new stuff!")
 
-    t1portlistid, t2portlistid = port_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    t1maclistid, t2maclistid = mac_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    t1iplistid, t2iplistid = ip_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    (
-        t1statefulid,
-        t2statefulid,
-        stateful_dict,
-    ) = stateful_listmaker(OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY)
-    t1contextid, t2contextid = context_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    schedule_id_dict, t1scheduleid, t2scheduleid = schedule_listmaker(
-        OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
 
-    console.rule("Proxy Settings")
-    try:
-        proxy_edit(allofpolicy, t1iplistid, t2iplistid, t1portlistid, t2portlistid)
-    except Exception as e:
-        log.exception(e)
-        log.error("There was a critical error in transferring proxy settings.")
-        log.error(
-            "Transfer will continue, but please double check the proxy settings in Cloud One"
-        )
-        pass
+    USAGE = """
+    Use following environment variable to specify parameters to the utility.
+        MIG_DSM_ENDPOINT        The DSM API endpoint, e.g. https://dsmhost.local:4119/api
+        MIG_DSM_APIKEY          The API key to access the DSM
+        MIG_C1WS_ENDPOINT       (optional) The C1WS API endpoint, default is https://workload.us-1.cloudone.trendmicro.com/api
+        MIG_C1WS_APIKEY         The API key to access C1WS
+        MIG_TASK_RESPONSE       File path of migration task response json, e.g. /path/to/response.json
 
-    # TRANSFORM
-    console.rule("Intrusion Prevention Module")
-    allofpolicy = ips_rules_transform(
-        allofpolicy,
-        t1portlistid,
-        t2portlistid,
-        t1scheduleid,
-        t2scheduleid,
-        t1contextid,
-        t2contextid,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Anti-Malware Module")
-    allofpolicy = am_validate_create(
-        allofpolicy,
-        antimalwareconfig,
-        allamconfig,
-        amdirectorylist,
-        amalldirectorynew,
-        amfileextensionlist,
-        amallfileextentionnew,
-        amfilelist,
-        amallfilelistnew,
-        schedule_id_dict,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Integrity Monitoring Module")
-    allofpolicy = im_config_transform(
-        allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    console.rule("Log Inspection Module")
-    allofpolicy = li_config_transform(
-        allofpolicy, OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-    )
-    console.rule("Firewall Module")
-    allofpolicy = firewall_config_transform(
-        allofpolicy,
-        t1iplistid,
-        t2iplistid,
-        t1maclistid,
-        t2maclistid,
-        t1portlistid,
-        t2portlistid,
-        t1statefulid,
-        t2statefulid,
-        t1scheduleid,
-        t2scheduleid,
-        t1contextid,
-        t2contextid,
-        OLD_HOST,
-        OLD_API_KEY,
-        NEW_HOST,
-        NEW_API_KEY,
-    )
-    console.rule("Final Policy Migration")
-    policy_dict = AddPolicy(allofpolicy, NEW_API_KEY)
-    if tasks:
-        console.rule("Tasks")
-        computer_group_dict = computer_group_listmaker(
-            OLD_HOST, OLD_API_KEY, NEW_HOST, NEW_API_KEY
-        )
-        ebt_listmaker(
-            policy_dict,
-            computer_group_dict,
-            OLD_HOST,
-            OLD_API_KEY,
-            NEW_HOST,
-            NEW_API_KEY,
-        )
-        st_listmaker(
-            policy_dict,
-            computer_group_dict,
-            OLD_HOST,
-            OLD_API_KEY,
-            NEW_HOST,
-            NEW_API_KEY,
-        )
+        MIG_PROXY_MAPPING       File path of C1WS-DSM proxy id mapping, e.g. /path/to/proxy_map.json
+        MIG_SYSLOG_MAPPING      File path of C1WS-DSM syslog configuration id mapping, e.g. /path/to/syslog_map.json
+
+    Command line:
+        python postmigration.py [iplist] [syslog] [proxy] [all]
+    """
+
+
+    log.info("\n*** process post-migration for iplists ***")
+    do_ip_lists(ds_api, workload_api, migration_task_response)
+    log.info("\n*** process post-migration for proxies ***")
+    do_proxies(ds_api, workload_api, migration_task_response)
+    log.info("\n*** process post-migration for syslog configurations ***")
+    do_syslog_configs(ds_api, workload_api, migration_task_response)
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
