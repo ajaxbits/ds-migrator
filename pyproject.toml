@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dsmigrator"
-version = "0.5.2"
+version = "1.0.0"
 description = "A cli tool to migrate Trend Micro Deep Security to the cloud."
 authors = ["Alex Jackson <alex_jackson@trendmicro.com>", "Ethan Parent<ethan_parent@trendmicro.com>"]
 readme = "README.md"
@@ -14,16 +14,12 @@ include = [
 [tool.poetry.dependencies]
 python = "^3.7"
 urllib3 = "^1.26.5"
-six = "^1.15.0"
-certifi = "^2020.12.5"
 python-dateutil = "^2.8.1"
-deep-security-api = "^20.0.60"
 click = "^7.1.2"
-zeep = "^4.0.0"
 requests = "^2.25.1"
-rich = "^10.0.0"
 PyYAML = "^5.4.1"
-nested-lookup = "^0.2.22"
+rich = "^10.9.0"
+deep-security-api = "^20.0.463"
 
 [tool.poetry.dev-dependencies]
 pdbpp = "^0.10.2"
